@@ -1,0 +1,97 @@
+<fieldset class="grey-bg">
+	<legend>
+		Department
+	</legend>
+	<!-- <div class="columns">
+	<div class="colx2-left" id="depart_cate"> -->
+	<div class="columns">
+		<p class="colx2-left required select-fixed-width1">
+			<label for="complex-fr-style">Department</label>
+			<%= select :employee, :employee_department_id, @departments.map {|s| [s.name, s.id]}, :prompt => "Select "%>
+		</p>
+		<p class="colx2-right required select-fixed-width1">
+			<label for="complex-fr-style select-fixed-width1">Category</label>
+			<%= select :employee, :employee_category_id, @categories.map {|s| [s.name, s.id]}, :prompt => "Select" %>
+		</p>
+	</div>
+	<!-- </div> -->
+	<!-- <div class="colx2-right"> -->
+	<div class="columns">
+		<p class="colx2-left select-fixed-width1">
+			<label for="complex-fr-style">Grade</label>
+			<%= select :employee, :employee_grade_id, @grades.map {|s| [s.name, s.id]}, :prompt => "Select " %>
+		</p>
+		<p class="colx2-right required select-fixed-width1" id="updated_position">
+			<label for="complex-fr-style">Position</label>
+			<%= select :employee, :employee_position_id, @positions.map {|s| [s.name, s.id]},:prompt => "Select " %>
+		</p>
+	</div>
+	<!-- </div> -->
+	<!-- </div> -->
+</fieldset>
+<fieldset>
+	<legend>
+		Job Profile
+	</legend>
+	<div class="columns">
+		<div class="colx3-left">
+			<p>
+				<label for="simple-calendar">Reporting Manager</label>
+				<span class="input-type-text margin-right"> <%unless @rpmid.nil?%>
+					<input type="text" name="simple-calendar" id="reporting_text" placeholder="Search by first name" value="<%= @rpmid%>">
+					<%else%>
+					<input type="text" name="simple-calendar" id="reporting_text" placeholder="Search by first name">
+					<%end%> <img src="/assets/icons/fugue/magnifier.png" width="16" height="16"></span>
+				<div id="reporting" style="height:60px; overflow : auto; width: 210px"></div>
+				<%= form.hidden_field :reporting_manager_id %>
+			</p>
+			<!-- <p>
+			<label for="simple-action">Employee Status</label>
+			<%= form.radio_button  "status", "true", :checked => "checked" %>&nbsp;<label for="complex-en-active-1">Active</label>
+			<%= form.radio_button  "status", "false" %>&nbsp;<label for="complex-en-active-0">Inactive</label>
+			</p> -->
+		</div>
+		<div class="colx3-center">
+			<p>
+				<label for="simple-select">Shift Start Time</label>
+				<%= form.time_select :shift_start_time, :minute_step => 15, :ampm => true %>
+			</p>
+			<p>
+				<label for="simple-select">Shift End Time</label>
+				<%= form.time_select :shift_end_time, :minute_step => 15, :ampm => true %>
+			</p>
+		</div>
+		<div class="colx3-right">
+			<br /><br />
+			
+			<p>
+				<%=check_box_tag 'employee[is_teacher]'%>
+				<label for="field3" class="inline">Is Teacher</label>
+			</p>
+			<p>
+				<%=form.check_box :is_transport_enabled%>
+				<label for="field3" class="inline">Is Transport Enabled</label>
+			</p>
+		</div>
+	</div>
+</fieldset>
+<fieldset>
+	<legend>
+		Experience
+	</legend>
+	<div class="columns">
+		<p class="colx2-left">
+			<label for="complex-en-subtitle">Qualification</label>
+			<%= form.text_field :qualification, :class => "full-width full-length",:field_name=>'Qualification' %>
+		</p>
+		<p class="colx2-right">
+			<label for="simple-select">Experience</label>
+			<%= select(:employee, :experience_year, [['Year'],[0],[1],[2],[3],[4],[5],[6],[7],[8],[9],[10],[11],[12],[13],[14],[15]]) %>
+			<%= select( :employee, :experience_month, [['Months'],[0],[1],[2],[3],[4],[5],[6],[7],[8],[9],[10],[11]]) %>
+		</p>
+	</div>
+	<div>
+		<label for="complex-en-subtitle">Experience info</label>
+		<%= form.text_area :experience_detail, :style=> "height: 160px; width: 628px;" %>
+	</div>
+</fieldset>

@@ -1,0 +1,51 @@
+<div class="block-border" id="outer_block">
+<div class="block-content form">
+		<h1>Transport Management</h1>
+		<div class="block-controls enoch_block">
+			<ul class="controls-tabs js-tabs">
+				<li >
+					<a href="<%= dashboard_path(@user) %>" title ="Back"> <img src="/assets/icons/web-app/32/Back.png" width="24" height="24"></a>
+				</li>
+			</ul>
+		</div>
+		<%= render 'shared/form_notice' %>	
+		<div id="user_options">
+		
+			<ul class="shortcuts-list">
+				<li>
+					<a href="/transport_routes/all_record" >
+						 <span> <%= image_tag "dashboard/psd-free-psdfile-39 copy.jpg", :size => "48x48"  %> </span> <h6>Route</h6> </a>
+				</li>
+				<li>
+					<a href="/transport_boards/all_record"> <span> <%= image_tag "dashboard/bus-stop-sig.png", :size => "48x48"  %> </span> <h6>Board</h6> </a>
+				</li>
+				 <li>
+					<a href="/providers/all_record"> <span><%= image_tag "transport/provider.png", :size => "48x48"  %></span> <h6>Provider</h6> </a>
+				</li>
+				<li>
+					<a href="/transport_vehicles/all_record"> <span><%= image_tag "transport/vehicle.png", :size => "48x48"  %></span> <h6>Vehicle Detail</h6> </a>
+				</li>
+				<li>
+					<a href="/transport_drivers/all_record"> <span><%= image_tag "dashboard/driver.png", :size => "48x48"  %></span> <h6>Driver Detail</h6> </a>
+				</li>
+				<li>
+					<a href="/transport_details/all_record"> <span><%= image_tag "transport/transport detail.png", :size => "48x48"  %></span> <h6>Transportation Details</h6> </a>
+				</li>
+			<li>
+					<a href="/transport_fee_categories/all_record"> <span><%= image_tag "transport/service.png", :size => "48x48"  %></span> <h6>Transport Fee Category</h6> </a>
+				</li> 
+				<li>
+					<a href="/transport_details/transport_report"> <span><%= image_tag "transport/reprt.png", :size => "48x48"  %></span> <h6>Report</h6> </a>
+				</li> 
+				<li>
+					<a href="/transport_details/transport_fee_collection"> <span><%= image_tag "transport/transport_fee_ collection.png", :size => "48x48"  %></span> <h6>Transport Fee Collection</h6> </a>
+				</li> 
+				
+			</ul>
+			<br/>
+			<br/>
+			
+			 
+		</div>
+</div>
+</div>

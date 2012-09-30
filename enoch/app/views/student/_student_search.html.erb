@@ -1,0 +1,43 @@
+  <% unless @students.blank? %>  
+	<div class="block-content form no-margin">
+				<h1>
+					Student List
+				</h1>
+
+       <ul class="grid dark-grey-gradient">
+       
+          <% @students.each_with_index do |student, i| %>		
+						<li>
+							
+							<%if FileTest.exists?("#{Rails.root}/public/system/student_photos/#{student.id}")&& !student.student_photo.nil?%>
+							<div style="margin: -0.75em 1em -0.75em -0.75em;padding: 0.75em 0.75em 0.75em 5.5em;background-repeat: no-repeat;background-position: 0.75em 0.75em;border-right: 1px solid #b3b3b3;background-image: url(<%= student.student_photo.url(:small) %>);">
+							<%elsif student.gender.upcase=="M"%>
+							<div style="margin: -0.75em 1em -0.75em -0.75em;padding: 0.75em 0.75em 0.75em 5.5em; background-repeat: no-repeat;background-position: 0.75em 0.75em;border-right: 1px solid #b3b3b3;background-image: url(/assets/icons/web-app/48/male.png);">
+							<%else%>
+							<div style="margin: -0.75em 1em -0.75em -0.75em;padding: 0.75em 0.75em 0.75em 5.5em;background-repeat: no-repeat;background-position: 0.75em 0.75em;border-right: 1px solid #b3b3b3;background-image: url(/assets/icons/web-app/48/female.png);">
+							<% end %>		
+								Admission No.<small><%= student.admission_no %></small>
+								<p class="grid-name"><%=  link_to student.first_name, :controller => 'student', :action => 'my_profile', :q => student.admission_no %></p>
+								<p class="grid-details">Age: <b><%= Date.today.strftime("%Y").to_i - student.date_of_birth.strftime("%Y").to_i %></b><br>
+								<%if student.gender.upcase == "M"%>
+								Gender: <b>Male</b><br>
+								<%else%>
+								Gender: <b>Female</b><br>
+								<%end%>
+								Course : <b><%= student.batch.full_name %></b></p>
+							</div>
+							<ul class="grid-actions">
+								<li><%= link_to (image_tag ("icons/fugue/pencil.png"),:title => 'Edit',:class=>"with-tip"),{:action => 'my_profile', :q => student.admission_no} %></li>
+								<li><%= link_to (image_tag ("/assets/icons/fugue/application-blog.png"),:title => 'Report',:class=>"with-tip"),{:action => 'reports', :id => student.id,:q => student.admission_no } %></li>
+							</ul>
+						</li>
+          <% end %>
+
+        </ul>
+
+</div>
+        <% else %>
+          <tr class="tr-<%= cycle('odd', 'even') %>">
+            	<td class="col-2">No students found</td>
+          </tr>
+        <% end %>

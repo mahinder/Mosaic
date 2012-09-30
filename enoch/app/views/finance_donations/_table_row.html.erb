@@ -1,0 +1,12 @@
+									<tr>
+										
+										<td id="todaydonation_title_<%= todaydonation.id %>"><%= todaydonation.donor %></td>
+										<td id="todaydonation_description_<%= todaydonation.id %>"><%= todaydonation.description %></td>
+										<td id="todaydonation_amount_<%= todaydonation.id %>"><%= todaydonation.amount %></td>
+										<td id="todaydonation_date_<%= todaydonation.id %>"><%= todaydonation.transaction_date %></td>
+										
+										<td class="table-actions">
+											<input type="hidden" name="object_id" value="<%= todaydonation.id %>"/>
+											<a href="" id="delete-href-<%= todaydonation.id %>" title="Delete" class="with-tip deletedonation-master-href"><img src="/assets/icons/fugue/cross-circle.png" width="16" height="16"></a>
+										</td>
+									</tr>

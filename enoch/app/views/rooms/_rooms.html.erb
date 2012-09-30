@@ -1,0 +1,36 @@
+				<form class="block-content form" id="room_table_form" method="post" action="">
+					<h1>Rooms List</h1>
+					<div>
+						<ul class="tabs js-tabs same-height">
+							<li class="current"><a href="#tab-active" title="Active">Active</a></li>
+							<li><a href="#tab-inactive" title="Inactive">Inactive</a></li>
+						</ul>
+					</div>
+					<div id="tabs-content" class="tabs-content">
+						<div id="tab-active">
+							<table id="active-table-room" class="table rooms_table no-margin" cellspacing="0" width="100%">
+								<thead>
+									<%= render 'table_head' %>
+								</thead>
+								<tbody>		
+									<% @rooms.each do |room| %>
+									<%= render 'table_row', :room => room %>
+									<% end %>
+								</tbody>
+							</table>
+						</div>
+						<div id="tab-inactive">
+							<table id="inactive-table-room" class="table rooms_table no-margin" cellspacing="0" width="100%">
+								<thead>
+									<%= render 'table_head' %>
+								</thead>
+								<tbody>		
+									<% @inactive_rooms.each do |room| %>
+									<%= render 'table_row', :room => room %>
+									<% end %>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<input type="hidden" id="url_prefix" name="url_prefix" value="/rooms" />
+				</form>	

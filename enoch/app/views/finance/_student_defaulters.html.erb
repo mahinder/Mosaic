@@ -1,0 +1,33 @@
+		<table class="table studentDefaulterList no-margin" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th class="black-cell"></th>
+					<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span>Admission No.</th>
+					<th scope="col">Students Name</th>
+					<th scope="col" class="table-actions">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%@defaulters.each_with_index do|s,i| %>
+					<%if s.check_fees_paid(@date) == false %>
+							<tr>
+									<td class="th table-check-cell"></td>
+									<td><%= s.admission_no %></td>
+									<td><%=s.full_name%></td>
+									<td><%= link_to "Pay fees",:action => "pay_fees_defaulters",:id => s.id,:date => @date.id %></td>
+							</tr>
+					<%end%>
+				<%end%>
+			</tbody>
+		</table>
+
+	<br /><br /><br />
+	<fieldset class="grey-bg no-margin">
+		<legend>Actions</legend>
+		<div class="columns">
+			<p class="colx-left">
+				<%= link_to "PDF Report", {:controller => "finance", :action => "fee_defaulters_pdf", :batch_id => @batch.id, :date => @date.id},:target => '_blank', :class=> 'big-button' %>
+			</p>
+		</div>
+	</fieldset>
+

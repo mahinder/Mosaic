@@ -1,0 +1,16 @@
+
+				<% unless @skills.blank? %>
+				
+				<ul class="mini-blocks-list">
+					<% @skills.each_with_index do |skill, i| %>
+					<li>
+						<%= check_box_tag "employee[skill_ids][]", skill.id, @employee.skills.include?(skill.id) %>
+						<a href="" class="float-left"><%= image_tag "icons/fugue/status.png", :width => 16, :height=> 16 %> <%= skill.full_name%></a>
+						
+					</li>
+					<%end%>
+				</ul>
+				<%else%>
+				No found
+				<%end%>
+				

@@ -1,0 +1,98 @@
+<div class="block-border" id="outer_bloc">
+	<div class="block-content form">
+		<h1>Subject Wise Report</h1>
+		
+		<div class="block-controls enoch_block">
+			<ul class="controls-tabs js-tabs">
+				<li >
+					<%= link_to image_tag("/assets/icons/web-app/32/Back.png"), :back %>
+				</li>
+			</ul>
+		</div>
+		
+		<% unless flash[:notice].nil? %>
+	<ul class="message success grid_12">
+       <li><strong><%= flash[:notice] %></strong></li>
+       <li class="close-bt"></li>
+       	</ul>
+    <% end %> <h3><%= @batch.full_name %> | <%= @subject.name %></h3>
+    <tr >
+						<% @exam_groups.each do |exam_group| %>
+						<td> Class Avg Marks for <%= exam_group.name%> =</td>
+						<% if exam_group.exam_type == 'Marks' or exam_group.exam_type == 'MarksAndGrades' %> <b><% exam = Exam.find_by_subject_id(@subject.id,:conditions=>{:exam_group_id=>exam_group.id}) %></b>
+						<td><b><%= "%.2f"%exam_group.subject_wise_batch_average_marks(@subject.id) unless exam.nil?%></b></td>
+						<% else %> <td>-</td>
+						<% end %>
+						<br />
+						<% end %>
+					</tr>
+					<%@subject.topics.each do |topic|%>
+					<h3>Topic: <%= topic.name%></h3>
+		        <table class="table examsubjectreport no-margin" id="ExSubjectRe" cellspacing="1" width="100%">
+				<thead>
+					<tr>
+						<th class="black-cell"></th>
+						<th scope="col">Roll No.</th>
+						<th scope="col">Name</th>
+						<% @exam_groups.each do |exam_group| %> <th scope="col"><%= exam_group.assessment_name.name %>(<%=exam_group.grading_level_group.grading_level_group_name unless exam_group.grading_level_group.nil?%>)</th>
+						<% end %>
+					</tr>
+				</thead>
+				<tbody>
+					<% @students.each do |student| %>
+					<tr>
+						<td class="th table-check-cell"></td>
+					<td><%= student.class_roll_no %></td>
+						<td><%= student.full_name %></td>
+						<% @exam_groups.each do |exam_group| %> <td> 
+							<% exam = Exam.find_by_topic_id(topic.id,:conditions=>{:exam_group_id=>exam_group.id}) %>
+						<% exam_score = ExamScore.find_by_student_id(student.id,:conditions=>{:exam_id=>exam.id}) unless exam.nil? %>
+						<% unless exam.nil? %>
+						<% if exam_group.exam_type == 'Marks' %>
+						<%= exam_score.nil? ? '-' : "#{exam_score.marks || "-"}/"+exam.maximum_marks.to_s %>
+						<% elsif exam_group.exam_type == 'Grades'%>
+						<%unless exam_score.nil?%>
+						<%grade=exam_score.grading_level_detail.grading_level_detail_name unless exam_score.grading_level_detail.nil? %>
+						<%end%>
+						<%= exam_score.nil? ? '-' : (grade || '-') %>
+						<% else %>
+						<%unless exam_score.nil?%>
+						<%grade=exam_score.grading_level_detail.grading_level_detail_name unless exam_score.grading_level_detail.nil? %>
+						<%end%>
+						<%= exam_score.nil? ? '-' :  "#{(exam_score.marks || "-")}" +"/"+exam.maximum_marks.to_s+"[#{(grade || "-")}]" %>
+						<% end %>
+						<% else %>
+						<%= "N.A" %>
+						<% end %> </td>
+						<% end %>
+					</tr>
+					<% end %>
+					<!-- <tr >
+						<td class="th table-check-cell"></td>
+						<td><b> Class Avg</b></td>
+						<% @exam_groups.each do |exam_group| %>
+						<% if exam_group.exam_type == 'Marks' or exam_group.exam_type == 'MarksAndGrades' %> <b><% exam = Exam.find_by_subject_id(@subject.id,:conditions=>{:exam_group_id=>exam_group.id}) %></b>
+						<td bgcolor="#00FF00"><b><%= "%.2f"%exam_group.subject_wise_batch_average_marks(@subject.id) unless exam.nil?%></b></td>
+						<% else %> <td>-</td>
+						<% end %>
+						<% end %>
+					</tr> -->
+				</tbody>
+			</table>
+		<br /><br />
+		
+<%end%> 
+					
+
+		
+			
+		 <fieldset class="grey-bg no-margin">
+			<legend>
+				Action
+			</legend>
+			<p class="input-with-button">
+				<input type="button" class="big-button" value="PDF Report" onclick="$(location).attr('href','/exams/generated_report2_pdf?subject_id=<%= @subject.id%>');"/>
+			</p>
+		</fieldset> 
+	</div>
+</div>

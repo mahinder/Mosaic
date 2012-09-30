@@ -1,0 +1,40 @@
+<table class="table multipleMarkAttendanceBatchWise no-margin" cellspacing="0" width="100%">
+				
+					<thead>
+						<tr>
+							<th class="black-cell"></th>
+							<th scope="col">
+								<span class="column-sort">
+									<a href="#" title="Sort up" class="sort-up"></a>
+									<a href="#" title="Sort down" class="sort-down"></a>
+								</span>
+								Period Entry
+							</th>
+							<th scope="col">Absentee Roll No<br /><span>(Comma Seperated Class Roll No)</span></th>
+						</tr>
+					</thead>
+					
+					<tbody>
+						<% @period_entries.each do |pe| %>
+						
+						<%@student_roll_no = return_student_roll_no_batch_wise(pe,params[:batch])%>
+						<tr>
+							<td class="th table-check-cell"></td>
+							<td><%= pe.month_date %></td>
+							<td><%= text_field_tag :mark_multiple_attendance_batch_wise, @student_roll_no, :class => 'full-width mark_multiple_attendance_batch_wise' ,:placeholder => 'Enter Roll No', :period_entry =>pe.id%></td>
+						</tr>
+						<%end%>
+					</tbody>
+				
+				</table>
+				<br /><br /><br />
+					<fieldset class="grey-bg no-margin">
+						<legend>
+							Actions
+						</legend>
+						<div class="columns">
+							<button type="button" class="big-button" name="saveMultiAttenBatchWise" id="saveMultiAttenBatchWise">
+								Save
+							</button>
+						</div>
+					</fieldset>

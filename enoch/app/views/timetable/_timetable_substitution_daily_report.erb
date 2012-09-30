@@ -1,0 +1,40 @@
+<section class="grid_16">
+	<div class="block-content form">
+		<fieldset>
+			<% if @substitute == "true" %>
+			<legend>
+				Substitution record of <%= @employee.full_name unless @employee.nil?%>
+			</legend>
+			<h2><%= @employee.full_name unless @employee.nil?%> is substituted by following Teachers</h2>
+			<%else%>
+			<legend>
+				Substitution record of <%= @employee.full_name unless @employee.nil?%>
+			</legend>
+			<h2><%= @employee.full_name unless @employee.nil?%> was substituted for following Teachers</h2>
+			<%end%>
+			<div class="no-margin">
+				<table class="table report_employee_daily no-margin" cellspacing="0" width="100%">
+					<thead>
+						<tr>
+							<th > Date </th>
+							<% if @substitute == "true" %> <th>Substitute With</th>
+							<%else%> <th>Substituted For</th>
+							<%end%> <th>Class Timming</th>
+						</tr>
+					</thead>
+					<tbody>
+						<%unless @map.empty? %>
+						<% @map.each do |value| %>
+						<tr class="odd">
+							<td class=" sorting_1"><%= value.date%> </td>
+							<% if @substitute == "true" %> <td><%= value.teacher_substitude_with.full_name%></td>
+							<%else%> <td><%= value.employee.full_name%></td>
+							<%end%> <td><%= value.class_timing.start_time.strftime('%H : %M %p')%> - <%= value.class_timing.end_time.strftime('%H : %M %p')%></td>
+						</tr>
+						<%end%><%end%>
+					</tbody>
+				</table>
+			</div>
+		</fieldset>
+	</div>
+</section>

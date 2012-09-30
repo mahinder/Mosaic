@@ -1,0 +1,20 @@
+<style type="text/css">
+.task-dialog > li.auto-hide {
+    display: block;
+}
+</style>
+
+<% if @due_date.to_date < Date.today %>
+<ul class="task-dialog">
+		<li class="auto-hide">
+			<%= form_for :fine, :url => {:action => 'update_student_fine_ajax' } do |form| %>
+				<label>Due date has been exceeded. Please collect fine amount.</label>
+				<%= form.text_field :fee, :value=>'' %>
+				<button type="submit" id="add_fine_of_student_to_fees">Add Fine</button>
+				  <%= form.hidden_field :fees_for_select_student, :value => @student.id %>
+				  <%= form.hidden_field :fees_for_selected_date, :value => @date.id %>
+			<% end %>
+		</li>
+</ul>
+<% end %>
+<br /><br />

@@ -1,0 +1,58 @@
+<div class="block-border" id="outer_bloc">
+	<div class="block-content form">
+		<h1>Create Exam</h1>
+		<div class="block-controls enoch_block">
+					<ul class="controls-tabs js-tabs">
+						
+						<li >
+					<%= link_to image_tag("/assets/icons/web-app/32/Back.png"),:controller=>'/exams', :action=>'create_exam' %>
+				</li>
+					</ul>
+				</div>	
+				<% unless flash[:warn_notice].nil? %>
+	<ul class="message warning">
+       <li><strong><%= flash[:warn_notice] %></strong></li>
+       <li class="close-bt"></li>
+       	</ul>
+    <% end %>
+		<% unless flash[:notice].nil? %>
+	<ul class="message success">
+       <li><strong><%= flash[:notice] %></strong></li>
+       <li class="close-bt"></li>
+       	</ul>
+    <% end %>
+
+    <%unless @err_count.nil? or @errors.nil?%>
+    <ul class="message error ">
+					<li>
+						<strong><%= pluralize(@err_count, "error") %></strong> prohibited this <strong><%= @err_count.class.to_s.underscore.humanize.downcase %></strong> from being saved:
+						<ul>
+							<%@errors.each do |err|%>
+						        <li><%= err %></li>
+						    <% end %>
+						</ul>
+					</li>
+					<li class="close-bt"></li>
+				</ul>
+				<%end%>
+		<div class="bread_crumb">
+			<b><%= link_to 'Courses', all_record_courses_path %> &raquo;
+			<%= link_to @course.full_name, all_record_courses_path%> &raquo;
+			<%= link_to "Batch #{@batch.name}", :controller => 'batches', :action => 'all_record', :id => @batch, :course_id => @course %> &raquo;</b>
+			Exams
+		</div><br />
+		<div id="changeExamgroup">
+			<%= render :partial => 'examgroup_index'%>
+		</div><br /><br /><br />
+		<fieldset class="grey-bg no-margin">
+			<legend>
+				Action
+			</legend>
+			<p class="input-with-button">
+				
+				<input type="button" class="big-button" value="New" onclick="$(location).attr('href','/exam_groups/new?id=<%= @batch.id%>');"/>
+				<input type="button" class="big-button" value="Connect Exams" onclick="$(location).attr('href','/exams/view_grouping?id=<%= @batch.id%>');"/>
+			</p>
+		</fieldset>
+	</div>
+</div>

@@ -1,0 +1,120 @@
+<%= form_for :student, :url => {:controller => "student" ,:action => "update_student", :id => @student.id },:remote => true , :html => { :class => "block-content form", :id => "form"} do |o|%>
+							<fieldset>
+							<legend>
+								Personal Info
+							</legend>
+							<div class="columns">
+								<p class="colx3-left required">
+									<label for="first_name">First Name</label>
+									<%= o.text_field :first_name , :class => "full-width" ,:field_name => "Student First Name"%>
+								</p>
+								<p class="colx3-right">
+								<div class="my_image_class">
+										<%if FileTest.exists?("#{Rails.root}/public/system/student_photos/#{@student.id}") && !@student.student_photo.nil?%>
+											<%= image_tag @student.student_photo.url(:large) ,:height => 100, :width => 100%>
+										<% else %>
+											<% if @student.gender.upcase=="M"%>
+												<%= image_tag "male-icon.png" ,:height => 100, :width => 100%>
+										    <%else%>
+												<%= image_tag "female.png" ,:height => 100, :width => 100%>
+										    <%end%>
+									   <% end %>
+								   <% if permitted_to? :change_student_image ,:student%>
+								   <a href="#" id="student_image" onclick="window.open('change_student_image?q=<%=@student.admission_no%>','ChangeImage','width=850,height=500,left=300,top=100,screenX=100,screenY=100,scrollbars=yes,location=no ')">Change Image</a>
+								   <%end%>
+								   <input type="hidden" id="current_student" value="<%= @student.id %>" />
+								   <input type="hidden" id="current_student_admission_no" value="<%= @student.admission_no %>" />
+								</div>
+								</p>
+								
+							</div>
+							<div class="columns">
+								<p class="colx3-left">
+									<label for="middle_name">Middle Name</label>
+									<%= o.text_field :middle_name , :class => "full-width",:field_name=>'Student Middle Name'%>
+								</p>
+								<p class="colx3-center required">
+									<label for="last_name">Last Name</label>
+									<%= o.text_field :last_name , :class => "full-width",:field_name=>'Student Last Name'%>
+								</p>
+							    
+								<p class="colx3-right">
+									<label for="Student Category">Student Category</label>
+									<%unless @student.student_category.nil? %>
+										<%if !@student.student_category.is_deleted == true%>
+										
+												<%= o.select :student_category_id, StudentCategory.active.map {|c| [c.name, c.id]}, {:prompt => "Select"} ,:class => "full-width"%>
+									    <%else%>
+										     <%= select_tag :student_student_category_id, options_for_select(StudentCategory.active.map {|c|[c.name, c.id]}), {:prompt => "Select"}%>
+										<%end%>
+									<%else%>
+									  <%= select_tag :student_student_category_id, options_for_select(StudentCategory.active.map {|c|[c.name, c.id]}), {:prompt => "Select"}%>
+									<%end%>
+								</p>
+							</div>
+							<div class="columns">
+								<p class="colx3-left">
+									<label for="Gender">Gender</label>
+									Male&nbsp;&nbsp;<%= o.radio_button  "gender", "M" %>&nbsp;&nbsp;&nbsp;&nbsp;Female&nbsp;&nbsp;<%= o.radio_button  "gender", "F" %>
+								</p>
+								<p class="colx3-center select-fixed-width1">
+									<label for="Blood Group">Blood Group</label>
+									<%= select :student, :blood_group, ["A+ve", "A-ve", "B+ve", "B-ve", "O+ve", "O-ve", "AB+ve", "AB-ve"] , { :prompt => 'Select' }%>
+								</p>
+								<p class="colx3-right">
+									<label for="dob">Date of Birth</label>
+									<span class="input-type-text"><%= o.text_field :date_of_birth,:value => @student.date_of_birth.strftime('%d''-''%m''-''%Y'), :class => "datepicker", :size => 12 ,:readonly => "1"%><%= image_tag "icons/fugue/calendar-month.png" %></span>
+								</p>
+							</div>
+							<div class="columns">
+								<p class="colx3-left select-fixed-width1">
+									<label for="Religion">Religion</label>
+									<%= select :student, :religion, ["Hindu", "Muslim", "Christian", "Sikh", "Jain", "Buddhist", "Other"], { :prompt => 'Select' },:class => "full-width"%>
+								</p>
+								<p class="colx3-center select-fixed-width1">
+									<label for="Nationality">Nationality</label>
+									<%= select :student, :nationality_id, Country.all.map {|c| [c.name, c.id]}%>
+								</p>
+							</div>
+
+						</fieldset>
+						<br />
+						
+						<fieldset class="grey-bg">
+							<div class="columns">
+
+							   <p class="colx2-left">
+									<label for="emergency">In case of emergencies, contact :</label>
+									</p>
+									<p class="colx2-right">
+									 <div id ="myId"><%= link_to @immediate_contact.full_name, :q => @student.admission_no \
+                                     unless @immediate_contact.nil? %><%= "(" + @immediate_contact.mobile_phone + ")" unless @immediate_contact.nil? %></div>
+										<% if permitted_to? :update_immediate ,:student%>
+            								<% if @immediate_contact.nil? %>
+            					              <span>(<a href="#" value="<%=@student.id%>"  onclick="ChangeImmediateContact(this)" name="student_update_id" id="student_update_id" >Change Immediate Contact</a>)</span>							            
+									            <%else%>
+									                <span>(<a href="#" value="<%=@student.id%>" onclick="ChangeImmediateContact(this)" name="student_update_id" id="student_update_id" >Change Immediate Contact</a>)</span>										        
+									         <%end%>
+									    <%end%>
+								</p>
+							</div>
+							
+						</fieldset>
+						
+							<br />
+							 <% if permitted_to? :update_student ,:student%>
+						<fieldset class="grey-bg no-margin">
+							<legend>
+								Action
+							</legend>
+							<p class="colx3-left">
+								<%= o.submit "Update", :class => "big-button" ,:id => "update_student"%>
+							</p>
+						</fieldset>
+						<% end %>
+						<% end %>
+						
+						<div id="modal-boxs" style="display:none;"></div>
+						<div id="modal-box_update" style="display:none;">
+							<%= render :partial => "immediate_contact"%>
+						</div>

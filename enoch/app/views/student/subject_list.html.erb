@@ -1,0 +1,68 @@
+<div class="block-border">
+<div class="block-content form">
+	<h1>My Subjects</h1>
+<div class="block-controls enoch_block">
+		<ul class="controls-tabs js-tabs">
+			<li >
+				<a href='javascript:' title ="Back" class = "back"><img src="/assets/icons/web-app/32/Back.png" width="24" height="24"></a>
+			</li>
+		</ul>
+</div>
+<ul class="shortcuts-list">
+	
+	<% unless @subjects.empty? %>
+	 	<% @subjects.each do |sub|%>
+				<li>
+					<a href="">
+						<% if sub.name.match("Mat")%>
+						<%= image_tag "/assets/subjects/maths.png", :size => "48x48"  %>
+						<% elsif sub.name.match("Eng")%>
+						<%= image_tag "/assets/subjects/english.png", :size => "48x48"  %>
+						<% elsif sub.name.match("Hin")%>
+						<%= image_tag "/assets/subjects/hindi.png", :size => "48x48"  %>
+						<% elsif(sub.name == "Science")%>
+						<%= image_tag "/assets/subjects/science.png", :size => "48x48"  %>
+						<% elsif sub.name.match("Social Science")%>
+						<%= image_tag "/assets/subjects/sociology.png", :size => "48x48"  %>
+						<% elsif sub.name.match("Com")%>
+						<%= image_tag "/assets/subjects/computers.png", :size => "48x48"  %>
+						<% elsif sub.name.match("Pun")%>
+						<%= image_tag "/assets/subjects/maths.png", :size => "48x48"  %>
+						<% elsif sub.name.match("Mus")%>
+						<%= image_tag "/assets/subjects/music.png", :size => "48x48"  %>
+						<% elsif sub.name.match("Econ")%>
+						<%= image_tag "/assets/subjects/economics.png", :size => "48x48"  %>
+						<% elsif sub.name.match("Gam")%>
+						<%= image_tag "/assets/subjects/Games-Soccer-icon.png", :size => "48x48"  %>
+						<% elsif sub.name.match("Accou")%>
+						<%= image_tag "/assets/subjects/accounting.png", :size => "48x48"  %>
+						<% elsif sub.name.match("Fren")%>
+						<%= image_tag "/assets/subjects/france.png", :size => "48x48"  %>
+						<% elsif sub.name.match("Bot")%>
+						<%= image_tag "/assets/subjects/botany.png", :size => "48x48"  %>
+						<% elsif sub.name.match("Physics")%>
+						<%= image_tag "/assets/subjects/physics.png", :size => "48x48"  %>
+						<% elsif sub.name.match("His")%>
+						<%= image_tag "/assets/subjects/history.png", :size => "48x48"  %>
+						<% elsif sub.name.match("Comme")%>
+						<%= image_tag "/assets/subjects/commerce.png", :size => "48x48"  %>
+						<% elsif sub.name.match("Busi")%>
+						<%= image_tag "/assets/subjects/business_studies.png", :size => "48x48"  %>
+						<% elsif sub.name.match("Geog")%>
+						<%= image_tag "/assets/subjects/geography.png", :size => "48x48"  %>
+						<% elsif sub.name.match("Punj")%>
+						<%= image_tag "/assets/subjects/punjabi.png", :size => "48x48"  %>
+						<%else%>
+						<%= image_tag "/assets/subjects/default.png", :size => "48x48"  %>
+						<%end%>
+						 <h4><%= sub.name%></h4>
+						 </a>
+				</li>
+			<%end%>
+		<%else%>
+				<h2>Sorry, You do not have any subjects assigned yet!</h2>		
+		<%end%>
+</ul>
+
+</div>
+</div>

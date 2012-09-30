@@ -1,0 +1,39 @@
+<div class="block-border" id="roll_no_assign_outer_block">
+	<div class="block-content form" id="complex_form">
+		<h1>Assign Roll No.</h1>
+		<div class="block-controls enoch_block">
+			<ul class="controls-tabs js-tabs">
+				<li>
+					<a href="/courses/all_record"><img src="/assets/dashboard/grade_level.png" width="24" height="24" title="Courses"></a> 
+				</li>
+				<li >
+					<a href="<%= dashboard_path(@user) %>" title ="Back"> <img src="/assets/icons/web-app/32/Back.png" width="24" height="24"></a>
+				</li>
+			</ul>
+		</div>
+		<div class="columns">
+		 <%unless (@user.employee_record.is_teacher? unless @user.employee_record.nil?) %>
+			<p class="colx3-left required select-fixed-width1">
+				<label for="student_grade">Course</label>
+				<%= select :batch_search, :course_id, Course.active.map{|c| [c.course_name, c.id]},:prompt => "Select" %>
+			</p>
+			<p class="colx3-center required select-fixed-width1" id="change_batch_students">
+				<span class="relative"><%= render :partial => "batch_student"%></span>
+			</p> 
+			<%else%>
+			 <p class="colx3-left required select-fixed-width1" id="change_batch_students">
+				<span class="relative"><%= render :partial => "batch_student"%></span>
+			</p> 
+			
+			<%end%>
+		</div>
+		<div id="change_batchwise_student">
+			<% if params[:id]!=nil && @user.admin?%>
+			<%= render :partial => 'assign_roll_no_to_batch'%>
+			<%elsif params[:id]!=nil && !@user.admin?%>
+	        <%= render :partial => 'assign_roll_no_to_batch'%>
+			<%end%>
+		</div>
+	</div>
+</div>
+<input type="hidden" id="cuurent_user" value="<%= @user.role_name%>" />

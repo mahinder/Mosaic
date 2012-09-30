@@ -1,0 +1,2 @@
+module StudentCoScholasticAreaAssessmentDetailsHelper
+end

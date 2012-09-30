@@ -1,0 +1,13 @@
+									<tr>
+										<td class="th table-check-cell"></td>
+										<td id="provider_name_<%= provider.id %>"><%= provider.name %></td>
+										<td id="provider_address_<%= provider.id %>"><%= provider.address %></td>
+										<td id="provider_city_<%= provider.id %>"><%= provider.city %></td>
+										<td id="provider_mobile_<%= provider.id %>"><%= provider.mobile %></td>
+										
+										<td class="table-actions">
+											<input type="hidden" name="object_id" value="<%= provider.id %>"/>
+											<a href="#" id="update-href-<%= provider.id %>" title="Edit" class="with-tip update-provider-master-href"><img src="/assets/icons/fugue/pencil.png" width="16" height="16"></a>
+											<a href="#" id="delete-href-<%= provider.id %>" title="Delete" class="with-tip delete-provider-master-href"><img src="/assets/icons/fugue/cross-circle.png" width="16" height="16"></a>
+										</td>
+									</tr>

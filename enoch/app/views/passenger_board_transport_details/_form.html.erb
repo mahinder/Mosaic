@@ -1,0 +1,17 @@
+<%= form_for(@passenger_board_transport_detail) do |f| %>
+  <% if @passenger_board_transport_detail.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@passenger_board_transport_detail.errors.count, "error") %> prohibited this passenger_board_transport_detail from being saved:</h2>
+
+      <ul>
+      <% @passenger_board_transport_detail.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

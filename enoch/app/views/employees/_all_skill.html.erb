@@ -1,0 +1,87 @@
+<section class="grid_16">
+	<div class="block-content form">
+		<h1>Skills</h1>
+		<%= form_for :employee, :url => {:action =>'update_skills',:id => @employee.id} do |form| %>
+		<%= form.hidden_field :first_name %>
+		<div class="content-columns left">
+			<div class="content-columns-sep"></div>
+			<div class="content-left">
+				<div class="with-head">
+					<div class="head">
+						<div class="black-cell">
+							<span class="error"></span>
+						</div>
+						<div></div>
+					</div>
+					<div class="dark-grey-gradient with-padding" style="height:300px; overflow: auto">
+						<ul class="arbo with-title">
+							<li>
+								<a href="#" class="title-computer toggle">Courses</a>
+								<% unless @courses.blank? %>
+								<ul>
+									<% @courses.each_with_index do |course, i| %>
+									<li class="close">
+										<span class="toggle"></span>
+										<a href="" class="folder"><span><%= course.course_name%></span></a>
+										<ul>
+											<% course.skills.each do |skill| %>
+											<li>
+												<%= check_box_tag "employee[skill_ids][]", skill.id, @employee.skills.include?(skill.id) ,:checked => (true if @employee.skills.include?(skill)),:class => 'emp_skill',:skill_name =>skill.full_name %><%= skill.name%>
+											</li>
+											<%end%>
+										</ul>
+									</li>
+									<%end%>
+								</ul>
+								<%else%>
+								Course not found
+								<%end%>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="content-right">
+				<div class="with-head">
+					<div class="head">
+						<div class="black-cell with-gap" align="right">
+							<span class="success"></span>
+						</div>
+					</div>
+					<div class="dark-grey-gradient with-padding" style="height:300px; overflow: auto">
+						<div id="my_skill"></div>
+						<div >
+							<ul class="arbo with-title">
+								<li>
+									<a href="#" class="title-computer toggle">Skills List</a>
+									<ul id="assigned_skill">
+									<%unless @employee.skills.blank?%>
+									
+										<% @emp_skill.each do |skill| %>
+										<li class="<%= skill.id%>">
+											<%= skill.full_name%>
+										</li>
+										<%end%>
+									
+									<%else%>
+
+									<%end%>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<fieldset class="grey-bg no-margin">
+			<legend>
+				Action
+			</legend>
+			<p class="input-with-button">
+				<%= form.submit "Assign", :class => "big-button" %>
+			</p>
+		</fieldset>
+		<%end%>
+	</div>
+</section>

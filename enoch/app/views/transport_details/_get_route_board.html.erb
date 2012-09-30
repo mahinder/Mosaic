@@ -1,0 +1,3 @@
+<label for="Select Batch">Board</label>
+<%= select :route,:board_id, @boards.map{|c| [c.name, c.id]},{:prompt=>'Select'}%>
+

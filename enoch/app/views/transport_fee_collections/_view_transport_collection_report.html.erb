@@ -1,0 +1,39 @@
+
+<div class="block-border">
+	<div class="block-content form">
+		<h1>Transport Fee Detail For <%=@start_date.to_date.strftime("#{@start_date.to_date.day.ordinalize} of %b, %y")%></h1>
+		
+		<table class="table transport_fee_report no-margin" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+				<th class="black-cell"></th>
+				<th scope="col">Payee Name</th>
+				<th scope="col">Payee Type</th>
+				<th scope="col">Transport Fee category</th>
+				<th scope="col">Amount</th>
+				</tr>
+				</thead>
+				<tbody>
+					<% @transport_fee_collections.each do |transport_fee_collection| %>
+					<tr>
+	                	<%if transport_fee_collection.passenger_type=='employee'%>
+					  	<%passenger=Employee.find_by_id(transport_fee_collection.passenger_id)%>
+					  	<%else%>
+					  	<%passenger=Student.find_by_id(transport_fee_collection.passenger_id)%>
+					  	<%end%>
+					  	<td></td>
+					    <td><%=passenger.full_name%></td>
+					    <td><%=transport_fee_collection.passenger_type%></td>
+					    <td><%=transport_fee_collection.transport_fee_category.name unless transport_fee_collection.transport_fee_category.nil? %></td>
+					    <td><%=transport_fee_collection.amount%></td>
+					</tr>  
+					<%end%>
+					</tbody>
+		</table>
+	</div>
+</div>
+
+   
+
+
+				

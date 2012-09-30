@@ -1,0 +1,34 @@
+
+
+<% unless flash[:notice].nil? %>
+    <p class="flash-msg"> <%= flash[:notice] %> </p>
+  <% end %>
+<div class="no-margin">	
+		<table class="table pleavelist no-margin" id="empListTables" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th class="black-cell"></th>
+					<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> Leave type </th>
+					<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> Available Leave</th>
+					<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> Leave taken </th>
+					<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> Last reset date</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @leave_count.each do |e| %>
+				<% leave_type =EmployeeLeaveType.find_by_id(e.employee_leave_type_id)%>
+				<%  if leave_type.status %>
+				<tr>
+					<td class="th table-check-cell"></td>
+					<td><%= leave_type.name %></td>
+					<td><%= e.leave_count %></td>
+					<td><%= e.leave_taken %></td>
+					<%unless e.reset_date.nil? %> <td><%= e.reset_date.strftime("%d / %m / %Y") %></td>
+					<%else%> <td>-</td>
+					<%end%>
+				</tr>
+				<%end%>
+				<% end %>
+			</tbody>
+			
+		</table></div>

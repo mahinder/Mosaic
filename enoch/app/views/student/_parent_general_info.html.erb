@@ -1,0 +1,77 @@
+<% if i.nil?%>
+No Parents Added Yet
+<% else%>
+
+<%= form_for i ,:url => {:action => 'update_guardian',:id=> @student.id},:remote => true do |p| %>
+<fieldset>
+		<legend>
+			Guardian Info
+		</legend>
+		<div class="columns">	
+		    <p class="colx3-left required">
+				<label for="student_phone1">First Name</label>
+				<span class="relative"><%= p.text_field :first_name ,:class => "full-width",:id=> "first_name#{i.id}",:field_name=>'Guardian First Name'  %>					
+				</span>
+			</p>
+			
+			<p class="colx3-center">
+				<label for="student_phone2">Last Name</label>
+				<span class="relative"><%= p.text_field :last_name,:class => "full-width",:id=> "last_name#{i.id}",:field_name=>'Guardian Last Name'  %></span>
+			</p>
+
+			<p class="colx3-right required">
+				<label for="student_email">Relationship</label>
+				<span class="relative"><%= select_tag :relation, options_for_select([ "Father", "Mother", "Brother" ,"Sister", "Other" ], i.relation),:id=> "relation#{i.id}"%></span>
+			</p>
+			
+	   </div>
+        <div class="columns">	
+				
+		    <p class="colx3-left">
+				<label for="parent_detail_dob">Date of Birth</label>
+				<span class="input-type-text"><%= p.text_field :dob, :class => "datepicker", :size => 13, :id=> "dob#{i.id}",  :value => (i.dob.strftime('%d''-''%m''-''%Y') unless i.dob.nil?) ,:readonly => "1"%><%= image_tag "icons/fugue/calendar-month.png" %></span>
+			</p>
+			
+			<p class="colx3-center">
+				<label for="student_phone2">Education</label>
+				<span class="relative"><%= select_tag :education,options_for_select(["Matriculation", "10+2", "Diploma", "Graduate","Professional","Masters","Doctorate","Other"], i.education),:id =>"education#{i.id}" %>
+			</p>
+
+			<p class="colx3-right">
+				<label for="student_email">Occupation</label>
+				<span class="relative"><%= select_tag :occupation, options_for_select(["Government", "Salaried", "Business", "Other"], i.occupation),:id =>"occupation#{i.id}"%></span>
+			</p>
+			
+	   </div>
+	   <div class="columns">	
+				
+		    <p class="colx3-left">
+				<label for="parent_detail_dob">Income</label>
+                  <span class="relative"><%= select_tag :income, options_for_select(["< 2 Lakh", "2 Lakh to 5 Lakh", "5 Lakh to 10 Lakh", "10 Lakh to 15 Lakh", "15 Lakh to 25 Lakh", "> 25 Lakh"], i.income),:id=> "income#{i.id}"%></span>
+			</p>
+			<p class="colx3-center">
+				<label for="country">Country</label>
+				<span class="relative">
+				<% unless @student.nationality.nil? %>
+					<%= select_tag :country_id, options_for_select(Country.all.map {|c| [c.name, c.id]},i.country.id),:id=> "guardian_country_id#{i.id}"%>
+                <% else %>
+                    <%= select_tag :country_id, options_for_select(Country.all.map {|c| [c.name, c.id]},76),:id=> "guardian_country_id#{i.id}"%>
+                <% end %>				
+				</span>
+			</p>
+	   </div>
+	   </fieldset>
+	<br />
+	<% if permitted_to? :update_guardian ,:student%>
+	<fieldset class="grey-bg no-margin">
+		<legend>
+			Action
+		</legend>
+		<p class="colx3-left">
+			<button class="big-button" id="delete_parent">Delete</button>&nbsp;&nbsp;<%= p.submit "Update", :class => "big-button", :id => "update_parents"  %>
+		</p>
+
+	</fieldset>
+	<% end%>
+<% end%>
+<% end%>

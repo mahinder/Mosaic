@@ -1,0 +1,36 @@
+		<div class="block-content form">
+					<h1>Grading Level List</h1>
+					<div>
+						<ul class="tabs js-tabs">
+							<li class="current"><a href="#tab-active" title="Active">Active</a></li>
+							<li><a href="#tab-inactive" title="Inactive">Inactive</a></li>
+						</ul>
+					</div>
+					<div id="tabs-content" class="tabs-content">
+						<div id="tab-active">
+							<table id="active-table" class="table grading_level_group no-margin" cellspacing="0" width="100%">
+								<thead>
+									<%= render 'table_head' %>
+								</thead>
+								<tbody>		
+									<% @active_grading_level_groups.each do |grading_level| %>
+									<%= render 'table_row', :grading_level => grading_level %>
+									<% end %>
+								</tbody>
+							</table>
+						</div>
+						<div id="tab-inactive">
+							<table id="inactive-table" class="table grading_level_group no-margin" cellspacing="0" width="100%">
+								<thead>
+									<%= render 'table_head' %>
+								</thead>
+								<tbody>		
+									<% @inactive_grading_level_groups.each do |grading_level| %>
+									<%= render 'table_row', :grading_level => grading_level %>
+									<% end %>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<input type="hidden" id="url_prefix" name="url_prefix" value="/grading_level_groups" />
+			</div>

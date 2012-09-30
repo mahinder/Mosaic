@@ -1,0 +1,62 @@
+<div class="block-border">
+	<form class="block-content form" id="table_form" method="post" action="">
+		<h1>Books Report From <%=@start_date%> to  <%=@end_date%></h1>
+		<div class="block-controls enoch_block">
+			<ul class="controls-tabs js-tabs">
+				<li >
+					<%= link_to image_tag("/assets/icons/web-app/32/Back.png"),"javascript:history.back()" %>
+				</li>
+			</ul>
+		</div>
+		<div class="no-margin">
+			<table class="table" cellspacing="0" width="100%" id = "book_report">
+				<thead>
+					<tr>
+						<th class="black-cell"><span ></span></th>
+						<th scope="col"> Book Name </th>
+						<th scope="col">User Name</th>
+						<th scope="col">Student / Employee</th>
+						<th scope="col">Batch / Departmane</th>
+						<th scope="col"> Issue Date </th>
+						<th scope="col"> Due Date </th>
+						<th scope="col"> Return Date </th>
+						<th scope="col"> Fine Per Day </th>
+						<th scope="col" >Fine</th>
+						<th scope="col" >Return</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% unless @library_fees.empty?%>
+					<% @library_fees.each do |lib|%>
+					<tr>
+						<td></td>
+						<td><%= lib.library_book.name %></td>
+						<td><%= lib.user.full_name %></td>
+						<% if lib.user.employee %> <td>Employee</td>
+						<td><%= lib.user.employee_record.employee_department.name %></td>
+						<% @setting = LibrarySetting.find_by_category("Employee")%>
+						<%unless @setting.nil?%>
+						<% @fine =  @setting.fine_charged_per_day_after_due_date %>
+						<%end%>
+						<%else%> <td>Student</td>
+						<td><%= lib.user.student_record.batch.full_name %></td>
+						<% @setting = LibrarySetting.find_by_category("Student")%>
+						<%unless @setting.nil?%>
+						<% @fine =  @setting.fine_charged_per_day_after_due_date %>
+						<%end%>
+						<%end%> <td><%= lib.issue_date %></td>
+						<td><%= lib.due_date %></td>
+						<td><%= lib.actual_return_date %></td>
+						<td><%= @fine %></td>
+						<td><%= lib.actual_fine_paid %></td>
+						<%if lib.is_return == true %> <td> Returned</td>
+						<%else%> <td>Not Returned</td>
+						<%end%>
+					</tr>
+					<%end%>
+					<%end%>
+				</tbody>
+			</table>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,85 @@
+<html>
+<head>
+<title>create DOM table</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+<style type="text/css">
+
+#newtable{
+border:2px solid #999;
+font-family:verdana,arial,helvetica,sans-serif;
+font-size:18px;
+margin:auto;
+}
+#newtable td{
+width:50px;
+line-height:50px;
+border:1px solid #000;
+text-align:center;
+}
+</style>
+
+<script type="text/javascript">
+
+window.onload=function() {
+makeTable();
+}
+
+function makeTable() {
+
+row=new Array();
+cell=new Array();
+tbh=new Array();
+row_num=6; //edit this value to suit
+cell_num=6; //edit this value to suit
+
+tab=document.createElement('table');
+tab.setAttribute('id','newtable');
+tab.setAttribute('class','table');
+tbo=document.createElement('tbody');
+
+tbh=document.createElement('thead');
+for(f=0;f<row_num;f++) {
+	cell[f]=document.createElement('td');
+		cont1=document.createTextNode("sdgdfg")
+				cell[f].appendChild(cont1);
+				tbh.appendChild(cell[f]);
+			row[f]=document.createElement('tr');	
+			for(k=0;k<cell_num;k++) {
+				cell[k]=document.createElement('td');
+				cont=document.createTextNode((f+1))
+				cell[k].appendChild(cont);
+				row[f].appendChild(cell[k]);
+				
+		}	
+		
+	tbh.appendChild(row[f]);	
+}
+// }
+
+tbo.appendChild(tbh);
+
+// tbh.appendChild(cont1);
+for(c=0;c<row_num;c++){
+	row[c]=document.createElement('tr');
+
+		// for(k=0;k<cell_num;k++) {
+				// cell[k]=document.createElement('td');
+				// cont=document.createTextNode((c+1))
+				// cell[k].appendChild(cont);
+				// row[c].appendChild(cell[k]);
+		// }
+// tbo.appendChild(row[c]);
+}
+tab.appendChild(tbo);
+document.getElementById('mytable').appendChild(tab);
+}
+</script>
+
+</head>
+<body>
+
+<div id="mytable"></div>
+
+</body>
+</html>

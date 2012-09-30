@@ -1,0 +1,4 @@
+<p class="colx3-center select-fixed-width1">
+		<label for="batch">Batch</label>
+		<%= select("religion","batche" ,@batches.map {|s| [s.full_name, s.id]}, :prompt => "Select")%>
+		</p>

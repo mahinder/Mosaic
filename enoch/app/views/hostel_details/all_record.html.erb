@@ -1,0 +1,54 @@
+<div class="block-border" id="outer_block">
+	<%= form_for @hostel_details,  :html => { :class => "block-content form", :id => "hostel_details-form"} do |form| %>
+	<%= render 'shared/form_errors', :object => form.object %> <h1>Hostel</h1>
+	<div class="block-controls enoch_block">
+		<ul class="controls-tabs js-tabs">
+			<li >
+				<%= link_to image_tag("/assets/icons/web-app/32/Back.png"), :back %>
+			</li>
+		</ul>
+	</div>
+	<fieldset class="grey-bg">
+		<legend>
+			Required fields
+		</legend>
+		<div class="columns">
+			<p class="colx3-left required">
+				<label for="name">Hostel Name</label>
+				 <%= form.text_field :hostel_name %>
+			</p>
+			<p class="colx3-left required">
+				<label for="picktime">Type</label>
+				
+			</p>
+			<p class="colx3-left required">
+				<label for="droptime">Other Information</label>
+				
+			</p>
+		</div>
+		
+	</fieldset>
+	<fieldset class="grey-bg no-margin">
+		<legend>
+			Action on create
+		</legend>
+			<div class="colx2-right">
+				<button id="create_board" type="submit">
+					Create
+				</button>
+				<button id="update_board" type="button" >
+					Update
+				</button>
+				<button id="reset_board" type="button">
+					Clear
+				</button>
+				<input type="hidden" id="current_object_id" name="current_object_id" value=""/>
+			</div>
+		</div>
+	</fieldset>
+	<% end %>
+</div>
+<br/>
+<div id="table-block" class="block-border">
+	<%= render 'hostel_details'%>
+</div>

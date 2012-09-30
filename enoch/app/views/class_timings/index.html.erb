@@ -1,0 +1,39 @@
+<div class="block-border" id="outer_block">
+	<form class="block-content form" id="simple_week_form"  action="">
+		<h1>Class Timing</h1>
+		<div class="block-controls enoch_block">
+					<ul class="controls-tabs js-tabs">
+						<li >
+							<%= link_to image_tag("/assets/icons/web-app/32/Back.png"), :back %>
+						</li>
+					</ul>
+				</div>
+		<fieldset class="grey-bg">
+		
+			<div class="columns">
+				<div class="colx2-left required select-fixed-width1">
+					<p>
+						<label for="simple-action">Course</label>
+						<%= select :course, :id,  @courses.map {|b| [b.full_name, b.id] }, {:prompt => 'Common'},:class => "course-select" %>
+					</p>
+				</div>
+				<div class="colx2-rigth required" id = "batch-select">
+					<%= render 'batch'%>
+				</div>
+			</div>
+		</fieldset>
+		<div id="loading" style="display:none;">
+			<img src=/assets/ajax-loader.gif style=vertical-align:middle;margin:0 10px 0 0 />
+		</div>
+		<div id="class_timming">
+			<br/>
+			<%= render :partial => "show_batch_timing" %>
+		</div>
+	</form>
+</div>
+<br/>
+<div id="modal-box" style="display:none;">
+	<%= render 'new'%>
+</div>
+<div id="modal-box-edit" style="display:none;"></div>
+<div class="extender"></div>

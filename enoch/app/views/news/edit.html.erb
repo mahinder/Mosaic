@@ -1,0 +1,64 @@
+<% unless flash[:notice].nil? %>
+			<ul class="message warning no-margin">
+					<li><%= flash[:notice] %></li>
+			</ul>
+<% end %>
+<div class="block-border">
+	<div class="block-content form" id="complex_form" method="post" action="">
+		<h1>News</h1>
+		<div class="block-controls enoch_block">
+			<ul class="controls-tabs js-tabs">
+				<li >
+					<a href="<%= dashboard_path(@user) %>" title ="Back"> <img src="/assets/icons/web-app/32/Back.png" width="24" height="24"></a>
+				</li>
+			</ul>
+		</div>
+		<fieldset class="required">
+			<legend>
+				Read News
+			</legend>
+			<% unless flash[:notice].nil? %>
+			<p class="flash-msg">
+				<%= flash[:notice] %>
+			</p>
+			<% end %>
+			<%= form_for :news do |f| %>
+
+			<% if @news.errors.any? %>
+			<div id="error no-margin">
+				<strong><%= pluralize(@news.errors.count, "error") %> prohibited this news from being saved:</strong>
+				<ul class="message error ">
+					<% @news.errors.full_messages.each do |msg| %>
+					<li>
+						<%= msg %>
+					</li>
+					<% end %>
+				</ul>
+			</div>
+			<% end %>
+			<div id="add_news_form">
+				<div class="news_label_field">
+					<label for="news_title">Title</label>
+					<div id="news_title_text_field_bg">
+						<%= f.text_field :title, :value => @news.title %>
+					</div>
+				</div>
+				<div class="news_label_field">
+					<label for="news_content">Content</label>
+					<div id="news_content_text_field_bg">
+						<%= f.text_area :content %>
+					</div>
+				</div>
+			</div>
+		</fieldset>
+		<fieldset class="grey-bg no-margin">
+			<legend>
+				Action
+			</legend>
+			<button type="submit">
+				Update News
+			</button>
+		</fieldset>
+		<% end %>
+	</div>
+</div>

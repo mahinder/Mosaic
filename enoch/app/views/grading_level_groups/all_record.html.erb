@@ -1,0 +1,62 @@
+<div class="block-border" id="outer_block">
+	<div class="block-content form">
+		<h1>Grading Level</h1>				
+				<div class="block-controls enoch_block">
+					<ul class="controls-tabs js-tabs">
+						<li>
+							<a href="/co_scholastic_areas/all_record" title="Co Scholastic Area" class="with-tip"><%= image_tag "dashboard/co-scholastic_area.png", :size => "24x24"  %></a>
+						</li>
+						<li>
+							<a href="/co_scholastic_activities/all_record" title="Co Scholastic Activity" class="with-tip"><%= image_tag "dashboard/co-scholastic_activity.png", :size => "24x24"  %></a>
+						</li>
+						<li>
+							<a href="/term_masters/all_record" title="Term Master" class="with-tip"><%= image_tag "dashboard/TERm Master.png", :size => "24x24"  %></a>
+						</li>
+						<li>
+							<a href="/assessment_names/all_record" title="Assessment Names" class="with-tip"><%= image_tag "dashboard/assessment name.png", :size => "24x24"  %></a>
+						</li>
+						<li>
+							<a href="/grading_level_groups/all_record" title="Grading Systems" class="with-tip" ><%= image_tag "dashboard/subject-wise-report-icon.png", :size => "24x24"  %> </a>
+						</li>
+						<li >
+							<%= link_to image_tag("/assets/icons/web-app/32/Back.png"),"javascript:history.back()" %>
+						</li>
+					</ul>
+				</div>
+		
+<%= form_for @grading_level_group, :html => { :id => "grading-level-form"} do |f| %>
+ 
+	<fieldset class="grey-bg">
+					<legend>Required fields</legend>
+					<div class="colx3-left-double required">
+						<label for="grade_name">Grading Level Group Name</label>
+						<span class="relative">
+							<%= f.text_field :grading_level_group_name , :class => "full-width full-length",:field_name=>'Name'%>
+						</span>
+					</div>
+					<div class="colx3-right required">
+						<label for="grade_priority">Is_active</label>
+						<span class="relative">
+							<%= f.check_box :is_active %>
+						</span>
+					</div>
+				</fieldset>
+ <fieldset class="grey-bg no-margin">
+					<legend>Action on create</legend>
+						<div class="colx2-right">
+							<button id="create_grading_level_group" type="submit">Create</button>
+							<button id="update_grading_level_group" type="button" >Update</button>
+							<button id="reset_grading_level_group" type="button">Clear</button>
+							<input type="hidden" id="current_object_id" name="current_object_id" value=""/>
+						</div>
+					
+				</fieldset>
+<% end %>
+
+		
+	</div>	
+	</div>
+
+	<div id="table-block" class="block-border">
+			<%= render 'grading_level_partial' %>
+			</div>

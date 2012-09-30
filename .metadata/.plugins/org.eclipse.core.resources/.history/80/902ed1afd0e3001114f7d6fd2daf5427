@@ -1,0 +1,21 @@
+<form class="block-content form" id="table_form" method="post" action="">
+	<hr style="height:0.5em;width:50em;border:1px solid #FB7A31;" />
+	
+	<%@batch_array.each do |b|%>
+	<p style="font-size: 20px;">
+		Title :Timetable For <%= @batch.full_name %>
+	</p>
+	<table id="active-table" class="table gender_all_report no-margin" cellspacing="0" width="100%">
+		<thead>
+			<tr class="yellow">
+				<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> Day / classtiming </th>
+				<% @class_timing.each do |class_time| %> <th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> <%= class_time.start_time.strftime('%I:%M %p') %> - <%= class_time.end_time.strftime('%I:%M %p') %> </th>
+				<% end %>
+			</tr>
+		</thead>
+		<tbody>
+			
+		</tbody>
+</table>
+<%end%>
+</form>

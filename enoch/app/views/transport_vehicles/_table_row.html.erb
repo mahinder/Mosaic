@@ -1,0 +1,16 @@
+									<tr>
+										<td class="th table-check-cell"></td>
+										<input type="hidden" id="vehicle_providers_<%= vehicle.id %>" value="<%= vehicle.provider_id %>"/>
+										<td id="vehicle_provider_<%= vehicle.id %>"><%= vehicle.provider.name %></td>
+										<td id="vehicle_type_<%= vehicle.id %>"><%= vehicle.vehicle_type %></td>
+										<td id="registration_no_<%= vehicle.id %>"><%= vehicle.registration_no %></td>
+										<td id="capacity_<%= vehicle.id %>"><%= vehicle.capacity %></td>
+										<td id="hire_date_<%= vehicle.id %>"><%= vehicle.date_of_hire %></td>
+										<td id="expire_date_<%= vehicle.id %>"><%= vehicle.date_of_expiry %></td>
+										
+										<td class="table-actions">
+											<input type="hidden" name="object_id" value="<%= vehicle.id %>"/>
+											<a href="#" id="update-href-<%= vehicle.id %>" title="Edit" class="with-tip update-transport_vehicle-master-href"><img src="/assets/icons/fugue/pencil.png" width="16" height="16"></a>
+											<a href="#" id="delete-href-<%= vehicle.id %>" title="Delete" class="with-tip delete-transport_vehicle-master-href"><img src="/assets/icons/fugue/cross-circle.png" width="16" height="16"></a>
+										</td>
+									</tr>

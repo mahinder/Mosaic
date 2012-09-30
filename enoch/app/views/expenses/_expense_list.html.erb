@@ -1,0 +1,15 @@
+
+<form class="block-content form" id="table_form" method="post" action="">
+	<h1>Expenses List</h1>
+	<table id="expense_table" class="table expensetables no-margin" cellspacing="0" width="100%">
+		<thead>
+			<%= render 'table_head' %>
+		</thead>
+		<tbody>
+			<% @expenses.each do |inc| %>
+			<%= render 'table_row', :todayexpense => inc %>
+			<% end %>
+		</tbody>
+	</table>
+	<input type="hidden" id="url_prefix" name="url_prefix" value="/expenses" />
+</form>

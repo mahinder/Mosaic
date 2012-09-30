@@ -1,0 +1,26 @@
+<fieldset class="grey-bg">
+		<legend>
+			Required fields
+		</legend>
+		
+<div class="columns required">   
+	
+	<input type="hidden" id="transport_detail_id" value="<%=@transport_detail_id%>" />
+      	   <%unless @type=="employee"%>
+         <p class="colx3-left select-fixed-width1 required"> 
+          <label for="course">Course</label>
+          <span class="relative"> <%= select :passanger, :course_id, Course.active.map{|c| [c.course_name, c.id]},:prompt => "Select" %></span>
+        </p> 
+        
+        <p class="colx3-right select-fixed-width1 required" id="update_batch">
+        	<label for="batch">Batch</label>
+          <span class="relative clas"><%= select :passanger,:batch_id, @batches.map{|c| [c.full_name, c.id]},{:prompt=>'Select'},:selected =>( @batche.id unless params[:prev].nil?)%></span>
+        </p>
+        <%else%>
+        <p class="colx3-left select-fixed-width1 required"> 
+          <label for="course">Department</label>
+          <span class="relative"> <%= select :passanger, :department, EmployeeDepartment.active.map{|c| [c.name, c.id]},:prompt => "Select" %></span>
+        </p>
+        <%end%>
+</div>	
+ </fieldset>

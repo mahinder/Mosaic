@@ -1,0 +1,90 @@
+<!-- <%=Rails.root.join('app','assets','javascripts','application.js')%> -->
+<%unless @employees.empty?%>
+<form class="block-content form" id="table_form" method="post" action="">
+					<h1>Employee List</h1>
+							<table id="active-table" class="table gender_all_employee_report no-margin" cellspacing="0" width="100%">
+								<thead>
+									<tr>
+										<th class="black-cell"></th>
+										<th scope="col">
+											<span class="column-sort">
+												<a href="#" title="Sort up" class="sort-up"></a>
+												<a href="#" title="Sort down" class="sort-down"></a>
+											</span>
+											Employee Number
+										</th>
+										<th scope="col">
+											<span class="column-sort">
+												<a href="#" title="Sort up" class="sort-up"></a>
+												<a href="#" title="Sort down" class="sort-down"></a>
+											</span>
+											Name
+										</th>
+									
+										<th scope="col">
+											<span class="column-sort">
+												<a href="#" title="Sort up" class="sort-up"></a>
+												<a href="#" title="Sort down" class="sort-down"></a>
+											</span>
+											Department
+										</th>
+										
+										<th scope="col">
+											<span class="column-sort">
+												<a href="#" title="Sort up" class="sort-up"></a>
+												<a href="#" title="Sort down" class="sort-down"></a>
+											</span>
+											Gender
+										</th>
+										<th scope="col">
+											<span class="column-sort">
+												<a href="#" title="Sort up" class="sort-up"></a>
+												<a href="#" title="Sort down" class="sort-down"></a>
+											</span>
+											Address
+										</th>
+										<th scope="col">
+											<span class="column-sort">
+												<a href="#" title="Sort up" class="sort-up"></a>
+												<a href="#" title="Sort down" class="sort-down"></a>
+											</span>
+											Contact
+										</th>
+										
+									</tr>
+								</thead>
+								<tbody>		
+									<% @employees.each do |employee| %>
+									<tr>
+										<td></td>
+										<td><%=employee.employee_number%></td>
+										<td><%=employee.full_name%></td>
+										<td><%=employee.employee_department.name%></td>
+										<td><%=employee.gender%></td>
+										<td><%=employee.home_address_line1%></td>
+										<td><%=employee.mobile_phone%></td>
+										
+									</tr>
+									<% end %>
+								</tbody>
+							</table>
+				</form>	
+	 <fieldset class="grey-bg no-margin">
+			<legend>
+				Action
+			</legend>
+			<p class="input-with-button">
+			<input type="button" class="big-button" value="PDF Report" onclick="$(location).attr('href','/student/employee_pdf_report?department=<%=@department%>');"/>
+			</p>
+		</fieldset> 
+
+<%else%>
+<h3>Record not found</h3>
+<%end%>
+
+
+
+
+
+
+				

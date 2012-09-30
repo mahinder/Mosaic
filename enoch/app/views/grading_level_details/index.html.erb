@@ -1,0 +1,21 @@
+<h1>Listing grading_level_details</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @grading_level_details.each do |grading_level_detail| %>
+  <tr>
+    <td><%= link_to 'Show', grading_level_detail %></td>
+    <td><%= link_to 'Edit', edit_grading_level_detail_path(grading_level_detail) %></td>
+    <td><%= link_to 'Destroy', grading_level_detail, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Grading level detail', new_grading_level_detail_path %>

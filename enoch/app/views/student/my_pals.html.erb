@@ -1,0 +1,70 @@
+<style type="text/css">
+	.icon-list {
+	margin: 0 -19px 0.833em -5px;
+	}
+	.icon-list li .myIcon {
+			display: block;
+			float: left;
+			width: 48px;
+			height: 48px;
+			margin: -3px 0 0 -54px;
+			background-position: center center;
+			background-repeat: no-repeat;
+	}
+	.icon-list li {
+		float: left;
+		background: url( /assets/corner.png) no-repeat right bottom;
+		padding: 7px 26px 21px 61px;
+		width: auto;
+		height: 2.5em;
+		margin-top: 0.75em;
+		font-size: 1.5em;
+		font-weight: bold;
+		font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Sans", Arial, Helvetica, sans-serif;
+		}
+		.icon-list li a {
+			display: block;
+			margin: -7px -26px -21px -61px;
+			padding: 7px 26px 21px 61px;
+			width: auto;
+			height: 2.5em;
+			}
+
+</style>
+<div class="block-border">
+	<div class="block-content form">
+<h1>My Pals</h1>
+<div class="block-controls enoch_block">
+	<ul class="controls-tabs js-tabs">
+		<li >
+			<a href="/dashboard" title ="Back"> <img src="/assets/icons/web-app/32/Back.png" width="24" height="24"></a>
+		</li>
+	</ul>
+</div>
+<ul class="icon-list icon-user">
+	<% unless @students.empty? %>
+		<% @students.each do |student| %>
+				<li><a href="#">
+					<%if FileTest.exist?("#{Rails.root}/public/system/student_photos/#{student.id}")%>
+					    <span class="myIcon" style="background-image: url(<%= student.student_photo.url(:small) %>);"></span>
+							<%elsif student.gender.upcase=="M"%>
+							<span class="myIcon" style="background-image: url(/assets/male-icon.png);background-size: 50px 50px;"></span>
+							<%else student.gender.upcase=="F"%>
+							<span class="myIcon" style="background-image: url(/assets/female.png);background-size: 50px 50px;"></span>
+							<% end %>
+						
+						<%= student.full_name%><br>
+						<small>Dob:<strong><%= student.date_of_birth.strftime("%d-%m-%Y")%></strong></small>
+					</a></li>
+				
+		<%end%>
+		<%else%>
+			<h2>Sorry, You do not have any friends.</h2>	
+		<%end%>
+				
+</ul>
+<ul class="message no-margin">
+					<li><%=@students.count %> students found</li>
+				</ul>
+</div>
+</div>

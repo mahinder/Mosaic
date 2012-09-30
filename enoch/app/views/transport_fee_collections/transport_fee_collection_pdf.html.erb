@@ -1,0 +1,38 @@
+
+
+
+    <th colspan="3"> department staff list</th>
+  
+<hr style="height:0.0em;width:50em;border:1px solid #FB7A31;" />
+<%unless @transport_fee_collections.empty?%>
+<table>
+  
+  <tr class="yellow"> 
+    <td class="width">Name</td>
+    <td class="adjacent">Type</td>
+    <td class="adjacent">Transport Fee Category</td>
+     <td class="adjacent">Actual Amount</td>
+    <td class="adjacent">Discount</td>
+     <td class="adjacent">Payable Amount</td>    
+  </tr>
+  <% @transport_fee_collections.each do |transport_fee_collection| %>
+  <tr> 
+  	<%if transport_fee_collection.passenger_type=='employee'%>
+  	<%passenger=Employee.find_by_id(transport_fee_collection.passenger_id)%>
+  	<%else%>
+  	<%passenger=Student.find_by_id(transport_fee_collection.passenger_id)%>
+  	<%end%>
+      <td class="adjacent"><%=passenger.full_name%></td>
+    <td class="adjacent"><%=transport_fee_collection.passenger_type%></td>
+    <td class="adjacent"><%=transport_fee_collection.transport_fee_category.name unless transport_fee_collection.transport_fee_category.nil? %></td>
+    <td class="adjacent"><%=transport_fee_collection.transport_fee_category.monthly_fee unless transport_fee_collection.transport_fee_category.nil?%></td>
+    <td class="adjacent"><%=transport_fee_collection.discount%></td>
+    <td class="adjacent"><%=transport_fee_collection.amount%></td>
+  </tr>
+  <%end%>
+ </table>
+<%end%>
+
+
+
+				

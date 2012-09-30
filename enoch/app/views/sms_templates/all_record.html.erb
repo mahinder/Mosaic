@@ -1,0 +1,59 @@
+<div class="block-border" id="outer_block">
+				<%= form_for @sms_templates,  :html => { :class => "block-content form", :id => "sms-form"} do |form| %>
+				<%= render 'shared/form_errors', :object => form.object %>
+				<h1>SMS TEMPLATE</h1>				
+				<div class="block-controls enoch_block">
+					<ul class="controls-tabs js-tabs">
+						<li >
+							<!-- <a href='javascript:' title ="Back" onclick='history.back();'><img src="/assets/icons/web-app/32/Back.png" width="24" height="24"></a> -->
+						<a href='javascript:' title ="Back" class = "back"><img src="/assets/icons/web-app/32/Back.png" width="24" height="24"></a>
+						</li>
+					</ul>
+				</div>	
+				<fieldset class="grey-bg">
+					<legend>Required fields</legend>
+					
+					<div class="columns">
+					<div class="colx3-left required">
+						<label for="code">Code</label>
+						<span class="relative">
+							<%= form.text_field :template_code %>
+						</span>
+					</div>
+					</div>
+					<div class="columns">
+					<div class="colx1-left required">
+						<label for="template_text">Template Text</label>
+						<span class="relative">
+							<%= form.text_field :text ,:class => "full-width"%>
+						</span>
+					</div>
+					</div>
+					
+				</fieldset>
+								
+				<fieldset class="grey-bg no-margin">
+					<legend>Action on create</legend>
+					<div class="columns">
+						<div class="colx2-left-double">
+							<label for="simple-action">Status</label>
+							<input type="radio" name="is_inactive" checked = "checked" id ="is_active_active" />&nbsp;<label for="complex-en-active-1">Active</label>
+							<input type="radio" name="is_inactive" id ="is_active_inactive" />&nbsp;<label for="complex-en-active-0">Inactive</label>
+							<!-- <%= form.radio_button  "is_inactive", "true", :checked => "checked" %>&nbsp;<label for="complex-en-active-1">Active</label> 
+							<%= form.radio_button  "is_inactive", "false" %>&nbsp;<label for="complex-en-active-0">Inactive</label> -->
+						</div>
+						<div class="colx2-right">
+							<button id="create_template" type="submit">Create</button>
+							<button id="update_template" type="button" disabled="true">Update</button>
+							<button id="reset_template" type="button">Clear</button>
+							<input type="hidden" id="current_object_id" name="current_object_id" value=""/>
+						</div>
+					</div>
+				</fieldset>
+				<% end %>
+				
+			</div>
+			<br/>
+			<div id="table-block" class="block-border">
+				<%= render 'templates' %>
+			</div>

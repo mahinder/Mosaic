@@ -1,0 +1,159 @@
+<%= form_for @reminder do |f| %> <h1>Compose</h1>
+<div class = "loding"></div>
+<fieldset>
+	<div class="columns">
+		<% if @role == "Admin"%>
+		<p >
+			<div class="" style=" overflow: auto">
+				<ul class="arbo with-title">
+					<li>
+						<a href="#" class="title-computer toggle">Select mailing department and courses</a><span id = "loader"></span>
+						<ul>
+							<li class="close" >
+								<span class="toggle"></span>
+								<a href="#" class="">
+								<input type="checkbox" name="department" id = "all_departments"/>
+								<span>Departments</span></a>
+								<ul id = "all_departmant_li">
+									<% @department = EmployeeDepartment.active%>
+									<% unless @department.empty?%>
+									<%@department.each do |dep|%>
+									<li>
+										<a href="#" class="">
+										<input type="checkbox" name="department" class = "department" id ="department_<%= dep.id%>" data_id = "<%= dep.id%>"/>
+										<span><%= dep.name%></span></a>
+									</li>
+									<%end%>
+									<%end%>
+								</ul>
+							</li>
+							<li class="close" >
+								<span class="toggle"></span>
+								<a href="#" class="">
+								<input type="checkbox" name="courses" id = "all_courses"/>
+								<span>Courses</span></a>
+								<ul id = "all_courses_li">
+									<% @courses = Course.active%>
+									<% unless @courses.empty?%>
+									<%@courses.each do |course|%>
+									<li class="close">
+										<span class="toggle"></span>
+										<a href="#" class="">
+										<input type="checkbox" name="course" class = "course_check" id ="course_check_<%= course.id%>" data_id = "<%= course.id%>"/>
+										<span><%= course.course_name%></span></a>
+										<ul>
+											<% unless course.batches.empty?%>
+											<%course.batches.each do |batch|%>
+											<li class="close">
+												<span class="toggle"></span><a href="#" class=""><input type="checkbox" name="batches" class = "batches_check batches_check_<%= course.id%>" id ="batches_check_<%= batch.id%>" data_id = "<%= batch.id%>" data_course = "<%= course.id%>"/><span><%= batch.full_name%></span></a>
+												<ul>
+													<% unless batch.students.empty?%>
+													<%batch.students.each do |student|%>
+													<li >
+														<a href="#" class=""><input type="checkbox" name="student" class = "student_check student_check_<%= batch.id%>  student_<%= course.id%>" id ="student_check_<%= student.id%>" data_id = "<%= student.id%>" data_course = "<%= course.id%>" data_batch = "<%= batch.id%>"/><span><%= student.full_name%></span></a>
+													</li>
+													<%end%>
+													<%end%>
+												</ul>
+											</li>
+											<%end%>
+											<%end%>
+										</ul>
+									</li>
+									<%end%>
+									<%end%>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</p>
+		<%end%>
+		<% if @role == "Employee" %>
+		<p >
+			<div class="" style=" overflow: auto">
+				<ul class="arbo with-title">
+					<li>
+						<a href="#" class="title-computer toggle">Select mailling courses</a>
+						<ul>
+							<li class="close" >
+								<span class="toggle"></span>
+								<a href="#" class="">
+								<input type="checkbox" name="courses" id = "emp_all_courses"/>
+								<span>Courses</span></a>
+								<ul id = "emp_all_courses_li">
+									<% @courses = Course.active%>
+									<% unless @courses.empty?%>
+									<%@courses.each do |course|%>
+									<li class="close">
+										<span class="toggle"></span>
+										<a href="#" class="">
+										<input type="checkbox" name="course" class = "emp_course_check" id ="emp_course_check_<%= course.id%>" data_id = "<%= course.id%>"/>
+										<span><%= course.course_name%></span></a>
+										<ul>
+											<% unless course.batches.empty?%>
+											<%course.batches.each do |batch|%>
+											<li class="close">
+												<span class="toggle"></span><a href="#" class=""><input type="checkbox" name="batches" class = "batches_check batches_check_<%= course.id%>" id ="batches_check_<%= batch.id%>" data_id = "<%= batch.id%>" data_course = "<%= course.id%>"/><span><%= batch.full_name%></span></a>
+												<ul>
+													<% unless batch.students.empty?%>
+													<%batch.students.each do |student|%>
+													<li >
+														<a href="#" class=""><input type="checkbox" name="student" class = "student_check student_check_<%= batch.id%>  student_<%= course.id%>" id ="student_check_<%= student.id%>" data_id = "<%= student.id%>" data_course = "<%= course.id%>" data_batch = "<%= batch.id%>"/><span><%= student.full_name%></span></a>
+													</li>
+													<%end%>
+													<%end%>
+												</ul>
+											</li>
+											<%end%>
+											<%end%>
+										</ul>
+									</li>
+									<%end%>
+									<%end%>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</p>
+		<%end%>
+		<p class="inline-small-label">
+			<label class="required" for="field13">To </label>
+			<select id="select3" name="select3"></select>
+		</p>
+		<p class="inline-small-label">
+			<label class="required" for="field13">Subject</label>
+			<%= f.text_field :subject , :class => "full_width" %>
+		</p>
+		<p class="inline-small-label">
+			<label class="required" for="field13">Body</label>
+			<%= f.text_area :body , :cols => 70  %>
+		</p>
+		<p>
+			<input type="checkbox" name="send_email" id="email_send">
+			<label for="field3" class="inline">Send Email</label>
+		</p>
+	</div>
+</fieldset>
+<%end%>
+<fieldset class="grey-bg no-margin" id ="reminder_button">
+	<% if @role == "Student"%>
+	<button type="button" class ="send" >
+		Send
+	</button>
+	<% elsif @role == "Admin"%>
+	<button type="button" class ="admin_send">
+		Send
+	</button>
+	<% elsif @role == "Employee"%>
+	<button type="button" class ="emp_send">
+		Send
+	</button>
+	<%end%>
+	<button type="button" id = "" onclick="$(location).attr('href','/reminder');">
+		Cancel
+	</button>
+</fieldset>

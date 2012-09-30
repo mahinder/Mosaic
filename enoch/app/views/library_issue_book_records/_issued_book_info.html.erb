@@ -1,0 +1,38 @@
+<br />
+<div class="block-border"  id ="outer_block">
+	<div class =  "block-content form">
+		<h1>Book Information</h1>
+		<fieldset class="grey-bg">
+			<p class="inline-small-label">
+				<label for="field13">Book Name</label>
+				<input type="text"  name = "Book Name"  value="<%=@book.name%> " disabled= true/>
+			</p>
+			<p class="inline-small-label">
+				<label for="field13">Author</label>
+				<input type="text"  name = "Author"  value="<%=@book.library_author.name unless @book.library_author.nil?%> " disabled= true/>
+			</p>
+			<p class="inline-small-label">
+				<label for="field13">Tag</label>
+				<input type="text"  name = "Tag"  value="<%=@book.library_tag.name unless @book.library_tag.nil?%> " disabled= true/>
+			</p>
+			<p class="inline-small-label">
+				<label for="field13">Title</label>
+				<input type="text"  name = "Title"  value="<%=@book.title%> " disabled= true/>
+			</p>
+			<p class="inline-small-label">
+				<label for="field13">Total Copies</label>
+				<input type="text"  name = "Available Copies"  value="<%=@book.no_of_copies%> " disabled= true/>
+			</p>
+			<!-- <p class="inline-small-label">
+				<label for="field13">Available Copies</label>
+				<input type="text" class = "available_books" name = "Available Copies"  value="<%=@book.available_no_of_copies%> " disabled= true/>
+			</p> -->
+			
+			
+			
+		</fieldset>
+		
+		
+		
+	</div>
+</div>

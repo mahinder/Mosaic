@@ -1,0 +1,13 @@
+jQuery('#modal-box').html('<%= escape_javascript render('subject_students') %>');
+$.modal({
+	content: jQuery('#modal-box'),
+	title: 'Students',
+	maxWidth: 500,
+	height : 375,
+	buttons : {
+					'Close' : function(win) {
+						win.closeModal();
+					}
+				}
+	
+});

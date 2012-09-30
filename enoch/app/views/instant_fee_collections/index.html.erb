@@ -1,0 +1,37 @@
+
+<div class="block-border" id="outer_block">
+<div class="block-content form">
+	<h1>Collection</h1>
+<div class="block-controls enoch_block">
+					<ul class="controls-tabs js-tabs">
+						<li >
+							<%= link_to image_tag("/assets/icons/web-app/32/Back.png"),"javascript:history.back()" %>
+						</li>
+					</ul>
+				</div>	
+	<fieldset>
+		<legend>
+			Instant Fee Collection
+		</legend>
+		<div class="columns">
+			<p class="colx2-left">
+				<label for="search">Search</label>
+				<%= text_field_tag :name_query ,nil , :size => 20%>
+			</p>
+			<p class="colx2-right">
+				<label for="simple-action">Select Option</label>
+				<%= radio_button_tag(:search,"Student",true) %>
+				<%= label_tag(:student_name, "Student") %>
+				<%= radio_button_tag(:search,"Employee") %>
+				<%= label_tag(:employee_name, "Employee") %>
+				<%= radio_button_tag(:search, "Guest") %>
+				<%= label_tag(:guest_name, "Guest") %>
+			</p>
+		</div>
+	</fieldset>	
+	 <%= hidden_field_tag("search_option", params['search_option'], :value => "Student") %>
+	 <br />
+	 <div id="updateInstantFeeSearch"></div>
+</div>
+</div>
+

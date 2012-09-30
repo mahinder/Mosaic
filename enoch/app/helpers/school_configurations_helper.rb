@@ -1,0 +1,2 @@
+module SchoolConfigurationsHelper
+end

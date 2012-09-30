@@ -1,0 +1,60 @@
+<div class="block-border" id="outer_block">
+	<div class="block-content form">
+		<h1>Assignment List</h1>
+		<div class="block-controls enoch_block">
+			<ul class="controls-tabs js-tabs">
+				<li >
+					<a href="<%= dashboard_path(@user) %>" title ="Back"> <img src="/assets/icons/web-app/32/Back.png" width="24" height="24"></a>
+				</li>
+			</ul>
+		</div>
+   <% unless flash[:warn_notice].nil? %>
+	<ul class="message warning">
+			<li><%= flash[:warn_notice] %></li>
+			<li class="close-bt"></li>
+	</ul>
+	<% end %>
+<fieldset>
+	<legend>
+		 View Assignment
+		</legend>
+		<%unless @user.employee_record.nil?%>
+			<%if @user.employee_record.is_teacher?%>
+		<div class="columns">					
+		    <p class="colx3-left required select-fixed-width1">
+		    	<label for="Subject">Batch</label>	
+				<%= select :view_assignment, :batch_id, @batches.map{|c| [c.full_name, c.id]},{:prompt=>'Select'}%>
+			</p>
+			<p class="colx3-center required select-fixed-width1" id="change_assignment_subject">
+          		<span class="relative"><%= render :partial => "view_subject"%></span>
+        	</p> 				
+		</div>
+		<%end%>
+		<%end%>
+		<%if @user.admin?%>
+		<div class="columns">   
+      	    
+         <p class="colx3-left required select-fixed-width1"> 
+          <label for="student_grade">Course</label>
+          <span class="relative"> <%= select :assignment_course_search, :course_id, Course.active.map{|c| [c.course_name, c.id]},:prompt => "Select" %></span>
+        </p> 
+        
+        <p class="colx3-center required select-fixed-width1" id="change_batch_for_admin">
+          <span class="relative"><%= render :partial => "admin_batch"%></span>
+        </p>
+        
+        <p class="colx3-center required select-fixed-width1" id="change_assignment_subject">
+          		<span class="relative"><%= render :partial => "view_subject"%></span>
+        </p> 
+</div>
+<input type="hidden" name="viewAssignment" id="viewAssignment" value="viewAssignment"\>
+<%end%>
+		<div class="columns">					
+		    <p class="colx3-left">
+			<div id="assignments_to_student_list" ></div>
+			</p>
+	    </div>
+</fieldset>
+
+	</div>
+</div>

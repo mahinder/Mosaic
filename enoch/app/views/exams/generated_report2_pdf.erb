@@ -1,0 +1,74 @@
+<style type="text/css">
+.break { page-break-after: always; }	
+</style>
+
+
+
+	<hr style="height:0.0em;width:50em;border:1px solid #FB7A31;" />
+ 
+
+     <h4> <%= @batch.full_name %> | <%= @subject.name %></h4>
+      <% @exam_groups.each do |exam_group| %> 
+		<% @exams = Exam.find_all_by_subject_id(@subject.id,:conditions=>{:exam_group_id=>exam_group.id}) %>
+		<%end%>  
+		<%@exams.each do |exam|%>
+		<h3>Topic:<%=exam.topic.name%></h3>
+      <table class="break">
+        <tr>
+        	 <tr class="yellow"> 
+        <td class="adjacent">Name</td>
+        <% @exam_groups.each do |exam_group| %>
+          <td class="adjacent"><%= exam_group.assessment_name.name %></td>
+        <% end %>
+        </tr>
+      </tr>
+      <% i = 0 %>
+      <% @students.each do |student| %>
+        <tr>
+          <td class="adjacent"><%= student.full_name %></td>
+          <% @exam_groups.each do |exam_group| %>
+            <td class="adjacent">
+              <% exam_score = ExamScore.find_by_student_id(student.id,:conditions=>{:exam_id=>exam.id}) unless exam.nil? %>
+              <% unless exam.nil? %>
+                <% if exam_group.exam_type == 'Marks' %>
+                  <%= exam_score.nil? ? '-' : "#{exam_score.marks || "-"}/"+exam.maximum_marks.to_s %>
+                <% elsif exam_group.exam_type == 'Grades'%>
+                <%unless exam_score.nil?%>
+						<%grade=exam_score.grading_level_detail.grading_level_detail_name unless exam_score.grading_level_detail.nil? %>
+						<%end%>
+                  <%= exam_score.nil? ? '-' : (grade || '-') %>
+                <% else %>
+                  <%unless exam_score.nil?%>
+						<%grade=exam_score.grading_level_detail.grading_level_detail_name unless exam_score.grading_level_detail.nil? %>
+						<%end%>
+						<%= exam_score.nil? ? '-' :  "#{(exam_score.marks || "-")}" +"/"+exam.maximum_marks.to_s+"[#{(grade || "-")}]" %>
+						<% end %>
+              <% else %>
+                <%= "N.A" %>
+              <% end %>
+            </td>
+          <% end %>
+        </tr>
+        <% i+=1 %>
+      <% end %>
+      <tr>
+        <td class="adjacent"><b>
+          Class Avg
+        </b></td>
+        <% @exam_groups.each do |exam_group| %>
+          <% if exam_group.exam_type == 'Marks' or exam_group.exam_type == 'MarksAndGrades' %>
+            <% exam = Exam.find_by_subject_id(@subject.id,:conditions=>{:exam_group_id=>exam_group.id}) %>
+            <td class="adjacent"><b>
+              <%="%.2f"%exam_group.subject_wise_batch_average_marks(@subject.id) unless exam.nil?%>
+           </b> </td>
+          <% else %>
+            <td class="adjacent">-</td>
+          <% end %>
+        <% end %>
+      </tr>
+      </table>
+      <%end%>
+
+
+
+

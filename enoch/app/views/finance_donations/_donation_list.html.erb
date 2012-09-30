@@ -1,0 +1,15 @@
+
+<form class="block-content form" id="table_form" method="post" action="">
+	<h1>donations List</h1>
+	<table id="donation_table" class="table donationtables no-margin" cellspacing="0" width="100%">
+		<thead>
+			<%= render 'table_head' %>
+		</thead>
+		<tbody>
+			<% @donations.each do |inc| %>
+			<%= render 'table_row', :todaydonation => inc %>
+			<% end %>
+		</tbody>
+	</table>
+	<input type="hidden" id="url_prefix" name="url_prefix" value="/finance_donations" />
+</form>

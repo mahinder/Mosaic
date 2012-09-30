@@ -1,0 +1,39 @@
+<div class="block-border" >
+	<form class="block-content form" id="batch_subject_form" method="" action="">
+		<h1>Batch</h1>
+		<div class="block-controls enoch_block">
+			<ul class="controls-tabs js-tabs">
+				<li >
+					<a href='/courses/all_record' title ="Courses" ><%= image_tag "dashboard/grade_level.png", :size => "24x24"  %></a>
+				</li>
+				<li >
+					<!-- <a href="/courses/all_record" title ="Back"> <img src="/assets/icons/web-app/32/Back.png" width="24" height="24"></a> -->
+					<a href='javascript:' title ="Back" class = "back"><img src="/assets/icons/web-app/32/Back.png" width="24" height="24"></a>
+				</li>
+			</ul>
+		</div>
+		<fieldset class="grey-bg">
+			<legend>
+				Batch
+			</legend>
+			<div class="columns">
+				<div class="colx2-left required select-fixed-width1">
+					<p>
+						<label for="simple-action" class = "load">Course</label>
+						<%= select :course_id, :course_name, @courses_value.map {|b| [b.course_name , b.id]} ,:id => "select_courses" %>
+					</p>
+				</div>
+				<div class="colx2-right required" id = "batch-select">
+					<%= render 'select_batch'%>
+				</div>
+			</div>
+		</fieldset>
+		<div id = "full_page">
+			<%= render 'full_page' %>
+		</div>
+	</form>
+</div>
+<div id="modal-box-batch-subject-edit" class="rajan" style="display:none;">
+	<%= render '/batches/edit' %>
+</div>
+<div id="modal-box"  style="display:none;"></div>

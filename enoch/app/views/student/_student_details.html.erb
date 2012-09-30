@@ -1,0 +1,84 @@
+<div class="with-head">
+							<div class="head">
+								<div class="black-cell with-gap"><span class="success"></span></div>
+								<div>
+								<div class="button menu-opener ">
+										Student List
+										<div class="menu-arrow">
+											<img src="/assets/menu-open-arrow.png" width="16" height="16">
+										</div>
+										<div class="menu">
+											<ul>
+												<li class="icon_doc_image"><%= link_to 'Excel Format', :controller=>"/student",:action=>"print_student_pdf_details",:format => 'xls' ,:batch_ids => @batch_array ,:type =>'xls' %></li>
+												<li class="icon_computer"><%= link_to 'PDF Format', :controller=>"/student",:action=>"print_student_pdf_details",:format => 'html' ,:batch_ids => @batch_array ,:type =>'pdf' %></li>
+											</ul>
+										</div>
+									</div>
+									<div class="button menu-opener">
+										Fees Defaulter
+										<div class="menu-arrow">
+											<img src="/assets/menu-open-arrow.png" width="16" height="16">
+										</div>
+										<div class="menu">
+											<ul>
+												<li class="icon_doc_image"><%= link_to 'Excel Format', :controller=>"/finance",:action=>"fee_defaulters_batch_pdf_details",:format => 'xls' ,:batch_ids => @batch_array ,:type =>'xls' %></li>
+												<li class="icon_computer"><%= link_to 'PDF Format', :controller=>"/finance",:action=>"fee_defaulters_batch_pdf_details",:format => 'html' ,:batch_ids => @batch_array ,:type =>'pdf' %></li>
+											</ul>
+										</div>
+									</div>
+									<div class="button menu-opener">
+										Time-Table
+										<div class="menu-arrow">
+											<img src="/assets/menu-open-arrow.png" width="16" height="16">
+										</div>
+										<div class="menu">
+											<ul>
+												<li class="icon_doc_image"><%= link_to 'Excel Format', :controller=>"/timetable",:action=>"timetable_batch_selected_pdf",:format => 'xls' ,:batch_ids => @batch_array ,:type =>'xls' %></li>
+												<li class="icon_computer"><%= link_to 'PDF Format', :controller=>"/timetable",:action=>"timetable_batch_selected_pdf",:format => 'html' ,:batch_ids => @batch_array ,:type =>'pdf' %></li>
+											</ul>
+										</div>
+									</div>
+									</div>
+								</div>
+							
+							<div class="dark-grey-gradient with-padding" style="height:400px; overflow: auto">
+								
+							<!-- 	<div class="loading-tab stick-to-top">
+									<span class="button">
+										File3.zip
+										<span class="progress-bar"><span style="width:50%">50%</span></span>
+										<small id="">1.74 Mo / 2.75 Mo</small>
+									</span>&nbsp;
+								</div> -->
+								<ul class="files">
+									<%student_count = []%>
+									<%@students_list.each do |std|%>
+									<%std.each do |student|%>
+									<%student_count <<  student unless student_count.include?(student)%>
+									<li><a href="/student/my_profile?q=<%=student.admission_no%>">
+										<span>
+											<%if FileTest.exists?("#{Rails.root}/public/system/student_photos/#{student.id}")&& !student.student_photo.nil?%>
+												 <img src=" <%=student.student_photo.url(:small) %>" width="64" height="45" class="thumb">
+												<%elsif student.gender.upcase=="M"%>
+												<img src="/assets/icons/web-app/48/male.png" width="64" height="45" class="thumb">
+												
+												<%else%>
+												<img src="/assets/icons/web-app/48/female.png" width="64" height="45" class="thumb">
+												
+												<% end %>
+										</span>
+										<%=student.full_name %> <br /><%="("+  student.batch.full_name + ")"%>
+									</a></li>
+									<%end%>
+									<%end%>
+									<%= hidden_field_tag :student_list_pdf_val ,student_count.count%>
+								</ul>
+								
+							</div>
+						</div>
+						
+						<ul class="message">
+							<li><%=student_count.count%> Students found</li>
+						</ul>
+						
+					</div>

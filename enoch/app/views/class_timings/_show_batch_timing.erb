@@ -1,0 +1,67 @@
+<style>
+	#class_timing {
+		margin-left: .2em;
+		margin-bottom: .5em;
+	}
+</style>
+
+	<% unless @class_timings.empty? %>
+	<fieldset class="grey-bg">
+	<table  id = "class_timing" class="table timing no-margin" cellspacing="0" width="100%"  border="0" >
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Start time</th>
+				<th>End time</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @class_timings.each do |class_timing| %>
+			<tr >
+				<td id="time_name_<%= class_timing.id %>"><%= class_timing.name %></td>
+				<td id="time_start_<%= class_timing.id %>"><%= class_timing.start_time.strftime("%I:%M %p") unless class_timing.start_time.nil? %></td>
+				<td id="time_end_<%= class_timing.id %>"><%= class_timing.end_time.strftime("%I:%M %p") unless class_timing.end_time.nil? %></td>
+				<td ><small>
+					<input type="hidden" name="object_id" value="<%= class_timing.id %>"/>
+					<%= link_to image_tag("/assets/icons/fugue/pencil.png"), edit_class_timing_path(class_timing), :method => 'get',:remote => true%>
+
+					<% @tt = PeriodEntry.find_all_by_class_timing_id(class_timing.id ) %>
+					<% if @tt.empty? %>
+					<%= link_to image_tag("/assets/icons/fugue/cross-circle.png"),"" ,:class => "delete-time-href", :id => class_timing.batch_id %>
+
+					<% else %> <s></s> <% end %></small></td>
+			</tr>
+			<% end %>
+		</tbody>
+		
+	</table>
+	</fieldset>
+	<% else %>
+	<fieldset >
+	<br/>
+	<br/> 
+	 <h4>The Batch has Class Timing set in Common. To add customized Timing click ADD Class Timing </h4>
+	</fieldset>
+	<% end %>
+
+
+<fieldset class="grey-bg no-margin">
+	<legend>
+		Action
+	</legend>
+	<p class="input-with-button">
+		<% if @batch.nil?%>
+		<input type="button" class="class_timing big-button" data-batch="common" title ="create class Timing" value="ADD Class Timing"/>
+		<!-- <button class="class_timing" data-batch="common" title ="create class Timing">
+			ADD
+		</button> -->
+		<% else %>
+		<input type="button" value="ADD Class Timing" class="class_timing big-button" data-batch_id="<%= @batch.id %>" data-batch = "<%= @batch.full_name%>" title ="create class Timing" />
+		<!-- <button class="class_timing" data-batch_id="<%= @batch.id %>" data-batch = "<%= @batch.full_name%>" title ="create class Timing">
+			ADD
+		</button> -->
+		<% end %>
+		<%= button_to_function "Reset", "$(location).attr('href','/class_timings');", :class => "big-button" %>
+	</p>
+</fieldset>

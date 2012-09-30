@@ -1,0 +1,30 @@
+
+
+<div class="block-border">
+	<div class="block-content form">
+
+<%= form_for :one_click_payslip, :url => {:action => 'one_click_payslip_generation'} do |s|%>
+
+<div class="columns">
+									<p class="colx3-left required">
+										<label for="salary_date">Salary date</label>
+ <%=text_field_tag :salary_date,Date.today.strftime('%d''-''%m''-''%Y'), :class =>'datepicker',:size=>20%>	</p> 
+								</div>
+ 
+  <div class="extender"></div>
+
+    <fieldset class="grey-bg no-margin">
+								<legend>
+									Action
+								</legend>
+								<p class="input-with-button">
+									<%= s.submit "Update", :class => "big-button",:id=>'one_click_p'%>
+								</p>
+							</fieldset>
+
+
+
+<% end %>
+
+</div></div>
+

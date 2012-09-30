@@ -1,0 +1,38 @@
+<div class="depot_form">
+	<%= form_for @user, :html => { :multipart => true } do |f| %>
+	<% if @user.errors.any? %>
+	<div id="error_explanation">
+		<h2><%= pluralize(@user.errors.count, "error") %>
+		prohibited this user from being saved:</h2>
+		<ul>
+			<% @user.errors.full_messages.each do |msg| %>
+			<li>
+				<%= msg %>
+			</li>
+			<% end %>
+		</ul>
+	</div>
+	<% end %>
+	<p>
+		<%= f.label :name %>
+		<%= f.text_field :name %>
+	</p>
+	<p>
+		<%= f.label :password, 'Password' %>
+		<%= f.password_field :password%>
+	</p>
+	<p>
+		<%= f.label :password_confirmation, 'Confirm' %>
+		<%= f.password_field :password_confirmation %>
+	</p>
+	<p>
+	<%= f.label :photo, 'Upload Photo' %>	
+	<%= f.file_field :photo %>
+	</p>
+	<footer>
+	<%= f.submit nil ,:class => 'btnSubmit'%>
+	<%= link_to 'Show', @user,:class => 'btnSubmit' %>
+	<%= link_to 'New Album', new_album_path ,:class => 'btnSubmit'%>
+</footer>
+	<% end %>
+</div>

@@ -1,0 +1,68 @@
+
+<% unless @students.empty?%>
+				<form class="form" id="table_form" method="post" action="">
+					<h1>Student List</h1>
+					<div id="tabs-content" class="tabs-content">
+						<div id="tab-active">
+							<table id="active-table" class="table student_passangers no-margin" cellspacing="0" width="100%">
+								<thead>
+										<tr>
+										<th class="black-cell"></th>
+										<th scope="col">
+											<span class="column-sort">
+												<a href="#" title="Sort up" class="sort-up"></a>
+												<a href="#" title="Sort down" class="sort-down"></a>
+											</span>
+											 Admission No
+										</th>
+										<th scope="col">
+											<span class="column-sort">
+												<a href="#" title="Sort up" class="sort-up"></a>
+												<a href="#" title="Sort down" class="sort-down"></a>
+											</span>
+											Full Name
+										</th>
+										<th scope="col">
+											<span class="column-sort">
+												<a href="#" title="Sort up" class="sort-up"></a>
+												<a href="#" title="Sort down" class="sort-down"></a>
+											</span>
+											Batch
+										</th>
+										<th scope="col">
+											<span class="column-sort">
+												<a href="#" title="Sort up" class="sort-up"></a>
+												<a href="#" title="Sort down" class="sort-down"></a>
+											</span>
+											Gender
+										</th>
+											<th scope="col">
+											<span class="column-sort">
+												<a href="#" title="Sort up" class="sort-up"></a>
+												<a href="#" title="Sort down" class="sort-down"></a>
+											</span>
+											Board
+										</th>
+										
+									</tr>
+								</thead>
+									
+									<% @students.each do |student| %>
+									<tr>
+										<td class="th table-check-cell">  <%= check_box_tag :passanger_ids, student.id%></td>
+										<td><%= student.admission_no%></td>
+										<td><%= student.full_name%></td>
+										<td><%= student.batch.full_name%></td>
+										<td><%= student.gender%></td>
+										<td><%= select :passanger,:board_id, @boards.map{|c| [c.name, c.id]},{:prompt=>'Select'},{:id=>"board_#{student.id}"} unless @boards.empty?%></td>
+									</tr>
+									<% end %>
+								
+							</table>
+						</div>
+					
+					</div>
+				</form>	
+				<%else%>
+           <h3> Record not found</h3>
+				<%end%>

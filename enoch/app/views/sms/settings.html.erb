@@ -1,0 +1,75 @@
+<div class="block-border" >
+	<div class = "block-content form" >
+		<h1>SMS</h1>
+		<div class="block-controls enoch_block">
+			<ul class="controls-tabs js-tabs">
+				<li >
+					<a href='javascript:' title ="Back" onclick='history.back();'><img src="/assets/icons/web-app/32/Back.png" width="24" height="24"></a>
+					<!-- <a href='javascript:' title ="Back" class = "back"><img src="/assets/icons/web-app/32/Back.png" width="24" height="24"></a> -->
+				</li>
+			</ul>
+		</div>
+		<% unless flash[:notice].nil? %>
+		<ul class="message success">
+			<li>
+				<%= flash[:notice] %>
+			</li>
+			<li class="close-bt"></li>
+		</ul>
+		<% end %>
+
+		<%= form_for :sms_settings do |s| %>
+		<fieldset class="grey-bg">
+			<legend>
+				Sms Settings
+			</legend>
+			<div class="columns">
+				<p>
+					<%= s.check_box :application_enabled, :checked=>@application_sms_enabled.is_enabled %> <label for="field1" class="inline">Application Enabled</label>
+					<!-- <%= s.submit "Update", :class=>'big-button' %> -->
+				</p>
+			</div>
+		</fieldset>
+		<%end%>
+		<br />
+		<div id = "sms_setting_page">
+			<% unless @application_sms_enabled.is_enabled == false %>
+			<%= form_for :general_settings, :url=>{:controller=>"sms",:action=>"update_general_sms_settings"} do |sms| %>
+			<fieldset class="grey-bg">
+				<legend>
+					General SMS Settings
+				</legend>
+				<div class="columns">
+					<p>
+						<%= sms.check_box :student_admission_enabled, :checked=>@student_admission_sms_enabled.is_enabled %> <label for="field1" class="inline">Student Admission</label>
+						<br />
+						<%= sms.check_box :exam_schedule_result_enabled, :checked=>@exam_schedule_result_sms_enabled.is_enabled %> <label for="field1" class="inline">Exam Schedule / Result</label>
+						<br />
+						<%= sms.check_box :student_attendance_enabled, :checked=>@student_attendance_sms_enabled.is_enabled %> <label for="field1" class="inline">Attendance</label>
+						<br />
+						<%= sms.check_box :news_events_enabled, :checked=>@news_events_sms_enabled.is_enabled %> <label for="field1" class="inline">News / Events</label>
+						<br />
+						<%= sms.check_box :sms_employees_enabled, :checked=>@employees_sms_enabled.is_enabled %><label for="field1" class="inline"> Employee Creation</label>
+						<br/>
+						<%= sms.check_box :ptm_enabled, :checked=>@ptm_sms_enabled.is_enabled %><label for="field1" class="inline"> PTM Creation</label>
+						<br/>
+						<%= sms.check_box :additinal_exam_schedule_result_enabled, :checked=>@additionalexam_schedule_result_sms_enabled.is_enabled %><label for="field1" class="inline">Additional Exam Schedule / Result</label>
+						<br/>
+					</p>
+				</div>
+			</fieldset>
+			<fieldset class="grey-bg no-margin">
+				<legend>
+					Action on create
+				</legend>
+				<div class="columns">
+					<div class="colx2-left-double">
+						<%= sms.submit "Update",:class=>'big-button' %>
+					</div>
+				</div>
+			</fieldset>
+			<%end%>
+			<%end%>
+		</div>
+	</div>
+</div>

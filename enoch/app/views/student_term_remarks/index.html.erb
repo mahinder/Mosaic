@@ -1,0 +1,38 @@
+<div class="block-border" id="outer_block">
+	<div class="block-content form">
+		<h1> Student Term Remarks</h1>
+		<div class="block-controls enoch_block">
+					<ul class="controls-tabs js-tabs">
+						<li >
+							<%= link_to image_tag("/assets/icons/web-app/32/Back.png"),"javascript:history.back()" %>
+						</li>
+					</ul>
+		</div>
+			<fieldset class="grey-bg">
+						<legend><a href="#">Create Remarks</a></legend>
+						
+						<div class="float-left gutter-right required select-fixed-width1">
+							<label for="stats-period">Term</label>
+							<span class="relative">
+								<%= select :term, :master_id, TermMaster.active.map{|c| [c.name, c.id]},:prompt => "Select" %>
+							</span>
+						</div>
+						<div class="float-left gutter-right required select-fixed-width1">
+							<span class="label">Course</span>
+								<%= select :student_term, :course_id, Course.active.map{|c| [c.course_name, c.id]},:prompt => "Select"%>
+						</div>
+						<div class="float-left gutter-right required select-fixed-width1">
+							<span class="label">Batch</span>
+							<p id="change_batch_for_student_term">
+			          			<span class="relative"><%= render :partial => "student_term_batch"%></span>
+        					</p>
+						</div>
+						<div class="float-left required select-fixed-width1">
+							<span class="label">Remarks Type</span>
+							<%= select :remarks_type , :field_id, ['None','My Goals','Strengths','My Interests and Hobbies','Responsibilities Discharged']%>
+						</div>
+					</fieldset>
+
+		<div id="enterStudentTermRemarks"></div>
+	</div>
+</div>

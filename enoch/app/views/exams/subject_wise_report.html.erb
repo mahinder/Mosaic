@@ -1,0 +1,94 @@
+
+
+
+<div class="block-border" id="outer_block">
+	<div class="block-content form">
+  
+  <h1>Subject wise Reports</h1>
+  <div class="block-controls enoch_block">
+			<ul class="controls-tabs js-tabs">
+				<li >
+					<%= link_to image_tag("/assets/icons/web-app/32/Back.png"), :controller=>'sessions',:action=>'dashboard'%>
+			
+				</li>
+			</ul>
+		</div>
+  
+    <% unless flash[:notice].nil? %>
+	<ul class="message success grid_12">
+       <li><strong><%= flash[:notice] %></strong></li>
+       <li class="close-bt"></li>
+       	</ul>
+    <% end %>
+
+
+<%= form_for :exam_report, :url=>{:action=>'generated_report2'} do |x| %>
+<input type="hidden" id="current_user" value="<%=@user.role_name%>" />
+<%if @user.admin? || @user.employee? &&  @current_user.privileges.map{|p| p.id}.include?(Privilege.find_by_name('ViewResults').id) %>
+
+<fieldset class="grey-bg">
+					<legend>Required fields</legend>
+					<div class="columns">
+						<p class="colx2-left required select-fixed-width1">
+		<label for="exam_name">Course</label>
+		<%= select :exam_report_subject, :course_id,
+        @courses.map {|b| [b.full_name, b.id]},
+        {:prompt => 'Select'}%>
+	</p>
+	<p class="colx2-left required">
+		<label for="exam_name">Batch</label>
+		<div id="subject_wise_batch_id" class="select-fixed-width1">
+		<%= select :exam_report, :batch_id,
+        @batches.map {|b| [b.full_name, b.id]},
+        {:prompt => 'Select'} %>
+        </div>
+	</p>
+</div>
+<div class="columns">
+	<p class="required">
+		<label for="exam_type">Subject</label>
+		<div id="select_sub" class="select-fixed-width1">
+		 <%= render :partial =>'subject_select'%>
+	</div>
+	</p>
+	
+	</div>
+</fieldset>
+<%else%>
+<fieldset class="grey-bg">
+					<legend>Required fields</legend>
+					<div class="columns">
+						<p class="colx2-left required select-fixed-width1">
+		<label for="exam_name">Batch</label>
+		
+		<%= select :subject_report, :batch_id,
+        @batch.map {|b| [b.full_name, b.id]},
+        {:prompt => 'Select'},:id =>'subject_batch_id' %>
+        
+	</p>
+	<p class="colx2-center required">
+		<label for="exam_type">Subject</label>
+		<div id="select_sub" class="select-fixed-width1">
+		 <%= render :partial =>'subject_select'%>
+	</div>
+	</p></div>
+	</fieldset>
+<%end%>
+  <fieldset class="grey-bg no-margin">
+	<legend>
+		Action
+	</legend>
+	<p class="input-with-button">
+		<%= x.submit "View", :class => "big-button",:id => 'swr'%>
+	</p>
+</fieldset>
+
+   
+
+<% end %>
+
+  <div class="extender">
+
+      </div>
+ </div></div>
+  

@@ -1,0 +1,31 @@
+
+<%unless @additional_fields.empty?%>
+<%= form_for :student_additional_details, :url => {:controller => 'student', :action => 'admission4', :id => @student.id}, :remote => true do |a| %>
+
+	<fieldset >
+		<legend>
+			Additional Field
+		</legend>
+		<% @additional_fields.each do |additional| %>
+		<% @additionaal_details = StudentAdditionalDetails.find_all_by_student_id_and_additional_field_id(@student.id,additional.id)  %> <label><%= additional.name %></label>
+		<%= a.text_field :additional_info, :index => additional.id, :value => (@additionaal_details.nil? ? "" : @additionaal_details[0].additional_info unless @additionaal_details.empty?),:ids=> "aditionalField",:field_name => additional.name%> <div class="extender"></div>
+		<% end %>
+	</fieldset>
+	<% if permitted_to? :admission4 ,:student%>
+<fieldset class="grey-bg">
+	<legend>
+		Action
+	</legend>
+	<p class="colx3-right">
+		<%= a.submit "Update", :class => "big-button" ,:id => "update_student_additional_field"%>
+	</p>
+</fieldset>
+<% end %>
+<% end %>
+<%else%>
+<div class="block-border" id="" style="width: 55em;height: 25em">
+
+			<h2>No Additional Field Declared</h2>
+
+</div>
+<%end%> 

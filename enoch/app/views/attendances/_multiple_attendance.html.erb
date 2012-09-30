@@ -1,0 +1,28 @@
+<table class="table multipleMarkAttendance no-margin" cellspacing="0" width="100%">
+				
+					<thead>
+						<tr>
+							<th class="black-cell"></th>
+							<th scope="col">
+								<span class="column-sort">
+									<a href="#" title="Sort up" class="sort-up"></a>
+									<a href="#" title="Sort down" class="sort-down"></a>
+								</span>
+								Name
+							</th>
+							<th scope="col">Absentee Roll No<br /><span>(Comma Seperated Class Roll No)</span></th>
+						</tr>
+					</thead>
+					
+					<tbody>
+						<% @batches.each do |batch| %>
+						<%@student_roll_no = return_student_roll_no(batch,params[:date])%>
+						<tr>
+							<td class="th table-check-cell"></td>
+							<td><%=link_to batch.full_name %></td>
+							<td><%= text_field_tag :mark_multiple_attendance, @student_roll_no, :class => 'full-width mark_multiple_attendance' ,:placeholder => 'Enter Roll No', :batch =>batch.id%></td>
+						</tr>
+						<%end%>
+					</tbody>
+				
+				</table>

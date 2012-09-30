@@ -1,0 +1,243 @@
+<style type="text/css">
+	
+
+#page-yield {
+    width:800px;
+    margin: 0 auto;
+    float: left;
+    overflow: hidden;
+    
+}
+
+
+
+.hor_line{
+    width:800px;
+    background: #333333;
+    height: 1px;
+}
+
+h2.heading{
+    text-align: center;
+    margin:5px;
+}
+
+#main_info h4{
+    color: #555555;
+    margin-top: 18px;
+    font-weight: normal;
+}
+
+#main_info h2{
+    margin-bottom: 2px;
+    font-weight: normal;
+
+}
+
+
+.odd{
+    height:auto;
+    background: #EEEEEE;
+
+}
+
+.even{
+
+    height:auto;
+    background: #fff;
+
+
+}
+tr.even{
+    border: 1px solid #ADACAB;
+}
+
+tr.odd{
+    border: 1px solid #ADACAB;
+}
+
+.even td{
+
+    padding: 12px 12px 12px 15px;
+    border: 1px solid #ADACAB;
+    border-right: 0px solid #fff;
+    border-top: 0px solid #fff;
+
+}
+
+.odd td{
+    padding: 12px 12px 12px 15px;
+    border: 1px solid #ADACAB;
+    border-right: 0px solid #fff;
+    border-top: 0px solid #fff;
+
+}
+
+.table-header td{
+    padding: 12px 12px 12px 15px;
+    border-top: 1px solid #ADACAB;
+    border-left: 1px solid #ADACAB;
+    border-right: 1px solid #ADACAB;
+    color: #97080e;
+    background: #EEEEEE;
+}
+
+table#pdf-table{
+    border-top: 1px solid #ADACAB;
+    border-collapse:collapse
+}
+
+
+#page-extender{
+    width:100%;
+    height :300px;
+
+}
+#page-extender1{
+    width:100%;
+    height :500px;
+
+}
+
+.report{
+    min-height: 1000px;
+    margin: 0 auto;
+}
+
+#signature{
+    text-align: right;
+    width: 700px;
+    margin: 0 auto;
+    color: #999999;
+    font-size: 18px;
+}
+
+
+#page-yield h2{
+    text-align: center;
+}
+
+
+.page-break td{
+    height: 300px;
+    border: 1px solid #fff;
+    border-bottom: 1px solid #ADACAB;
+}
+
+#pdf-info{
+    margin-top: 50px;
+}
+</style>
+
+
+
+<div id="page-yield">
+
+ <hr style="height:0.0em;width:50em;border:2px solid #FB7A31;" />
+  <h2>SCHOOL LEAVING CERTIFICATE</h2>
+  <div class="extender"> </div>
+  <div class="report">
+    
+    <div id="pdf-info">
+      <table id="pdf-table" width="100%" cellspacing="0">
+        <% c= 'odd' %>
+          <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+            <td class="col-pdf">Name</td>
+            <td class="col-pdf"> <%= @student.full_name  %> </td>
+          </tr>
+          <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+            <td class="col-pdf"> Admission no.</td>
+            <td class="col-pdf"><%= @student.admission_no %></td>
+          </tr>
+          <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+            <td class="col-pdf">Date of admission</td>
+            <td class="col-pdf"><%= @student.admission_date.strftime("%d %B %Y") %></td>
+          </tr>
+          <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+            <td class="col-pdf">DOB</td>
+            <td class="col-pdf"><%= @student.date_of_birth.strftime("%d %B %Y") %></td>
+          </tr>
+          <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+            <td class="col-pdf">Last attended course</td>
+            <td class="col-pdf"><%= @student.batch.full_name %></td>
+          </tr>
+          <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+            <td class="col-pdf">Blood group</td>
+            <td class="col-pdf"><%= @student.blood_group %></td>
+          </tr>
+          <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+            <td class="col-pdf">Gender</td>
+            <td class="col-pdf"><%= @student.gender_as_text %></td>
+          </tr>
+          <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+            <td class="col-pdf">Nationality</td>
+            <td class="col-pdf"><%= @student.nationality.name %></td>
+          </tr>
+          <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+            <td class="col-pdf">Language</td>
+            <td class="col-pdf"><%= @student.language %></td>
+          </tr>
+
+          <% if @father %>
+          <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+            <td class="col-pdf">Father</td>
+            <td class="col-pdf"><%= @father.full_name %></td>
+          </tr>
+
+                <% elsif @mother %>
+          <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+            <td class="col-pdf">Mother</td>
+            <td class="col-pdf"><%= @mother.full_name %></td>
+          </tr>
+
+            <% else %>
+          <% unless @immediate_contact.nil? %>
+          <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+            <td class="col-pdf"><%= @immediate_contact.relation %></td>
+            <td class="col-pdf"><%= @immediate_contact.full_name %></td>
+          </tr>
+
+              <% end %>
+              <% end %>
+              <% unless @student.student_category.nil? %>
+          <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+            <td class="col-pdf">Category</td>
+            <td class="col-pdf"><%= @student.student_category.name %></td>
+          </tr>
+          <% end %>
+          <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+            <td class="col-pdf">Religion</td>
+            <td class="col-pdf"><%= @student.religion %></td>
+          </tr>
+          
+
+          <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+            <td class="col-pdf">Address</td>
+            <td class="col-pdf"><%= @student.address_line1 %><br/><%= @student.address_line2 %></td>
+          </tr>
+
+          <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+            <td class="col-pdf">City</td>
+            <td class="col-pdf"><%= @student.city %></td>
+          </tr>
+
+          <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+            <td class="col-pdf">State</td>
+            <td class="col-pdf"><%= @student.state %></td>
+          </tr>
+
+          <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+            <td class="col-pdf">Country</td>
+            <td class="col-pdf"><%= @student.nationality.name %></td>
+          </tr>
+
+          <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+            <td class="col-pdf">Reason for leaving</td>
+            <td class="col-pdf"><%= @student.status_description %></td>
+          </tr>      
+      </table>
+    </div>
+
+  </div>
+
+</div>

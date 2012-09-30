@@ -1,0 +1,16 @@
+jQuery('#modal-box_weekday').html('<%= escape_javascript render('create_weekdays') %>');
+$.modal({
+        content: jQuery('#modal-box_weekday'),
+        title: 'Weekdays Assignment',
+       	width: 350,
+       	height: 300,
+       	buttons : {
+			'Save' : function(win) {
+				confirm_for_weekday();
+				
+			},
+			'Cancel' : function(win) {
+				win.closeModal();
+			}
+		}
+        });

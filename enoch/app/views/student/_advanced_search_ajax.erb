@@ -1,0 +1,17 @@
+<div class="columns">   
+      	    
+         <p class="colx3-left select-fixed-width1"> 
+          <label for="student_grade">Course</label>
+          <span class="relative"> <%= select :advv_search, :course_id, Course.active.map{|c| [c.course_name, c.id]},:prompt => "Select" %></span>
+        </p> 
+        
+        <p class="colx3-center select-fixed-width1" id="change_batch">
+          <span class="relative"><%= render :partial => "batch"%></span>
+        </p>
+        
+        <p class="colx3-right">
+          <label for="student_blood_group">Enter Student Name</label>
+          <%=  text_field_tag :student_advanced_name%>
+        </p>
+</div>
+

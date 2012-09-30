@@ -1,0 +1,67 @@
+<fieldset class="grey-bg ">
+	<legend>
+		Batch Information
+	</legend>
+	<div id ="subject_batch">
+		<%= render 'batch'%>
+	</div>
+</fieldset>
+<!-- <fieldset> -->
+	<!-- <legend>Class Teacher and Home Room</legend> -->
+	<!-- <legend>
+		Class Teacher
+	</legend> -->
+	<!-- <div class="colx3-left">
+	<label for="room_search">Home Room :</label>
+	<span class="input-type-text margin-right relative">
+	<%= text_field :room ,:name,:id=>'tags', :size => '24' %>
+	<img src=" /assets/icons/fugue/magnifier.png" width="16" height="16"> -->
+	<!-- </span> -->
+	<!-- <input type="hidden" id = "room_course_id" name="course_id" value="<%= @course.id%>" /> -->
+	<!-- <div class="colx3" id = "room_assign" style =" height:60px; overflow: auto; width: 210px"></div>
+	</div> -->
+	<!-- <div class="colx3-center">
+		<label for="Tearcher_search">Home Teacher :</label>
+		<span class="input-type-text margin-right relative"> <%= text_field :employee,:name,:id=>'teacher', :size => '24' %> <img src=" /assets/icons/fugue/magnifier.png" width="16" height="16"> </span>
+		<input type="hidden"id = "emp_batch_id" name="emp_course_id" value="<%= @batch.id%>" />
+		<input type="hidden"id = "emp_course_id" name="emp_course_id" value="<%= @course.id%>" />
+		<div class="colx3" id = "teacher_assign" style =" height:60px; overflow: auto; width: 210px"></div>
+	</div> -->
+	<!-- <div class="colx3-center">
+		<br /> -->
+		<input type="hidden"id = "room_id" name="room_name" value="" />
+		<input type="hidden"id = "emp_id" name="emp_name" value="" />
+		<!-- <button  class="with-tip assign-href"  data-course = "<%= @course.id %>" data-batch ="<%= @batch.id%>" >
+			Assgin
+		</button> -->
+<!-- 	</div>
+</fieldset> -->
+<br />
+<div>
+	<ul class="tabs js-tabs ">
+		<li class="current">
+			<a href="#tab-student">Students</a>
+		</li>
+		<li>
+			<a href="#tab-subject">Subjects</a>
+		</li>
+		<li>
+			<a href="#tab-time">Time Slots</a>
+		</li>
+	</ul>
+</div>
+<div id="tabs-content" class="tabs-content">
+	<div id="tab-student">
+		<%= render 'students'%>
+	</div>
+	<div id="tab-subject">
+		<%= render 'subjects'%>
+	</div>
+	<div id="tab-time">
+		<%= render 'time_slot'%>
+	</div>
+</div>
+<br />
+<div id="modal-box-student" class="rajan" style="display:none;">
+	<%= render 'assign_sub_student'%>
+</div>

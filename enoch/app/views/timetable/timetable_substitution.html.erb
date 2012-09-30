@@ -1,0 +1,73 @@
+		<section class="grid_16">
+			<div class="block-border"><div class="block-content">
+				<h1>Timetable Substitution</h1>
+					<div class="block-controls enoch_block">
+						<ul class="controls-buttons">
+							<li>
+								<a href="/timetable/today_timetable_substitution" ><strong>View Substitution</strong></a>
+								<li class="controls-block"><strong><%= Date.today%></strong></li>
+							</li>
+						</ul>
+				</div>
+				<% unless @teacher.empty?%>
+				<div >
+						<ul class="tabs js-tabs">
+							<% unless @teacher.empty?%>
+							<% @teacher.each do |teac|%>
+							<li class=""><a href="#teac_<%= teac.id%>" title="<%= teac.full_name%> "><%= teac.full_name%> </a></li>
+							<%end%>
+							<%end%>
+						</ul>
+					</div>
+					<div id="tabs-content" class="tabs-content">
+					<% @slr = 1%>
+					<% unless @teacher.empty?%>
+					<% @teacher.each do |teac|%>
+						<div id="teac_<%= teac.id%>">
+							<% @assignteacher = TimetableEntry.find_all_by_employee_id(teac.id)%>
+						 	<% @assignteacher_entry = TimetableEntry.day_find(Date.today,@assignteacher)%>
+							<div class="no-margin">
+								<ul class="message no-margin">
+						 			 <li id = "notify"><%= @assignteacher_entry.count %><%if @assignteacher_entry.count >1 %>  Time Slots Found <%else%>  Time Slot Found <%end%></li>
+						 		</ul>
+					<table cellspacing="0" class="list-calendar" id ="table_<%= teac.id%>">
+						<tbody>
+						
+							<% unless @assignteacher_entry.empty?%>
+							
+							<%  @assignteacher_entry.sort! { |a,b| a.class_timing.start_time.to_time <=> b.class_timing.start_time.to_time  } %>
+							
+					  			<% @assignteacher_entry.each do |assteac|%>
+									<tr id ="<%= Date.today%>_<%= assteac.id%>">
+										<th scope="row"><%= @slr%></th>
+										<td >
+											<ul class="mini-menu">
+												<li><a href="#" id = "substitude" title="Free teachers" data_class = "<%= assteac.class_timing.id%>" data_emp = "<%= teac.id%>" data_tr = "<%= assteac.id%>" data_sub = "<%= assteac.subject.id%>" data_batch = "<%= assteac.batch.id%>" data_date = "<%= Date.today%>">List Of Free Teachers</a></li>
+											</ul>
+											<ul class="events">
+												<li><a href="#"><b><%= assteac.class_timing.start_time.strftime("%I:%M")%></b><%= assteac.subject.name%></a></li>
+												<li><a href="#"><b><%= assteac.class_timing.end_time.strftime("%I:%M")%></b><%= assteac.batch.full_name %></a></li>
+												
+											</ul>
+										</td>
+										<% @slr = @slr + 1%>
+									</tr>
+						  <%end%>
+						<%end%>
+						</tbody>
+					</table>
+				</div>
+						</div>
+					<%end%>	
+					<%end%>	
+					</div>
+					<%else%>	
+					<fieldset>
+						<h3>No Employees are absent </h3>
+					</fieldset>
+				<%end%>	
+				
+			<input type="hidden" id="url_prefix" name="url_prefix" value="/payroll_categories" />
+			</div></div>
+		</section>
+		<div id="modal-box-emp_substitute" class="rajan" style="display:none;"> </div>	

@@ -1,0 +1,466 @@
+
+<style>
+	<%if !@class_timing.empty?%>
+	<% index = 0 %>
+		<% @class_timing.each do |time|%>
+	 				<% @start_hour = time.start_time.strftime("%H").to_i %>
+	 					<% @start_minute = time.start_time.strftime("%M").to_i %>
+	 					
+		 					.week-calendar .from-<%= '%.2d' % @start_hour%>-<%= '%.2d' % @start_minute %> { top: <%= @arr[index] %>%; }
+						<%index = index + 1 %>	   
+ 		<%end%>
+	<% index = 0 %>
+	<% @class_timing.each do |time|%>
+	 				<% @start_hour = time.end_time.strftime("%H").to_i %>
+	 					<% @start_minute = time.end_time.strftime("%M").to_i %>
+	 					
+		 					.week-calendar .to-<%= '%.2d' % @start_hour%>-<%= '%.2d' % @start_minute %> { bottom: <%= @arr1[index] %>%; }
+						<%index = index + 1 %>	   
+ 		<%end%>
+	
+	
+	
+	<%end%>
+
+</style>
+<div class="block-border" id = "outer_block"><div class="block-content ">
+				<h1>Timetable</h1>
+			<div class="block-controls  enoch_block "  >
+					<ul class="controls-buttons">
+						<li><a href="/timetable/timetable_pdf?course_id=<%= @batch.id%>" >Pdf</a></li>
+						<li class="sep"></li>
+						<li><a href=""  id = "click_on_batch_name" title="<%= @batch.full_name%>" >For Batch : <%= @batch.full_name%></a></li>
+						<li class="sep"></li>
+						<li><a href=""  id = "elective1" title="Elective">Elective Subjects</a></li>
+						<li class="sep"></li>
+						<li><a href=""  id = "empty1" title="Empty Slots">Empty Slots</a></li>
+						<li><a href='javascript:' title ="Back" onclick="history.back();"><img src="/assets/icons/web-app/32/Back.png" width="24" height="24"></a></li>
+					</ul>
+				</div>
+				
+				<ul class="week-calendar no-margin" id = "cart1">
+					<li class="week-cal-hours">
+						<div><span class="day">&nbsp;</span></div>
+						<ul>
+							<% @slr = 0%>
+								<% unless @class_timing.empty? %>
+									<% @class_timing.each do |class_time|%>
+										<li ><span class = "lunch_break_<%= @slr%>" >
+											<input type="hidden" name="class_time" id ="class_time_<%= class_time.id%>" value="<%= @slr%>" />
+												<%= class_time.start_time.strftime("%I:%M") %>-<%= class_time.end_time.strftime("%I:%M") %></span></li>
+													<% @slr = @slr + 1%>
+									<%end%>
+								<%end%>
+						</ul>
+					</li>
+					<% week =[] %>
+						<%- @day.each do |d| -%>
+	 						 <% week.push d.weekday %>
+					<% end %>
+						<%if week.include?("0")%>
+				<li class="day1" style="z-index: 1;">
+						<%else%>		
+				<li class="day1 weekend" style="z-index: 1;">
+						<%end%>		
+						<div class="day">Sunday</div>
+						<ul class = "sun">
+							<%if week.include?("0")%>
+							<% unless @class_timing.empty? %>
+								
+									<% @class_timing.each do |class_time|%>
+										<%	if class_time.is_break %>
+											<li class = "lunch from-<%= class_time.start_time.strftime("%H-%M")%> to-<%= class_time.end_time.strftime("%H-%M")%>"></li>
+										<%else%>
+										
+												<% @class_timming_timetable_entry = class_time.timetable_entries %>
+														<%  unless @class_timming_timetable_entry.empty? %>
+														<% @value = "no"%>
+															<%  @class_timming_timetable_entry.each do |timetable|%>
+															
+															
+																<% if  timetable.weekday.weekday == "0" && timetable.batch_id == @batch.id%>
+																		<li  class = "purple from-<%= timetable.class_timing.start_time.strftime("%H-%M")%> to-<%= timetable.class_timing.end_time.strftime("%H-%M")%> draggable dropable" data_class = "<%= class_time.id%>" data_week = "<%= @map["0"]%>" data_batch = "<%=@batch.id%>" data_sub = "<%=timetable.subject.id%>" data_emp = "<%= timetable.employee.id unless timetable.employee.nil?%>  data_id_elec = "<%= "elective" unless timetable.subject.elective_group.nil?%>">
+																				<ul class="mini-menu wigh">
+																						<%unless timetable.employee.nil?%>
+																						<%= timetable.employee.full_name%>
+																						<%end%>
+																						<%unless timetable.room.nil?%>
+																							<li><%= timetable.room.name%></a></li>
+																						<%end%>
+																				</ul>
+																
+																					<%unless timetable.subject.nil?%>
+																						<%= timetable.subject.name%>
+																					<%end%>
+																		</li>
+																		<% @value = "yes"%>	
+																<%end%>
+															<%end%>	
+																<% if @value == "no" %>
+																	<li class = "orange from-<%= class_time.start_time.strftime("%H-%M")%> to-<%= class_time.end_time.strftime("%H-%M")%> draggable dropable "   id = "period" data_class = "<%= class_time.id%>" data_week = "<%= @map["0"]%>" data_batch = "<%=@batch.id%>"></li>
+																<%end%>
+															
+														<%else%>
+																<li class = "orange from-<%= class_time.start_time.strftime("%H-%M")%> to-<%= class_time.end_time.strftime("%H-%M")%> draggable dropable "  id = "period" data_class = "<%= class_time.id%>" data_week = "<%= @map["0"]%>" data_batch = "<%=@batch.id%>"></li>
+												<%end%>
+											
+										<%end%>
+											
+									<%end%>
+							<%end%>
+							
+							<%end%>
+						</ul>
+					</li>
+					
+					
+					<%if week.include?("1")%>
+						<li class="day2" style="z-index: 1;">
+								<%else%>		
+						<li class="day2 weekend" style="z-index: 1;">
+					<%end%>		
+						<div class="day">
+							
+							Monday
+						</div>
+						<ul class = "sun">
+							<%if week.include?("1")%>
+									<% unless @class_timing.empty? %>
+								
+									<% @class_timing.each do |class_time|%>
+										<%	if class_time.is_break %>
+											<li class = "lunch from-<%= class_time.start_time.strftime("%H-%M")%> to-<%= class_time.end_time.strftime("%H-%M")%>"></li>
+										<%else%>
+										
+												<% @class_timming_timetable_entry = class_time.timetable_entries %>
+														<%  unless @class_timming_timetable_entry.empty? %>
+														<% @value = "no"%>
+															<%  @class_timming_timetable_entry.each do |timetable|%>
+															
+															
+																<% if  timetable.weekday.weekday == "1" && timetable.batch_id == @batch.id%>
+																		<li  class = "purple from-<%= timetable.class_timing.start_time.strftime("%H-%M")%> to-<%= timetable.class_timing.end_time.strftime("%H-%M")%> draggable dropable" data_class = "<%= class_time.id%>" data_week = "<%= @map["1"]%>"  data_batch = "<%=@batch.id%>" data_sub = "<%=timetable.subject.id%>" data_emp = "<%= timetable.employee.id unless timetable.employee.nil?%>" data_id_elec = "<%= "elective" unless timetable.subject.elective_group.nil?%>">
+																				<ul class="mini-menu wigh">
+																						
+																						<%unless timetable.employee.nil?%>
+																						<%= timetable.employee.full_name%>
+																						<%end%>	
+																						
+																						
+																						<%unless timetable.room.nil?%>
+																							<li><%= timetable.room.name%></li>
+																						<%end%>
+																				</ul>
+																
+																					<%unless timetable.subject.nil?%>
+																						<%= timetable.subject.name%>
+																					<%end%>
+																		</li>
+																			<% @value = "yes"%>
+																<%end%>
+															<%end%>	
+																<% if @value == "no" %>
+																	<li class = "from-<%= class_time.start_time.strftime("%H-%M")%> to-<%= class_time.end_time.strftime("%H-%M")%> draggable dropable  orange" id = "period_<%= class_time.id%>_1" data_class = "<%= class_time.id%>" data_week = "<%= @map["1"]%>" data_batch = "<%=@batch.id%>"></li>
+																<%end%>
+														<%else%>
+																<li class = "from-<%= class_time.start_time.strftime("%H-%M")%> to-<%= class_time.end_time.strftime("%H-%M")%> draggable dropable orange" id = "period_<%= class_time.id%>_1" data_class = "<%= class_time.id%>" data_week = "<%= @map["1"]%>" data_batch = "<%=@batch.id%>"></li>
+												<%end%>
+											
+										<%end%>
+											
+									<%end%>
+							<%end%>
+							
+							
+							
+						<%end%>	
+						</ul>
+					</li>
+				<%if week.include?("2")%>
+					<li class="day3" style="z-index: 1;">
+				<%else%>		
+					<li class="day3 weekend" style="z-index: 1;">
+				<%end%>		
+					
+						<div class="day">Tuesday</div>
+							<ul class = "sun">
+								<%if week.include?("2")%>		
+										
+										<% unless @class_timing.empty? %>
+								
+									<% @class_timing.each do |class_time|%>
+										<%	if class_time.is_break %>
+											<li class = "lunch from-<%= class_time.start_time.strftime("%H-%M")%> to-<%= class_time.end_time.strftime("%H-%M")%>"></li>
+										<%else%>
+										
+												<% @class_timming_timetable_entry = class_time.timetable_entries %>
+														<%  unless @class_timming_timetable_entry.empty? %>
+														<% @value = "no"%>
+															<%  @class_timming_timetable_entry.each do |timetable|%>
+															
+															
+																<% if  timetable.weekday.weekday == "2" && timetable.batch_id == @batch.id%>
+																		<li  class = "purple from-<%= timetable.class_timing.start_time.strftime("%H-%M")%> to-<%= timetable.class_timing.end_time.strftime("%H-%M")%> draggable dropable"  data_class = "<%= class_time.id%>" data_week = "<%= @map["2"]%>" data_batch = "<%=@batch.id%>" data_sub = "<%=timetable.subject.id%>" data_emp = "<%= timetable.employee.id unless timetable.employee.nil?%>" data_id_elec = "<%= "elective" unless timetable.subject.elective_group.nil?%>">
+																				<ul class="mini-menu wigh">
+																						
+																						<%unless timetable.employee.nil?%>
+																						<%= timetable.employee.full_name%>
+																						<%end%>	
+																						
+																						
+																						<%unless timetable.room.nil?%>
+																							<li><%= timetable.room.name%></li>
+																						<%end%>
+																				</ul>
+																
+																					<%unless timetable.subject.nil?%>
+																						<%= timetable.subject.name%>
+																					<%end%>
+																		</li>	<% @value = "yes"%>
+																<%end%>
+															<%end%>	
+																<% if @value == "no" %>
+																	<li class = "from-<%= class_time.start_time.strftime("%H-%M")%> to-<%= class_time.end_time.strftime("%H-%M")%> draggable dropable  orange" id = "period_<%= class_time.id%>_2" data_class = "<%= class_time.id%>" data_week = "<%= @map["2"]%>" data_batch = "<%=@batch.id%>"></li>
+																<%end%>
+														<%else%>
+																<li class = "from-<%= class_time.start_time.strftime("%H-%M")%> to-<%= class_time.end_time.strftime("%H-%M")%> draggable dropable orange" id = "period_<%= class_time.id%>_2" data_class = "<%= class_time.id%>" data_week = "<%= @map["2"]%>" data_batch = "<%=@batch.id%>"></li>
+												<%end%>
+											
+										<%end%>
+											
+									<%end%>
+							<%end%>
+						<%end%>		
+						</ul>
+					</li>
+					
+					<%if week.include?("3")%>
+							<li class="day4" style="z-index: 1;">
+								<%else%>		
+							<li class="day4 weekend" style="z-index: 1;">
+								<%end%>	
+					
+								<div class="day">Wednesday</div>
+										<ul class = "sun">
+											<%if week.include?("3")%>
+								 				<% unless @class_timing.empty? %>
+								
+									<% @class_timing.each do |class_time|%>
+										<%	if class_time.is_break %>
+											<li class = "lunch from-<%= class_time.start_time.strftime("%H-%M")%> to-<%= class_time.end_time.strftime("%H-%M")%>"></li>
+										<%else%>
+										
+												<% @class_timming_timetable_entry = class_time.timetable_entries %>
+														<%  unless @class_timming_timetable_entry.empty? %>
+														<% @value = "no"%>
+															<%  @class_timming_timetable_entry.each do |timetable|%>
+															
+															
+																<% if  timetable.weekday.weekday == "3" && timetable.batch_id == @batch.id%>
+																		<li  class = "purple from-<%= timetable.class_timing.start_time.strftime("%H-%M")%> to-<%= timetable.class_timing.end_time.strftime("%H-%M")%> draggable dropable" data_class = "<%= class_time.id%>" data_week = "<%= @map["3"]%>" data_batch = "<%=@batch.id%>" data_sub = "<%=timetable.subject.id%>" data_emp = "<%= timetable.employee.id unless timetable.employee.nil?%>" data_id_elec = "<%= "elective" unless timetable.subject.elective_group.nil?%>">
+																				<ul class="mini-menu wigh">
+																						
+																						<%unless timetable.employee.nil?%>
+																						<%= timetable.employee.full_name%>
+																						<%end%>	
+																						
+																						
+																						<%unless timetable.room.nil?%>
+																							<li><%= timetable.room.name%></li>
+																						<%end%>
+																				</ul>
+																
+																					<%unless timetable.subject.nil?%>
+																						<%= timetable.subject.name%>
+																					<%end%>
+																		</li>	<% @value = "yes"%>
+																<%end%>
+															<%end%>	
+																<% if @value == "no" %>
+																	<li class = "from-<%= class_time.start_time.strftime("%H-%M")%> to-<%= class_time.end_time.strftime("%H-%M")%> draggable dropable  orange" id = "period_<%= class_time.id%>_3" data_class = "<%= class_time.id%>" data_week = "<%= @map["3"]%>" data_batch = "<%=@batch.id%>"></li>
+																<%end%>
+														<%else%>
+																<li class = "from-<%= class_time.start_time.strftime("%H-%M")%> to-<%= class_time.end_time.strftime("%H-%M")%> draggable dropable orange" id = "period_<%= class_time.id%>_3" data_class = "<%= class_time.id%>" data_week = "<%= @map["3"]%>" data_batch = "<%=@batch.id%>"></li>
+												<%end%>
+											
+										<%end%>
+											
+									<%end%>
+							<%end%>
+							<%end%>
+									</ul>
+							</li>
+					
+					<%if week.include?("4")%>
+						<li class="day5" style="z-index: 1;">
+					<%else%>		
+						<li class="day5 weekend" style="z-index: 1;">
+					<%end%>	
+						
+						<div class="day">Thursday</div>
+							<ul class = "sun">
+								<%if week.include?("4")%>
+									<% unless @class_timing.empty? %>
+								
+									<% @class_timing.each do |class_time|%>
+										<%	if class_time.is_break %>
+											<li class = "lunch from-<%= class_time.start_time.strftime("%H-%M")%> to-<%= class_time.end_time.strftime("%H-%M")%>"></li>
+										<%else%>
+										
+												<% @class_timming_timetable_entry = class_time.timetable_entries %>
+												
+														<%  unless @class_timming_timetable_entry.empty? %>
+														<% @value = "no"%>
+															<%  @class_timming_timetable_entry.each do |timetable|%>
+															
+															
+																<% if  timetable.weekday.weekday == "4" && timetable.batch_id == @batch.id%>
+																		<li  class = "purple from-<%= timetable.class_timing.start_time.strftime("%H-%M")%> to-<%= timetable.class_timing.end_time.strftime("%H-%M")%> draggable dropable" data_class = "<%= class_time.id%>" data_week = "<%= @map["4"]%>" data_batch = "<%=@batch.id%>" data_sub = "<%=timetable.subject.id%>" data_emp = "<%= timetable.employee.id unless timetable.employee.nil?%>" data_id_elec = "<%= "elective" unless timetable.subject.elective_group.nil?%>">
+																				<ul class="mini-menu wigh">
+																						
+																						<%unless timetable.employee.nil?%>
+																						<%= timetable.employee.full_name%>
+																						<%end%>	
+																						
+																						
+																						<%unless timetable.room.nil?%>
+																							<li><%= timetable.room.name%></li>
+																						<%end%>
+																				</ul>
+																
+																					<%unless timetable.subject.nil?%>
+																						<%= timetable.subject.name%>
+																					<%end%>
+																		</li><% @value = "yes"%>	
+																<%end%>
+															<%end%>	
+																<% if @value == "no" %>
+																	<li class = "from-<%= class_time.start_time.strftime("%H-%M")%> to-<%= class_time.end_time.strftime("%H-%M")%> draggable dropable  orange" id = "period_<%= class_time.id%>_4" data_class = "<%= class_time.id%>" data_week = "<%= @map["4"]%>" data_batch = "<%=@batch.id%>"></li>
+																<%end%>
+														<%else%>
+																<li class = "from-<%= class_time.start_time.strftime("%H-%M")%> to-<%= class_time.end_time.strftime("%H-%M")%> draggable dropable orange" id = "period_<%= class_time.id%>_4" data_class = "<%= class_time.id%>" data_week = "<%= @map["4"]%>" data_batch = "<%=@batch.id%>"></li>
+												<%end%>
+											
+										<%end%>
+											
+									<%end%>
+							<%end%>
+							<%end%>	
+						</ul>
+					</li>
+					
+					<%if week.include?("5")%>
+						<li class="day6" style="z-index: 1;">
+					<%else%>		
+						<li class="day6 weekend" style="z-index: 1;">
+					<%end%>	
+						<div class="day">Friday</div>
+							<ul class = "sun">
+								<%if week.include?("5")%>
+								 <% unless @class_timing.empty? %>
+								
+									<% @class_timing.each do |class_time|%>
+										<%	if class_time.is_break %>
+											<li class = "lunch from-<%= class_time.start_time.strftime("%H-%M")%> to-<%= class_time.end_time.strftime("%H-%M")%>"></li>
+										<%else%>
+										
+												<% @class_timming_timetable_entry = class_time.timetable_entries %>
+														<%  unless @class_timming_timetable_entry.empty? %>
+														<% @value = "no"%>
+															<%  @class_timming_timetable_entry.each do |timetable|%>
+															
+															
+																<% if  timetable.weekday.weekday == "5" && timetable.batch_id == @batch.id%>
+																		<li  class = "purple from-<%= timetable.class_timing.start_time.strftime("%H-%M")%> to-<%= timetable.class_timing.end_time.strftime("%H-%M")%> draggable dropable" data_class = "<%= class_time.id%>" data_week = "<%= @map["5"]%>" data_batch = "<%=@batch.id%>" data_sub = "<%=timetable.subject.id%>" data_emp = "<%= timetable.employee.id unless timetable.employee.nil?%>" data_id_elec = "<%= "elective" unless timetable.subject.elective_group.nil?%>">
+																				<ul class="mini-menu wigh">
+																						
+																						<%unless timetable.employee.nil?%>
+																						<%= timetable.employee.full_name%>
+																						<%end%>	
+																						
+																						
+																						<%unless timetable.room.nil?%>
+																							<li><%= timetable.room.name%></li>
+																						<%end%>
+																				</ul>
+																
+																					<%unless timetable.subject.nil?%>
+																						<%= timetable.subject.name%>
+																					<%end%>
+																		</li>	<% @value = "yes"%>
+																		
+																<%end%>
+															<%end%>	
+																<% if @value == "no" %>
+																	<li class = "from-<%= class_time.start_time.strftime("%H-%M")%> to-<%= class_time.end_time.strftime("%H-%M")%> draggable dropable  orange" id = "period_<%= class_time.id%>_5" data_class = "<%= class_time.id%>" data_week = "<%= @map["5"]%>" data_batch = "<%=@batch.id%>"></li>
+																<%end%>
+														<%else%>
+																<li class = "from-<%= class_time.start_time.strftime("%H-%M")%> to-<%= class_time.end_time.strftime("%H-%M")%> draggable dropable orange" id = "period_<%= class_time.id%>_5" data_class = "<%= class_time.id%>" data_week = "<%= @map["5"]%>" data_batch = "<%=@batch.id%>"></li>
+												<%end%>
+											
+										<%end%>
+											
+									<%end%>
+								<%end%>	
+							<%end%>
+						</ul>
+					</li>
+					
+					<%if week.include?("6")%>
+							<li class="day7" style="z-index: 1;">
+					<%else%>		
+					<li class="day7 weekend" style="z-index: 1;">
+					<%end%>	
+						<div class="day">Saturday</div>
+							<ul class = "sun">
+								<%if week.include?("6")%>
+								<% unless @class_timing.empty? %>
+								
+									<% @class_timing.each do |class_time|%>
+										<%	if class_time.is_break %>
+											<li class = "lunch from-<%= class_time.start_time.strftime("%H-%M")%> to-<%= class_time.end_time.strftime("%H-%M")%>"></li>
+										<%else%>
+										
+												<% @class_timming_timetable_entry = class_time.timetable_entries %>
+														<%  unless @class_timming_timetable_entry.empty? %>
+														<% @value = "no"%>
+															<%  @class_timming_timetable_entry.each do |timetable|%>
+															
+															
+																<% if  timetable.weekday.weekday == "6" && timetable.batch_id == @batch.id%>
+																		<li  class = "purple from-<%= timetable.class_timing.start_time.strftime("%H-%M")%> to-<%= timetable.class_timing.end_time.strftime("%H-%M")%> draggable dropable" data_class = "<%= class_time.id%>" data_week = "<%= @map["6"]%>" data_batch = "<%=@batch.id%>" data_sub = "<%=timetable.subject.id%>" data_emp = "<%= timetable.employee.id unless timetable.employee.nil?%>" data_id_elec = "<%= "elective" unless timetable.subject.elective_group.nil?%>">
+																				<ul class="mini-menu wigh">
+																						
+																						<%unless timetable.employee.nil?%>
+																						<%= timetable.employee.full_name%>
+																						<%end%>	
+																						
+																						
+																						<%unless timetable.room.nil?%>
+																							<li><%= timetable.room.name%></li>
+																						<%end%>
+																				</ul>
+																
+																					<%unless timetable.subject.nil?%>
+																						<%= timetable.subject.name%>
+																					<%end%>
+																		</li><% @value = "yes"%>	
+																<%end%>
+															<%end%>	
+																<% if @value == "no" %>
+																	<li class = "from-<%= class_time.start_time.strftime("%H-%M")%> to-<%= class_time.end_time.strftime("%H-%M")%> draggable dropable  orange" id = "period_<%= class_time.id%>_6" data_class = "<%= class_time.id%>" data_week = "<%= @map["6"]%>" data_batch = "<%=@batch.id%>"></li>
+																<%end%>
+														<%else%>
+																<li class = "from-<%= class_time.start_time.strftime("%H-%M")%> to-<%= class_time.end_time.strftime("%H-%M")%> draggable dropable orange" id = "period_<%= class_time.id%>_6" data_class = "<%= class_time.id%>" data_week = "<%= @map["6"]%>" data_batch = "<%=@batch.id%>"></li>
+												<%end%>
+											
+										<%end%>
+											
+									<%end%>
+							<%end%>
+							<%end%>
+						</ul>
+					</li>
+					
+				</ul>
+				</div></div>

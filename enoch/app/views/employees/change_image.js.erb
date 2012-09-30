@@ -1,0 +1,6 @@
+jQuery('#modal-boxes').html('<%= escape_javascript render('image') %>');
+$.modal({
+	content: jQuery('#modal-boxes'),
+	title: 'upload Image',
+	maxWidth: 500,
+	});

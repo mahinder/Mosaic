@@ -1,0 +1,21 @@
+<h1>Listing passenger_board_transport_details</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @passenger_board_transport_details.each do |passenger_board_transport_detail| %>
+  <tr>
+    <td><%= link_to 'Show', passenger_board_transport_detail %></td>
+    <td><%= link_to 'Edit', edit_passenger_board_transport_detail_path(passenger_board_transport_detail) %></td>
+    <td><%= link_to 'Destroy', passenger_board_transport_detail, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Passenger board transport detail', new_passenger_board_transport_detail_path %>

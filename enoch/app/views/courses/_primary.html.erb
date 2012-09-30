@@ -1,0 +1,121 @@
+<div class="columns">
+	<div class="col200pxL-left">
+		<h2>Primary Courses</h2>
+		<ul class="side-tabs js-tabs same-height">
+			<li>
+				<a href="#" id="delete-href-global"  title=" Select Below Courses" > Select courses</a>
+			</li>
+			<% @primary_courses.each do |primary|%>
+			<li>
+				<a href="/courses/all/<%= primary.id%>"  id="<%= primary.id%>"  title="<%= primary.course_name %>" class="with-tip delete-course-href"><%= primary.course_name %> </a>
+				<input type="hidden" name="object_id" value="<%= primary.id %>,<%= primary.course_name%>,<%= primary.code %>,<%= primary.section_name%>"/>
+			</li>
+			<%end%>
+			<li class="icon-tab with-margin">
+				<%= link_to (image_tag("/assets/icons/add.png")),new_course_path, :remote => true %></a>
+			</li>
+		</ul>
+	</div>
+	<div class="col200pxL-right">
+		<div id="#" class="tabs-content">
+			<ul class="tabs js-tabs same-height">
+				<li class="current">
+					<a href="#tab-primlocales" title="Locales">Course </a>
+				</li>
+				<li>
+					<a href="#tab-primoptions" title="Options" >Batches </a>
+				</li>
+				<li >
+					<a href="#tab-primmandatory" title="Mandatory">Mandatory Skills</a>
+				</li>
+				<li>
+					<a href="#tab-primelective" title="Elective" >Elective Skills </a>
+				</li>
+			</ul>
+			<div class="tabs-content">
+				<div id="tab-primlocales">
+					<fieldset class="grey-bg">
+						<% unless @primary_courses.size == 0 %>
+						<div class="colx3-left-double ">
+							<input type="hidden" id = "course_id_text" name = "object_id"  value="<%= @course.id%> "/>
+							<label for="course_name">Course_Name</label>
+							<span class="relative">
+								<input type="text" id = "course_name_text" name = "object_id"  value="<%= @course.course_name %> " disabled= true/>
+							</span>
+						</div>
+						<div class="colx3-left-double ">
+							<label for="course_code">Course Code</label>
+							<span class="relative">
+								<input type="text" id = "course_code_text" name = "object_id"  value="<%= @course.code%> " disabled= true/>
+							</span>
+						</div>
+						<div class="colx3-left-double ">
+							<label for="complex-en-url">Section Name</label>
+							<span class="relative">
+								<input type="text" id = "course_section_text" name = "object_id"  value="<%= @course.section_name%>" disabled= true/>
+							</span>
+						</div>
+						<%unless @course.id.nil?%>	<%= link_to 'Edit', edit_course_path(:id => @course) ,:remote => true %> <%end%>
+						<%unless @course.id.nil?%>	<%= link_to('Delete', course_path(:id => @course), :method => 'delete', :confirm => 'Are you sure?') %> <%end%>
+						<%else%>
+						Montesary has no courses
+						<%end%>
+					</fieldset>
+				</div>
+				<div id="tab-primoptions">
+					<% unless @primary_courses.size == 0 %>
+					<table id="inactive-table" class="table grades no-margin" cellspacing="0" width="100%">
+						<tbody>
+							<%= render 'show'%>
+						</tbody>
+					</table>
+					<div class="columns">
+						<div class="colx2-right">
+							<%unless @course.id.nil?%>	<%= link_to 'New', new_batch_path(:course_id => @course),:remote => true %> <%end%>
+						</div>
+						<%else%>
+						<fieldset class="grey-bg">
+							Montesary has no courses
+						</fieldset>
+						<%end%>
+					</div>
+				</div>
+				<div id="tab-primmandatory">
+					<% unless @primary_courses.size == 0 %>
+					<table id="mandatory-table" class="table mandatoryno-margin" cellspacing="0" width="100%">
+						<tbody>
+							<%= render 'mandatory_skill'%>
+						</tbody>
+					</table>
+					<div class="colx2-right">
+						<%unless @course.id.nil?%>	<%= link_to 'New', new_mandatory_skill_path(:course_id => @course),:remote => true %> <%end%>
+					</div>
+					<%else%>
+					<fieldset class="grey-bg">
+						Montesary has no courses
+					</fieldset>
+					<%end%>
+				</div>
+				<div id="tab-primelective">
+					<% unless @primary_courses.size == 0 %>
+					<table id="elective-table" class="table elective no-margin" cellspacing="0" width="100%">
+						<tbody>
+							<%= render 'elective_skill'%>
+						</tbody>
+					</table>
+					<div class="columns">
+						<div class="colx2-right">
+							<%unless @course.id.nil?%>	<%= link_to 'New', new_elective_skill_path(:course_id => @course),:remote => true %> <%end%>
+						</div>
+						<%else%>
+						<fieldset class="grey-bg">
+							Montesary has no courses
+						</fieldset>
+						<%end%>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

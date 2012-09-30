@@ -1,0 +1,27 @@
+<style type="text/css">
+	
+</style>
+<table border="0" class="table" width="100%">
+	<thead >
+		<tr class="turquoise">
+			<th><%= @days[d[0]]%></th><th style="text-align: center;"><%= d[1].strftime("%d-%m-%Y")%></th>
+		</tr>
+		<tr class="turquoiseLight">
+			<th>Timing</th><th>Plans</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="rows" id = "rows">
+			<td>
+			<div id='container'>
+				<label for="comments">Label:</label>
+				<textarea name="comments" id="comments" rows='10'>Textarea with enough text to wrap to the next line</textarea>
+				<div id='box'>
+					This is a div with lots of comments so that it wraps to the next line
+				</div>
+				<img src='http://placehold.it/100' />
+			</div></td>
+		</tr>
+	</tbody>
+</table>
+<br />

@@ -1,0 +1,312 @@
+<div id="sub-nav">
+	<div class="container_12">		
+		<ul>
+				<li class="current"><a href="#" title="Dashboard">Dashboard</a></li>
+				<% if @user.admin? || (permitted_to? :dashboard_settings ,:sessions)%>
+				<li><a href="/dashboard_settings" title="Dashboard Settings">Settings</a></li>
+				<%end%>
+
+				<!--  <% if @user.admin? || (permitted_to? :today_timetable,:timetable)%>
+
+				<li><a href="/timetable/today_timetable" title="Today Timetable">Today Timetable</a></li>
+				<%end%>  -->
+				<% if @user.admin? || (permitted_to? :admin_wise_employee_page,:timetable)%>
+				<li><a href="/timetable/admin_wise_employee_page" title="Employee's Timetable">Employee's Timetable</a></li>
+				<%end%>
+				<li class="menu-opener"><a href="#" title="My School">My School</a>
+					<div class="menu-arrow">
+						<%= image_tag "menu-open-arrow.png", :size => "16x16"  %>
+					</div>
+					<div class="menu">
+						<ul>
+							<li class="icon_address"><a href="#">My Profile</a>
+								<ul>									
+									<!-- this for teacher profile - starts -->
+									<% if @user.admin? %>
+									<li class="icon_info"><a href="/employees/profile?id=<%= @current_user.employee_record.id%>">Basic Info</a></li>
+									<% elsif @user.student? %> 
+									<li class="icon_info"><a href="/student/my_profile?q=<%= @current_user.username %>">Basic Info</a></li>
+										<% elsif @user.employee? %>
+										<li class="icon_info"><a href="/employees/profile?id=<%= @current_user.employee_record.id%>">Basic Info</a></li>
+											<% end %>
+									<% if @user.admin? || (@user.employee_record.is_teacher? unless @user.employee_record.nil?) %>
+									<li class="icon_skills"><a href="/employees/employee_all_skills">Skillset</a></li>
+									<% end %>
+									<!-- this for teacher profile - starts -->
+									
+									<!-- uncomment this for student profile - starts -->
+									<!--
+									<li class="icon_father"><a href="#">Father</a></li>
+									<li class="icon_mother"><a href="#">Mother</a></li>
+									<li class="icon_sibling"><a href="#">Sibling</a></li>
+									-->
+									<!-- uncomment this for student profile - ends -->
+								</ul>
+							</li>
+							<% if permitted_to? :my_batches, :employees %>
+								<li class="icon_info">
+									<a href="/employees/my_batches">My Batches</a>
+								</li>
+							<%end%>
+							<% if permitted_to? :employee_full_view, :timetable %>
+								<li class="icon_school_calendar">
+									<a href="/timetable/employee_full_view">My Timetable</a>
+								</li>
+							<%end%>
+							<li class="icon_password">
+									<% if @current_user.id == @user.id %>
+										<%= link_to "Change Password", :controller => "users", :action => "change_password" %>
+									<% end %>
+							<li class="icon_mobile"><a href="" id = "mobile_user">Mobile</a></li>
+							
+							<li class="sep"></li>
+							<li class="icon_mail"><%= link_to "New mail",:controller => "reminder", :action => "create_reminder" %></li>
+							<li class="icon_inbox"><%= link_to "Inbox",:controller => "reminder", :action => "index" %></li>
+							<li class="icon_sent_items"><%= link_to "Sent Items",:controller => "reminder", :action => "sent_reminder" %></li>
+							<li class="sep"></li>
+							
+							<!-- this for teacher profile - starts -->
+							<% if !@user.student? %>
+							<li class="icon_camera">
+								<a href="/employee_attendance/emp_attendance?id=<%= @user.employee_record.id%>">Leaves</a>
+							</li>
+							<% end %>
+							
+							<!-- <li class="icon_camera"><a href="#">Vacations</a></li> -->
+							<!-- <li class="icon_payslip"><a href="#">Payslips</a>
+								<ul>
+									<li class="icon_calendar"><a href="#">This Month</a></li>
+									<li class="icon_calendar_previous"><a href="#">Previous Months</a></li>
+								</ul>
+							</li>
+							<li class="icon_star"><a href="#">Appraisals</a></li>
+							<li class="icon_feedback"><a href="#">Parents Feedback</a></li> -->
+							<!-- this for teacher profile - starts -->
+							
+							<!-- uncomment this for student profile - starts -->
+							<!--
+							<li class="icon_attendance"><a href="#">Attendance Record</a></li>
+							<li class="icon_payslip"><a href="#">Fee</a>
+								<ul>
+									<li class="icon_calendar"><a href="#">This Month</a></li>
+									<li class="icon_calendar_previous"><a href="#">Previous Months</a></li>
+								</ul>
+							</li>
+							<li class="icon_syllabus"><a href="#">Syllabus</a></li>
+							<li class="icon_results"><a href="#">My Results</a></li>
+							<li class="icon_achievements"><a href="#">My Achivements</a></li>
+							-->
+							<!-- uncomment this for student profile - ends -->
+							<!-- <li class="sep"></li>
+							<li class="icon_school_calendar"><a href="#">School Calendar</a></li>
+							<li class="icon_transport"><a href="#">Transport Route</a></li> -->
+						</ul>
+					</div>
+				</li>
+				<% if @user.employee? %>
+					<li class="menu-opener"><a href="#" title="Daily Task">Daily Task</a>
+					<div class="menu-arrow">
+						<%= image_tag "menu-open-arrow.png", :size => "16x16"  %>
+					</div>
+					<div class="menu">
+						<ul>
+							<% if permitted_to? :search, :employees %>
+								<li class="icon_empsearch">
+									<a href="/employees/search">Employee Search</a>
+								</li>
+							<%end%>
+							<% if (permitted_to? :index, :attendances or @allow_access == true) || (permitted_to? :index, :attendance_reports or permitted_to? :index, :attendances or @allow_access == true) ||( permitted_to? :index, :employee_attendances) || (permitted_to? :report, :employee_attendance)%>
+							<li class="icon_address"><a href="#">Attendance</a>
+								<ul>									
+									<% if permitted_to? :index, :attendances or @allow_access == true%>
+										<li class="icon_school_calendar">
+											<a href="/attendances" > 
+												Student Attendance Register </a>
+										</li>
+									<% end %>
+
+								<% if permitted_to? :index, :attendance_reports or permitted_to? :index, :attendances or @allow_access == true%>
+										<li class="icon_school_calendar">
+											<a href="/attendance_reports" > 
+												
+												Student Attendance Reports </a>
+										</li>
+								<% end %>
+								<% if permitted_to? :index, :employee_attendances %>
+									<li class="icon_school_calendar">
+										<a href="/employee_attendances/index">Employee Attendance register</a>
+									</li>
+								<% end %>
+								<% if permitted_to? :report, :employee_attendance %>
+									<li class="icon_school_calendar">
+										<a href="/employee_attendance/report">Employee Attendance report</a>
+									</li>
+								<% end %>
+								</ul>
+							</li>
+							<% end %>
+							<% if permitted_to? :add_leave_types, :employee_attendance %>
+							<li class="icon_school_calendar">
+								<a href="/employee_attendance/add_leave_types">Add Leave types</a>
+							</li>
+							<% end %>
+							<% if permitted_to? :manual_reset, :employee_attendance %>
+							<li class="icon_school_calendar">
+								<a href="/employee_attendance/manual_reset">Reset leaves</a>
+							</li>	
+							<% end %>
+							
+							<% if permitted_to? :index, :assignments%>
+							<li class="icon_address"><a href="#">Assignments</a>
+								<ul>
+									
+										<li class="icon_school_calendar">
+											<a href="/assignments">Create Assignments</a>
+										</li>
+									
+									
+										<li class="icon_school_calendar">
+											<a href="/assignments/view">View Assignments</a>
+										</li>
+									
+								</ul>
+							</li>	
+							<%end%>	
+							<% if permitted_to? :student_search, :student %>
+								<li class="icon_address">
+									<a href="/student/student_search?query=search">Student Search</a>
+								</li>
+							<%end%>
+							
+							<li class="icon_school_calendar">
+								<a href="/calendars">Calendar</a>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li class="menu-opener"><a href="#" title="Special Task">Special Task</a>
+					<div class="menu-arrow">
+						<%= image_tag "menu-open-arrow.png", :size => "16x16"  %>
+					</div>
+					<div class="menu">
+						<ul>
+							<% if permitted_to? :index, :ptm_masters %>
+								<li class="icon_school_calendar">
+									<a href="/ptm_masters">PTM </a>
+								</li>
+							<%end%>
+							<% if permitted_to? :index, :ptm_admin %>
+								<li class="icon_school_calendar">
+									<a href="/ptm_admin">PTM Management</a>
+								</li>
+							<%end%>	
+							
+							<% if permitted_to? :reset_password_of_any_user, :users %>
+								<li class="icon_school_calendar">
+									<a href="/users/reset_password_of_any_user"> <h4>Manage Users</a>
+								</li>
+							<%end%>
+							<% if permitted_to? :privileges_of_any_user, :users %>
+								<li class="icon_school_calendar">
+									<a href="/users/privileges_of_any_user"> Manage Privileges</a>
+								</li>
+							<%end%>
+								<% if permitted_to? :all_record, :sms_templates %>
+									<li class="icon_school_calendar">
+										<a href="/sms_templates/all_record">SMS Templates</h4></a>
+									</li>
+								<%end%>
+								<% if permitted_to? :settings, :sms %>
+									<li class="icon_school_calendar">
+										<a href="/sms/settings">SMS Settings</h4></a>
+									</li>
+								<%end%>
+			
+								<% if permitted_to? :students, :sms %>
+									<li class="icon_school_calendar">
+										<a href="/sms/students">SMS Mobile </a>
+									</li>
+								<%end%>
+								<% if permitted_to? :assign_roll_no, :student %>
+									<li class="icon_school_calendar">
+										<a href="/student/assign_roll_no">Assign Roll No.</a>
+									</li>
+								<%end%>
+								<% if permitted_to? :student_wizard_first_step, :student %>
+									<li class="icon_school_calendar">
+										<a href="#" id="new_student" >New Admission</a>
+									</li>
+								<%end%>	
+								
+								
+								<% if permitted_to? :wizard_first_step, :employees %>
+									<li class="icon_school_calendar">
+										<a href="#" id="new_employee" >New Employee</a>
+									</li>
+								<%end%>
+								<% if permitted_to? :all_record, :courses %>
+									<li class="icon_courses">
+										<a href="/courses/all_record">Courses</a>
+									</li>
+								<%end%>
+								
+							</ul>
+					</div>
+				</li>
+				<li class="menu-opener"><a href="#" title="Examinations">Examinations</a>
+					<div class="menu-arrow">
+						<%= image_tag "menu-open-arrow.png", :size => "16x16"  %>
+					</div>
+					<div class="menu">
+						<ul >
+						<%  if permitted_to? :create_exam,:exams %>	
+						<li class="icon_school_calendar">
+							<a href="/exams/create_exam">  Exams</a>
+						</li>
+						<% end %>
+					<%  if permitted_to? :create_additional_exam,:additional_exam %>
+					<li class="icon_school_calendar">
+						<a href="/additional_exam/create_additional_exam" >Additional Exams </a>
+					</li>
+					<% end %>
+					<%  if permitted_to? :exam_wise_report,:exams %>
+					<li class="icon_school_calendar">
+						<a href="/exams/exam_wise_report" >Exam Wise Report </a>
+					</li>
+					<% end %>
+					<%  if permitted_to? :subject_wise_report,:exams %>
+					<li class="icon_school_calendar">
+						<a href="/exams/subject_wise_report" >Subject Wise Report </a>
+					</li>
+					<% end %>
+					<%  if permitted_to? :all_record,:grading_level_groups %>
+					<li class="icon_school_calendar">
+						<a href="/grading_level_groups/all_record" >Grading System </a>
+					</li>
+					<% end %>
+					<%  if permitted_to? :additional_exam_report,:additional_exam %>
+					<li class="icon_school_calendar">
+						<a href="/additional_exam/additional_exam_report" >Additional Exam Report </a>
+					</li>
+					<% end %>
+					<%  if permitted_to? :grouped_exam_report,:exams %>
+					<li class="icon_school_calendar">
+						<a href="/exams/grouped_exam_report" >Grouped Exam Report </a>
+					</li>
+					<% end %>
+						</ul>
+					</div>
+				</li>
+				<%end%>
+				
+			</ul>	
+<!-- 	<% if @user.admin?%>
+	<div id="sub-nav">
+		<div class="container_12">
+		    <!-- <a href="/users/download_help" title="Help" class="nav-button"><b>Help</b></a> 
+		    <a href="#" title="Help" class="nav-button"><b>Help</b></a>  
+	    </div>
+	</div>
+	<%end%>	 -->
+		</div>
+	</div>

@@ -1,0 +1,78 @@
+
+<style type="text/css">
+.icon{ 
+	background-image: url(/assets/icons/web-app/48/Profile.png);
+	color: red;
+}
+.pagination {
+    line-height: 1.333em;
+    margin: -0.333em -0.25em;
+  }
+  .pagination a {
+   -moz-border-radius: 0.5em 0.5em 0.5em 0.5em;
+    -moz-box-shadow: 0 0 0.25em rgba(0, 0, 0, 0.5);
+    background: -moz-linear-gradient(center top , #F8F8F8, #E7E7E7) repeat scroll 0 0 transparent;
+    border: 1px solid white;
+    color: #3399CC;
+    min-width: 1.083em;
+    padding: 0.333em 0.5em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .pagination a:hover, .pagination a:active {
+    border: 1px solid #000099;
+    color: #3399CC;
+  }
+  .pagination span.current {
+    padding: 2px 5px 2px 5px;
+    margin: 2px;
+    border: 1px solid #000099;
+    font-weight: bold;
+    background-color:  #3399CC;
+     color: #3399CC;
+  }
+  .pagination span.disabled {
+    padding: 2px 5px 2px 5px;
+    margin: 2px;
+    border: 1px solid #eee;
+    color: #3399CC;;
+  }
+
+
+</style>
+<% unless @comments.empty?%>
+<% @comments.each do |block_p| %><% @cmnt = block_p %>
+
+<ul class="extended-list no-margin icon-users">
+<li>
+						<a href="#">
+							
+							<% if @cmnt.author.student == true%>
+							    <% @student_photo = Student.find(@cmnt.author.username)%>
+							    <div style="margin: -0.75em 1em -0.75em -0.75em;padding: 0.75em 0.75em 3em 5.5em;background-repeat: no-repeat;background-position: 0.75em 0.75em;background-image: url(<%= @student_photo.student_photo.url(:small) %>);">							    
+                            <% elsif @cmnt.author.employee == true%>
+							    <% @employee_photo = Employee.find(@cmnt.author.username)%>
+							    <div style="margin: -0.75em 1em -0.75em -0.75em;padding: 0.75em 0.75em 3em 5.5em;background-repeat: no-repeat;background-position: 0.75em 0.75em;background-image: url(<%= @employee_photo.employee_photo.url(:small) %>);">							    
+                            <%else%>
+                            <span class="icon"></span>
+							<% end %>
+							<%= @cmnt.author.present? ? @cmnt.author.first_name : "User Deleted" %><br>
+							<small>posted <%= time_ago_in_words(@cmnt.created_at) %> ago</small>	
+						</a>
+						<p class="float-right"><%= sanitize   @cmnt.content.strip.gsub("\n", "<br/>"),:tags => %w[b i a ], :attributes => %w[href] %></p>
+						<ul class="mini-menu">
+                            <% if permitted_to? :delete_comment , :news %>
+							<%= link_to (image_tag ("icons/fugue/cross-circle.png"),:title => 'Delete',:class=>"with-tip", :id => "delete_comments") %>
+						    <% end %>
+						</ul>
+</li>
+</ul>
+<input type="hidden" name="commentId" id="commentId" value= "<%=@cmnt.id %>" />
+
+<%end%>
+
+<%= will_paginate @comments ,:layout => 'application'%>
+<%else%>
+
+<%end%>
+

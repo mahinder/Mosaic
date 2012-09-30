@@ -1,0 +1,50 @@
+<div class="block-border" id="outer_block">
+	<form class="block-content form" id="simple_week_form"  action="">
+					<h1>Week Days</h1>
+					<div class="block-controls enoch_block">
+			<ul class="controls-tabs js-tabs">
+				<li >
+					<a href="/timetable/timetable_step1" title ="Timetable" > <%= image_tag "dashboard/timetable.png", :size => "24x24"  %></a>
+				</li>
+				<li >
+					
+					<a href='javascript:' title ="Back" class = "back"><img src="/assets/icons/web-app/32/Back.png" width="24" height="24"></a>
+				</li>
+			</ul>
+		</div>		
+						<fieldset class="grey-bg ">
+				<legend>Batch</legend>
+					<div class="columns">
+						<div class="colx2-left select-fixed-width1">
+							<p>
+								<label for="simple-action">Select Course</label>
+								 <%= select :course, :id,  @courses.map {|b| [b.full_name, b.id] }, {:prompt => 'Common'},:class => "course-select-week" %>
+							</p>	
+						</div>
+						<div class="colx2-rigth select-fixed-width1" id = "batch-select-batch">
+							<%= render 'batch'%>
+						</div>
+					</div>
+			</fieldset>		
+				<!-- </fieldset>	
+					<fieldset class="grey-bg required">
+							<legend>Select Batch For Week Days Creation </legend>
+							<p class = "inline-medium-label">
+								<label for="simple-required">Batch</label>
+								<%= select :batch, :id,  @batches.map {|b| [b.full_name, b.id] }, {:prompt => 'Common'},:class => "week" %>
+							</p>
+					</fieldset>		 -->	
+				<div id="loading" style="display:none;"><img src=/assets/ajax-loader.gif style=vertical-align:middle;margin:0 10px 0 0 /></div>
+				<div id="weekdays"><%= render :partial => "weekdays" %></div>
+				
+				</form>
+			</div>
+			<br/>
+			
+
+<div id="modal-box_weekday"  style="display:none;">
+	
+</div>
+     <div class="extender"></div>
+  
+

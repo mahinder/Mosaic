@@ -1,0 +1,17 @@
+<div class="block-border">
+	<div class="block-content form">
+		<fieldset class="grey-bg">
+			<legend>Required Field</legend>
+		<div class="columns">
+		<p class="colx3-left required select-fixed-width1">
+			<label for="Route">Route</label>
+			<%= select("board_route","report",@routes.map{|c| [c.name, c.id]},{:prompt=>'Select'})%>
+		</p>
+		<p class="colx3-right required select-fixed-width1" id="change_board">
+			<label for="Route">Board</label>
+			<%= select("board_route","report",@boards.map{|c| [c.name, c.id]},{:prompt=>'Select'})%>
+		</p>
+	</div>
+	</fieldset>
+</div>
+</div>

@@ -1,0 +1,18 @@
+									<tr>
+										<td class="th table-check-cell"></td>
+										<input type="hidden" id="deatil_route_names_<%= detail.id %>" value="<%= detail.transport_route_id %>"/>
+										<input type="hidden" id="detail_vehicle_names_<%= detail.id %>" value="<%= detail.transport_vehicle_id %>"/>
+										<input type="hidden" id="detail_driver_names_<%= detail.id %>" value="<%= detail.transport_driver_id %>"/>
+										<td id="detail_route_name_<%= detail.id %>"><%= detail.transport_route.name %></td>
+										<td id="detail_vehicle_type_<%= detail.id %>"><%= detail.transport_vehicle.vehicle_type %></td>
+										<td id="detail_driver_name_<%= detail.id %>"><%= detail.transport_driver.name %></td>
+										<td id="detail_intime_<%= detail.id %>"><%= detail.intime.strftime("%I:%M%p")  %></td>
+										<td id="detail_outtime_<%= detail.id %>"><%= detail.outtime.strftime("%I:%M%p")  %></td>
+										<td class="table-actions">
+											<input type="hidden" name="object_id" value="<%= detail.id %>"/>
+											<a href="#" id="update-href-<%= detail.id %>" title="Edit" class="with-tip update-transport_detail-master-href"><img src="/assets/icons/fugue/pencil.png" width="16" height="16"></a>
+											<a href="#" id="delete-href-<%= detail.id %>" title="Delete" class="with-tip delete-transport_detail-master-href"><img src="/assets/icons/fugue/cross-circle.png" width="16" height="16"></a>
+										    <a href="#" id="add-passanger" title="Add Passenger" class="with-tip" current_detail="<%=detail.id%>"><img src="/assets/icons/add-mini.png" width="16" height="16"></a>
+										    <a href="#" id="view-passanger" title="View Passenger" class="with-tip" current_detail="<%=detail.id%>"><img src="/assets/icons/fugue/view-notes-icon.png" width="16" height="16"></a>
+										</td>
+									</tr>

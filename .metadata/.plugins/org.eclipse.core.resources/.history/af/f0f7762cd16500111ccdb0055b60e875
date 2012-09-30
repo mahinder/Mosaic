@@ -1,0 +1,117 @@
+<fieldset class="grey-bg">
+	<legend>
+		Admission Details
+	</legend>
+	<div class="columns">
+		<p class="colx3-left required">
+			<label for="admission_no">Admission No.</label>
+			<span class="relative">
+            <% unless @config.config_value == '0' or @last_admitted_student.nil? %>
+              <%= s.text_field :admission_no , :value=> @student.admission_no || @last_admitted_student.admission_no.next,:class => "full-width" ,:onblur => "validateAdmission()"%>
+            <% else %>
+              <%= s.text_field :admission_no,:class => "full-width",:onblur => "validateAdmission()" %>
+            <% end %>
+			</span>
+		</p>
+
+		<%= s.hidden_field :class_roll_no, :value=>@student.admission_no || @last_admitted_student.admission_no.next%>
+
+		<p class="colx3-center required">
+			<label for="admission_date">Admission Date</label>
+			 <span class="input-type-text"><%= s.text_field :admission_date,:value => (Date.today).strftime('%d''-''%m''-''%Y'), :class => "datepicker", :size => 20 %><%= image_tag "icons/fugue/calendar-month.png" %></span>
+		</p>
+
+	</div>
+      
+</fieldset>
+
+
+<fieldset class="grey-bg">
+	<legend>
+		Personal Details
+	</legend>
+	<div class="columns">
+		<p class="colx3-left required">
+			<label for="first_name">First Name</label>
+			<span class="relative"><%= s.text_field :first_name ,:class => "full-width" %></span></span>
+		</p>
+		<p class="colx3-right required">
+			<label for="last_name">Last Name</label>
+			<span class="relative"><%= s.text_field :last_name , :class => "full-width" %> </span>
+		</p>
+		<p class="colx3-center">
+			<label for="middle_name">Middle Name</label>
+			<span class="relative"><%= s.text_field :middle_name, :class => "full-width" %> </span>
+		</p>	
+	</div>
+	
+      <div class="columns">
+
+        <p class="colx3-left">
+          <label for="student_birth_place">Birth Place</label>
+          <span class="relative"><%= s.text_field :birth_place ,:class => "full-width"%></span>
+        </p>
+
+        <p class="colx3-center">
+          <label for="student_birth_place">Mother Tongue</label>
+          <span class="relative"><%= s.text_field :language ,:class => "full-width"%></span>
+        </p>
+       	
+       	<p class="colx3-right">
+          <label for="student_religion">Religion</label>
+          <span class="relative"><%= select :student, :religion, ["Hindu", "Muslim", "Christian", "Sikh", "Jain", "Buddhist", "Other"], { :prompt => 'Select' } %></span>
+        </p>
+        
+       </div>
+     <div class="columns">   
+      	    
+	         <p class="colx3-left required"> 
+	          <label for="student_grade">Course</label>
+	          <%= select :adv_search, :course_id, Course.all.map{|c| [c.course_name, c.id]},:prompt => "Select" %>
+	        </p> 
+	         <p class="colx3-center required">
+          	
+          	<%= render :partial => "batch"%>
+        	</p>
+        	<p class="colx3-right">
+	          <label for="student_category">Category</label>
+	          <span class="relative"><%= s.select :student_category_id, StudentCategory.active.map {|c| [c.name, c.id]}, { :prompt => 'Select' } %></span>
+	        </p>
+       </div>
+      
+       
+      <div class="columns">   
+      	    
+        <p class="colx3-left">
+          <label for="student_blood_group">Blood group</label>
+          <span class="relative"><%= select :student, :blood_group, ["A+ve", "A-ve", "B+ve", "B-ve", "O+ve", "O-ve", "AB+ve", "AB-ve"], { :prompt => 'Select' } %></span>
+        </p>
+        
+         <p class="colx3-center required"> 
+          <label for="student_date_of_birth">Date of birth</label>
+          <span class="input-type-text"><%= s.text_field :date_of_birth,:value => (Date.today - 5.years).strftime('%d''-''%m''-''%Y'), :class => "datepicker", :size => 20  %><%= image_tag "icons/fugue/calendar-month.png" %></span>
+
+        </p>  
+        
+        <p class="colx3-right"> 
+          <label for="student_gender">Gender</label>
+         <span class="relative">
+            <label for="student_gender_true">Male&nbsp;&nbsp;<%= s.radio_button  "gender", "m", :checked => "checked" %>&nbsp;&nbsp;&nbsp;&nbsp;Female&nbsp;&nbsp;<%= s.radio_button  "gender", "f" %></label>
+            
+         </span>
+        </p>
+     </div>
+     
+     <div class="columns">
+
+       
+
+     
+               
+     </div>
+              
+</fieldset>
+
+
+
+     

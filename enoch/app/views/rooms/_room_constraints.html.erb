@@ -1,0 +1,52 @@
+<div class = "block-content form" id = "outer_block" style="overflow: auto;">
+<table  class="table" cellspacing="0" width="100%">
+	<% unless @class_timings.empty?%>
+	<thead>
+		<tr>
+			<th class="black-cell"></th>
+			<th class="black-cell" style="width: 50px">Weekdays/Class Timing</th>
+			<% @class_timings.each do |clss|%> 
+			
+			<% unless clss.is_break == true %>
+			<th scope="col"><%=clss.start_time.strftime("%I:%M %p")%>-<%=clss.end_time.strftime("%I:%M %p")%></th>
+			<%else%>
+			<th scope="col">Break</th>
+			<%end%>
+			
+			<%end%>
+		</tr>
+	</thead>
+	<tbody id = "room_constraints_row">
+		<% unless @weekdays.empty?%>
+		<% @weekdays.each do |week|%>
+		<tr>
+			<td class="th table-check-cell"></td>
+			<td id="week_<%= week.id %>"><%= @weekday[week.weekday.to_i] %></td>
+			<% @class_timings.each do |clss|%>
+			<td style="text-align: center;">
+				<input type="checkbox" name="not_Available" data_week = "<%= week.id%>" data_class = "<%= clss.id%>" />
+			</td>
+			<%end%>
+		</tr>
+		<%end%>
+		<%end%>
+	</tbody>
+	<%end%>
+</table>
+<% unless @class_timings.empty?%>
+<fieldset class="grey-bg no-margin">
+	<legend>
+		Action on create
+	</legend>
+	<div class="columns">
+		<div class="colx2-left">
+			<input type="hidden" name = "room" id = "room_id_con" value = "" />
+			<button id="assign_room_constraints" title="Save"   type="button">
+				Save
+			</button>
+		</div>
+	</div>
+</fieldset>
+<%end%> 
+</div>
+

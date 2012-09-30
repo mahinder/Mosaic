@@ -1,0 +1,35 @@
+<div class="block-border" id ="outer_block">
+	<form class="block-content form" id="table_form" method="post" action="">
+		<h1>Inbox</h1>
+		<div class="block-controls enoch_block">
+	
+			<ul class="controls-tabs js-tabs">
+				<li class="current">
+					<a href="/reminder/index" title ="Inbox"> <img src="/assets/icons/web-app/24/Email.png" width="24" height="24"> </a>
+				</li>
+				<li>
+					<a href="/reminder/sent_reminder" title ="Sent Items"> <img src="/assets/icons/web-app/24/mail-sent-icon.png" width="24" height="24"> </a>
+				</li>
+				<li>
+					<a href="/reminder/create_reminder" title ="New Message"> <img src="/assets/icons/web-app/24/newmail.png" width="24" height="24"> </a>
+				</li>
+			</ul>
+		</div>
+		<div>
+			<table id="inbox-table" class="table messagesfields no-margin" cellspacing="0" width="100%">
+				<thead>
+					<%= render 'table_head' %>
+				</thead>
+				<tbody>
+					<% unless @reminders == [] %>
+						<% @reminders.each do |reminder| %>
+							<% sender_user = User.find(reminder.reminder.sender)  %>
+							<%= render 'table_row', :reminder => reminder, :sender_user => sender_user %>
+						<% end %>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+		<input type="hidden" id="url_prefix" name="url_prefix" value="" />
+	</form>
+</div>

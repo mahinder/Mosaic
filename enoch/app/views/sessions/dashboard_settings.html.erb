@@ -1,0 +1,106 @@
+<div class="block-border">
+	<div class="block-content">
+		<h1>Settings</h1>
+		<%= render 'shared/form_notice' %>
+		<div id="user_options">
+			 <h3>School</h3>
+			<ul class="shortcuts-list">
+				
+				<li>
+					<a href="/school_configurations/settings"> <span> <%= image_tag "dashboard/setting.png", :size => "48x48"  %> </span> <h6>General Settings</h6> </a>
+				</li>
+				<li>
+					<a href="/class_timings"> <span><%= image_tag "dashboard/clock-icon.png", :size => "48x48"  %></span> <h6>Class Timings</h6> </a>
+				</li>
+				<li>
+					<a href="/rooms/all_record"> <span><%= image_tag "dashboard/rooms.png", :size => "48x48"  %></span> <h6>Rooms</h6> </a>
+				</li>
+				<li>
+					<a href="/weekdays"> <span><%= image_tag "dashboard/weekdays.png", :size => "48x48"  %></span> <h6>Week Days</h6> </a>
+				</li>
+				<li>
+					<a href="/school_sessions"> <span><%= image_tag "dashboard/school_session.png", :size => "48x48"  %></span> <h6>School Sessions</h6> </a>
+				</li>
+				<% if @sms_enabled == true %>
+				<% if permitted_to? :all_record, :sms_templates %>
+				<li>
+					<a href="/sms_templates/all_record"> <%= image_tag "dashboard/SMS-Templates.png", :size => "48x48"  %> <h4>SMS Templates</h4></a>
+				</li>
+				<%end%>
+				<% if permitted_to? :settings, :sms %>
+				<li>
+					<a href="sms/settings"> <%= image_tag "dashboard/sms-setting.png", :size => "48x48"  %> <h4>SMS Settings</h4></a>
+				</li>
+				<%end%>
+				<%end%>
+			</ul>
+			<!-- <h3>Acadamic</h3>
+			<ul class="shortcuts-list">
+				
+				<li>
+					<a href="courses/all_record"> <%= image_tag "dashboard/grades.png", :size => "48x48"  %> <h4>Courses </h4></a>
+				</li>
+				<li>
+					<a href="courses/all_record"> <%= image_tag "dashboard/grades.png", :size => "48x48"  %> <h4>Batches </h4></a>
+				</li>
+				<li>
+					<a href="courses/all_record"> <%= image_tag "dashboard/grades.png", :size => "48x48"  %> <h4>Skills </h4></a>
+				</li>
+				<li >
+					<a href="grading_levels/create_grading_level" > <img alt="Levels" height="48" src="/assets/dashboard/levels.png" width="48" class="first-child last-child"> <h6 >Grading Levels</h6> </a>
+				</li>
+			</ul> -->
+			<h3>HR</h3>
+			<ul class="shortcuts-list">
+				<li>
+					<a href="/employee_categories/all_record" >
+						 <span> <%= image_tag "dashboard/employee-category-icon.png", :size => "48x48"  %> </span> <h6>Employee Category</h6> </a>
+				</li>
+				<li>
+					<a href="/employee_departments/all_record"> <span> <%= image_tag "dashboard/employee-department.png", :size => "48x48"  %> </span> <h6>Employee Department</h6> </a>
+				</li>
+				<li>
+					<a href="/employee_positions/all_record"> <span><%= image_tag "dashboard/levels.png", :size => "48x48"  %></span> <h6> Employee Position</h6> </a>
+				</li>
+				<li>
+					<a href="/employee_grades/all_record"> <span><%= image_tag "dashboard/employee-grade.png", :size => "48x48"  %></span> <h6>Employee Grade</h6> </a>
+				</li>
+				
+				<li>
+					<a href="/bank_fields/all_record"> <span><%= image_tag "dashboard/bank-detail-icon.png", :size => "48x48"  %></span> <h6>Bank Detail</h6> </a>
+				</li>
+				<li>
+					<a href="/additional_fields/all_record"> <span><%= image_tag "dashboard/exams_reports.png", :size => "48x48"  %></span> <h6>Additional Detail</h6> </a>
+				</li>
+				<li>
+					<a href="/employees/employee_attendance"> <%= image_tag "dashboard/emp-leave.png", :size => "48x48"  %><h4>Employee Leave Management</h4> </a>
+				</li>
+			</ul>
+			
+		<!-- 	<h3>Hostel</h3>
+			<ul class="shortcuts-list">
+				<li>
+					<a href="/hostel_details/all_record" >
+						 <span> <%= image_tag "dashboard/employee-category-icon.png", :size => "48x48"  %> </span> <h6>Hostel</h6> </a>
+				</li>
+			</ul> -->
+			
+			<h3> Misc.</h3>
+			<ul class="shortcuts-list">
+				<li>
+					<a href="/student_categories/all_record"> <span><%= image_tag "dashboard/levels.png", :size => "48x48"  %></span> <h6>Student Category</h6> </a>
+				</li>
+				<li>
+					<a href="/student_additional_fields/all_record"> <span><%= image_tag "dashboard/additional-detail-icon.png", :size => "48x48"  %></span> <h6>Admission Additional Detail</h6> </a>
+				</li>
+				<li>
+					<a href="/payroll_categories/all_record"> <span><%= image_tag "dashboard/payroll-categoryicon.png", :size => "48x48"  %></span> <h6>Payroll Category</h6> </a>
+				</li>
+			</ul>
+			
+
+		
+		</div>
+		
+	</div>
+</div>

@@ -1,0 +1,19 @@
+
+<div class="block-border">
+	<div class="block-content form">
+		 <h1>Approve Payslip</h1>
+
+
+ 
+    <div class="label-field-pair">
+    <label for="salary_date">Salary Month</label>
+    <div class="text-input-bg"><%= select :one_click_approve, :salary_date, @salary_dates.map {|c| [c.salary_date.strftime("%B %Y"),c.salary_date.strftime("%Y-%m-%d")]},{:prompt => 'Select'}%></div>
+    </div>
+
+<div id ="approve"> </div>
+
+  </div>
+	</div>
+
+
+ 

@@ -1,0 +1,41 @@
+<br />
+<div class="block-border"  id ="outer_block">
+	<div class =  "block-content form">
+		<h1>User Information</h1>
+		<fieldset class="grey-bg">
+			
+			<p class="inline-small-label">
+				<label for="field13">User Name</label>
+				<input type="text"  name = "user Name"  value="<%=@user.username%> " disabled= true/>
+			</p>
+			<p class="inline-small-label">
+				<label for="field13">Name</label>
+				<input type="text"  name = "Author"  value="<%=@user.full_name%> " disabled= true/>
+			</p>
+			<p class="inline-small-label">
+				<label for="field13">Student/Employee</label>
+				<input type="text"  name = "Tag"  value="<%=@type%> " disabled= true/>
+			</p>
+			<!-- <p class="inline-small-label">
+				<label for="field13">Number Of Books To Be Issued</label>
+				<input type="text"  name = "Number Of Books To Be Issued"  value="<%=@Numderofbookstobeissued%> " disabled= true/>
+			</p> -->
+			<% if @batch != ""%>
+			<p class="inline-small-label">
+				<label for="field13">Batch</label>
+				<input type="text"  id = "already" name = "Already Issued"  value="<%=@batch.full_name%> " disabled= true/>
+			</p>
+			<%end%>
+			<p class="inline-small-label">
+				<label for="field13">Already Issued</label>
+				<input type="text"  id = "already" name = "Already Issued"  value="<%=@already_issue%> " disabled= true/>
+			</p>
+			<p class="inline-small-label">
+				<label for="field13">Number of Books can issued</label>
+				<input type="text" id = "avail"  name = "Avail"  value="<%=@Avail%> " disabled= true/>
+			</p>
+			<input name="hidden_person"  type="hidden" value="<%=@user.id%>" id = "hidden_person"/>
+			
+		</fieldset>
+	</div>
+</div>

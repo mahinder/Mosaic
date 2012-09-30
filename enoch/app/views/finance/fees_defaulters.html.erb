@@ -1,0 +1,32 @@
+<div class="block-border" id="outer_block">
+	<div class="block-content form">
+  <h1>Fees Defaulters</h1>
+  <div class="block-controls enoch_block">
+	<ul class="controls-tabs js-tabs">
+		<li >
+			<%= link_to image_tag("/assets/icons/web-app/32/Back.png"),"javascript:history.back()" %>
+		</li>
+	</ul>
+</div>	
+<fieldset>
+	<legend>Students with fee dues </legend>
+<div class="columns">
+  <%= form_for :fees_defaulters do %>
+	<p class="colx3-left required select-fixed-width1"> 
+	          <label for="student_grade">Course</label>
+	          <%= select :fees_defaulters, :course_id, Course.active.map{|c| [c.course_name, c.id]},:prompt => "Select",:selected =>( @course.id unless params[:prev].nil?) %>
+	        </p> 
+      <p class="colx3-center required select-fixed-width1" id="changeFeesDefaulterBatchID">
+        <%=render :partial => "fee_defaulter_batch" %>
+<!--       ,       #:onChange => "#{remote_function(:url => {:action => "update_fees_collection_dates_defaulters"}, :with => "'batch_id='+value")}"}%> </div> -->
+      </p>
+<p class="colx3-right required select-fixed-width1" id="changeFeesDefaulterCollectionDate">
+        
+        <%= render :partial => "fees_collection_dates_defaulters"  %> 
+</p>
+  <% end %>
+</div>
+    <div id="student_defaulters">    </div>
+    </fieldset>
+</div>
+</div>

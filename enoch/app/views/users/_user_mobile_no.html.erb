@@ -1,0 +1,30 @@
+<section class="with-margin">
+	<div class="block-border">
+		<form action="" method="post" id="simple-list-form" class="block-content form">
+			<ul class="simple-list with-icon icon-info">
+				<% if @employee == "yes"%>
+				<li>
+					First Office Phone Number :- <%= @first %>
+				</li>
+				<li>
+					Second Office Phone Number :- <%= @second %>
+				</li>
+				<li>
+					Mobile Number :- <%= @third %>
+				</li>
+				<li>
+					Home Phone Number :- <%= @fourth %>
+				</li>
+				<%else%>
+				
+				<li>
+					First Phone Number :- <%= @first %>
+				</li>
+				<li>
+					Second Phone Number :- <%= @second %>
+				</li>
+				<%end%>
+			</ul>
+		</form>
+	</div>
+</section>

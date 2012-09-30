@@ -1,0 +1,2 @@
+module BankFieldsHelper
+end

@@ -1,0 +1,49 @@
+<style type="text/css">
+.my_image_class{
+	float:left;
+    width:100px;
+    height:100px;
+    border:5px solid lightGray;	
+}
+.grey-bg {
+    background-color: #E6E6E6;
+}
+</style>
+<fieldset class="grey-bg">
+							<legend>
+								Identity Card
+							</legend>
+							<div class="columns">
+								<p class="colx2-left">
+<div class="my_image_class">
+<%if FileTest.exists?("#{Rails.root}/public/system/student_photos/#{@student.id}") && !@student.student_photo.nil?%>
+	<%= pdf_image_tag(@student.student_photo.url(:large), :style=>"margin:0px;padding:0px", :width=>"100", :height=>"100")%>
+<% else %>
+	<% if @student.gender.upcase=="M"%>
+	    <%= pdf_male_image_tag('male-icon.png', :style=>"margin:0px;padding:0px", :width=>"100", :height=>"100")%>
+    <%else%>
+		<%= pdf_female_image_tag('female.png', :style=>"margin:0px;padding:0px", :width=>"100", :height=>"100")%>
+    <%end%>
+<% end %>
+</div>
+</p>
+<p class="colx2-right" style="margin-left: 15em;">
+	Name : <%=@student.full_name%><br /><br />
+	Batch : <%=@student.batch.full_name%><br /><br />
+	Blood Group : <%=@student.blood_group%><br /><br />
+	Roll No : <%=@student.class_roll_no%><br /><br />
+	<%unless @student.immediate_contact.nil?%>
+	Immediate Contact : <%=@student.immediate_contact.full_name%>
+		(<%=@student.immediate_contact.mobile_phone%>)
+	<%else%>
+	Immediate Contact : <%=@student.phone2%>
+	<%end%>
+</p>
+</div>
+</fieldset>
+<br /><br /><br />
+<div class="columns">
+<p class="colx2-right"  style="margin-left: 25em;">
+	Principal Signature
+</p>
+</div>

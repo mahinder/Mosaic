@@ -1,0 +1,65 @@
+			<div class="block-border" id="outer_block">
+				<%= form_for @financial_asset,  :html => { :class => "block-content form", :id => "financial-assets-form"} do |form| %>
+				<%= render 'shared/form_errors', :object => form.object %>
+				<h1>Financial Asset</h1>				
+								
+				<fieldset class="grey-bg">
+					<legend>Required Fields</legend>
+					<div class="colx3-left-double required">
+						<label for="asset_title">Title</label>
+						<span class="relative">
+							<%= form.text_field :title   %>
+						</span>
+					</div>
+					<div class="colx3-right required">
+						<label for="asset_amount">Amount</label>
+						<span class="relative">
+							<%= form.text_field :amount, :class => "full-width"  %>
+						</span>
+					</div>
+					
+				</fieldset>
+				<fieldset>
+					<legend>Other informations</legend>
+					
+					<div class="columns">
+						<p class="colx2-left">
+							<label for="asset_description">Description</label>
+							<%= form.text_field :description, :class => "full-width" %>
+						</p>
+						<p class="colx3-right">
+						<label for="liability_is_deleted">Status</label>
+							 
+							<%= form.radio_button  "is_inactive", "false", :checked => "checked" %>&nbsp;<label for="complex-en-active-0">Active</label>
+							<%= form.radio_button  "is_inactive", "true" %>&nbsp;<label for="complex-en-active-1">Inactive</label>
+					</p>
+					
+					</div>
+				</fieldset>
+				
+
+				
+				<fieldset class="grey-bg no-margin">
+					<legend>Action on create</legend>
+					<div class="columns">
+					
+						<div class="colx2-right-double">
+							<label for="asset_is_deleted">Is Deleted?</label>
+							<%= form.radio_button  "is_deleted", "true" %>&nbsp;<label for="complex-en-active-0">Yes</label>
+							<%= form.radio_button  "is_deleted", "false", :checked => "checked" %>&nbsp;<label for="complex-en-active-1">No</label> 
+							
+						</div>
+						<div class="colx2-right">
+							<button id="create_asset" type="submit">Create</button>
+							<button id="update_asset" type="button" disabled="true">Update</button>
+							<button id="reset_asset" type="button">Clear</button>
+							<input type="hidden" id="current_object_id" name="current_object_id" value=""/>
+						</div>
+					</div>
+				</fieldset>
+				<% end %>
+			</div>
+			<br/>
+			<div id="table-block" class="block-border">
+           <%= render 'financialassets'%>
+			</div>

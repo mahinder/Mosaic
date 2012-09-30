@@ -1,0 +1,34 @@
+<br />
+<div id="replcae_awardList">
+	<fieldset>
+		<table class="table awardListsortable no-margin" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th class="black-cell"></th>
+					<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> Title </th>
+					<th scope="col">Description</th>
+					<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> Award Date </th>
+					<%if permitted_to? :create, :student_awards %> <th scope="col" class="table-actions">Actions</th>
+					<%else%> <th scope="col" class="table-actions">Batch</th>
+					<%end%>
+				</tr>
+			</thead>
+			<tbody>
+				<%@awardList.each do|al| %>
+				<tr>
+					<td class="th table-check-cell"></td>
+					<td><%= al.title%></td>
+					<td><%= truncate(al.description, :length => 30, :omission =>"...")%></td>
+					<td><%= al.award_date.strftime("%d-%m-%Y")%></td>
+					<%if permitted_to? :create, :student_awards %> <td>
+					<input type="hidden" name="object_id" value="<%= al.id %>"/>
+					<input type="hidden" name="students_id" id="students_id" value="<%= al.student_id %>"/>
+					<a href="" id="update-href-<%= al.id %>" title="Edit" class="with-tip update-studentAward-master-href"><img src="/assets/icons/fugue/pencil.png" width="16" height="16"></a><a href="" id="delete-href-<%= al.id %>" title="Delete" class="with-tip delete-studentAward-master-href"><img src="/assets/icons/fugue/cross-circle.png" width="16" height="16"></a></td>
+					<%else%> <td><%= al.batch.full_name%></td>
+					<%end%>
+				</tr>
+				<%end%>
+			</tbody>
+		</table>
+	</fieldset>
+</div>

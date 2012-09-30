@@ -1,0 +1,29 @@
+<div class="block-border">
+	<form class="block-content form" id="complex_form" method="post" action="">
+		<h1>Course Information</h1>
+			<div class="block-controls">
+					<ul class="controls-tabs js-tabs">
+						<li class="current">
+							<a href="#montesary" title="Montessori Courses"><img src=" /assets/icons/montesary.png" width="24" height="24"></a>
+						</li>
+						<li>
+							<a href="#primary" title="Primary Courses"><img src=" /assets/icons/primary.png" width="24" height="24"></a>
+						</li>
+						<li>
+							<a href="#high_school" title="High Courses"><img src=" /assets/icons/high_school.png" width="24" height="24"></a>
+						</li>
+					</ul>
+			</div>
+			<div id="tabs-content" class="tabs-content">
+				<div id="montesary">
+					<%= render 'courses',:courses_value => @montesary,:course_for => "montesary"%>
+				</div> 
+				<div id="primary">
+					<%= render 'courses',:courses_value => @primary_courses,:course_for => "primary"%>
+				</div>
+				<div id="high_school">
+					<%= render 'courses',:courses_value => @high_school_courses,:course_for => "high_school"%>
+				</div>
+	</form>
+	</div>
+</div>

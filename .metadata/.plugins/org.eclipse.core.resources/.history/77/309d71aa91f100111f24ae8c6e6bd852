@@ -1,0 +1,34 @@
+<style type="text/css">
+div, textarea {
+ font-family: Helvetica, Arial, sans-serif;
+ font-size: 14px;
+ line-height: 16px;  
+}
+
+textarea {
+ padding: 4px;
+ display: inline-block;
+ vertical-align: baseline;    
+}
+
+</style>
+<table border="0" class="table" width="100%">
+	<thead >
+		<tr class="turquoise">
+			<th><%= @days[d[0]]%><p style="float: right"><%= d[1].strftime("%d-%m-%Y")%></p></th>
+		</tr>
+		<tr class="turquoiseLight">
+			<th>Plans</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="rows" id = "rows">
+			<%teacherd = TeacherDiary.find_by_school_session_id_and_employee_id_and_text_date(@current_session,(@user.employee_record.id),d[1])	%>
+			<td>
+			<div id='container'>
+				<textarea class="teacherDiaryText" name="comments" id=<%=d[1]%> rows='10' cols="40" placeholder="Enter Text"><%=teacherd.description unless teacherd.nil? %></textarea>
+			</div></td>
+		</tr>
+	</tbody>
+</table>
+<br />

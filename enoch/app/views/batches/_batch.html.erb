@@ -1,0 +1,63 @@
+<div class="colx3-left">
+	<label for="batch_name">Batch Name :</label>
+	<span class="relative">
+			<%= @batch.full_name%>
+	</span>
+</div>
+<div class="colx3-center">
+	<label for="batch_start_date">Batch Start Date : </label>
+	<span class="relative">
+		<%= @batch.start_date.strftime('%d''-''%m''-''%Y')%>
+	</span>
+</div>
+<div class="colx3-center">
+		<label for="batch_end_date">Batch End Date :</label>
+		<span class="relative">
+			<%= @batch.end_date.strftime('%d''-''%m''-''%Y')%>
+		</span>
+</div>
+<br /><br /><br /><br />
+<div class="colx3-left" id = "replace_teacher">
+		<!-- <label for="batch_end_date">Class Teacher :</label>
+		<span class="relative"  >
+			<%= @batch.class_teacher.full_name  unless @batch.class_teacher.nil?%>
+		</span> -->
+		<label for="Tearcher_search">Class Teacher :</label>
+		<span class="input-type-text margin-right relative"> <%= text_field :employee,:name,:id=>'teacher', :size => '24' ,:value => (@batch.class_teacher.full_name  unless @batch.class_teacher.nil?)%></span>
+		<input type="hidden"id = "emp_batch_id" name="emp_course_id" value="<%= @batch.id%>" />
+		<input type="hidden"id = "emp_course_id" name="emp_course_id" value="<%= @course.id%>" />
+		<div class="colx3" id = "teacher_assign" style =" height:60px; overflow: auto; width: 210px"></div>
+		
+		
+</div>
+<div class="colx3-center">
+	<br />
+<input type="hidden" name="object_id" value="<%= @batch.id %>"/>
+
+<button  class="with-tip update-batch-subject-href"  data-start="<%=@batch.start_date.strftime('%d''-''%m''-''%Y') %>" data-course = "<%=@course.id %> " data-end="<%=@batch.end_date.strftime('%d''-''%m''-''%Y') %>" data-name = "<%= @batch.name %>" >
+				Edit
+</button>
+<button id="delete-batch-subject-href-<%= @batch.id %>" title = "Delete"  data-course = "<%=@course.id %>"  class="with-tip delete-batch-subject-tab-href" >
+				Delete
+</button>
+</div>
+<!-- <div class="colx3-center"   id = "replace_room">
+		<label for="batch_end_date">Home Room :</label>
+		<span class="relative">
+			<%= @batch.room.name unless @batch.room.nil?%>
+		</span>
+</div> -->
+<!-- <br /><br /><br /><br /> -->
+<!-- <div class="columns">
+	<div class="colx2-center">
+<input type="hidden" name="object_id" value="<%= @batch.id %>"/>
+
+<button  class="with-tip update-batch-subject-href"  data-start="<%=@batch.start_date.strftime('%d''-''%m''-''%Y') %>" data-course = "<%=@course.id %> " data-end="<%=@batch.end_date.strftime('%d''-''%m''-''%Y') %>" data-name = "<%= @batch.name %>" >
+				Edit
+</button>
+<button id="delete-batch-subject-href-<%= @batch.id %>" title="Delete"  data-course="<%=@course.id %> " class="with-tip delete-batch-subject-tab-href" >
+				Delete
+</button>
+</div>
+</div>	 -->
+

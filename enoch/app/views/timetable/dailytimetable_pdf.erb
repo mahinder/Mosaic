@@ -1,0 +1,58 @@
+<div class="block-content form"  >
+	
+	<p style="font-size: 20px;">
+		<% if @substitute == "true" %>
+			<%= @employee.full_name unless @employee.nil?%> is substituted by following Teachers
+		<%else%>
+			<%= @employee.full_name unless @employee.nil?%> was substituted for following Teachers
+		<%end%>
+	</p>
+	<table class="table no-margin" cellspacing="0" width="100%">
+		<thead>
+			<tr class="yellow">
+				<th > Date </th>
+				<% if @substitute == "true" %> <th>Substitute With</th>
+				<%else%> <th>Substituted For</th>
+				<%end%> <th>Class Timming</th>
+			</tr>
+		</thead>
+		<tbody>
+			<%unless @map.empty? %>
+			<% @map.each do |value| %>
+			<tr class="odd">
+				<td class=" sorting_1"><%= value.date%> </td>
+				<% if @substitute == "true" %> <td><%= value.teacher_substitude_with.full_name%></td>
+				<%else%> <td><%= value.employee.full_name%></td>
+				<%end%> <td><%= value.class_timing.start_time.strftime('%H : %M %p')%> - <%= value.class_timing.end_time.strftime('%H : %M %p')%></td>
+			</tr>
+			<%end%><%end%>
+		</tbody>
+	</table>
+</div>
+<style type="text/css">
+	table {
+		font: 15px  /24px Verdana, Arial, Helvetica, sans-serif;
+		border: 1px solid #660000;
+		width: 800px;
+	}
+	th {
+		padding: 0 0.5em;
+		text-align: left;
+	}
+	tr.yellow th {
+		border-top: 1px solid #FB7A31;
+		border-bottom: 1px solid #FB7A31;
+		background: #FFC;
+	}
+	td {
+		border-bottom: 1px solid #CCC;
+		padding: 0 0.5em;
+	}
+	td.width {
+		width: 190px;
+	}
+	td.adjacent {
+		border-left: 1px solid #CCC;
+		text-align: center;
+	}
+</style>

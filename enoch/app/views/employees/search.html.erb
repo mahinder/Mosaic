@@ -1,0 +1,55 @@
+<script type="text/javascript">
+    function resetFieldEmployee() {
+			 	$('#employees_search').empty();
+			 	$('#query').val("");
+	}
+	
+</script>
+<div class="block-border">
+	<div class="block-content form">
+		<h1>Employee Search</h1>
+		<div class="block-controls enoch_block">
+			<ul class="controls-tabs js-tabs">
+				<li >
+					<%= link_to image_tag("/assets/icons/web-app/32/Back.png"), :back %>
+				</li>
+			</ul>
+		</div>	
+		<div class="tabs-content">
+			<ul class="mini-tabs no-margin js-tabs ">
+				<li class="current">
+					<a href="#tab-en">Simple Search</a>
+				</li>
+				<li>
+					<a onclick="resetFieldEmployee()" href="#tab-fr">Advanced Search</a>
+				</li>
+			</ul>
+			<div id="tab-en">
+				
+					<div class="columns">
+					<label for="name"> Search</label>
+					<div id="search_textbox">
+						<%= text_field_tag("query", params['query']) %>
+						<p class="colx2-right">
+							<input type="radio" name="setopt" id="search_present_students_radios" checked="checked"/>
+							<strong>Present Employee</strong> 
+							<input type="radio" name="setopt" id ="search_former_students_radio"  />
+							<strong>Alumni</strong>
+					</p>
+					</div>
+					
+					
+					</div>			
+			
+			</div>
+			<div id="tab-fr">
+				<%= render :partial => "employee_advance_search"%> 
+			</div>
+			<br /><br />
+			<div id="employee_advanced_search"></div>
+			<div id="employees_search"></div>
+		</div>
+		
+		
+	</div>
+</div>

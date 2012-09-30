@@ -1,0 +1,74 @@
+<div class="block-border" id="outer_block">
+	<div class="block-content form">
+	<h1>Fee Collection</h1>	
+  <div class="block-controls enoch_block">
+					<ul class="controls-tabs js-tabs">
+						<li>
+							<a href="/finance/master_categoy_create" id="" ><%= image_tag "fees/fee-collection.png", :size => "24X24" ,:title => "Master Category" %></a>
+						</li>
+						<li>
+							<a href="/finance/fee_discounts" id="" ><%= image_tag "/assets/icons/web-app/24/fee discount 28.png", :size => "24X24" ,:title => "Fee Discounts" %></a>
+						</li>
+						<li>
+							<a href="/finance/fees_submission_index" id="" ><%= image_tag "fees/fee-submission.png", :size => "24X24" ,:title => "Fee Submission" %></a>
+						</li>
+						<li >
+							<%= link_to image_tag("/assets/icons/web-app/32/Back.png"), :back %>
+						</li>
+					</ul>
+	    </div>
+<%= form_for :finance_fee_collection,  :url => {:action => 'fee_collection_create'} do |form| %>
+
+<fieldset>
+	<legend>
+		Set Fee Collection Date
+	</legend>
+	<div class="columns">
+		<p class="colx3-left select-fixed-width1 required">
+			 <label for="name">Fee Category</label>
+			 <%= form.select(:fee_category_id, @fee_categories.map { |item| [item.name, item.name] },{:prompt => "Select" })%>
+		</p>
+		
+		<p class="colx3-center" id="changeBatchFeeCollection">
+			    
+		</p>
+		
+		<p class="colx3-right required" >
+			    <label for="reason">Fee Collection Name</label>
+    			<%= form.text_field :name%>
+		</p>
+	</div>
+	<div class="columns">
+		  <p class="colx3-left">
+		    <label for="start_date">  Start Date</label>
+		    <span class="input-type-text relative required"><%= form.text_field :start_date, :value => Date.today.strftime('%d''-''%m''-''%Y') , :class => "datepicker", :size => 20,:readonly => "1" %><%= image_tag "icons/fugue/calendar-month.png" %></span>
+		  </p>
+		  <p class="colx3-center">
+		    <label for="end_date">  End Date</label>
+		    <span class="input-type-text relative required"><%= form.text_field :end_date, :value => Date.today.strftime('%d''-''%m''-''%Y') , :class => "datepicker", :size => 20,:readonly => "1" %><%= image_tag "icons/fugue/calendar-month.png" %></span>
+		  </p>
+		  <p class="colx3-right">
+		    <label for="due_date">  Due Date</label>
+		    <span class="input-type-text relative required"><%= form.text_field :due_date, :value => Date.today.strftime('%d''-''%m''-''%Y') , :class => "datepicker", :size => 20,:readonly => "1" %><%= image_tag "icons/fugue/calendar-month.png" %></span>
+		  </p>
+	</div>
+</fieldset>
+
+
+<fieldset class="grey-bg no-margin">
+	<legend>
+		Action
+	</legend>
+		<div class="colx2-left">
+			<button id="save_fee_collection" type="submit">Create</button>
+			<button id="view_fee_collection" type="button" >View</button>
+			<input type="hidden" id="current_object_id" name="current_object_id" value=""/>
+		</div>
+
+</fieldset>
+  
+<% end %>
+
+
+	</div>
+</div>

@@ -1,0 +1,30 @@
+<input type="hidden" name="assigned-student" value="" id = "assigned_student"/>
+<% @slno = 0 %>
+	
+					<ul class="blocks-list">
+							<% unless @batch.nil? %>
+								<input type="hidden" name="batch" value="<%=@batch.id%>" id = "course_id_batch"/>
+								 <% @students =  @batch.students%>
+							
+							<% unless @students.nil? %>
+								<% @students.each do |student|%>
+								<% @slno = @slno + 1 %>
+								
+						<li >
+							
+							
+							<%=  @slno %> .  	<input type="checkbox" name="<%= student.id %>" id ="select-student-id_<%=@slno%>" data-student ="<%= student.id %>" class = "select_all assign_student_batch_<%=student.id%>">  <b><%=student.first_name%> <%=student.last_name%></b>
+							<ul class="tags float-right">
+								<li > Admission No : <%=student.admission_no%></li>
+								<li >Class Roll No :<%=student.class_roll_no%></li>
+							</ul>
+					</li>
+						<%end%>
+						<%end%>
+						<%end%>
+						<input name="student_id" type="hidden" id ="modal_course_id" data-course = "<%=@course.id%>"/>
+						<input name="serial" type="hidden" id ="serial_no" value = "<%=@slno%>"/>
+					
+					</ul>
+
+

@@ -1,0 +1,44 @@
+<%= render 'shared/ie' %>
+<%= render 'shared/global_head' %>
+<%= render 'shared/js' %>
+<ol class="wizard-steps no-margin">
+		<li id ='personal'>
+			<a href="" > <span class="number">1<span  class="status-ok"></span></span>Select Image </a>
+		</li>
+		<li id ='address'>
+			<a href="#" > <span class="number">2<span  class=""></span></span>Crop Image</a>
+		</li>
+</ol>
+<div class="block-border" id="outer_block">
+	<div class="block-content form">
+		<h1>Select Image</h1>
+<% unless flash[:notice].nil? %>
+<p class="flash-msg">
+	<%= flash[:notice] %>
+</p>
+<% end %>
+<%= form_for :student, :url => {:action => 'update_student_image',:q => @student.admission_no},:remote => true,:html =>{:id =>'student_images'} do |a| %>
+<fieldset>
+		<legend>
+			Upload image
+		</legend>
+		<div class="columns">				
+		    <p class="colx3-left">
+				<label for="address_line_1">Student Photo</label>
+				<%= a.file_field :student_photo, :class => "full-width"%>
+			</p>	
+		</div>      
+</fieldset>
+	     <br />
+	<fieldset class="grey-bg">
+		<legend>
+			Action
+		</legend>
+			<p class="colx3-left">
+				<%= a.submit "Next", :class => "big-button" ,:id => ""%>
+			</p>
+	</fieldset>
+
+<% end %>
+</div></div>
+

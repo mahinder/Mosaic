@@ -1,0 +1,48 @@
+			<div id="outer_block">
+				<%= form_for @assessment_indicator,  :html => { :class => "block-content form", :id => "activityAssementIndicator-form"} do |form| %>
+				<%= render 'shared/form_errors', :object => form.object %>
+				
+				<br />
+				<fieldset class="grey-bg">
+					<legend>Required fields</legend>
+					<div class="columns">
+					<p class="colx3-left required">
+						<label for="indicator_value">Indicator Value</label>
+						<span class="relative">
+							<%= form.text_field :indicator_value,:field_name=>'Indicator Value',:size =>10 %>
+						</span>
+					</p>
+					<p class="colx3-center">
+						<label for="indicator_description">Indicator Description</label>
+						<span class="relative">
+							<%= form.text_field :indicator_description,:field_name=>'Indicator Description', :size => 50%>
+						</span>
+					</p>
+					</div>
+					<input type="hidden" id="co_scholastic_subskill_activity_id" name="co_scholastic_subskill_activity_id" value="<%=@co_scholastic_sub_skill_activity_id%>" />
+				</fieldset>
+							
+				
+				<fieldset class="grey-bg no-margin">
+					<legend>Action on create</legend>
+					<div class="columns">
+						<div class="colx2-left-double">
+							<label for="simple-action">Status</label>
+							<%= form.radio_button  "is_active", "true", :checked => "checked" %>&nbsp;<label for="complex-en-active-1">Active</label> 
+							<%= form.radio_button  "is_active", "false" %>&nbsp;<label for="complex-en-active-0">Inactive</label>
+						</div>
+						<div class="colx2-right">
+							<button id="create_activity_assement_indicator" type="submit">Create</button>
+							<button id="update_activity_assement_indicator" type="button" >Update</button>
+							<button id="reset_activity_assement_indicator" type="button">Clear</button>
+							<input type="hidden" id="current_object_id" name="current_object_id" value=""/>
+						</div>
+					</div>
+				</fieldset>
+				<% end %>
+				
+			</div>
+			<br/>
+			<div id="table-block" class="block-border">
+				<%= render 'activity_assessment_indicators' %>
+			</div>

@@ -1,0 +1,46 @@
+<div class="block-border" id="outer_block">
+	<div class="block-content form">
+
+
+<label class="head_label">Attendance for <span><%= @employee.full_name %></span></label>
+<% unless flash[:notice].nil? %>
+				<ul class="message success no-margin">
+					<li>
+						<%= flash[:notice] %>
+					</li>
+					<li class="close-bt"></li>
+				</ul>
+<% end %>
+
+  <%= form_for :attendance do |f| %>
+    <%= f.hidden_field :employee_id, :value => @employee.id %>
+    <%= f.hidden_field :attendance_date, :value => @date %>
+  <br/>
+  <div class="columns">
+    <div class="label-field-pair required">
+      <label for="leave_type"> Leave type</label>
+      <div class="text-input-bg"><%= select :employee_attendance,:employee_leave_type_id, @leave_types.map {|c| [c.name, c.id]},:prompt => "Select a leave type" %></div>
+    </div>
+     <div class="columns">
+        <p class="colx2-left required">
+      <label for="leave_type"> Start Date</label>
+      <span class="input-type-text"><%= text_field_tag :start_date_attendance,nil, :class => "modal_date_picker", :size => 20,:readonly => "1" %><%= image_tag "icons/fugue/calendar-month.png" %></span>
+    </p>
+     <p class="colx2-right required">
+      <label for="leave_type">End Date</label>
+      <span class="input-type-text"><%= text_field_tag :end_date_attendance,nil, :class => "modal_date_picker", :size => 20,:readonly => "1"  %><%= image_tag "icons/fugue/calendar-month.png" %></span>
+    </p>
+    </div>
+    <div class="label-field-pair required">
+      <label for="leave_type"> Reason For Absence</label>
+      <div class="text-input-bg"><%= f.text_field :reason %></div>
+    </div>
+    <div class="label-checkbox-pair">
+      <label><%= f.check_box :is_half_day, :checked => false %>Is Half Day?</label>
+    </div>
+    </div>
+  <% end %>
+
+</div>
+</div>
+

@@ -1,0 +1,17 @@
+
+  <fieldset>
+  	<legend>
+  		 Fees Submission
+  	</legend>
+  <% unless flash[:notice].nil? %><p class="flash-msg"><%= flash[:notice] %></p><% end %>
+
+        <label for="user_name">
+          Search
+        </label>
+          <%= text_field_tag :studentFeequery%>
+
+<br /><br />
+
+<div id="information"></div>
+  </fieldset>
+

@@ -1,0 +1,109 @@
+<div class="block-border" id="outer_block">
+	<%= form_for @employee,:url => { :action => "wizard_next_step" }, :html => { :class => "block-content form", :id => "form", :name => 'wizard_form'} do |form| %>
+	<h1>Employee Wizard</h1>
+	<ol class="wizard-steps no-margin">
+		<% if @employee.steps.index(@employee.current_step) <= 1 %>
+		<li id ='info'>
+			<a href="#" > 
+				<span class="number">1
+					<% if @employee.current_step == 'summary'%><span  class="status-ok"></span> <% end %>
+				</span> Summary
+			</a>
+		</li>
+		<% end %>
+		
+		<% if @employee.steps.index(@employee.current_step) <= 2  %>
+		<li id ='professional'>
+			<a href="#" > 
+				<span class="number">2
+					<% if @employee.current_step == 'professional'%><span  class="status-ok"></span><%end%>
+				</span> Professional
+			</a>
+		</li>
+		<% end %>
+		
+		<%-# Always Visible -%>
+		<li id ='personal'>
+			<a href="#" > 
+				<span class="number">3
+					<% if @employee.current_step == 'personal'%><span  class="status-ok"></span><%end%>
+				</span> Personal 
+			</a>
+		</li>
+		
+		<% if @employee.steps.index(@employee.current_step) >= 2  %>
+		<li id ='contact'>
+			<a href="#" > 
+				<span class="number">4
+					<% if @employee.current_step == 'contact'%><span  class="status-ok"></span><%end%>
+				</span> Contact 
+			</a>
+		</li>
+		<% end %>
+		
+		<% if @employee.steps.index(@employee.current_step) >= 3 %>
+		<li id ='photo'>
+			<a href="#" > 
+				<span class="number">5
+					<% if @employee.current_step == 'photo'%><span class="status-ok"></span><%end%>
+				</span> Upload Image 
+			</a>
+		</li>
+		<% end %>
+		<% if @employee.steps.index(@employee.current_step) >= 3 %>
+		<li id ='photo_crop'>
+			<a href="#" > 
+				<span class="number">6
+					<% if @employee.current_step == 'photo_crop'%><span class="status-ok"></span><%end%>
+				</span> Edit Image 
+			</a>
+		</li>
+		<% end %>
+	</ol>
+	<% if @employee.current_step == 'summary'%>
+	<span class="number bigger">1</span>
+	<small>Employee Wizard</small>
+	<h2 class="bigger">Summary</h2>
+	<%end%>
+	<% if @employee.current_step == 'professional'%>
+	<span class="number bigger">2</span>
+	<small>Employee Wizard</small>
+	<h2 class="bigger">Professional</h2>
+	<%end%>
+	<% if @employee.current_step == 'personal'%>
+	<span class="number bigger">3</span>
+	<small>Employee Wizard</small>
+	<h2 class="bigger">Personal</h2>
+	<%end%>
+	<% if @employee.current_step == 'contact'%>
+	<span class="number bigger">4</span>
+	<small>Employee Wizard</small>
+	<h2 class="bigger">Contact Details</h2>
+	<%end%>
+	<% if @employee.current_step == 'photo'%>
+	<span class="number bigger">5</span>
+	<small>Employee Wizard</small>
+	<h2 class="bigger">Image</h2>
+	<%end%>
+	<% if @employee.current_step == 'photo_crop'%>
+	<span class="number bigger">6</span>
+	<small>Employee Wizard</small>
+	<h2 class="bigger">Customize Image</h2>
+	<%end%>
+	<%= render 'shared/form_errors', :object => form.object %>
+	<%= render "step_#{@employee.current_step}", :form => form %>
+	<fieldset class="grey-bg no-margin">
+		<legend>
+			Action
+		</legend>
+		<p class="input-with-button">
+			<%= button_to_function "Previous", "$(location).attr('href','/employees/wizard_previous_step');", :class => "big-button"  unless @employee.first_step? ||  @employee.current_step == 'photo_crop'%>
+			<%= button_to_function "Skip", "$(location).attr('href','#');", :class => "big-button", :id => "skip_button"  if @employee.current_step == 'photo'%>
+			<%= form.submit "Next", :class => "big-button", :id =>"next_button"  unless @employee.last_step?%>
+	     <%unless @employee.last_step? %>
+	     <input type="button" id="Cancel_Employee_wizard" value="Cancel" class="big-button" />	<%end%>
+		<input type="hidden" id="current_step" value="<%= @employee.current_step%>"/>
+		</p>
+	</fieldset>
+	<% end %>
+</div>

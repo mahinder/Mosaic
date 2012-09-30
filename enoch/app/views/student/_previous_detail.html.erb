@@ -1,0 +1,47 @@
+<!-- <% unless flash[:notice].nil? %>
+<p class="flash-msg">
+	<%= flash[:notice] %>
+</p>
+<% end %> -->
+	<div class="block-content form">
+<%= form_for :student_previous_details do |a| %>
+
+	<fieldset>
+		<legend>
+			Previous Educational Details
+		</legend>
+		<div class="columns">
+			<p class="colx2-left required">
+				<label>Institution Name</label>
+				<%= a.text_field :institution ,:value => (@previous_data.institution unless @previous_data.nil?),:class => "full-width" ,:field_name => 'Institution Name'%>
+			</p>
+			<p class="colx2-right">
+				<label>Course</label>
+				<%= a.text_field :course,:value => (@previous_data.course unless @previous_data.nil?),:class => "full-width",:field_name => 'Course'%>
+			</p>
+		</div>
+		<div class="columns">
+			<p class="colx2-left">
+				<label>Year</label>
+				<%= a.text_field :year,:value =>(@previous_data.year unless @previous_data.nil?),:class => "full-width numeric",:field_name => 'Year'%><span>(Please enter year like 2011)</span>
+			</p>
+			<p class="colx2-right">
+				<label>Total Marks</label>
+				<%= a.text_field :total_mark,:value => (@previous_data.total_mark unless @previous_data.nil?),:class => "full-width numeric",:field_name => 'Total Marks'%>
+			</p>
+		</div>
+	</fieldset>
+	
+	<%= a.hidden_field :student_id, :value => @student.id %>
+	<%if permitted_to? :previous_data, :student %>
+	<fieldset class="grey-bg no-margin">
+		<legend>
+			Action
+		</legend>
+		<p class="colx3-left">
+			<%= a.submit "Update", :class => "big-button" ,:id => "update_student_previous_detail"%>
+		</p>
+	</fieldset>
+	<% end %> 
+<% end %> 
+</div>

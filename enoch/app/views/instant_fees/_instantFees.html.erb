@@ -1,0 +1,23 @@
+<form class="block-content form" id="table_form" method="post" action="">
+					<h1>Instant Fees List</h1>
+					<div>
+						<ul class="tabs js-tabs">
+							<li class="current"><a href="#tab-active" title="Active">Active</a></li>
+						</ul>
+					</div>
+					<div id="tabs-content" class="tabs-content">
+						<div id="tab-active">
+							<table id="instantfees" class="table instantfees no-margin" cellspacing="0" width="100%">
+								<thead>
+									<%= render 'table_head' %>
+								</thead>
+								<tbody>		
+									<% @instant_fees_categories.each do |instant_fees_categories| %>
+									<%= render 'table_row', :instant_fees_categories => instant_fees_categories %>
+									<% end %>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<input type="hidden" id="url_prefix" name="url_prefix" value="/instant_fees" />
+				</form>

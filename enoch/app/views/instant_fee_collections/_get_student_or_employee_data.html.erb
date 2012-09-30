@@ -1,0 +1,55 @@
+<% if !@students.nil? %>
+	<form class="block-content form no-margin" id="table_form" method="post" action="">
+		<h1>Student List</h1>
+
+		<table class="table studentOrEmployeeTable no-margin" id="instantFeesStudent" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th class="black-cell"></th>
+					<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> Name </th>
+					<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> Admn No. </th>
+					<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span>Batch</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @students.each do |student| %>
+				<tr>
+					<td class="th table-check-cell"></td>
+					<td><a href="#" id="select_instant_fee_category" person_id="<%=student.user.id%>"><%=student.full_name%></a></td>
+					<td><%= student.admission_no %></td>
+					<td><%= student.batch.full_name %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</form>
+<%elsif !@employees.nil? %>
+<form class="block-content form no-margin" id="table_form" method="post" action="">
+		<h1>Employee List</h1>
+
+		<table class="table studentOrEmployeeTable no-margin" id="instantFeesStudent" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th class="black-cell"></th>
+					<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> Name </th>
+					<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> Employee No. </th>
+					<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span>Department Name</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @employees.each do |employee| %>
+				<tr>
+					<td class="th table-check-cell"></td>
+					<td><a href="#" id="select_instant_fee_category" person_id="<%=employee.user.id%>"><%=employee.full_name%></a></td>
+					<td><%= employee.employee_number %></td>
+					<td><%= employee.employee_department.name%></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</form>
+
+<%else%>
+
+
+<%end%>

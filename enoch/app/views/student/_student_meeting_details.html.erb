@@ -1,0 +1,20 @@
+<div class="block-content form">
+<% @ptm_detail.each do |e| %>
+<dl>
+	<dt>
+		<strong><b>Teacher Notes</b></strong>
+	</dt>
+	<dd>
+		- <%= e.teacher_notes%>
+	</dd>
+	<br />
+	<dt>
+		<strong><b>Parent Feedback</b></strong>
+	</dt>
+	<dd>
+		<input type="text" name="parent_feed" id="parent_feed" value="<%= e.parent_feedback %>" class="full-width"/>
+	</dd>
+</dl>
+<% end %> 
+
+</div>

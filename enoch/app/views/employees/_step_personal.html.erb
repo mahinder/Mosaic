@@ -1,0 +1,37 @@
+
+<fieldset>
+		<legend>
+			Personal informations
+		</legend>
+		<div class="columns">
+			<p class="colx3-left">
+				<label for="complex-en-url">No Of Children</label>
+				<span class="relative"> <%= form.text_field :children_count, :class => "full-width numeric" %> </span>
+			</p>
+			<p class="colx3-right">
+				<label for="complex-en-subtitle">Father Name</label>
+				<span class="relative"> <%= form.text_field :father_name, :class => "full-width full-length",:field_name=>'Father Name' %> </span>
+			</p>
+			<p class="colx2-left">
+				<label for="complex-en-subtitle">Mother Name</label>
+				<span class="relative"> <%= form.text_field :mother_name, :class => "full-width full-length",:field_name=>'Mother Name' %> </span>
+			</p>
+			<p class="colx3-right">
+				<label for="complex-en-subtitle">Spouse Name</label>
+				<span class="relative"> <%= form.text_field :husband_name, :class => "full-width full-length",:field_name=>'Spouse name' %> </span>
+			</p>
+			<p class="colx3-left select-fixed-width1">
+				<label for="simple-select">Blood Group</label>
+				<%= select(:employee, :blood_group, ["A+ve", "A-ve", "B+ve", "B-ve", "O+ve", "O-ve", "AB+ve", "AB-ve"],:prompt => 'Select') %>
+			</p>
+			<p class="colx3-right select-fixed-width1">
+				<label for="simple-select">Marital Status</label>
+				<%= select(:employee, :marital_status, [['Single'],['Married']]) %>
+			</p>
+			<p class="colx2-left select-fixed-width1">
+				<label for="simple-select">Nationality</label>
+				<%= select(:employee, :nationality_id, @nationality.map {|s| [s.name, s.id]},:selected => @nationality_id || 76, :prompt => 'select country') %>
+			</p>
+			
+		</div>
+	</fieldset>

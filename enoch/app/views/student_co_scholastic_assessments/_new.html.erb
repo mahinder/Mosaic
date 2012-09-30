@@ -1,0 +1,19 @@
+<table class="table examgindex no-margin" cellspacing="0" cellpadding="1" width="100%">
+    	<thead>
+    		<tr>
+    		<th class="black-cell"></th>
+    		<th scope="col">Co Scholastic Assessment name</th>
+    		<th scope="col">Action</th>	
+    		</tr>
+    		</thead>
+    		<tbody>
+    			<%@student_co_scholastic_assessments.each do |student_co_scholastic_assessment|%>
+    			<tr>
+    				<td></td>
+    				<td><%= link_to student_co_scholastic_assessment.student_co_scholastic_assessment_name, :controller => 'student_co_scholastic_assessments', :action => 'edit',:batch_id => @batch.id,:term_id=>@term.id,:id=>student_co_scholastic_assessment.id%></td>
+    				<td><a href="#" id="delete_student_co_scholastic_assessment" student_co_scholastic_assessment=<%=student_co_scholastic_assessment.id%>>Delete</a></td>
+    			</tr>
+    			<%end%>
+    		</tbody>
+    </table>
+  

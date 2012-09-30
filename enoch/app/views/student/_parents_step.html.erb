@@ -1,0 +1,125 @@
+		<div class="columns">	
+				
+		    <p class="colx3-left required">
+				<label for="parent_first_name">First Name</label>
+				<span class="relative"><%= text_field_tag :first_name ,nil,:id =>"guardian_first_name", :class => "parent_Class",:field_name=>'First Name' %>					
+				</span>
+			</p>
+			
+			<p class="colx3-center">
+				<label for="parent_last_name">Last Name</label>
+				<span class="relative"><%=text_field_tag :last_name ,nil,:id =>"guardian_last_name", :class => "parent_Class",:field_name=>'Last Name'%></span>
+			</p>
+
+			<p class="colx3-right required">
+				<label for="Relationship">Relationship</label>
+				<span class="relative"><%= select_tag :relation, options_for_select([ "Father", "Mother", "Brother" ,"Sister", "Other" ], "Father") %></span>
+			</p>
+			
+	   </div>
+        <div class="columns">	
+				
+		    <p class="colx3-left">
+				<label for="parent_detail_dob">Date of Birth</label>
+				<span class="input-type-text"><%= text_field_tag :dob,nil,:id =>"guardian_dob", :class => "datepicker", :size => 20,:readonly => "1"  %><%= image_tag "icons/fugue/calendar-month.png" %></span>
+
+			</p>
+			
+			<p class="colx3-center">
+				<label for="Education">Education</label>
+				<span class="relative"><%= select_tag :education,options_for_select(["Matriculation", "10+2", "Diploma", "Graduate","Professional","Masters","Doctorate","Other"]),:id =>"guardian_education" %></span>
+			</p>
+
+			<p class="colx3-right">
+				<label for="parent_occupation">Occupation</label>
+				<span class="relative"><%= select_tag :occupation, options_for_select(["Government", "Salaried", "Business", "Other"]),:id =>"guardian_occupation" %></span>
+			</p>
+			
+	   </div>
+	   <div class="columns">	
+				
+		    <p class="colx3-left">
+				<label for="parent_income">Income</label>
+                  <span class="relative"><%= select_tag :income, options_for_select(["< 2 Lakh", "2 Lakh to 5 Lakh", "5 Lakh to 10 Lakh", "10 Lakh to 15 Lakh", "15 Lakh to 25 Lakh", "> 25 Lakh"]) %></span>
+			</p>
+			<p class="colx3-center">
+				<label for="Parent_email">Email</label>
+				<span class="relative"><%= text_field_tag :parent_email %></span>
+			</p>
+			<p class="colx3-right requred">
+				<label for="parent_mobile">Mobile</label>
+				<%= text_field_tag :mobile_phone,@student.phone2 , :class => "parent_Class numeric mobile" %>
+			</p>	
+			
+	   </div>
+	   
+		<div class="columns">								
+		    <p class="colx3-left">
+				<label for="parent_phone1">Phone</label>
+				<%= text_field_tag :office_phone1 ,nil, :class => "parent_Class numeric phone",:field_name=>'Phone'%>
+			</p>
+			
+			<p class="colx3-center">
+				<label for="Parent_Office_Address1">Office Address Line 1</label>
+				<span class="relative">
+					 <% unless @student.address_line1.empty? %>
+                        <%= text_field_tag :office_address_line1,nil, :class => "parent_Class",:field_name=>'Office Address Line 1'%>
+                    <% else %>
+                        <%= text_field_tag :office_address_line1 ,nil, :class => "parent_Class",:field_name=>'Office Address Line 1'%>
+                    <% end %>			
+					</span>
+			</p>
+
+			<p class="colx3-right">
+				<label for="Parent_Office_Address2">Office Address Line 2</label>
+				<span class="relative">
+          			<% unless @student.address_line2.empty? %>
+           				<%= text_field_tag :office_address_line2,nil, :class => "parent_Class",:field_name=>'Office Address Line 2'%>
+          			<% else %>
+           				<%= text_field_tag :office_address_line2 ,nil, :class => "parent_Class",:field_name=>'Office Address Line 2'%>
+          			<% end %>	
+				</span>
+			</p>
+			
+	   </div>
+        <div class="columns">	
+				
+		    <p class="colx3-left">
+				<label for="Parent_city">City</label>
+                  <span class="relative">
+                  	   <% unless @student.city.empty? %>
+                            <%= text_field_tag :city,@student.city , :class => "parent_Class",:field_name=>'City'%>
+                       <% else %>
+                            <%= text_field_tag :city , nil,:class => "parent_Class",:field_name=>'City'%>
+                       <% end %>               	
+                  	</span>
+			</p>
+			
+			<p class="colx3-center">
+				<label for="state">State</label>
+				<span class="relative">
+          				<% unless @student.state.empty? %>
+            				<%= text_field_tag :state,@student.state , :class => "parent_Class",:field_name=>'State'%>
+          				<% else %>
+            				<%= text_field_tag :state ,nil, :class => "parent_Class",:field_name=>'State'%>
+          				<% end %>	
+			    </span>
+			</p>
+
+			<p class="colx3-right">
+				<label for="country">Country</label>
+				<span class="relative">
+				<% unless @student.country.nil? %>
+                    <%= select :guardian, :country_id, Country.all.map {|c| [c.name, c.id]}, :selected => @student.country_id %>
+                <% else %>
+                    <%= select :guardian, :country_id, Country.all.map {|c| [c.name, c.id]}, :selected => 76 %>
+                <% end %>				
+				</span>
+			</p>	
+			 <input type="hidden" name="studentID" id="studentID" value="<%= @student.admission_no %>" />
+	   </div>
+	  
+	</fieldset>	
+
+	
+

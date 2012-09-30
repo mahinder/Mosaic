@@ -1,0 +1,64 @@
+source 'http://rubygems.org'
+
+gem 'rails', '3.1.1'
+
+# Bundle edge Rails instead:
+# gem 'rails',     :git => 'git://github.com/rails/rails.git'
+#gem 'ckeditor', :git => 'git://github.com/galetahub/rails-ckeditor.git', :branch => 'rails3' 
+
+
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'sass-rails',   '~> 3.1.4'
+  gem 'coffee-rails', '~> 3.1.1'
+  gem 'uglifier', '>= 1.0.3'
+end
+
+gem 'jquery-rails'
+gem 'execjs',  :platforms => :ruby
+gem 'therubyracer', :platforms => :ruby
+gem 'calendar_date_select', :git => 'http://github.com/paneq/calendar_date_select.git'
+gem 'declarative_authorization' 
+gem 'meta_search'
+gem 'paperclip', '~> 2.4'
+gem 'in_place_editing'
+gem 'will_paginate', '>=3.0.pre'
+gem 'mysql2'
+#gem 'wkhtmltopdf'
+#gem 'wkhtmltopdf-binary'
+gem 'faker', '0.3.1'
+gem 'rufus-scheduler'
+gem "acts_as_audited", "2.0.0"
+gem 'spreadsheet'
+# gem 'ruport'
+# gem 'ruport-util'
+# # gem 'pg', '0.10.0'
+# gem 'acts_as_reportable'
+# To use ActiveModel has_secure_password
+# gem 'bcrypt-ruby', '~> 3.0.0'
+
+# Use unicorn as the web server
+# gem 'unicorn'
+
+# Deploy with Capistrano
+# gem 'capistrano'
+
+# To use debugger
+# gem 'ruby-debug19', :require => 'ruby-debug'
+
+group :development do
+  gem 'rspec-rails', '2.7.0'
+  gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
+  gem 'wkhtmltopdf'
+  gem 'wkhtmltopdf-binary'
+end
+
+group :test do
+  gem 'rspec-rails', '2.7.0'
+  gem 'webrat', '0.7.1'
+  gem 'spork', '0.9.0.rc8'
+  gem 'factory_girl_rails', '1.0'
+  gem 'mysql'
+end
+

@@ -1,0 +1,7 @@
+Following are commands for make dump of data 
+
+
+1 mysqldump -u root -p enoch > enochdata.sql // for creating dump file .sql
+2 mysql -u root -p enoch < enochdata.sql    // for restoring database
+3 mysqladmin -u root -p drop enoch // used for droping database but this command is not used in dumping
+4 mysqladmin -u root -p create enoch // used for creating database but this command is not used in dumping

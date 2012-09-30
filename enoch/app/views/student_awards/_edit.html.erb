@@ -1,0 +1,32 @@
+
+<div class="block-content form" id="outer_block">
+<%= form_for :student_award do |a| %>
+
+	<fieldset class="grey-bg">
+		<legend>
+			Student Award
+		</legend>
+		<div class="columns">
+			<p class="colx2-left required">
+				<label>Title</label>
+				<%= text_field_tag :award_title ,nil, :value =>@student_award.title%>
+			</p>
+			<p class="colx2-right">
+				<label>Award Date</label>
+				<span class="input-type-text"><%= text_field_tag :date_of_award,nil,:id =>"student_award_date",:value => (@student_award.award_date.strftime("%d-%m-%Y")), :class => "modal_date_picker", :size => 20 ,:readonly => "1" %><%= image_tag "icons/fugue/calendar-month.png" %></span>
+			</p>
+		</div>
+		<div class="columns">
+			<p class="colx2-left required">
+				<label>Description</label>
+				<%= text_area_tag :award_description, @student_award.description, :size => "65x5"%>
+			</p>
+		</div>
+	</fieldset>
+	
+	<%= a.hidden_field :student_id, :value => @student_award.student_id %>
+
+<% end %> 
+<input type="hidden" id="student_award_batch" value="<%= @student_award.batch_id%>">
+<input type="hidden" id="student_award_id" value="<%= @student_award.id%>">
+</div>

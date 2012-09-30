@@ -1,0 +1,29 @@
+<%= render 'shared/ie' %>
+<%= render 'shared/global_head' %>
+
+<%= image_tag @employee.employee_photo.url(:large) , :id => "crop_box"%> <h4>Preview</h4>
+<div style="width: 100px; height: 100px; overflow: hidden;">
+	<%= image_tag @employee.employee_photo.url(:large), :id => "preview" %>
+</div>
+<%= form_for :employee do |form| %>
+<% for attribute in [:crop_x, :crop_y, :crop_w, :crop_h] %>
+<%= form.hidden_field attribute, :id => attribute %>
+<% end %>
+<fieldset class="grey-bg no-margin">
+	<legend>
+		Action
+	</legend>
+	
+	<p class="input-with-button">
+		<input type="button" value="save" class="big-button" id="wizard_crop" />
+	</p>
+</fieldset>
+
+<% end %>
+
+<input type="hidden" name="image_width" id="image_width" value="<%= @employee.employee_photo_geometry(:original).width %> " />
+<input type="hidden" name="image_width_large" id="image_width_large" value="<%= @employee.employee_photo_geometry(:large).width %>" />
+<input type="hidden" name="image_height_large" id="image_height_large" value="<%= @employee.employee_photo_geometry(:large).height %>" />
+
+
+

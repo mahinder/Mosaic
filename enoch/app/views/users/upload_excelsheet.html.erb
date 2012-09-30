@@ -1,0 +1,49 @@
+
+<div class="block-border" id="outer_bloc">
+	<div class="block-content form">
+		<% unless flash[:warn_notice].nil? %>
+	<ul class="message error">
+       <li><strong><%= flash[:warn_notice] %></strong></li>
+       <li class="close-bt"></li>
+       	</ul>
+    <% end %>
+		<% unless flash[:notice].nil? %>
+	<ul class="message success">
+       <li><strong><%= flash[:notice] %></strong></li>
+       <li class="close-bt"></li>
+       	</ul>
+    <% end %>
+     <%unless @err_count.nil? or @errors.nil?%>
+    <ul class="message error ">
+					<li>
+						<strong><%= pluralize(@err_count, "error") %></strong> prohibited this <strong><%= @err_count.class.to_s.underscore.humanize.downcase %></strong> from being saved:
+						<ul>
+							<%@errors.each do |err|%>
+						        <li><%= err %></li>
+						         <li><%= @ba %></li>
+						         <% end %>
+						</ul>
+					</li>
+					<li class="close-bt"></li>
+				</ul>
+				<%end%>
+<%= form_for :user,:html=>{:multipart => true} do |form|%>
+<fieldset class="grey-bg">
+					<legend>Required fields</legend>
+					<div class="colx3-left-double required">
+						<label for="Choose File">Name</label>
+						<span class="relative">
+							<%= form.file_field :excel_file, :class => "full-width" %>
+						</span>
+					</div>
+					</fieldset>
+					<fieldset class="grey-bg no-margin">
+								<legend>
+									Action
+								</legend>
+								<p class="input-with-button">
+									<%= form.submit "Import", :class => "big-button",:id=>'import_excel'%>
+								</p>
+							</fieldset>
+<%end%>
+</div></div>

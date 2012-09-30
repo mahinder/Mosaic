@@ -1,0 +1,63 @@
+<form class="block-content form" id="table_form" method="post" action="">
+				<h1>Student List</h1>
+				
+				<table class="table ptmStudentAssign no-margin" cellspacing="0" width="100%">
+				
+					<thead>
+						<tr>
+							<th class="black-cell"><input type="checkbox" id="select-ptm_all" ></th>
+							<th scope="col">
+								<span class="column-sort">
+									<a href="#" title="Sort up" class="sort-up"></a>
+									<a href="#" title="Sort down" class="sort-down"></a>
+								</span>
+								Name
+							</th>
+							<th scope="col">Admission Number</th>
+							<th scope="col">
+								<span class="column-sort">
+									<a href="#" title="Sort up" class="sort-up"></a>
+									<a href="#" title="Sort down" class="sort-down"></a>
+								</span>
+								Roll No
+							</th>
+						</tr>
+					</thead>
+					
+					<tbody>
+						<% @batch.students.each do |student| %>
+						<tr>
+							<td class="th table-check-cell"><%= check_box_tag 'Ptm[students][]', student.id, false, :name => "PTmStudent" %></td>
+							<td><%=link_to student.full_name ,:controller => 'student', :action => 'my_profile', :q	=> student.admission_no%></td>
+							<td><%=student.admission_no%></td>
+							<td><%=student.class_roll_no%></td>
+							
+						</tr>
+						<%end%>
+					</tbody>
+				
+				</table>
+				<br /><br /><br />
+<fieldset class="grey-bg no-margin">
+	<legend>
+			Action
+		</legend>
+		<div class="columns">					
+		    <p class="colx3-left">
+				<button type="button" id="create_ptm_student">Create PTM</button>
+			</p>		
+		    <p class="colx3-center">
+				<button type="button" id="show_ptm_history">PTMs History</button>
+			</p>
+			<p class="colx3-right">
+				<button type="button" id="show_active_ptm">Active PTMs</button>
+			</p>
+		</div>
+</fieldset>
+					
+			</form>
+			
+<input type="hidden" name="ptm_batch" id="ptm_batch" value="<%= @batch.id%>"/>
+<div id="modal-box_ptm_student" style="display:none;">
+	<%= render :partial => "form"%>
+</div>

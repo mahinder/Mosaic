@@ -1,0 +1,283 @@
+Enoch::Application.routes.draw do
+
+  resources :skills do
+    collection do
+      get :create_elective_skill
+    end
+  end
+  resources :class_timings do
+      collection do
+        get :batch,:time,:del_class_time
+      end
+    end
+  
+    resources :weekdays do
+      collection do
+        get :week,:batch
+      end
+    end
+
+
+  resources :elective_skills
+
+  resources :mandatory_skills
+
+  resources :batches do
+    collection do
+      get :all_record,:subject_students,:update_batch_subject,:select_batch,:room,:teacher,:assign_home_teacher_and_room,:assign_student_to_sub,:assign_student_to_sub1,:remove_student_to_sub1
+    end
+  end
+
+  resources :courses do
+    collection do
+      get :viewall, :all_record,:skills,:elective_skill,:view_skill,:full_form,:all
+    end
+  end
+
+  resources :rooms do
+    collection do
+      get :all_record
+    end
+  end
+
+  resources :users do
+    collection do
+      get :all_record, :edit_privilege
+    end
+  end
+
+  resources :calendars do
+    collection do
+      get :monthsname ,:event_view,:add_event
+    end
+  end
+
+  resources :finance_donations do
+    collection do
+      get :all_record, :all_refresh,:donation_list
+    end
+  end
+
+  resources :categories
+
+  resources :products
+
+resources :financial_assets do
+    collection do
+      get :all_record
+    end
+  end
+
+  resources :liabilities do
+    collection do
+      get :all_record
+    end
+  end
+
+  resources :expenses do
+    collection do
+      get :all_record, :all_refresh,:expense_list
+    end
+  end
+
+  resources :student_additional_fields do
+    collection do
+      get :all_record, :all_refresh
+    end
+  end
+  resources :incomes do
+    collection do
+      get :all_record, :all_refresh,:income_list
+    end
+  end
+
+  resources :additional_fields do
+    collection do
+      get :all_record
+    end
+  end
+
+  resources :bank_fields do
+    collection do
+      get :all_record
+    end
+  end
+
+  resources :employee_departments do
+    collection do
+      get :all
+    end
+  end
+
+  resources :employee_positions do
+    collection do
+      get :all_record, :all_refresh
+    end
+  end
+
+resources :finance_transaction_categories do
+    collection do
+      get :all_record, :all_refresh
+    end
+  end
+  resources :payroll_categories do
+    collection do
+      get :all_record, :all_refresh
+    end
+  end
+
+  resources :employee_categories do
+    collection do
+      get :all_record, :all_refresh
+    end
+  end
+
+  resources :student_categories do
+    collection do
+      get :all_record,:all_refresh
+    end
+  end
+
+resources :timetable do
+    collection do
+      get :timetable_step1,:batch,:set_timetable,:create_timetable,:timetable_setting
+    end
+  end
+
+  resources :sessions, :only => [:new, :create, :show, :destroy]
+
+  resources :employee_grades do
+    collection do
+      get :all, :all_refresh
+    end
+  end
+
+  match '/signin',    :to => 'sessions#new'
+  match '/signout',   :to => 'sessions#destroy'
+  match '/dashboard', :to => 'sessions#dashboard'
+  match '/student', :to => 'sessions#demo_student'
+  match '/teacher', :to => 'sessions#demo_teacher'
+
+  #demo routes - to be removed
+  match '/attendance', :to => 'sessions#demo_attendance'
+  match '/timetables', :to => 'sessions#demo_timetable'
+  match '/timetable_day', :to => 'sessions#demo_timetable_day'
+  match '/search', :to => 'sessions#demo_search'
+  match '/calendar', :to => 'sessions#demo_calendar'
+  match '/form', :to => 'sessions#demo_form'
+  #match '/school', :to => 'school_configurations#settings'
+
+  
+  resources :grading_levels
+  resources :courses
+  # The priority is based upon order of creation:
+  match '/simple', :to => 'sessions#demo_simple_form'
+  resources :school_configurations do
+    collection do
+      get :edit,:update,:index
+    end
+  end
+
+  # resources :schools
+
+  # The priority is based upon order of creation:
+  # first created -> highest priority.
+  root :to => 'sessions#dashboard'
+  resources :subjects
+  # resources :countries
+  resources :elective_groups
+  resources :reminders
+  resources :weekdays
+  resources :calendar
+  # resources :archived_guardian
+  # resources :archived_student
+  resources :batch_transfer do
+    collection do
+      get :find_batch
+    end
+  end
+  resources :student do
+     collection do
+        get :student_wizard_first_step,:student_wizard_next_step,:student_wizard_previous_step,:save,
+        :update_student, :change_student_image,:update_student_image,:photo,:student_search,:search_ajax,
+        :update_guardian,:add_guardian,:change_batch,:student_advanced_search,:update_immediate,
+        :generate_all_tc_pdf,:generate_tc_pdf,:previous_data,:image_crop,:update_crop_image,:admission_no,:del_guardian
+      end
+  end
+
+  #resources :logins
+
+
+
+    resources :employees do
+      collection do
+        get :select_reporting_manager, :wizard_first_step, :wizard_next_step, :wizard_previous_step, :save, :some_step,
+        :win, :test, :search_skill, :employee_profile, :change_image, :image_store, :search, 
+        :employee_search, :change_to_former, :hr, :edit_employee,:profile,:advanced_search, :update_positions,
+        :edit_privilege,:photo_crop,:admission3, :admission3_1, :employee_photo_crop, :demo
+      end
+  end
+
+  resources :payroll do
+    collection do
+      get :manage_payroll
+    end
+  end
+
+  # The priority is based upon order of creation:
+  # first created -> highest priority.
+
+  # Sample of regular route:
+  #   match 'products/:id' => 'catalog#view'
+  # Keep in mind you can assign values other than :controller and :action
+
+  # Sample of named route:
+  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
+  # This route can be invoked with purchase_url(:id => product.id)
+
+  # Sample resource route (maps HTTP verbs to controller actions automatically):
+  #   resources :products
+
+  # Sample resource route with options:
+  #   resources :products do
+  #     member do
+  #       get 'short'
+  #       post 'toggle'
+  #     end
+  #
+  #     collection do
+  #       get 'sold'
+  #     end
+  #   end
+
+  # Sample resource route with sub-resources:
+  #   resources :products do
+  #     resources :comments, :sales
+  #     resource :seller
+  #   end
+
+  # Sample resource route with more complex sub-resources
+  #   resources :products do
+  #     resources :comments
+  #     resources :sales do
+  #       get 'recent', :on => :collection
+  #     end
+  #   end
+
+  # Sample resource route within a namespace:
+  #   namespace :admin do
+  #     # Directs /admin/products/* to Admin::ProductsController
+  #     # (app/controllers/admin/products_controller.rb)
+  #     resources :products
+  #   end
+
+  # You can have the root of your site routed with "root"
+  # just remember to delete public/index.html.
+  # root :to => 'welcome#index'
+
+  # See how all your routes lay out with "rake routes"
+
+  # This is a legacy wild controller route that's not recommended for RESTful applications.
+  # Note: This route will make all actions in every controller accessible via GET requests.
+  match ':controller(/:action(/:id(.:format)))'
+end

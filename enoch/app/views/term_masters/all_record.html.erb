@@ -1,0 +1,60 @@
+			<div class="block-border" id="outer_block">
+				<%= form_for @term_masters,  :html => { :class => "block-content form", :id => "termMaster-form"} do |form| %>
+				<%= render 'shared/form_errors', :object => form.object %>
+				<h1>Term Master</h1>				
+				  <div class="block-controls enoch_block">
+					<ul class="controls-tabs js-tabs">
+						<li>
+							<a href="/co_scholastic_areas/all_record" title="Co Scholastic Area" class="with-tip"><%= image_tag "dashboard/co-scholastic_area.png", :size => "24x24"  %></a>
+						</li>
+						<li>
+							<a href="/co_scholastic_activities/all_record" title="Co Scholastic Activity" class="with-tip"><%= image_tag "dashboard/co-scholastic_activity.png", :size => "24x24"  %></a>
+						</li>
+						<li>
+							<a href="/term_masters/all_record" title="Term Master" class="with-tip"><%= image_tag "dashboard/TERm Master.png", :size => "24x24"  %></a>
+						</li>
+						<li>
+							<a href="/assessment_names/all_record" title="Assessment Names" class="with-tip"><%= image_tag "dashboard/assessment name.png", :size => "24x24"  %></a>
+						</li>
+						<li>
+							<a href="/grading_level_groups/all_record" title="Grading Systems" class="with-tip" ><%= image_tag "dashboard/subject-wise-report-icon.png", :size => "24x24"  %> </a>
+						</li>
+						<li >
+							<%= link_to image_tag("/assets/icons/web-app/32/Back.png"),"javascript:history.back()" %>
+						</li>
+					</ul>
+				</div>						
+				<fieldset class="grey-bg">
+					<legend>Required fields</legend>
+					<div class="colx3-left required">
+						<label for="term_master_name">Name</label>
+						<span class="relative">
+							<%= form.text_field :name, :class => "full-width full-length",:field_name=>'Name' %>
+						</span>
+					</div>
+				</fieldset>
+							
+				
+				<fieldset class="grey-bg no-margin">
+					<legend>Action on create</legend>
+					<div class="columns">
+						<div class="colx2-left-double">
+							<label for="simple-action">Status</label>
+							<%= form.radio_button  "is_active", "true", :checked => "checked" %>&nbsp;<label for="complex-en-active-1">Active</label> 
+							<%= form.radio_button  "is_active", "false" %>&nbsp;<label for="complex-en-active-0">Inactive</label>
+						</div>
+						<div class="colx2-right">
+							<button id="create_term_master" type="submit">Create</button>
+							<button id="update_term_master" type="button" >Update</button>
+							<button id="reset_term_master" type="button">Clear</button>
+							<input type="hidden" id="current_object_id" name="current_object_id" value=""/>
+						</div>
+					</div>
+				</fieldset>
+				<% end %>
+				
+			</div>
+			<br/>
+			<div id="table-block" class="block-border">
+				<%= render 'term_masters' %>
+			</div>

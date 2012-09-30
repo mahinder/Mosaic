@@ -1,0 +1,33 @@
+<br />
+<div class="block-border"  id ="outer_block">
+	<div class =  "block-content form">
+		<h1>User List</h1>
+		<table class="table book_return_info no-margin" id="book_return_info" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th class="black-cell"></th>
+					<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> Name </th>
+					<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> User Name </th>
+					<th scope="col">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% unless @Booklibrary.empty?%>
+				<% @Booklibrary.each do |book|%>
+				<tr>
+					<%@user = User.find_by_id(book.user_id)%>
+					<td class="th table-check-cell"></td>
+					<td id="user_name_<%= book.id %>"><%= @user.full_name %></td>
+					<td id="username<%= book.id %>"><%= @user.username %></td>
+					
+					<td>
+						<input type="hidden" name="object_id" value="<%= book.id %>"/>
+						<a href="#" id="return-href-<%= book.id %>" title="Return" class="with-tip return-book-href"><img src="/assets/icons/fugue/cross-circle.png" width="16" height="16"></a></td>
+				</tr>
+				<%end%>
+				<%end%>
+			</tbody>
+		</table>
+		
+	</div>
+</div>

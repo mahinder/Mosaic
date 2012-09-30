@@ -1,0 +1,134 @@
+
+
+
+<%unless @students.empty?%>
+<form class="block-content form back" id="table_form" method="post" action="">
+	<hr style="height:0.5em;width:50em;border:2px solid #FB7A31;" />
+
+
+					<p style="font-size: 20px;"><%=@title%></p>
+							<table id="active-table" class="gender_all_report no-margin" cellspacing="0" width="100%" >
+								<thead>
+									<tr class="yellow">
+										
+										<th class="black-cell"></th>
+										<th scope="col">
+											<span class="column-sort">
+												<a href="#" title="Sort up" class="sort-up"></a>
+												<a href="#" title="Sort down" class="sort-down"></a>
+											</span>
+											Admission_no
+										</th>
+										<th scope="col">
+											<span class="column-sort">
+												<a href="#" title="Sort up" class="sort-up"></a>
+												<a href="#" title="Sort down" class="sort-down"></a>
+											</span>
+											Name
+										</th>
+										<% if @table_type=='category'%>
+										<th scope="col">
+											<span class="column-sort">
+												<a href="#" title="Sort up" class="sort-up"></a>
+												<a href="#" title="Sort down" class="sort-down"></a>
+											</span>
+											Student Category
+										</th>
+										<%else if @table_type=='religion'%>
+										<th scope="col">
+											<span class="column-sort">
+												<a href="#" title="Sort up" class="sort-up"></a>
+												<a href="#" title="Sort down" class="sort-down"></a>
+											</span>
+											Religion
+										</th>
+										<%else%>
+										<th scope="col">
+											<span class="column-sort">
+												<a href="#" title="Sort up" class="sort-up"></a>
+												<a href="#" title="Sort down" class="sort-down"></a>
+											</span>
+											Date Of Birth
+										</th>
+										<%end%>
+										<%end%>
+										
+										<th scope="col">
+											<span class="column-sort">
+												<a href="#" title="Sort up" class="sort-up"></a>
+												<a href="#" title="Sort down" class="sort-down"></a>
+											</span>
+											Gender
+										</th>
+										<th scope="col">
+											<span class="column-sort">
+												<a href="#" title="Sort up" class="sort-up"></a>
+												<a href="#" title="Sort down" class="sort-down"></a>
+											</span>
+											Batch
+										</th>
+										
+									</tr>
+								</thead>
+								<tbody>		
+									<% @students.each do |student| %>
+									<tr>
+										<td></td>
+										<td><%=student.admission_no%></td>
+										<td><%=student.full_name%></td>
+										<% if @table_type=='category'%>
+										<td><%=student.student_category.name%></td>
+										<%else if @table_type=='religion'%>
+										<td><%=student.religion%></td>
+										<%else%>
+										<td><%=student.date_of_birth.strftime('%d''-''%m''-''%Y')%></td>
+										<%end%>
+										<%end%>
+										<td><%=student.gender%></td>
+										<td><%=student.batch.full_name%></td>
+										
+									</tr>
+									<% end %>
+								</tbody>
+							</table>
+				</form>	
+
+
+<%else%>
+<h3>Record not found</h3>
+<%end%>
+
+<style type="text/css">
+	table {
+	font: 15px/24px Verdana, Arial, Helvetica, sans-serif;
+	width: 800px;
+	border-color: #600;
+    border-width: 0 0 1px 1px;
+    border-style: solid;
+	}
+
+th {
+	padding: 0 0.5em;
+	text-align: left;
+	}
+
+tr.yellow th {
+	border-top: 1px solid #FB7A31;
+	border-bottom: 1px solid #FB7A31;
+	background: #FFC;
+	}
+
+td {
+	border-bottom: 1px solid #CCC;
+	padding: 0 0.5em;
+	}
+
+td.width {
+	width: 190px;
+	}
+
+td.adjacent {
+	border-left: 1px solid #CCC;
+	text-align: center;
+	}
+</style>

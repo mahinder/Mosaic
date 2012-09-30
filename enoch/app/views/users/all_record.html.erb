@@ -1,0 +1,50 @@
+			<div class="block-border" id="outer_block">
+				<%= form_for @user,  :html => { :class => "block-content form", :id => "users-form"} do |form| %>
+				<%= render 'shared/form_errors', :object => form.object %>
+				<h1>New User</h1>				
+								
+				<fieldset class="grey-bg">
+					<legend>Required fields</legend>
+					<div class="colx3-left-double required">
+						<label for="user_name">Name</label>
+						<span class="relative">
+							<%= form.text_field :username, :class => "full-width" %>
+						</span>
+					</div>
+					<div class="colx3-right required">
+						<label for="user_first_name">First Name</label>
+						<span class="relative">
+							<%= form.text_field :first_name, :class => "full-width" %>
+						</span>
+					</div>
+					<div class="colx3-right required">
+						<label for="user_last_name">Last Name</label>
+						<span class="relative">
+							<%= form.text_field :last_name, :class => "full-width" %>
+						</span>
+					</div>
+					<div class="colx3-right required">
+						<label for="user_email">Email</label>
+						<span class="relative">
+							<%= form.text_field :email, :class => "full-width" %>
+						</span>
+					</div>
+				</fieldset>
+								
+				<fieldset class="grey-bg no-margin">
+					<legend>Action on create</legend>
+					<div class="columns">
+						<div class="colx2-right">
+							<button id="create_grade" type="submit">Create</button>
+							<button id="update_grade" type="button" disabled="true">Update</button>
+							<button id="reset_grade" type="button">Clear</button>
+							<input type="hidden" id="current_object_id" name="current_object_id" value=""/>
+						</div>
+					</div>
+				</fieldset>
+				<% end %>
+			</div>
+			<br/>
+			<div id="table-block" class="block-border">
+				
+			</div>

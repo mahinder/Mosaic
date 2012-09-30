@@ -1,0 +1,9 @@
+<tr>
+	<td> <%= link_to "#{recipient_users}", :controller => "reminder", :action => "view_sent_reminder", :id2 => reminder.id  %> </td>
+	<td> <%= link_to "#{reminder.subject}", :controller=>"reminder", :action => "view_sent_reminder", :id2 => reminder.id %></td>
+	<td> <%= link_to "#{reminder.created_at.strftime("%d-%m-%Y")}", :controller=>"reminder", :action => "view_sent_reminder", :id2=>reminder.id %> </td>
+	<td class="table-actions"> 
+		<a href="#" class = "view-sent-reminder-delete"  id2 = "<%= reminder.id %>" title ="Delete"><img src="/assets/icons/fugue/cross-circle.png" /></a>
+		<!-- <%= link_to image_tag("/assets/icons/fugue/cross-circle.png"), {:controller => "reminder", :action => "delete_reminder_by_sender", :id2 => reminder.id}, :confirm=> "Are you sure?" %> --> 
+	</td>
+</tr>

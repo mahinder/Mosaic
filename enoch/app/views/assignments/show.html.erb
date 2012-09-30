@@ -1,0 +1,68 @@
+<div class="block-border">
+	<div class="block-content form">
+		<h1>Assignment</h1>
+	<div class="block-controls enoch_block">
+				<ul class="controls-tabs js-tabs">
+					<li >
+						<a href="<%= dashboard_path(@user) %>" title ="Back"> <img src="/assets/icons/web-app/32/Back.png" width="24" height="24"></a>
+					</li>
+				</ul>
+	</div>
+		<%unless @assignment.nil?%>
+		<%@subject =  Subject.find_by_id(params[:id])%>
+		<h2>Assignment for <%= @subject.name%> </h2>
+	<form class="block-content form" id="table_form" method="post" action="">
+				
+				<table class="table ptmStudentAssign no-margin" cellspacing="0" width="100%">
+				
+					<thead>
+						<tr>
+							<th class="black-cell"></th>
+							<th scope="col">
+								<span class="column-sort">
+									<a href="#" title="Sort up" class="sort-up"></a>
+									<a href="#" title="Sort down" class="sort-down"></a>
+								</span>
+								Question
+							</th>
+							<th scope="col">Hint</th>
+							<th scope="col">
+								<span class="column-sort">
+									<a href="#" title="Sort up" class="sort-up"></a>
+									<a href="#" title="Sort down" class="sort-down"></a>
+								</span>
+							 To Be Completed On
+							</th>
+						</tr>
+					</thead>
+					
+					<tbody>
+						<% @assignment.each do |assignment| %>
+						<% @stude = assignment.student_id.split(',')%>
+						<%if @stude.include?(@student.id.to_s)%>
+						<tr>
+							<td class="th table-check-cell"></td>
+							
+							<%if assignment.attachment_filename.nil?%>
+							<td id="showFullQuestion" ids=<%=assignment.id%>><%=link_to assignment.question %></td>
+							<%else%>
+							<td><%=assignment.question %></td>
+							<%end%>
+							<%if assignment.attachment_filename.nil?%>
+							<td><%=assignment.hint%></td>
+							<%else%>
+							<td><%=link_to  assignment.attachment_filename ,:action => 'download_attachment' ,:id => assignment.id%>/Hint: <%=assignment.hint unless assignment.hint.nil?%></td>
+							<%end%>
+							<td><%=assignment.to_be_completed.strftime("%d-%m-%Y")%></td>
+						</tr>
+						<%end%>
+						<%end%>
+					</tbody>
+				
+				</table>
+				</form>	
+				<%else%>
+				Assignment Not Found 
+				<%end%>
+	</div>
+</div>

@@ -1,0 +1,7 @@
+
+
+
+	<div class="block-content form">
+		<td><%= select :passanger,:board_id, @boards.map{|c| [c.name, c.id]},{:selected=>@passenger.transport_board.id},{:id=>"board"} unless @boards.empty?%></td>
+
+</div>

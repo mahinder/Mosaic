@@ -1,0 +1,27 @@
+				
+	<div class="columns">
+		<p class="colx2-left">
+		<%= image_tag @student.student_photo.url(:large), :id => "cropsbox" %>
+		</p>
+		<p class="colx2-right">
+				<label style="top: 10em;float: right" for="photo">Preview :</label>
+					<div style="width:100px; height:100px; overflow:hidden;float: right">
+						<%= image_tag @student.student_photo.url(:large), :id => "previews" %>
+					</div>
+		
+		</p>	
+	</div>
+
+  <% for attribute in [:crop_x, :crop_y, :crop_w, :crop_h] %>
+    <%= s.hidden_field attribute, :id => attribute %>
+  <% end %>
+
+
+<input type="hidden" name="studentID" id="studentID" value="<%= @student.admission_no%>" />
+
+<input type="hidden" name="photo_width" value="<%=@student.student_photo_geometry(:original).width %>" id="photo_width"/>
+<input type="hidden" name="photo_width_large" value="<%=@student.student_photo_geometry(:large).width %>" id="photo_width_large"/>
+<input type="hidden" name="photo_height_large" value="<%=@student.student_photo_geometry(:large).height %>" id="photo_height_large" />
+
+
+

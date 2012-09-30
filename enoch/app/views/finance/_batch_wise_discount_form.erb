@@ -1,0 +1,26 @@
+
+
+ <%= form_for :fee_discount, :url=>{:action=>"batch_wise_discount_create"} do |form|%>
+ <div class="columns">
+	<p class="colx2-left required">
+		<label for="reason"> Name </label>
+	    <%= form.text_field :name ,:class => "full-width"%>
+	</p>
+	<!-- <p class="colx3-center select-fixed-width1">
+		<label for="reason"> Fee Category</label>
+      	<%#= select "","", @fee_categories.map { |item| [item.name, item.name] },{:prompt => "Select category" }%>
+	<!-- </p> -->
+	<p class="colx2-right required">
+		<label for="reason"> Discount(%) </label>
+    	<%= form.text_field :discount ,:size=>20 %>
+	</p>
+	</div>
+<!-- <fieldset class="grey-bg">
+	<legend>Action</legend>
+	    <div id="submit-button">
+      <%#=  form.submit "Create",:class=> 'big-button' %>
+  </div>
+</fieldset> -->
+<%= form.hidden_field :fee_discount_batch_name ,:value => @batchId%>
+<%= form.hidden_field :fee_discount_masterCategory_name ,:value => @categoryId%>
+    <% end %>

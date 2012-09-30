@@ -1,0 +1,9 @@
+<p class="fields">
+	<%= f.label :name, "Photo" %>
+	<%= f.file_field :album_photo %>
+	<%= f.label :tag_names_in_the_image ,:class => 'tagClass' %>
+	<%= f.text_field :tag_names ,:class => 'tagClass' %>
+	
+	<%= link_to_remove_fields "remove", f %>
+</p>
+

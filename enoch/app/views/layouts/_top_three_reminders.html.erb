@@ -1,0 +1,9 @@
+<ul class="small-files-list icon-mail relative" style="overflow: hidden;">
+	<% @current_user.retrieve_top_three_reminders.each do |reminder| %>
+	<li>
+		<strong><%= reminder.reminder.created_at.strftime("%d-%m-%Y") %></strong> <%= reminder.reminder.subject%>
+		<br/>
+		<% sender_user = User.find(reminder.reminder.sender)  %> <small><%= link_to "#{sender_user.first_name}", :controller => "reminder", :action => "view_reminder", :id2 => reminder.reminder.id  , :reminder_id => reminder.id %></small>
+	</li>
+	<% end %>
+</ul>

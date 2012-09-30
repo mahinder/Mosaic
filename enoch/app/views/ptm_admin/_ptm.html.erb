@@ -1,0 +1,58 @@
+<form class="block-content form" id="table_form" method="post" action="">
+				<h1>PTM List</h1>
+				
+				<table class="table ptmUpdateStudentAssign no-margin" cellspacing="0" width="100%">
+				
+					<thead>
+						<tr>
+							<th class="black-cell"></th>
+							<th scope="col">
+								<span class="column-sort">
+									<a href="#" title="Sort up" class="sort-up"></a>
+									<a href="#" title="Sort down" class="sort-down"></a>
+								</span>
+								Title
+							</th>
+							<th scope="col">Description</th>
+							<th scope="col">Start Date</th>
+							<th scope="col">End Date</th>
+							<th scope="col">Action</th>
+						</tr>
+					</thead>
+					
+					<tbody>
+						<% @ptm.each do |ptm| %>
+						<tr>
+							<td class="th table-check-cell"></td>
+							<td><%= ptm.title%></td>
+							<td><%= truncate(ptm.description, :length => 30, :omission =>"...")%></td>
+							<td><%=ptm.ptm_start_date.strftime('%d-%m-%Y')%></td>
+							<td><%=ptm.ptm_end_date.strftime('%d-%m-%Y')%></td>
+							<td><input type="hidden" name="object_id" value="<%= ptm.id %>"/>
+								<a href="#" id="update-href-ptm_admin-<%= ptm.id %>" title="Edit" class="with-tip update-href-ptm_admin"><img src="/assets/icons/fugue/pencil.png" width="16" height="16"></a>&nbsp;&nbsp;
+	     
+								<button type="button" value="<%=ptm.id%>" class="pClass<%=ptm.id%>" id="PTMSTatus" status= "<%=ptm.is_active%>" style="height: 25px; width: 120px">
+									<%if ptm.is_active == true%>
+										Active
+										<%else%>
+										In Active
+									<%end%>
+								</button>
+								<button type="button" class="pClass<%=ptm.id%>"id="PTMSTatus" value="<%=ptm.id%>" style="display: none;height: 25px; width: 120px;" status= "<%=ptm.is_active%>">
+									<%if ptm.is_active== true%>
+										In Active
+										<%else%>
+										Active
+									<%end%>
+								</button>
+								<div id="loadPTm<%=ptm.id%>" style="float: right; "></div>
+								
+							</td>
+						</tr>
+						<%end%>
+					</tbody>
+				
+				</table>
+
+					
+			</form>

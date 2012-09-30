@@ -1,0 +1,21 @@
+<h1>Listing ptm_details</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @ptm_details.each do |ptm_detail| %>
+  <tr>
+    <td><%= link_to 'Show', ptm_detail %></td>
+    <td><%= link_to 'Edit', edit_ptm_detail_path(ptm_detail) %></td>
+    <td><%= link_to 'Destroy', ptm_detail, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Ptm detail', new_ptm_detail_path %>

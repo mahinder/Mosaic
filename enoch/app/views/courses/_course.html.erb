@@ -1,0 +1,48 @@
+<fieldset class="grey-bg">
+	<div class="colx3-left ">
+		<label for="course_name">Course Name</label>
+		<span class="relative">
+			<input type="text" id = "course_name_text_<%= course.id%>" name = "object_id"  value="<%= course.course_name %> " disabled= true/>
+		</span>
+	</div>
+	<div class="colx3-center ">
+		<label for="course_code">Course Code</label>
+		<span class="relative">
+			<input type="text" id = "course_code_text_<%= course.id%>" name = "object_id"  value="<%= course.code%> " disabled= true/>
+		</span>
+	</div>
+	<!-- <div class="colx3-left-double ">
+	<label for="complex-en-url">Section Name</label>
+	<span class="relative">
+	<input type="text" id = "course_section_text_<%= course.id%>" name = "object_id"  value="<%= course.section_name%>" disabled= true/>
+	</span>
+	</div> -->
+	<!-- <a href="#" id="update-course-href-<%= course.id%>" title="Edit" class="with-tip update-course-href" data-course_for = "<%= course_for%>" data-course_id = "<%= course.id%>" data-name = "<%= course.course_name %>" data-code = "<%= course.code%>" data-section = "<%= course.section_name%>"><img src="/assets/icons/fugue/pencil.png" width="16" height="16"></a>
+	<a href="#" id="delete-course-tab-href-<%= course.id%>" title="Delete" class="with-tip delete-course-tab-href" data-course-for = "<%= course_for%>"><img src="/assets/icons/fugue/cross-circle.png" width="16" height="16"></a>
+	-->
+</fieldset>
+<br />
+<br />
+<!-- <div class="colx3-right">
+
+<input type="hidden" id = "course_id_text" name = "object_id"  value="<%= course.id%>"/>
+<button id="update-course-href-<%= course.id%>" title="Edit" class="with-tip update-course-href" data-course_for = "<%= course_for%>" data-course_id = "<%= course.id%>" data-name = "<%= course.course_name %>" data-code = "<%= course.code%>" data-section = "<%= course.section_name%>" type="button" >Edit</button>
+<button id="delete-course-tab-href-<%= course.id%>" title="Delete" class="with-tip delete-course-tab-href" data-course-for = "<%= course_for%>" type="button">Delete</button>
+
+</div> -->
+<fieldset class="grey-bg no-margin">
+	<legend>
+		Action on create
+	</legend>
+	<div class="columns">
+		<div class="colx2-left">
+			<input type="hidden" id = "course_id_text" name = "object_id"  value="<%= course.id%>"/>
+			<button id="update-course-href-<%= course.id%>" title="Edit" class="with-tip update-course-href" data-course_for = "<%= course_for%>" data-course_id = "<%= course.id%>" data-name = "<%= course.course_name %>" data-code = "<%= course.code%>" data-section = "<%= course.section_name%>" type="button" >
+				Edit
+			</button>
+			<button id="delete-course-tab-href-<%= course.id%>" title="Delete" class="with-tip delete-course-tab-href" data-course-for = "<%= course_for%>" type="button">
+				Delete
+			</button>
+		</div>
+	</div>
+</fieldset>

@@ -1,0 +1,14 @@
+<div class="block-content form" id="outer_block">
+<fieldset class="grey-bg">
+	<legend>Fees Management</legend>
+	<div class="column">
+		<p class="colx-left required select-fixed-width1">
+			<label for="discount type">Discount Type</label>
+			<%= select "fees_discount_type","id",[["Batch","batch_wise"],["Student Category","category_wise"],["Student","student_wise"]],{:prompt => "Select"}%>
+		</p>
+		
+	</div>
+<div id="DiscountFormAsPerType"></div>
+</fieldset>
+
+

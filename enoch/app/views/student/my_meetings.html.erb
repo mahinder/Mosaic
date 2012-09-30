@@ -1,0 +1,80 @@
+<div class="block-border">
+	<div class="block-content form">
+		<h1>Student Meeting Center</h1>
+		<div class="block-controls enoch_block">
+			<ul class="controls-tabs js-tabs">
+				<li >
+					<a href='<%=dashboard_path(@user)%>' title ="Back" class = "back"><img src="/assets/icons/web-app/32/Back.png" width="24" height="24"></a>
+				</li>
+			</ul>
+		</div>
+		<h2> <%= link_to  @student.full_name, { :controller => 'student', :action => 'my_profile', :q => @student.admission_no}%> </h2>
+		<section class="">
+			<div class="block-border" id="outer_block">
+				<div class="block-content">
+					<h1>Recent</h1>
+					<ul class="collapsible-list with-bg">
+						<b class="toggle"></b>
+						<li class="close">
+							<b class="toggle"></b>
+							 <span><b><%=@batch.full_name%></b></span>
+							 <%unless @recent_meetings.empty?%>
+							 <%@recent_meetings.each do |rm|%>
+							 <%@my_meet = PtmDetail.find_all_by_student_id_and_ptm_master_id(@student.id,rm.id)%>
+							
+							<ul class="with-icon icon-meeting">
+								<% @my_meet.each do |e| %>
+								<li>
+									<a href="#" id="student_meeting" admission_no='<%=@student.admission_no%>' student='<%=@student.id%>' ptm_detail="<%=e.id%>" ptm_master='<%=rm.id%>'><%=rm.title%></a>
+
+								</li>
+								<% end %>
+							</ul>
+							 <%end%>
+							<%end%>
+						</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		</section>
+		
+			<div class="block-border">
+				<div class="block-content">
+					
+					<h1>Archives</h1>
+					<%unless @old_batches.empty?%>
+					<ul class="collapsible-list with-bg">
+						<b class="toggle"></b>
+						
+						<li class="close">
+							<b class="toggle"></b>
+							
+							<% @old_batches.each do |ob| %>
+							 <span><b><%=ob.full_name%></b></span>
+							 <%@recent_meeting = PtmMaster.find_all_by_batch_id(ob.id)%>
+							 <%unless @recent_meeting.nil?%>
+							<ul class="with-icon icon-meeting">
+								<% @recent_meeting.each do |e| %>
+								<li>
+									<a href="#" id="student_meeting" student='<%=@student.id%>' ptm_master='<%=e.id%>'><%=e.title%></a>
+									
+								</li>
+								<% end %>
+							</ul>
+							<%end%>
+							
+							<%end%>
+							
+						</li>
+					</ul>
+					<%else%>
+							No Previous Batch
+					<%end%>
+				</div>
+			</div>
+		
+		
+	</div>
+</div>

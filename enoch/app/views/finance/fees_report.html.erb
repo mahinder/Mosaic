@@ -1,0 +1,56 @@
+<div class="block-border" id="outer_block">
+	<div class="block-content form">
+
+  <h1><%= t('fees_report') %></h1>
+    <div class="block-controls enoch_block">
+					<ul class="controls-tabs js-tabs">
+						<li >
+							<%= link_to image_tag("/assets/icons/web-app/32/Back.png"),"javascript:history.back()" %>
+						</li>
+					</ul>
+	    </div>
+<fieldset>
+	<legend>
+		<%= t('fees_transaction_report') %>
+	</legend>
+<br />
+  <% total =0 %>
+
+<table class="table transactionDetails no-margin" align="center" width="100%" cellpadding="1" cellspacing="1">
+    <thead>
+						<tr>
+							<th class="black-cell"></th>
+							<th scope="col">
+								<span class="column-sort">
+									<a href="#" title="Sort up" class="sort-up"></a>
+									<a href="#" title="Sort down" class="sort-down"></a>
+								</span>
+								Description
+							</th>
+							<th scope="col">Amount</th>
+						</tr>
+		</thead>
+<tbody>
+
+    <% @fee_collection.each do |c| %>
+	<tr>
+		<td class="th table-check-cell"></td>
+        <td><%= link_to c.batch.full_name+" (  "+ c.name+" ) ", :action => 'batch_fees_report',:id =>c.id,:start => @start_date,:end => @end_date %></td>
+        <% amount =  c.transaction_total(@start_date,@end_date) %>
+        <td><%= amount %> </td>
+    </tr>
+      <% total += amount %>
+    <% end %>
+    <tr>
+		<td class="th table-check-cell"></td>
+        <td><%= t('total_fees') %></td>
+        <td><%= total %> </td>
+    </tr>
+</tbody>
+
+  </table>
+
+</fieldset> 
+
+</div>
+</div>

@@ -1,0 +1,21 @@
+<h1>Listing instant_fee_collection_details</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @instant_fee_collection_details.each do |instant_fee_collection_detail| %>
+  <tr>
+    <td><%= link_to 'Show', instant_fee_collection_detail %></td>
+    <td><%= link_to 'Edit', edit_instant_fee_collection_detail_path(instant_fee_collection_detail) %></td>
+    <td><%= link_to 'Destroy', instant_fee_collection_detail, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Instant fee collection detail', new_instant_fee_collection_detail_path %>

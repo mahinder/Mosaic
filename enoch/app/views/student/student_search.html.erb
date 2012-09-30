@@ -1,0 +1,80 @@
+<script type="text/javascript">
+	function setOption(optn) {
+		document.getElementById("option").value = optn;
+		 var search = $('#target').val();
+		 var student_type = $('#option').val();
+		 var data = [search,student_type];
+		 var url = "search_ajax" + '?query='+data.join(',') 
+		
+		 if (search.length >= 3){
+			 $.get(url , function(data){		
+				$('#student_search').empty();
+					$('#student_search').html(data);		
+			   });
+			 }else{
+			 	$('#student_search').empty();
+			 	$('#student_search').html();
+			 }
+	}
+	function resetField() {
+			 	$('#student_search').empty();
+			 	$('#student_search').html();
+			    $('#student_advanced_search').empty();
+	 	        $('#student_advanced_search').html();
+	}
+// function tabsEvent(){
+	// var activeTab =$("ul.mini-tabs li:last").find("a").attr("href");
+	// $('#rrr').val(activeTab);
+// };
+</script>
+<div class="block-border" id="outer_block">
+<div class="block-content form">
+	<% if @query == "report"%>
+	<h1 >Student Report Center </h1>
+	<%else%>
+	<h1 >Search Student </h1>
+	<%end%>
+	<div class="block-controls enoch_block">
+			<ul class="controls-tabs js-tabs">
+				<li >
+					<a href="<%= dashboard_path(@user) %>" title ="Back"> <img src="/assets/icons/web-app/32/Back.png" width="24" height="24"></a>
+				</li>
+			</ul>
+		</div>	
+   <div class="tabs-content">
+	<ul class="mini-tabs no-margin js-tabs same-height">
+		<li class="current">
+			<a onclick="resetField()" href="#tab-en">Search Student</a>
+		</li>
+		<li>
+			<a onclick="resetField()" href="#tab-fr">Advanced Search</a>
+		</li>
+	</ul>
+						<div id="tab-en">
+		
+		
+									<div class="columns">
+										<p class="colx2-left">
+											<input id="target" type="text" value="" class="full-width" style="width: 20em;"/>
+										</p>
+										<p class="colx2-right">
+											<input type="radio" name="setopt" id="search_present_students_radio" checked="checked" onclick="setOption('active')" />
+											<strong>Present Students</strong> 
+											<input type="radio" name="setopt" id ="search_former_students_radio"onclick="setOption('former')" />
+											<strong>Alumni</strong>
+										</p>
+									</div>
+									     <%= hidden_field_tag("option", params['option'], :value => "active") %>
+		                         
+						</div>
+						
+						<div id="tab-fr" class="myTabingClass">
+							<%= render :partial => "advanced_search_ajax"%>	
+						</div>
+						<br />
+						 <div id="student_search"></div>
+						 <div id="student_advanced_search"></div>	
+    </div>
+    						        
+</div>
+</div>

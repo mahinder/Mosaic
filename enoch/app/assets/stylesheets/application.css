@@ -1,0 +1,28 @@
+/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+ *= require_self
+ *= require reset
+ *= require common
+ *= require form
+ *= require standard-alt
+ *= require special-pages
+ *= require wizard
+ *= require 960.gs.fluid
+ *= require simple-lists
+ *= require block-lists
+ *= require consolidated_exam_report_pdf
+ *= require planning
+ *= require table
+ *= require calendars
+ *= require gallery
+ *= require jquery.Jcrop.css
+ *= require style
+ *= require calendars
+ *= require "lib/jquery.datepick/jquery_ui_datepicker.css"
+ *= require "lib/jquery.datepick/jquery.datepick.css"  
+ *= require jquery.cursorMessage.css
+*= require calendars
+ *= tree
+*/

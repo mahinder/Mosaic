@@ -1,0 +1,62 @@
+<form class="block-content form" id="table_form" method="post" action="">
+<h1>Category List</h1>
+  <table id="masterFeeBatchAssign" class="table masterFeeBatchAssign no-margin" width="100%">
+    <thead>
+						<tr>
+							<th class="black-cell"></th>
+							<th scope="col">
+								<span class="column-sort">
+									<a href="#" title="Sort up" class="sort-up"></a>
+									<a href="#" title="Sort down" class="sort-down"></a>
+								</span>
+								Fees Name
+							</th>
+							<th scope="col">Batch List</th>
+							<th scope="col">
+								<span class="column-sort">
+									<a href="#" title="Sort up" class="sort-up"></a>
+									<a href="#" title="Sort down" class="sort-down"></a>
+								</span>
+								Created Date
+							</th>
+							<th scope="col" class="table-actions">Actions</th>
+						</tr>
+					</thead>
+					
+					<tbody>
+
+    <% @master_categories.each_with_index do |fees,i| %>
+      <tr>
+        <td class="th table-check-cell"></td>
+        <td id="master_category_name_<%= fees.id %>"><%= fees.name%></td>
+        <td><%  unless fees.batches.nil? %>
+        	<%batches_list= ""%>
+        	<%fees.batches.each do |batch|%>
+        	        <%if batches_list == ""%>
+                      <%batches_list = batches_list + batch.full_name%>
+                    <%else%>
+                      <%batches_list = batches_list+",  "+ batch.full_name%>
+                    <%end%>
+            <%end%>
+            <strong><%=batches_list%></strong>
+          <% else %>
+            ALL
+          <% end %></td>
+        <td><%= fees.created_at.strftime("%m-%d-%Y") %></td>
+        <td class="table-actions">
+			<input type="hidden" name="object_id" value="<%= fees.id %>"/>											
+			<a href="#" id="update-href-<%= fees.id %>" title="Edit" view_description="<%= fees.description %>" view_batch="<%= batches_list %>" class="with-tip update-masterCategory-master-href"><img src="/assets/icons/fugue/pencil.png" width="16" height="16"></a>
+			<a href="#" id="delete-href-<%= fees.id %>" title="Delete" class="with-tip delete-masterCategory-master-href"><img src="/assets/icons/fugue/cross-circle.png" width="16" height="16"></a>
+			<a href="#" id="add_particular-href-<%= fees.id %>" title="Add Particular" fees_name="<%= fees.name %>" class="with-tip add_particular-masterCategory-master-href"><img src="/assets/icons/add.png" width="16" height="16"></a>
+		</td>
+      </tr>
+      
+    <% end %>
+
+</tbody>
+
+  </table>
+  </form>
+
+
+
