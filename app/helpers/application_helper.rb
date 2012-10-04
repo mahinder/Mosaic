@@ -5,10 +5,6 @@ module ApplicationHelper
   
   def link_to_add_fields(name, f, association)
     new_object = f.object.class.reflect_on_association(association).klass.new
-    puts f.object.class.reflect_on_association(association).klass
-    puts f.object
-    puts new_object
-    puts association
     fields = f.fields_for(association, new_object, :child_index => "new_#{association}") do |builder|
       render(association.to_s + "_fields", :f => builder)
     end

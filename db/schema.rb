@@ -11,13 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120911065517) do
+ActiveRecord::Schema.define(:version => 20120909104621) do
 
   create_table "albums", :force => true do |t|
     t.integer  "user_id"
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "photos", :force => true do |t|
@@ -26,21 +26,21 @@ ActiveRecord::Schema.define(:version => 20120911065517) do
     t.string   "album_photo_content_type"
     t.integer  "album_photo_file_size"
     t.datetime "album_photo_updated_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
   end
 
   create_table "taggings", :force => true do |t|
-    t.integer  "tag_id"
     t.integer  "photo_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer  "tag_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "tags", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|
@@ -50,8 +50,8 @@ ActiveRecord::Schema.define(:version => 20120911065517) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
 end

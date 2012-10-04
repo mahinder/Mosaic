@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   before_save :create_user
   has_many :albums ,:dependent => :destroy
   accepts_nested_attributes_for :albums
+  attr_accessible :name, :password, :password_confirmation, :photo
   
    def create_user
     self.password_digest = Digest::SHA1.hexdigest(self.password) unless self.password.nil?

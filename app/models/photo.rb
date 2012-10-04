@@ -8,7 +8,7 @@ class Photo < ActiveRecord::Base
   has_many :taggings, :dependent => :destroy
   has_many :tags, :through => :taggings
   after_save :assign_tags
-
+  attr_accessible :album_photo, :tag_names
   def tag_names
     @tag_names || tags.map(&:name).join(' ')
   end
