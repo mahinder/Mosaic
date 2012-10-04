@@ -16,7 +16,7 @@
 				<%= link_to (image_tag  current_user.photo.url(:small) ,:height => 50, :width => 50), users_url %>
 			</p> <%= button_to 'Logout', logout_path, method: :delete ,:class => 'logout'%>
 			<%else%>
-			Please Login Vinsol Team
+			Please Login
 			<%end%> </h1>
 			<%= yield %>
 		</div>
