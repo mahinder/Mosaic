@@ -1,8 +1,0 @@
-<label>Select Fee Collection Date</label>
-<%= select  :fees_submission, :dates_id, @dates.map { |e| [e.full_name, e.id]},{:prompt => "Select"}%>
-<!--   {:prompt => "Select fees collection date"},
-  {:onChange => "#{remote_function( :url =>
-    {:action => "load_fees_submission_batch"},
-    :with => "'date='+value+'&batch_id='+$('fees_submission_batch_id').value") }"} %> -->
-
-

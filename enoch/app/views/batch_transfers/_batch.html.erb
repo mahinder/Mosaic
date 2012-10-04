@@ -1,3 +1,0 @@
-<label for="Select Batch">Batch</label>
-<%= select :student,:batch_transfer_id, @batches.map{|c| [c.full_name, c.id]},{:prompt=>'Select'},:selected =>( @batche.id unless params[:prev].nil?)%>
-

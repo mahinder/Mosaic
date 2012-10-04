@@ -1,3 +1,0 @@
-if @error_text.nil?
-page.hide "subject-#{@subject.id}"
-end

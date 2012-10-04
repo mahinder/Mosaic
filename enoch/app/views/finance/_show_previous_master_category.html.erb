@@ -1,8 +1,0 @@
-<label>Batch:
-    <%= link_to_function 'All', "$('#previous_category_ids_id').each(function() {$('#previous_category_ids_id option').attr('selected','selected') });" %>,
-    <%= link_to_function 'None', "$('#previous_category_ids_id').each(function() {$('#previous_category_ids_id option').removeAttr('selected') });" %> 
- </label> 
-
-<%= collection_select(:previous_category_ids, :id, @fee_category,:id,:name,
-{ :selected => @fee_category.map { |c| [c.name, c.id] }},
-{:multiple => true, :style => "width:180px;height:100px;"  }) %>

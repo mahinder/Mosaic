@@ -1,3 +1,0 @@
-
-	<label for="simple-action">Batch</label>
-	<%= select :batch, :id,  @batches.map {|b| [b.full_name, b.id] }, {:prompt => 'Select'},:class => "timetable_batch" %>
