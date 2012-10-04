@@ -1,0 +1,29 @@
+
+
+<div class="block-border" id="outer_block">
+	<div class="block-content form">
+<div id="grading-levels-form">
+  <%= form_for @co_scholastic_sub_skill_activity do |f| %>
+<div class="columns">
+   
+    <input type="hidden" id="co_scholastic_sub_skill_activity_id" value="<%=@co_scholastic_sub_skill_activity.id %>" />
+<p class="colx2-left required">
+					<label for="complex-fr-style">Co Scholastic Sub Skill Name</label>
+					
+					<%= f.text_field :co_scholastic_sub_skill_name, :size =>15 %>
+				</p>
+    
+</div>
+	<fieldset class="grey-bg no-margin">
+					<legend>Action on create</legend>
+					<div class="columns">
+						<div class="colx2-left-double">
+							<label for="simple-action">Status</label>
+							<%= f.radio_button  "is_active", "true", :checked => "checked" %>&nbsp;<label for="complex-en-active-1">Active</label> 
+							<%= f.radio_button  "is_active", "false" %>&nbsp;<label for="complex-en-active-0">Inactive</label>
+						</div>
+					</div>
+				</fieldset>
+ 
+  <% end %>
+</div></div></div>

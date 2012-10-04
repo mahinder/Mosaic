@@ -1,0 +1,14 @@
+									<tr>
+										<td class="th table-check-cell"></td>
+										<input type="hidden" id="board_route_names_<%= board.id %>" value="<%= board.transport_route_id %>"/>
+										<td id="board_route_name_<%= board.id %>"><%= board.transport_route.name %></td>
+										<td id="board_name_<%= board.id %>"><%= board.name %></td>
+										<td id="board_picktime_<%= board.id %>"><%= board.picktime.strftime("%I:%M%p")  %></td>
+										<td id="board_droptime_<%= board.id %>"><%= board.droptime.strftime("%I:%M%p")  %></td>
+										<td id="board_passanger_<%= board.id %>"><%= board.no_of_passenger %></td>
+										<td class="table-actions">
+											<input type="hidden" name="object_id" value="<%= board.id %>"/>
+											<a href="#" id="update-href-<%= board.id %>" title="Edit" class="with-tip update-transport_board-master-href"><img src="/assets/icons/fugue/pencil.png" width="16" height="16"></a>
+											<a href="#" id="delete-href-<%= board.id %>" title="Delete" class="with-tip delete-transport_board-master-href"><img src="/assets/icons/fugue/cross-circle.png" width="16" height="16"></a>
+										</td>
+									</tr>

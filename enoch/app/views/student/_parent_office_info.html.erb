@@ -1,0 +1,77 @@
+<% if i.nil? %>
+No Parents Added Yet
+<% else%>
+<%= form_for i ,:url => {:action => 'update_guardian'},:remote => true do |p| %>
+	<fieldset>
+		<legend>
+			Office Detail
+		</legend>
+		<div class="columns">	
+							
+		    <p class="colx3-left">
+				<label for="student_phone1">Email</label>
+				<span class="relative"><%= p.text_field :email,:class => "full-width", :id => "parent_email#{i.id}" %></span>
+			</p>
+			
+			<p class="colx3-center">
+				<label for="student_phone2">Address Line 1</label>
+				<span class="relative">
+					 <% unless @student.address_line1.nil? %>
+                        <%= p.text_field :office_address_line1,:class => "full-width" ,:id => "parent_address#{i.id}",:field_name=>'Address Line 1' %>
+                    <% else %>
+                        <%= p.text_field :office_address_line1 ,:class => "full-width",:id => "parent_1address#{i.id}",:field_name=>'Address Line 1' %>
+                    <% end %>			
+					</span>
+			</p>
+
+			<p class="colx3-right">
+				<label for="student_email">Address Line 2</label>
+				<span class="relative">
+          			<% unless @student.address_line2.nil? %>
+           				<%= p.text_field :office_address_line2,:class => "full-width",:id => "parent_2address#{i.id}",:field_name=>'Address Line 2'%>
+          			<% else %>
+           				<%= p.text_field :office_address_line2 ,:class => "full-width",:id => "parent_2address#{i.id}",:field_name=>'Address Line 2'%>
+          			<% end %>	
+				</span>
+			</p>
+			
+	   </div>
+        <div class="columns">	
+				
+		    <p class="colx3-left">
+				<label for="parent_detail_dob">City</label>
+                  <span class="relative">
+                  	   <% unless @student.city.nil? %>
+                            <%= p.text_field :city,:class => "full-width",:id => "parent_city#{i.id}" ,:field_name=>'Guardian City'%>
+                       <% else %>
+                            <%= p.text_field :city ,:class => "full-width",:id => "parent_city#{i.id}",:field_name=>'Guardian City'%>
+                       <% end %>               	
+                  	</span>
+			</p>
+			
+			<p class="colx3-center">
+				<label for="state">State</label>
+				<span class="relative">
+          				<% unless @student.state.nil? %>
+            				<%= p.text_field :state,:class => "full-width",:id => "parent_state#{i.id}",:field_name=>'Guardian State'%>
+          				<% else %>
+            				<%= p.text_field :state,:class => "full-width",:id => "parent_state#{i.id}",:field_name=>'Guardian State' %>
+          				<% end %>	
+			    </span>
+			</p>
+	   </div>
+	</fieldset>
+	<br />
+	<% if permitted_to? :update_guardian ,:student%>
+	<fieldset class="grey-bg no-margin">
+		<legend>
+			Action
+		</legend>
+		<p class="colx3-left">
+			<button class="big-button" id="delete_parent">Delete</button>&nbsp;&nbsp;<%= p.submit "Update", :class => "big-button" ,:id => "update_parent_office"%>
+		</p>
+
+	</fieldset>
+		<% end %>
+		<% end %>
+	<% end %>

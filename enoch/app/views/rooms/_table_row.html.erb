@@ -1,0 +1,15 @@
+<tr>
+	<td class="th table-check-cell"></td>
+	<td id="room_name_<%= room.id %>"><a href = "" class = "room_constraints" data_room_id = "<%= room.id %>" ><%= room.name %><a></td>
+	<td id="room_capacity_<%= room.id %>"><%= room.capacity %></td>
+	<td id="room_roomtype_<%= room.id %>"><%= room.roomtype %></td>
+	<input type="hidden" id= "room_batch_<%= room.id %>"
+	name="room_batch_<%= room.id %>" value="<%= room.batch_id %>"/>
+	<input type="hidden" id= "room_employee_<%= room.id %>"
+	name="room_employee_<%= room.id %>" value="<%= room.employee_id %>"/>
+	<td class="table-actions">
+	<input type="hidden" name="object_id" value="<%= room.id %>"/>
+	<a href="#" id="update-href-<%= room.id %>" title="Edit" class="with-tip update-room-href"> <img src="/assets/icons/fugue/pencil.png" width="16" height="16"></a>
+	&nbsp;<a href="#" id="delete-href-<%= room.id %>" title="Delete" class="with-tip delete-room-href"> <img src="/assets/icons/fugue/cross-circle.png" width="16" height="16"></a>
+	&nbsp;<a href="#" id="room_skills" title="Assign Skills" data_room = "<%= room.id %>"> <img src="/assets/icons/add-mini.png" width="16" height="16"></a></td>
+</tr>

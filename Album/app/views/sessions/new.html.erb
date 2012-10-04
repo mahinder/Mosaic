@@ -1,0 +1,27 @@
+<div class="box login">
+	<% if flash[:notice] %>
+	<p id="notice">
+		<%= flash[:notice] %>
+	</p>
+	<% end %>
+
+	<%= form_tag  do %>
+	<fieldset  class="boxBody">
+		<div>
+			<label for="name">Username</label>
+			<%= text_field_tag :name, params[:name] %>
+		</div>
+		<div>
+			<label for="password">Password:</label>
+			<%= password_field_tag :password, params[:password] %>
+		</div>
+		</fieldset>
+			<footer>
+				<label><%= link_to "Create New Account" , new_user_url%></label>
+			<%= submit_tag "Login" ,:class => 'btnLogin' %>
+			</footer>
+		
+	
+	<% end %>
+	
+</div>

@@ -1,0 +1,81 @@
+<div class="block-border" id="outer_block">
+	<%= form_for (@skill),:remote => true, :html => { :class => "block-content form", :id => "course-form"} do |form| %>
+	<%= render 'shared/form_errors', :object => form.object %> <h1>Skill</h1>
+	<fieldset class="grey-bg">
+		<legend>
+			Required Fields for Skills
+		</legend>
+		<div class="columns">
+			<div class="colx2-left required">
+				<label for="skill_name">Skills Name</label>
+				<%= form.text_field :name ,:class => "special_char1"%>
+			</div>
+		</div>
+		<div class="columns">
+			<div class="colx3-left required">
+				<label for="skill_code"> Skill Code</label>
+				<%= form.text_field :code ,:class => "special_char1" ,:size => "15"%>
+				<input type="hidden" name = "course_id"   value = '<%= @course_id %>'/>
+			</div>
+			<div class="colx3-center required ">
+				<label for="skill_max_weekly_classes"> Max Weekly Classes</label>
+				<%= form.text_field :max_weekly_classes ,:class => "numeric1",:size => "15"%>
+				<input type="hidden" name = "course_id"   value = '<%= @course_id %>'/>
+			</div>
+		</div>
+	</fieldset>
+	<fieldset >
+		<legend>
+			Other Information for Skills
+		</legend>
+		<div class="columns">
+			<div class="colx2-left">
+				<div class="columns">
+					<div class="colx2-left">
+						<label for="course_name"> No Exams</label>
+						<span class="relative"> <%= form.check_box :no_exam %> </span>
+						<input type="hidden" name = "course_id"   value = '<%= @course_id %>'/>
+						<input type="hidden" name = "elective_skill_id"   value = '<%= @elective_skill_id %>'/>
+					</div>
+					<div class="colx2-center ">
+						<label for="skill_common"> Is Common</label>
+						<span class="relative"> <%= form.check_box :is_common %> </span>
+						<input type="hidden" name = "course_id"   value = '<%= @course_id %>'/>
+						<input type="hidden" name = "elective_skill_id"   value = '<%= @elective_skill_id %>'/>
+					</div>
+				</div>
+			</div>
+			<div class="colx2-right ">
+				<div class="columns">
+					<div class="colx2-left ">
+						<label for="skill_active"> Is Active</label>
+						<span class="relative"> <%= form.check_box :is_active %> </span>
+						<input type="hidden" name = "course_id"   value = '<%= @course_id %>'/>
+						<input type="hidden" name = "elective_skill_id"   value = '<%= @elective_skill_id %>'/>
+					</div>
+					<div class="colx2-center">
+						<label for="skill_scholistic"> Is Scholastic</label>
+						<%= form.check_box :is_scholastic %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</fieldset>
+	<!-- <fieldset class="grey-bg no-margin">
+	<legend>
+	Action on create
+	</legend>
+	<div class="columns">
+	<div class="colx2-right">
+	<button id="update_mandatory" type="submit" >
+	Update
+	</button>
+	<button id="reset_course" type="reset">
+	Clear
+	</button>
+	<input type="hidden" id="current_object_id" name="current_object_id" value=""/>
+	</div>
+	</div>
+	</fieldset> -->
+	<%end%>
+</div>

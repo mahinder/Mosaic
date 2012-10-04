@@ -1,0 +1,8 @@
+
+jQuery('#modal-box').html('<%= escape_javascript render('edit') %>');
+$.modal({
+        content: jQuery('#modal-box'),
+        title: 'Edit Course',
+       	width: 700,
+       	height: 450
+          });

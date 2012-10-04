@@ -1,0 +1,65 @@
+<style type="text/css">
+.aClassName{
+	font-size: 100%;
+	color:red;
+	font-family: bold;
+}
+</style>
+<div class="block-border" id="outer_block">
+<div class="block-content form">
+
+  <h1>Attendance Register</h1>
+  		<div class="block-controls enoch_block">
+			<ul class="controls-tabs js-tabs">
+				<li >
+					<a href="<%= dashboard_path(@user) %>" title ="Back"> <img src="/assets/icons/web-app/32/Back.png" width="24" height="24"></a>
+				</li>
+			</ul>
+		</div>
+			<div class="column">
+				<p class="colx2-left select-fixed-width1">
+			 		<label for="employee_department_select">Department</label>
+			      <%= select :department_attendance, :id,  @departments.map {|b| [b.name, b.id] },  {:prompt => 'Select'}  %>	
+				</p>
+				<p class="colx2-right">
+					<div class="block-controls">
+						<ul class="controls-buttons">
+							<li>
+								 <%= link_to (image_tag("icons/fugue/navigation-180.png",:title => 'Previous')),:dept_id=>@dept, :next=>(@today-1.month),:remote => true%>
+							</li>
+							<li class="sep"></li>
+							<li class="controls-block">
+								<strong><%= @today.strftime("%B %Y") %></strong>
+							</li>
+							<li class="sep"></li>
+							<li class="next-to-mini-calendar">
+								<%= link_to (image_tag("icons/fugue/navigation.png",:title => 'Next')),:dept_id=>@dept, :next=>(@today+1.month),:remote => true  %>
+							</li>
+						</ul>
+					</div>
+				</p>
+			</div>
+
+<div id="loader_show"></div>
+  <div id="emloyee_attendnce_register"></div>
+  <br /><br /><br />
+  <fieldset class="grey-bg no-margin">
+	<legend>
+		Action
+	</legend>
+	<div class="column">
+		<p class="col-1">
+			<button type="button" value="View All" id="allDepartmentEmployee" name="View All">View All</button>
+		</p>
+	</div>
+	
+</fieldset>
+  <div id="modal-box" style="display:none;"></div>
+
+</div>
+</div>
+<input type="hidden"name="nextMonth" id="nextMonth" value="<%= @today %>" />
+<input type="hidden"name="userSIDS" id="userSIDS" value="<%= @user.role_name %>" />
+<%unless params[:id2].nil? %>
+<div id="modal-box-employee_attendance" style="display:none;"></div>
+<% end %>

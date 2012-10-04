@@ -1,0 +1,3 @@
+<%= select :exam_report, :batch_id,
+        @batches.map {|b| [b.full_name, b.id]},
+        {:prompt => 'Select'},:id =>'subject_batch_id' %>

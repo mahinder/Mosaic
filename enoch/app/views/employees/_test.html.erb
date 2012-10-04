@@ -1,0 +1,75 @@
+<!doctype html>
+<%= render 'shared/ie' %>
+<head>
+	<title>New Employee</title>
+	<%= render 'shared/global_head' %>
+</head>
+<body>
+	
+	<div>
+		<ul class="message success grid_16">
+			<li>
+				Set privileges for <strong><%= @user.full_name.capitalize %></strong>,
+			</li>
+			<li class="close-bt"></li>
+		</ul>
+	</div>
+	<h1>User Privileges</h1>
+	<h3>Set Privilege</h3>
+	<%= form_for :user ,:url =>{ :id => @user.username } do |form| %>
+	<section class="grid_16">
+		<div class="block-border">
+			<div class="block-content">
+				<h1>Privileges List</h1>
+				<div class="no-margin">
+					<table cellspacing="0" class="list-calendar">
+						<tbody>
+							<tr class="empty">
+								<td>Status</td>
+								<td>Privileges</td>
+								<td>Description</td>
+							</tr>
+							<% for privilege in Privilege.find(:all) %>
+
+							<% hr = SchoolConfiguration.find_by_config_value("HR") %>
+							<% finance = SchoolConfiguration.find_by_config_value("Finance") %>
+							<%  if hr.nil?  %>
+
+							<% if privilege.id ==9 or  privilege.id ==17 or privilege.id ==19 %>
+
+							<% next %>
+
+							<% end %>
+
+							<% end %>
+
+							<%  if finance.nil?  %>
+
+							<% if privilege.id ==14 or  privilege.id ==18 %>
+
+							<% next %>
+							<% end %>
+							<% end %>
+							<tr>
+								<td> <%= check_box_tag "user[privilege_ids][]", privilege.id, @user.privileges.include?(privilege)%></td>
+								<td> <%= privilege.name.underscore.gsub(/_/, ' ').capitalize %>
+								<br />
+								</td>
+								<td>Privileges Description</td>
+							</tr></li>
+							<% end %>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</section>
+	<div class="colx2-right">
+		<button id="create_grade" type="submit">
+			test
+		</button>
+	</div>
+	<% end %>
+	<%= render 'shared/js' %>
+</body>
+</html> 

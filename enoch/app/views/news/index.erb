@@ -1,0 +1,43 @@
+<div class="block-border" id="outer_block">
+	<div class="block-content form">
+		<h1>School News</h1>
+		<div class="block-controls enoch_block">
+			<ul class="controls-tabs js-tabs">
+				<li class="current">
+					<a href="/news/all" title="View All"><img src="/assets/icons/web-app/24/Bar-Chart.png" width="24" height="24"></a>
+				</li>
+				<% if permitted_to? :add,:news %>
+				<li>
+					<a href="/news/add" title="Add News"><img src="/assets/icons/web-app/24/Add.png" width="24" height="24"></a>
+				</li>
+				<% end %>
+				<li >
+						<a href="<%= dashboard_path(@user) %>" title ="Back"> <img src="/assets/icons/web-app/32/Back.png" width="24" height="24"></a>
+				</li>
+			</ul>
+		</div>
+		<% unless flash[:notice].nil? %>
+		<p class="flash-msg">
+			<%= flash[:notice] %>
+		</p>
+		<% end %>
+		<fieldset>
+			<legend>
+				Search News
+			</legend>
+		
+		<div class="column">
+			
+			<p class="colx2-left">
+				<%= text_field_tag("query_search", params['query'], :autocomplete => 'off') %>
+			</p>
+			<p class="colx2-right">
+				<%= submit_tag "", :value =>"Go", :controller=> 'news', :action=>"index" ,:class => 'big-button news_search'%>
+			</p>
+		</div>
+		
+		</fieldset>
+		 <div id="search_news_ajaxx">
+		</div>
+	</div>
+</div>

@@ -1,0 +1,40 @@
+<div class="block-border">
+	<div class="block-content form">
+
+<div id="content-header">
+  <img src="/images/HR/show_hr.png" alt="" />
+  <h1>Payslip</h1>
+  
+  	<div class="block-controls enoch_block">
+					<ul class="controls-tabs js-tabs">
+						<li >
+					<%= link_to image_tag("/assets/icons/web-app/32/Back.png"), :back %>
+				</li>
+					</ul>
+				</div>	
+</div>
+
+
+  <% unless flash[:notice].nil? %>
+    <p class="flash-msg"> <%= flash[:notice] %> </p>
+  <% end %>
+  <ul class="shortcuts-list">
+					
+					<li>
+					<a href="/employees/select_department_employee"> <%= image_tag "dashboard/finance.png", :size => "48x48"  %> <h4>Select Employee </h4></a>
+				</li>
+				<li>
+					<a href="/employees/rejected_payslip"> <%= image_tag "dashboard/finance.png", :size => "48x48"  %> <h4>Rejected Employee </h4></a>
+				</li>
+				<li>
+					<a href="/employees/payslip_date_select" id="one_click_payslip_generator"> <%= image_tag "dashboard/finance.png", :size => "48x48"  %> <h4>One click payslip generator </h4></a>
+				</li>
+				<li>
+					<a href="/employees/payslip_revert_date_select" id="one_click_payslip_revert"> <%= image_tag "dashboard/finance.png", :size => "48x48"  %> <h4>One click payslip revert</h4></a>
+				</li>
+				</ul>
+				
+				<div id="one_click_payslip"></div>
+<div id="one_click_pay"></div>
+</div>
+</div>

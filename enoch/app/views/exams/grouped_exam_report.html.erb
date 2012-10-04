@@ -1,0 +1,51 @@
+<div class="block-border" id="outer_block">
+	<div class="block-content form">
+  <h1>Grouped Exam Reports</h1>
+  
+  <div class="block-controls enoch_block">
+					<ul class="controls-tabs js-tabs">
+						<li >
+					<%= link_to image_tag("/assets/icons/web-app/32/Back.png"), :controller=>'sessions',:action=>'dashboard'%>
+			
+				</li>
+					</ul>
+				</div>	
+  
+
+  <% unless flash[:notice].nil? %>
+	<ul class="message success grid_12">
+       <li><strong><%= flash[:notice] %></strong></li>
+       <li class="close-bt"></li>
+       	</ul>
+    <% end %>
+ 
+
+    <%= form_for :exam_reports, :url=>{:action=>'generated_report4'} do |x| %>
+    <input type="hidden" id="current_user" value="<%= @user.role_name%>" />
+   <%if @user.admin? || @user.employee? &&  @current_user.privileges.map{|p| p.id}.include?(Privilege.find_by_name('ViewResults').id) %>
+        <div class="columns">
+    	<p class="colx2-left required select-fixed-width1">
+					<label for="exam_name">Course:</label>
+  <%= select :grouped_exam_course, :name,
+        @courses.map {|b| [b.course_name, b.id]}, :prompt =>'Select'%>
+        </p>
+        <p class="colx2-left required">
+					<label for="exam_name">Batch:</label>
+ <div id="grouped_update_batch" class="select-fixed-width1"> <%= select :exam_reports, :batch_id, @batches.map { |s| [s.full_name, s.id]},:prompt =>'Select' %></div>
+        </p>
+</div>
+<%else%>
+<div class="columns">
+ <p class="colx2-left required select-fixed-width1">
+					<label for="exam_name">Batch:</label>
+ <%= select :exam_reports, :batch_id, @batch.map { |s| [s.full_name, s.id]},:prompt =>'Select' %>
+        </p></div>
+<%end%>
+
+      <div id="report_type"></div>
+
+    <% end %>
+
+  
+      </div></div>
+  <div id="ce"></div>

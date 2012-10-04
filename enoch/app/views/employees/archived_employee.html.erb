@@ -1,0 +1,14 @@
+<div class="block-border" id="outer_block">
+	<div class="block-content form">
+		<h1>Archived Employee List</h1>
+		<div class="columns">
+			<p class="colx2-left">
+				<label for="employee department">Employee Department</label>
+				<%= select :archived_employee, :id, @employee_department.map { |s| [s.name, s.id]},:prompt =>'Select' %>
+			</p>
+		</div>
+		<div id="archive_employee_list">
+		<%= render :partial=>'archived_employee_list'%>
+		</div>
+	</div>
+</div>

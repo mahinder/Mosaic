@@ -1,0 +1,33 @@
+<style type="text/css">
+div, textarea {
+ font-family: Helvetica, Arial, sans-serif;
+ font-size: 14px;
+ line-height: 16px;  
+}
+
+textarea {
+ padding: 4px;
+ display: inline-block;
+ vertical-align: baseline;    
+}
+
+</style>
+<table border="0" class="table" width="100%">
+	<thead >
+		<tr class="turquoise">
+			<th><%= @days[d[0]]%></th><th style="text-align: center;"><%= d[1].strftime("%d-%m-%Y")%></th>
+		</tr>
+		<tr class="turquoiseLight">
+			<th>Timing</th><th>Plans</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="rows" id = "rows">
+			<td>
+			<div id='container'>
+				<textarea name="comments" id="comments" rows='10'>Textarea with enough text to wrap to the next line</textarea>
+			</div></td>
+		</tr>
+	</tbody>
+</table>
+<br />

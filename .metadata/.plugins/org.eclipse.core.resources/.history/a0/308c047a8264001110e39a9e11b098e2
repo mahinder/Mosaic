@@ -1,0 +1,2 @@
+
+<%= select :student_report, :batch_id, @batches.map{|c| [c.name, c.id]},{:prompt=>'Select'}%>

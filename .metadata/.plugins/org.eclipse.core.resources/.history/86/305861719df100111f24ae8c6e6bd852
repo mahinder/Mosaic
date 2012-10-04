@@ -1,0 +1,404 @@
+<style>
+	.thumbnail {
+		margin-left: 70px;
+	}
+	.remindercount {
+		position: relative;
+		font-size: 24px;
+		text-align: center;
+		color: red;
+		bottom: 66px;
+		left: -30px;
+	}
+</style>
+<div class="block-border">
+	<div class="block-content">
+		<h1>Dashboard</h1>
+		<!-- 		  <%= link_to 'Export XLS', :controller=>"/exams",:action=>"xls_demo",:format => 'xls' %>   -->
+		<%= render 'shared/form_notice' %>
+		<div id="user_options">
+			<% if @user.admin? %> <h3>School Operations</h3>
+			<ul class="shortcuts-list">
+				<li>
+					<a href="#" id="new_student" ><%= image_tag "dashboard/new_admission.png", :size => "48x48"  %><h4>New Admission</h4></a>
+				</li>
+				<li>
+					<a href="student/student_search?query=search"> <%= image_tag "dashboard/student-search.png", :size => "48x48"  %><h4>Student Search</h4></a>
+				</li>
+				<li>
+					<a href="/timetable/timetable_step1"> <%= image_tag "dashboard/timetable.png", :size => "48x48"  %><h4>TimeTable</h4></a>
+				</li>
+				<li>
+					<a href="/timetable/timetable_substitution"> <%= image_tag "dashboard/timetable-substitution.png", :size => "48x48"  %><h4>TimeTable Substitution</h4></a>
+				</li>
+				<li>
+					<a href="/ptm_admin"> <%= image_tag "dashboard/groups-Meeting-Light-icon.png", :size => "48x48"  %> <h4>PTM</h4></a>
+				</li>
+				<li>
+					<a href="/student/assign_roll_no"> <%= image_tag "dashboard/roll.png", :size => "48x48"  %><h4>Reassign Roll Number</h4> </a>
+				</li>
+				<li>
+					<a href="/calendars"> <%= image_tag "dashboard/calendar.png", :size => "48x48"  %><h4>Calendar</h4></a>
+				</li>
+			</ul>
+			<h3>Course Management</h3>
+			<ul class="shortcuts-list">
+				<li>
+					<a href="courses/all_record"> <%= image_tag "dashboard/Courses-icon.png", :size => "48x48"  %> <h4>Courses </h4></a>
+				</li>
+				<li>
+					<a href="batch_transfers?transfer_to=transfer"> <%= image_tag "dashboard/Batch Transfer.png", :size => "48x48"  %><h4>Batch Transfers</h4></a>
+				</li>
+				<li>
+					<a href="batches/batch_history"> <%= image_tag "dashboard/batch-history-icon.png", :size => "48x48"  %><h4>Batch History</h4></a>
+				</li>
+				<li>
+					<a href="batch_transfers"> <%= image_tag "dashboard/student.png", :size => "48x48"  %><h4>Graduation</h4></a>
+				</li>
+				<li>
+					<a href="student_attendance/index"> <%= image_tag "dashboard/studentattendance.png", :size => "48x48"  %><h4>Attendance </h4></a>
+				</li>
+				<li>
+					<a href="student/student_search?query=report" > <%= image_tag "dashboard/student-report.png", :size => "48x48"  %><h4>Student Report Center</h4></a>
+				</li>
+				<li>
+					<a href="/assignments"> <%= image_tag "dashboard/assignment.png", :size => "48x48"  %><h4>Assignment</h4> </a>
+				</li>
+				<li>
+					<a href="/assignments/view"> <%= image_tag "dashboard/assignment_view.png", :size => "48x48"  %><h4>View Assignment</h4> </a>
+				</li>
+			</ul>
+			<h3>Examinations</h3>
+			<ul class="shortcuts-list">
+				<li>
+					<a href="/examination_settings"><%= image_tag "dashboard/exam_settings.png", :size => "48x48"  %><h4>Settings</h4></a>
+				</li>
+				<li>
+					<a href="/student_co_scholastic_assessments"><%= image_tag "dashboard/assessment.png", :size => "48x48"  %><h4>CoScholastic Assessment</h4></a>
+				</li>
+				<li>
+					<a href="/student_term_remarks"><%= image_tag "dashboard/student_term_remarks.png", :size => "48x48"  %><h4>Student Term Remarks</h4></a>
+				</li> 
+				<li>
+					<!--         <div class="link-heading"><%= link_to 'Exam Management' ,:action=>'create_exam' %>  </div> -->
+					<a href="exams/create_exam"> <%= image_tag "dashboard/exam.png", :size => "48x48"  %> <h6>Exams</h6></a>
+				</li>
+				<%  if permitted_to? :create_additional_exam,:additional_exam %>
+				<li>
+					<a href="additional_exam/create_additional_exam" > <span> <%= image_tag "dashboard/additional-exam-icon.png", :size => "48x48"  %> </span> <h6>Additional Exams</h6> </a>
+				</li>
+				<% end %>
+				<li>
+					<a href="exams/exam_wise_report" > <span> <%= image_tag "dashboard/exam-wise-report-icon.png", :size => "48x48"  %> </span> <h6>Exam Wise Report</h6> </a>
+				</li>
+				<li>
+					<a href="exams/subject_wise_report" > <span> <%= image_tag "dashboard/subject-wise-report-icon.png", :size => "48x48"  %> </span> <h6>Subject Wise Report</h6> </a>
+				</li>
+				<!-- <li>
+				<a href="exams/view_exam_score_updation" >
+				<span> <%= image_tag "/assets/icons/web-app/48/Bar-Chart.png", :size => "48x48"  %> </span>
+				<h6>view exam score</h6>
+				</a>
+				</li> -->
+				<li>
+					<a href="additional_exam/additional_exam_report" > <span> <%= image_tag "dashboard/additional-exam-report-icon.png", :size => "48x48"  %> </span> <h6>Additional Exam Report</h6> </a>
+				</li>
+				<li>
+					<a href="exams/grouped_exam_report" > <span> <%= image_tag "dashboard/grouped-exam-report-icon.png", :size => "48x48"  %> </span> <h6>Grouped Exam Report</h6> </a>
+				</li>
+			</ul>
+			<h3>Human Resources</h3>
+			<ul class="shortcuts-list">
+				<li>
+					<a href="#" id="new_employee" > <%= image_tag "dashboard/employee.png", :size => "48x48"  %> <h4>New Employee</h4></a>
+				</li>
+				<li>
+					<a href="employees/search"> <%= image_tag "dashboard/student_search.png", :size => "48x48"  %> <h4>Search </h4></a>
+				</li>
+				<li>
+					<a href="sessions/hr_settings"> <%= image_tag "dashboard/hr-settings.png", :size => "48x48"  %><h4>HR Settings</h4> </a>
+				</li>
+				<li>
+					<a href="/employees/employee_attendance"> <%= image_tag "dashboard/emp-leave.png", :size => "48x48"  %><h4>Employee Leave Management</h4> </a>
+				</li>
+				<!-- <li>
+				<a href="employees/employee_finance_setting"> <%= image_tag "dashboard/Rupee48.png", :size => "48x48"  %> <h4>Employee Finance </h4></a>
+				</li> -->
+				<li>
+					<a href="users/reset_password_of_any_user"> <%= image_tag "dashboard/users.png", :size => "48x48"  %><h4>Manage Users</h4></a>
+				</li>
+				<li>
+					<a href="users/privileges_of_any_user"> <%= image_tag "dashboard/userprivileges.png", :size => "48x48"  %><h4>Manage Privileges</h4></a>
+				</li>
+				<li>
+					<a href="employees/archived_employee"> <%= image_tag "dashboard/Apps-package-settings-icon.png", :size => "48x48"  %> <h4>Archived Employee </h4></a>
+				</li>
+				<li>
+					<strong><%= link_to (image_tag "dashboard/news2.png")+ "My Diary",:controller  =>  'teacher_diaries',:action=>"index",:id=>@current_user.employee_record.id %></strong>
+				</li>
+				<li>
+					<a href="/teacher_diaries/new "> <%= image_tag "dashboard/Apps-package-settings-icon.png", :size => "48x48"  %> <h4>Teacher Diary</h4></a>
+				</li>
+			</ul>
+			<h3>Finance</h3>
+			<ul class="shortcuts-list">
+				<li>
+					<a href="finance/master_category_create" id="" ><%= image_tag "fees/finance1.png", :size => "48x48"  %><h4>Master Fees Category</h4></a>
+				</li>
+				<li>
+					<a href="finance/fee_discounts"> <%= image_tag "/assets/dashboard/discount.png", :size => "48x48"  %> <h4>Fees Discount</h4></a>
+				</li>
+				<li>
+					<a href="finance/fee_collection_new"> <%= image_tag "fees/finance2.png", :size => "48x48"  %><h4>Fee Collection</h4></a>
+				</li>
+				<li>
+					<a href="finance/fees_submission_index"> <%= image_tag "fees/finance3.png", :size => "48x48"  %> <h4>Fees Submission</h4></a>
+				</li>
+				<li>
+					<a href="finance/fees_defaulters"> <%= image_tag "/assets/dashboard/defaulters.png", :size => "48x48"  %> <h4>Fees Defaulters</h4></a>
+				</li>
+				<li>
+					<a href="instant_fees/all_record"> <%= image_tag "fees/instant_fee.png", :size => "48x48"  %> <h4>Instant Fees</h4></a>
+				</li>
+				<li>
+					<a href="finance/monthly_report"> <%= image_tag "fees/monthly_report.png", :size => "48x48"  %> <h4>Transaction Report</h4></a>
+				</li>
+				<li>
+					<a href="/instant_fee_collections"> <%= image_tag "fees/money1.png", :size => "48x48"  %> <h4>Instant Fee Collection</h4></a>
+				</li>
+				<!-- <li>
+				<a href="finance/automatic_transactions"> <%= image_tag "dashboard/finance.png", :size => "48x48"  %><h4>Add automatic transactions</h4> </a>
+				</li>
+				<% unless @hr.nil? %>
+				<li>
+				<a href="finance/payslip_index"> <%= image_tag "dashboard/finance.png", :size => "48x48"  %><h4>Employee Payslips</h4></a>
+				</li>
+				<%end%>
+				<li>
+				<a href="finance/asset_liability"> <%= image_tag "dashboard/finance.png", :size => "48x48"  %> <h4>Asset liability management</h4></a>
+				</li>
+				<li>
+				<a href="/xml/index"> <%= image_tag "dashboard/finance.png", :size => "48x48"  %><h4>Creates xml import file</h4> </a>
+				</li> -->
+			</ul>
+			<h3>Miscellaneous</h3>
+			<ul class="shortcuts-list">
+				<ul class="shortcuts-list">
+					<li>
+						<strong><a href="/transport_routes/transport_dashboard"> <%= image_tag "transport/school-48x48.png"%>Transport Management </a></strong>
+					</li>
+					<!-- <li> 
+					<a href="users/upload_excel"> <%= image_tag "dashboard/employee.png", :size => "48x48"  %> <h4>Upload CSV</h4></a>
+					</li><li>
+					<a href="users/upload_excelsheet" id="upload_school_data"> <%= image_tag "upload.jpg", :size => "48x48"  %> <h4>Upload Legacy Data</h4></a>
+					</li>  -->
+					<li>
+						<a href="student/system_reports"><%= image_tag "icons/web-app/48/pdf.png", :size => "48x48"  %><h4>Reports Center</h4></a>
+					</li>
+					<li>
+						<a href="timetable/substitution_report_center"><%= image_tag "dashboard/timetable-substitute.png", :size => "48x48"  %><h4>Substitution Report</h4></a>
+					</li>
+					<li>
+						<strong><a href="/library_management"> <%= image_tag "dashboard/library-mgmnt.png", :size => "48x48"%><h4>Library Management</h4> </a></strong>
+					</li>
+				</ul>
+				
+					<% if @sms_enabled == true %> <h3>SMS</h3>
+					<ul class="shortcuts-list">
+						<li>
+							<a href="/sms_templates/all_record"> <%= image_tag "dashboard/SMS-Templates.png", :size => "48x48"  %> <h4>SMS Templates</h4></a>
+						</li>
+						<li>
+							<a href="sms/students"> <%= image_tag "dashboard/SMS.png", :size => "48x48"  %> <h4>SMS Mobile</h4></a>
+						</li>
+						<li>
+							<a href="sms/settings"> <%= image_tag "dashboard/sms-setting.png", :size => "48x48"  %> <h4>SMS Settings</h4></a>
+						</li>
+					</ul>
+					<%end%>
+					<% elsif @user.student? %> <h3>My Info</h3>
+					<ul class="shortcuts-list">
+						<li>
+							<strong><a href="/student/my_profile?q=<%= @user.username %>"> <%= image_tag "dashboard/profile.png", :size => "48x48"  %> My Profile </a></strong>
+						</li>
+						<li>
+							<strong><a href="/timetable/student_view"> <%= image_tag "dashboard/my-timetable.png", :size => "48x48"  %>  My Timetable </a></strong>
+						</li>
+						<!-- <li>
+						<% @batch_student = Student.find_by_admission_no(@user.username)%> <strong><a href="/student/subject_list?batch_id=<%= @batch_student.batch_id %>&q=<%= @user.username %>"> <%= image_tag "/assets/subjects/home_work.png", :size => "48x48"  %>My Subjects</a></strong>
+						</li> -->
+						<li>
+							<% @batch_student = Student.find_by_admission_no(@user.username)%> <strong><a href="/student/my_pals?batch_id=<%= @batch_student.batch_id %>&q=<%= @user.username %>"> <%= image_tag "/assets/subjects/family.png", :size => "48x48"  %>  My Pals </a></strong>
+						</li>
+					</ul>
+					<h3>My Subjects</h3>
+					<ul class="shortcuts-list">
+						<% unless @subjects.empty? %>
+						<% @subjects.each do |sub|%>
+						<li>
+							<% if sub.skill.is_scholastic%> <a href="/assignments/<%= sub.id%>"> <% if sub.name.match("Mat")%>
+							<%= image_tag "/assets/subjects/maths.png", :size => "48x48"  %>
+							<% elsif sub.name.match("Alph")%>
+							<%= image_tag "d1.gif", :size => "48x48"  %>
+							<% elsif sub.name.match("Numb")%>
+							<%= image_tag "/assets/subjects/maths.png", :size => "48x48"  %>
+							<% elsif sub.name.match("Eng")%>
+							<%= image_tag "/assets/subjects/english.png", :size => "48x48"  %>
+							<% elsif sub.name.match("Hin")%>
+							<%= image_tag "/assets/subjects/hindi.png", :size => "48x48"  %>
+							<% elsif(sub.name == "Science")%>
+							<%= image_tag "/assets/subjects/science.png", :size => "48x48"  %>
+							<% elsif(sub.name == "General Science")%>
+							<%= image_tag "/assets/subjects/science.png", :size => "48x48"  %>
+							<% elsif sub.name.match("Social Science")%>
+							<%= image_tag "/assets/subjects/sociology.png", :size => "48x48"  %>
+							<% elsif sub.name.match("Com")%>
+							<%= image_tag "/assets/subjects/computers.png", :size => "48x48"  %>
+							<% elsif (sub.name == "Computer Science") %>
+							<%= image_tag "/assets/subjects/computers.png", :size => "48x48"  %>
+							<% elsif sub.name.match("Mat")%>
+							<%= image_tag "/assets/subjects/maths.png", :size => "48x48"  %>
+							<% elsif sub.name.match("Mus")%>
+							<%= image_tag "/assets/subjects/music.png", :size => "48x48"  %>
+							<% elsif sub.name.match("Econ")%>
+							<%= image_tag "/assets/subjects/economics.png", :size => "48x48"  %>
+							<% elsif sub.name.match("Gam")%>
+							<%= image_tag "/assets/subjects/Games-Soccer-icon.png", :size => "48x48"  %>
+							<% elsif sub.name.match("PT/ games")%>
+							<%= image_tag "/assets/subjects/Games-Soccer-icon.png", :size => "48x48"  %>
+							<% elsif sub.name.match("Accou")%>
+							<%= image_tag "/assets/subjects/accounting.png", :size => "48x48"  %>
+							<% elsif sub.name.match("Fren")%>
+							<%= image_tag "/assets/subjects/france.png", :size => "48x48"  %>
+							<% elsif sub.name.match("Bot")%>
+							<%= image_tag "/assets/subjects/botany.png", :size => "48x48"  %>
+							<% elsif sub.name.match("Physics")%>
+							<%= image_tag "/assets/subjects/physics.png", :size => "48x48"  %>
+							<% elsif sub.name.match("His")%>
+							<%= image_tag "/assets/subjects/history.png", :size => "48x48"  %>
+							<% elsif sub.name.match("Comme")%>
+							<%= image_tag "/assets/subjects/commerce.png", :size => "48x48"  %>
+							<% elsif sub.name.match("Busi")%>
+							<%= image_tag "/assets/subjects/business_studies.png", :size => "48x48"  %>
+							<% elsif sub.name.match("Geog")%>
+							<%= image_tag "/assets/subjects/geography.png", :size => "48x48"  %>
+							<% elsif sub.name.match("Punj")%>
+							<%= image_tag "/assets/subjects/punjabi.png", :size => "48x48"  %>
+							<% elsif sub.name.match("Robo")%>
+							<%= image_tag "/assets/subjects/robot.png", :size => "48x48"  %>
+							<% elsif sub.name.match("Environ")%>
+							<%= image_tag "/assets/subjects/environment.png", :size => "48x48"  %>
+							<% elsif sub.name.match("Art")%>
+							<%= image_tag "/assets/subjects/arts.png", :size => "48x48"  %>
+							<% elsif sub.name.match("Activity")%>
+							<%= image_tag "/assets/subjects/activity.png", :size => "48x48"  %>
+							<% elsif sub.name.match("Danc")%>
+							<%= image_tag "/assets/subjects/dancing.png", :size => "48x48"  %>
+							<% elsif sub.name.match("GK")%>
+							<%= image_tag "/assets/subjects/globe.png", :size => "48x48"  %>
+							<%else%>
+							<%= image_tag "/assets/subjects/default.png", :size => "48x48"  %>
+							<%end%> <h4><%= sub.name%></h4> </a>
+							<%end%>
+						</li>
+						<%end%>
+						<%else%>
+						<li>
+							<strong><a href=""> <%= image_tag "dashboard/no-subject.png", :size => "48x48"  %> Subjects Not Available </a></strong>
+						</li>
+						<%end%>
+					</ul>
+					<h3>My Teachers</h3>
+					<ul class="shortcuts-list">
+						<% unless @my_teachers.empty? %>
+						<% @my_teachers.each do |t|%>
+						<li>
+							<strong><a href="#" title='<%t.skills.each do |skill|%><%= skill.full_name+"\n" if skill.course==@std.batch.course%><%end%>'> <%if FileTest.exists?("#{Rails.root}/public/system/employee_photos/#{t.id}") && !t.employee_photo.nil?%>
+							<%= image_tag t.employee_photo.url(:large) ,:width =>48, :height =>48%>
+							<%elsif t.gender=="M"%>
+							<%= image_tag "/assets/icons/web-app/48/male_employee.png", :height => 48, :width => 48%>
+							<%else%>
+							<%= image_tag "/assets/icons/web-app/48/female_employee.png", :height => 48, :width => 48%>
+							<% end %><%= t.full_name%></a> </strong>
+						</li>
+						<%end%>
+						<%else%>
+						<li>
+							<strong><a href="#"> <%= image_tag "dashboard/no-subject.png", :size => "48x48"  %>Teacher not Available</a></strong>
+						</li>
+						<%end%>
+					</ul>
+					<h3>Academics</h3>
+					<ul class="shortcuts-list">
+						<li>
+							<strong><a href="student/reports?batch_id=<%= @batch_student.batch_id %>&q=<%= @batch_student.admission_no %>&query=Exam"> <%= image_tag "dashboard/student-report.png", :size => "48x48"  %> Examination Reports </a></strong>
+						</li>
+						<li>
+							<strong><a href="student/reports?batch_id=<%= @batch_student.batch_id %>&q=<%= @batch_student.admission_no %>&query=Attendance"> <%= image_tag "dashboard/studentattendance.png", :size => "48x48"  %> Attendance Reports </a></strong>
+						</li>
+						<li>
+							<strong><a href="student/reports?batch_id=<%= @batch_student.batch_id %>&q=<%= @batch_student.admission_no %>&query=Award" > <%= image_tag "dashboard/award.png", :size => "48x48"  %> Awards</a></strong>
+						</li>
+					</ul>
+					<h3>Miscellaneous</h3>
+					<ul class="shortcuts-list">
+						<li>
+							<strong><a href="/reminder/index"> <%= image_tag "dashboard/reminders.png", :size => "48x48"  %> Reminders </a></strong>
+							<div class = "remindercount">
+								<%= @current_user.check_reminders %>
+							</div>
+						</li>
+						<li>
+							<strong><a href="/news/index"> <%= image_tag "dashboard/news2.png", :size => "48x48"  %> News </a></strong>
+						</li>
+						<li>
+							<strong><a href="/calendars"> <%= image_tag "dashboard/calendar.png", :size => "48x48"  %> Calendar </a></strong>
+						</li>
+						<li>
+							<strong><a href="/student/my_meetings?batch_id=<%= @batch_student.batch_id %>&q=<%= @batch_student.admission_no %>"> <%= image_tag "dashboard/groups-Meeting-Light-icon.png", :size => "48x48"  %> My Meetings </a></strong>
+						</li>
+					</ul>
+					<% elsif @user.employee? %>
+					<div class="block-border">
+						<center>
+							<h3>Please update your profile under My School -> My Profile</h3>
+						</center>
+						<ul class="shortcuts-list">
+							<li>
+								<strong><a href="/reminder/index"> <%= image_tag "dashboard/reminders.png", :size => "48x48"  %> Reminders </a></strong>
+								<div class = "remindercount">
+									<%= @current_user.check_reminders %>
+								</div>
+							</li>
+							<li>
+								<strong> <%= link_to (image_tag "dashboard/news2.png")+ "My Diary",:controller  =>  'teacher_diaries',:action=>"index",:id=>@current_user.employee_record.id %></strong>
+							</li>
+						</ul>
+						<%unless @batch_with_student_dob.empty?%> <h3>BirthDay List</h3>
+						<ul class="shortcuts-list bodyClass">
+							<%@batch_with_student_dob.each do|batch|%>
+							<%batch.each do |b,n|%>
+							<li>
+								<strong><a href="#" id="<%= b.id%>" student="<%= n.to_a%>" class="personPopupTrigger" rel="4218,a17bee64-8593-436e-a2f8-599a626370df"> <%= image_tag "icons/web-app/48/cake.png", :size => "48x48"  %><%= b.full_name%></a></strong>
+								<div class = "remindercount">
+									<%= n.count %>
+								</div>
+							</li>
+							<%end%>
+							<%end%>
+						</ul>
+						<%end%> <!-- <% @ownsite = SchoolConfiguration.find_by_config_key("Ownsiteurl").config_value %>
+						<% @boardsite = SchoolConfiguration.find_by_config_key("Boardsiteurl").config_value; %>
+						<a href="/reminder/index"><img class="thumbnail" src= "/assets/dashboard/calendar.png" width="200" height="200"></a>
+						<a href= "http://<%=@ownsite %>"><img class="thumbnail" src= "/assets/dashboard/calendar.png" width="200" height="200"></a>
+						<a href="/calendars"><img class="thumbnail" src= "/assets/dashboard/calendar.png" width="200" height="200"></a>
+						<a href= "http://<%=@boardsite%>"><img class="thumbnail" src= "/assets/dashboard/calendar.png" width="200" height="200"></a>
+						<a href="/reminder/index"><img class="thumbnail" src= "/assets/dashboard/calendar.png" width="200" height="200"></a>
+						<a href="/reminder/index"><img class="thumbnail" src= "/assets/dashboard/calendar.png" width="200" height="200"></a> -->
+					</div>
+					<% end %>
+		</div>
+		<div id="option_description"></div>
+	</div>
+</div>
+<div id="modal-box" style="display:none;"></div>

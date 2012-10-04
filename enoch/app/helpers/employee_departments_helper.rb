@@ -1,0 +1,2 @@
+module EmployeeDepartmentsHelper
+end

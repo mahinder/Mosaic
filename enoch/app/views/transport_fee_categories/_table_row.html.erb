@@ -1,0 +1,12 @@
+									<tr>
+										
+										<td class="th table-check-cell"></td>
+										<td id="name_<%= fee_category.id %>"><%= fee_category.name %></td>
+										<td id="passenger_type_<%= fee_category.id %>"><%= fee_category.passenger_type %></td>
+										<td id="monthly_fee_<%= fee_category.id %>"><%= fee_category.monthly_fee %></td>
+										<td class="table-actions">
+											<input type="hidden" name="object_id" value="<%= fee_category.id %>"/>
+											<a href="#" id="update-href-<%= fee_category.id %>" title="Edit" class="with-tip update-transport_fee_category-master-href"><img src="/assets/icons/fugue/pencil.png" width="16" height="16"></a>
+											<a href="#" id="delete-href-<%= fee_category.id %>" title="Delete" class="with-tip delete-transport_fee_category-master-href"><img src="/assets/icons/fugue/cross-circle.png" width="16" height="16"></a>
+										</td>
+									</tr>

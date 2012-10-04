@@ -1,0 +1,13 @@
+									<tr>
+										
+										<td id="financial_asset_title_<%= financial_asset.id %>"><%= financial_asset.title %></td>
+										<td id="financial_asset_description_<%= financial_asset.id %>"><%= financial_asset.description %></td>
+										<td id="financial_asset_amount_<%= financial_asset.id %>"><%= financial_asset.amount %></td>
+										<td id="financial_asset_is_deleted_<%= financial_asset.id %>"><%= financial_asset.is_deleted %></td> 
+										
+										<td class="table-actions">
+											<input type="hidden" name="object_id" value="<%= financial_asset.id %>"/>
+											<a href="#" id="update-href-<%= financial_asset.id %>" title="Edit" class="with-tip update-financial-master-href"><img src="/assets/icons/fugue/pencil.png" width="16" height="16"></a>
+                                           <a href="#" id="delete-href-<%= financial_asset.id %>" title="Delete" class="with-tip delete-financial-master-href"><img src="/assets/icons/fugue/cross-circle.png" width="16" height="16"></a>
+										</td>
+										</tr>

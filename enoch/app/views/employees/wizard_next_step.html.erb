@@ -1,0 +1,7 @@
+<div class="block-border" id="outer_block">
+	<%= form_for @employee,:url => { :action => "wizard_next_step" }, :html => { :class => "block-content form", :id => "form"} do |form| %>
+	<%= render 'shared/form_errors', :object => form.object %>
+	<%= render "#{@employee.current_step}_step", :form => form %>
+	<% end %>
+	
+</div>

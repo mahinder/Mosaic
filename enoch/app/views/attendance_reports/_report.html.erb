@@ -1,0 +1,75 @@
+
+
+<% unless @report.empty? %>
+  <% working_days = @report.size %>
+
+
+  <div class="label-field-pair">
+    <label>
+      <%  if @config.config_value == 'Daily' %>
+        <%= "Total no. of working days = " + working_days.to_s %>
+      <% else %>
+        <%= "Total no. of working hours = " + working_days.to_s %>
+      <% end  %>
+      <br />
+      <%= "Average Class Percent is = " +  @percentage_absent.to_s %>
+      
+      
+    </label>
+  </div>
+
+  <table id="reportSAttAdmin" class="table report_attendance_admin no-margin" cellspacing="0" width="100%">
+      <thead>
+						<tr>
+							<th class="black-cell"></th>
+							<th scope="col">
+								<span class="column-sort">
+									<a href="#" title="Sort up" class="sort-up active"></a>
+									<a href="#" title="Sort down" class="sort-down"></a>
+								</span>
+								Name
+							</th>
+							<th scope="col">
+								<span class="column-sort">
+									<a href="#" title="Sort up" class="sort-up"></a>
+									<a href="#" title="Sort down" class="sort-down"></a>
+								</span>
+								Total
+							</th>
+							<th scope="col">
+								<span class="column-sort">
+									<a href="#" title="Sort up" class="sort-up"></a>
+									<a href="#" title="Sort down" class="sort-down"></a>
+								</span>
+								Percentage(%)
+							</th>
+						</tr>
+					</thead>
+<tbody>
+    <% @students.each do |student| %>
+
+      <% leaves =0 %>
+	      <% @report.each do |report| %>
+	        <% @attendance = Attendance.find_by_student_id_and_period_table_entry_id(student.id, report.id) %>
+			        <% unless @attendance.nil? %> 
+			            <% leaves += 1 %>
+			        <% end %>
+	      <% end %>
+      			<% total = (working_days - leaves).to_f %>
+      			<% percentage =  (total/working_days)*100 unless working_days == 0 %>
+						<tr>
+							<th scope="row" class="table-check-cell"></th>
+							<td><%= link_to student.full_name, {:controller => "student", :action => "my_profile", :q => student.admission_no } %></td>
+							<td> <%= total %></td>
+							<td><%= percentage.round(2)unless percentage.nil? %></td>
+						</tr>		
+	<% end %>
+</tbody>
+	
+</table>
+
+<% else %>
+  <div class="label-field-pair2" >
+    No reports for the selected month.
+  </div>
+<%  end %>

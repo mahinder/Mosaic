@@ -1,0 +1,52 @@
+<div class="block-border">
+	<div class="block-content form">
+  <h1>Leave Types</h1>
+  
+  <div class="block-controls enoch_block">
+			<ul class="controls-tabs js-tabs">
+				<li >
+					<%= link_to image_tag("/assets/icons/web-app/32/Back.png"), :back %>
+				</li>
+			</ul>
+		</div>
+  <% unless flash[:notice].nil? %>
+	<ul class="message success grid_12">
+       <li><strong><%= flash[:notice] %></strong></li>
+       <li class="close-bt"></li>
+       	</ul>
+    <% end %>
+    <%= form_for :configuration do |c| %>
+    <div class="columns">
+    	<p class="colx2-left">
+				<label for="complex-en-url">Enable Automatic Reset</label>
+				<% if @auto_reset.config_value == '1' %>
+          <div class="check_box"><%= c.check_box :automatic_leave_reset, :checked=>true %></div>
+        <% else %>
+          <div class="check_box"><%= c.check_box :automatic_leave_reset, :checked=>false %></div>
+        <% end %>
+			</p>
+    <p class="colx2-left">
+				<label for="complex-en-url">Leave Reset Period(months)</label>
+				<%= c.text_field :leave_reset_period, :value => @reset_period.config_value %>
+			</p>
+			<p class="colx2-left">
+				<label for="complex-en-url">Count Begin Date</label>
+				<%unless @fin_start_date.config_value.nil?%>
+				<%= c.text_field :financial_year_start_date, :value=> @last_reset.config_value || Date.parse(@fin_start_date.config_value).strftime('%d''-''%m''-''%Y'), :class =>'datepicker' %>
+			<%end%>
+			</p>
+      <br /><br />
+   <fieldset class="grey-bg no-margin">
+									<legend>
+										Action
+									</legend>
+									<p class="input-with-button">
+										<%= c.submit "Update", :class => "big-button"%>
+									</p>
+								</fieldset>
+      </div>
+    <% end %>
+
+  </div>
+
+</div>

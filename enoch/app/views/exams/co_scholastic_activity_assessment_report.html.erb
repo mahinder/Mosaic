@@ -1,0 +1,37 @@
+<div class="block-border">
+	<div class="block-content form">
+		<h1>Co Scholastic Activity Assessment Report</h1>
+		<div class="block-controls enoch_block">
+					<ul class="controls-tabs js-tabs">
+						<li >
+					<%= link_to image_tag("/assets/icons/web-app/32/Back.png"), :back %>
+				</li>
+					</ul>
+				</div>	
+				<h4 align="left"><%=@student.full_name%> | <%= @batch.full_name %> | <%=@student_co_scholastic_assessment.student_co_scholastic_assessment_name%></h4><br />
+	       <table class="table co_scholastic_area_assessment no-margin" cellspacing="0" cellpadding="0" width="100%">
+	       	<thead>
+	       		<tr>
+	       		<th class="black-cell"></th>
+	       		<th scope="col">Co Scholastic Activity</th>
+				<th scope="col">SubSkill</th>
+				<th scope="col">Indicator</th>
+	       		</tr>
+	       	</thead>
+	       	<tbody>
+	       		<%@activity_assessment_details.each do |activity_assessment_detail|%>
+	       		<tr>
+	       			<td></td>
+	       			<%activity_subskill=CoScholasticSubSkillActivity.find_by_id(activity_assessment_detail.co_scholastic_sub_skill_activity_id)%>
+	       			<%assessment_indicator=AssessmentIndicator.find_by_id(activity_assessment_detail.co_scholastic_activity_assessment_indicator.id)%>
+	       			<td><%=activity_subskill.co_scholastic_activity.co_scholastic_activity_name%></td>
+	       			<td><%=activity_subskill.co_scholastic_sub_skill_name%></td>
+	       			<td><%=assessment_indicator.indicator_value%></td>
+	       		</tr>
+	       		<%end%>
+	       	</tbody>
+	       	
+	       </table>
+	
+	</div>
+</div>

@@ -1,0 +1,26 @@
+<table border="0" class="table" width="100%">
+	<thead >
+		<tr class="turquoise">
+			<th><%=@days[d[0]]%></th><th style="text-align: center;"><%=d[1].strftime("%d-%m-%Y")%></th>
+		</tr>
+		<tr class="turquoiseLight">
+			<th>Timing</th><th>Plans</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @class_timing.each do |class_time|%>
+		 <tr class="rows" id = "rows">
+			<%	if class_time.is_break %>
+			<%teacherd = TeacherDiary.find_by_school_session_id_and_employee_id_and_timing_and_text_date(@current_session,(@user.employee_record.id),(class_time.start_time.strftime("%H-%M") + "-" + class_time.end_time.strftime("%H-%M")),d[1])	%>
+			<td class="aa"><%= class_time.start_time.strftime("%H-%M")%> to-<%= class_time.end_time.strftime("%H-%M")%><br /><span>(Lunch)</span></td>
+			<td class=""><textarea id=<%=d[1]%>  timing="<%= class_time.start_time.strftime("%H-%M") %>-<%= class_time.end_time.strftime("%H-%M") %>" class="teacherDiaryText" rows="2" cols="34" rows="1" style="border: 0; margin: -.8em; margin-right: -2em; resize: none;"><%=teacherd.description unless teacherd.nil? %></textarea></td>
+			<%else%>
+			<%teacherd = TeacherDiary.find_by_school_session_id_and_employee_id_and_timing_and_text_date(@current_session,(@user.employee_record.id),(class_time.start_time.strftime("%H-%M") + "-" +  class_time.end_time.strftime("%H-%M")),d[1])	%>							
+			<td class="aa"><%= class_time.start_time.strftime("%H-%M") %>-<%= class_time.end_time.strftime("%H-%M") %></td>
+			<td class=""><textarea id=<%=d[1]%>  timing="<%= class_time.start_time.strftime("%H-%M") %>-<%= class_time.end_time.strftime("%H-%M") %>" class="teacherDiaryText" rows="2" cols="34" rows="1" style="border: 0; margin: -.8em; margin-right: -2em; resize: none;"><%=teacherd.description unless teacherd.nil? %></textarea></td>
+		    <%end%>
+		</tr>
+		<%end%>
+	</tbody>
+</table>
+<br />

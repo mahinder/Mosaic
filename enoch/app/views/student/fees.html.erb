@@ -1,0 +1,95 @@
+<div class="block-border" id="outer_block">
+	<div class="block-content form" >
+		<h1>Fees Details</h1>
+			<div class="block-controls enoch_block">
+					<ul class="controls-tabs js-tabs">
+						<li >
+							<%= link_to image_tag("/assets/icons/web-app/32/Back.png"),"javascript:history.back()" %>
+						</li>
+					</ul>
+				</div>	
+
+		<fieldset>
+			<legend>
+				<h3><%= t('fee_status') %></h3>
+			</legend>
+
+  <% unless flash[:notice].nil? %> <p class="flash-msg"> <%= flash[:notice] %> </p> <% end %>
+	<div class="columns">
+		<p class="colx3-left">
+			<label for="Student Name">Name</label>
+			<strong><%= link_to @student.full_name, :controller => 'student', :action => 'my_profile', :q => @student.admission_no %></strong>
+		</p>
+		<p class="colx3-center">
+			<label for="Admission No">Admission No</label>
+			<%= @student.admission_no %>
+		</p>
+		<p class="colx3-right">
+			<label for="Student Name">Course & Batch</label>
+			<%= @student.batch.full_name %>
+		</p>
+	</div>
+      
+      <br />
+
+    <% if permitted_to? :fees_received, :finance %>
+    <%= form_for :fee ,:url=>{:action => 'fees' ,:id => @student.id} do |f|%>
+    	 <% if @student.has_paid_fees == true %>
+        <div class="float-left gutter-right">
+				<span class="label">Display</span>
+				<p class="input-height grey-bg">
+					<%= check_box :fee, :has_paid_fees,:checked=>true  %>&nbsp;<label for="stats-display-0"><%= t('has_paid_all_the_fees') %></label> 
+				</p> 
+		</div>
+		<% else %>
+		<div class="float-left gutter-right">
+				<span class="label">Display</span>
+				<p class="input-height grey-bg">
+					<%= check_box :fee, :has_paid_fees,:checked=>false %>&nbsp;<label for="stats-display-0"><%= t('has_paid_all_the_fees') %></label> 
+				</p> 
+		</div>
+		 <% end %>
+
+		 <div class="float-left gutter-right" style="margin-top: 1.5em;">
+		 <%= submit_tag "Update",:class=>'big-button' %>
+		 </div>
+		 
+		 <% end %>
+    <% end %>
+</fieldset>
+<table class="table feesDetailOfStudent no-margin" width="100%" cellspacing="0">
+	 <thead>
+						<tr>
+							<th class="black-cell"></th>
+							<th scope="col">
+								<span class="column-sort">
+									<a href="#" title="Sort up" class="sort-up"></a>
+									<a href="#" title="Sort down" class="sort-down"></a>
+								</span>
+								Name
+							</th>
+							<th scope="col">Due Date</th>
+							<th scope="col">Paid / UnPaid</th>
+						</tr>
+		</thead>
+<tbody>
+ 
+
+  <% @dates.each do |d| %>
+  <% paid = @student.check_fee_pay(d)  %>
+    <tr>
+    	<td class="th table-check-cell"></td>
+      <td><%= link_to "#{d.name}", :action=>:fee_details, :id=>@student.id, :id2=>d.id ,:q=> @student.admission_no%></td>
+      <td><%= d.due_date.strftime('%d-%m-%Y') %></td>
+      <td><%= (paid) ? "PAID" : "UNPAID - #{d.student_fee_balance(@student)}" %></td>
+   </tr>
+  <% end %>
+  </tbody>
+</table>
+
+
+
+</div>
+
+
+</div>

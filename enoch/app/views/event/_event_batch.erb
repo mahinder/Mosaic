@@ -1,0 +1,159 @@
+
+				<form class="block-content form" id="table_form" method="post" action="">
+					<h1>Event List</h1>
+					<div>
+						<ul class="tabs js-tabs">
+							<li class="current"><a href="#tab-active" title="Batchs">Batches</a></li>
+							<li><a href="#tab-inactive" title="Departments">Departments</a></li>
+							<li><a href="#tab-otherEvent" title="Other Event">Other Event</a></li>
+						</ul>
+					</div>
+					<div id="tabs-content" class="tabs-content">
+						<div id="tab-active">
+							<table class="table eventsBatchDepartment no-margin" cellspacing="0" width="100%">
+								<thead>
+								    <tr>
+										<th class="black-cell" style="width: 10px;"></th>			
+										<th scope="col">
+											<span class="column-sort">
+												<a href="#" title="Sort up" class="sort-up"></a>
+												<a href="#" title="Sort down" class="sort-down"></a>
+											</span>
+											Name
+										</th>
+									</tr>
+								</thead>
+								<tbody>		
+									<% @batch_events.each do |category| %>
+									<tr>
+										<th scope="row" class="table-check-cell"></th>
+										<td id="batch_event_<%= category.id %>"><%= category.batch.full_name %></td>
+									</tr>
+									<% end %>
+								</tbody>
+							</table>
+						</div>
+						<div id="tab-inactive">
+							<table class="table eventsBatchDepartment no-margin" cellspacing="0" width="100%">
+								<thead>
+									<tr>
+										<th class="black-cell" style="width: 10px;"></th>			
+										<th scope="col">
+											<span class="column-sort">
+												<a href="#" title="Sort up" class="sort-up"></a>
+												<a href="#" title="Sort down" class="sort-down"></a>
+											</span>
+											Name
+										</th>
+									</tr>
+								</thead>
+								<tbody>		
+									<% @department_event.each do |category| %>
+									<tr>
+										<th scope="row" class="table-check-cell"></th>
+										<td id="department_event_<%= category.id %>"><%= category.employee_department.name %></td>
+									</tr>
+									<% end %>
+								</tbody>
+							</table>
+						</div>
+						<div id="tab-otherEvent">
+							<table class="table eventsBatchDepartment no-margin" cellspacing="0" width="100%">
+								<thead>
+									<tr>
+										<th class="black-cell" style="width: 10px;"></th>			
+										<th scope="col">
+											<span class="column-sort">
+												<a href="#" title="Sort up" class="sort-up"></a>
+												<a href="#" title="Sort down" class="sort-down"></a>
+											</span>
+											Name
+										</th>
+										<th scope="col">
+											<span class="column-sort">
+												<a href="#" title="Sort up" class="sort-up"></a>
+												<a href="#" title="Sort down" class="sort-down"></a>
+											</span>
+											Time
+										</th>
+									</tr>
+								</thead>
+								<tbody>	
+									<% unless @other_events.empty? %>
+									<% if "#{@event.start_date.year}-#{@event.start_date.month}-#{@event.start_date.day}".to_date == "#{@event.end_date.year}-#{@event.end_date.month}-#{@event.end_date.day}".to_date %>	
+									<% @other_events.each do |h| %>
+									<% if "#{h.start_date.year}-#{h.start_date.month}-#{h.start_date.day}".to_date == "#{h.end_date.year}-#{h.end_date.month}-#{h.end_date.day}".to_date %>
+											<% if "#{h.start_date.year}-#{h.start_date.month}-#{h.start_date.day}".to_date == "#{@event.start_date.year}-#{@event.start_date.month}-#{@event.start_date.day}".to_date %>
+											<tr>
+												<th scope="row" class="table-check-cell"></th>
+												<td id="other_event_<%= h.id %>"><%= h.title %></td>
+												<td id="other_event_<%= h.id %>">
+													<ul class="tags float-center">
+														<li class="tag-time">
+															<%= "#{h.start_date.day}-#{h.start_date.month}-#{h.start_date.year}" %>
+														</li>
+													</ul>
+												</td>
+											</tr>
+											<% end %>
+									<% else %>
+											<% ("#{h.start_date.year}-#{h.start_date.month}-#{h.start_date.day}".to_date.."#{h.end_date.year}-#{h.end_date.month}-#{h.end_date.day}".to_date).each do |d| %>
+													<% if d == "#{@event.start_date.year}-#{@event.start_date.month}-#{@event.start_date.day}".to_date %>
+												    <tr>
+														<th scope="row" class="table-check-cell"></th>
+														<td id="other_event_<%= h.id %>"><%= h.title %></td>
+														<td id="other_event_<%= h.id %>">
+															<ul class="tags float-right">
+																<li class="tag-time">
+																	<%= d%>
+																</li>
+															</ul>
+													</td>
+													</tr>
+												   <<% end %>
+									<% end %>
+									<% end %>
+									<% end %>
+									<% else %>
+									<% ("#{@event.start_date.year}-#{@event.start_date.month}-#{@event.start_date.day}".to_date.."#{@event.end_date.year}-#{@event.end_date.month}-#{@event.end_date.day}".to_date).each do |er| %>
+									<% @other_events.each do |h| %>
+									<% if "#{h.start_date.year}-#{h.start_date.month}-#{h.start_date.day}".to_date == "#{h.end_date.year}-#{h.end_date.month}-#{h.end_date.day}".to_date %>
+										<% if "#{h.start_date.year}-#{h.start_date.month}-#{h.start_date.day}".to_date == er %>
+										<tr>
+											<th scope="row" class="table-check-cell"></th>
+											<td id="other_event_<%= h.id %>"><%= h.title %></td>
+											<td id="other_event_<%= h.id %>">
+												<ul class="tags float-center">
+													<li class="tag-time">
+														<%= "#{h.start_date.day}-#{h.start_date.month}-#{h.start_date.year}" %>
+													</li>
+												</ul>
+											</td>
+										</tr>
+										<% end %>
+									<% else %>
+									<% ("#{h.start_date.year}-#{h.start_date.month}-#{h.start_date.day}".to_date.."#{h.end_date.year}-#{h.end_date.month}-#{h.end_date.day}".to_date).each do |d| %>
+											<% if d == er %>
+											<tr>
+												<th scope="row" class="table-check-cell"></th>
+												<td id="other_event_<%= h.id %>"><%= h.title %></td>
+												<td id="other_event_<%= h.id %>">
+													<ul class="tags float-right">
+														<li class="tag-time">
+															<%= d%>
+														</li>
+													</ul>
+												</td>
+											</tr>
+										<% end %>
+										<% end %>
+										<% end %>
+										<% end %>
+										<% end %>
+										<% end %>
+										<% end %>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</form>	

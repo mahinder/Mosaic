@@ -1,0 +1,72 @@
+<div class="block-border" id="outer_bloc">
+	<%= form_tag({:action => :upload}, :multipart => true ,:class=> "block-content form") do %> <h1>Attachments</h1>
+	<div class="block-controls enoch_block">
+		<ul class="controls-tabs js-tabs">
+			<li >
+				<a href="javascript:history.back()" title ="Back"> <img src="/assets/icons/web-app/32/Back.png" width="24" height="24"></a>
+			</li>
+		</ul>
+	</div>
+	<% unless flash[:notice].nil? %>
+	<ul class="message success">
+		<li>
+			<%= flash[:notice] %>
+		</li>
+		<li class="close-bt"></li>
+	</ul>
+	<% end %>
+	<% unless flash[:warning].nil? %>
+	<ul class="message warning">
+		<li>
+			<%= flash[:warning] %>
+		</li>
+		<li class="close-bt"></li>
+	</ul>
+	<% end %>
+
+	<fieldset >
+		<legend>
+			In which folder you want to upload  
+		</legend>
+			<p >
+				<%= radio_button_tag 'upload[value]', 'Bio Data', true %>
+			    <label for="student_name">Bio Data</label>
+			    <%= radio_button_tag 'upload[value]', 'TC'%>
+				<label for="employee_name">TC</label>
+				<%= radio_button_tag 'upload[value]', 'Old Marksheet'%>
+				<label for="guest_name" >Old Marksheet</label>
+			</p>
+		
+	</fieldset>
+
+	<fieldset>
+		<legend>
+			Attach Files
+		</legend>
+		<div class="columns">
+			<p class="colx2-left ">
+				
+			<p class="add_more_attach">
+				<%= file_field 'upload', 'datafile1' %>
+				<a href="#" class = "attachremove" data-file = "upload_datafile1">Remove</a>
+			</p>
+			<br class = "upload_datafile1"/>
+			<a href="#" id = "attachmore">Attach More</a>
+			<%= hidden_field 'upload', "datafilecol" , :value => 1 ,:id => "changeval"%>
+			<%= hidden_field 'upload', "student_id" , :value => @student_id %>
+			<%= hidden_field 'upload', "addmision" ,:value => @addmition_no %>
+			</p>
+			
+			</div>
+		
+		
+	</fieldset>
+	<fieldset class="no-margin grey-bg">
+		<legend>
+			Action
+		</legend>
+		 <%= submit_tag "Upload" , :class => 'big-button '%>
+	</fieldset>
+
+<% end %>
+</div> 

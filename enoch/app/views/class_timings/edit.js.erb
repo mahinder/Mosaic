@@ -1,0 +1,65 @@
+jQuery('#modal-box-edit').html('<%= escape_javascript render('edit') %>');
+
+$.modal({
+        content: jQuery('#modal-box-edit'),
+        title: 'Edit Course',
+       width : 700,
+        height : 200,
+        buttons : {
+          'Update' : function(win) {
+            var time =$('#modal #class_timing_time_id').val();
+            var name = $('#modal #class_timing_name').val();
+            var start_time1 = $('#modal #class_timing_start_time_1i').val();
+            var start_time2 = $('#modal #class_timing_start_time_2i').val();
+            var start_time3 = $('#modal #class_timing_start_time_3i').val();
+            var start_time4 = $('#modal #class_timing_start_time_4i').val();
+            var start_time5 = $('#modal #class_timing_start_time_5i').val();
+            var end_time1 = $('#modal #class_timing_end_time_1i').val();
+            var end_time2 = $('#modal #class_timing_end_time_2i').val();
+            var end_time3 = $('#modal #class_timing_end_time_3i').val();
+            var end_time4 = $('#modal #class_timing_end_time_4i').val();
+            var end_time5 = $('#modal #class_timing_end_time_5i').val();
+            var is_break = $('#modal #class_timing_is_break').is(":checked");
+						var common = ""
+						if(is_break == true) {
+								common = "true"
+						} else {
+								common = "false"
+						}
+              if(!name || name.length == 0) {
+               $('#modal #outer_block').removeBlockMessages().blockMessage('Please enter  name', {
+                type : 'warning'
+              }); 
+              }else {
+              
+                var target = '/class_timings/'+time
+                
+                var data = {
+                'class_timing[name]' : name,
+                'class_timing[start_time(1i)]' : start_time1,
+                'class_timing[start_time(2i)]' : start_time2,
+                'class_timing[start_time(3i)]' : start_time3,
+                'class_timing[start_time(4i)]' : start_time4,
+                'class_timing[start_time(5i)]' : start_time5,
+                'class_timing[end_time(1i)]' : end_time1,
+                'class_timing[end_time(2i)]' : end_time2,
+                'class_timing[end_time(3i)]' : end_time3,
+                'class_timing[end_time(4i)]' : end_time4,
+                'class_timing[end_time(5i)]' : end_time5,
+                'class_timing[is_break]'	 : common
+                
+             }
+                
+              ajaxUpdatetiming(target, data, win)  
+                
+              }
+             
+                               
+          },
+          'Close' : function(win) {
+            win.closeModal();
+          }
+            
+          }
+        
+          });

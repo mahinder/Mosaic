@@ -1,0 +1,39 @@
+<div class="block-content form">
+	<fieldset>
+		<legend>
+			Attendance Report
+		</legend>
+		<div class="columns">
+			<p class="colx3-left required select-fixed-width1">
+				<label for="middle_name">Mode</label>
+				<%= select :mode, :id,["Monthly", "Overall"], {:prompt => 'Select'}   %>
+			</p>
+			<div id="month_hide">
+				<p class="colx3-center required select-fixed-width1">
+					<label for="month">Month</label>
+					<%= select :month, :id, [['Jan','01'], ['Feb','02'], ['Mar','03'], ['Apr','04'], ['May','05'], ['Jun','06'], ['Jul','07'], ['Aug','08'], ['Sept','09'], ['Oct','10'], ['Nov','11'], ['Dec','12']], {:prompt => 'Select'} %>
+				</p>
+			</div>
+			<div id="year_hide">
+				<p class="colx3-right required select-fixed-width1">
+					<label for="year">Year</label>
+					<%= select  :advance_search, :year,  [@year-1,@year, @year+1],  {:prompt => 'Year'} %>
+				</p>
+			</div>
+		</div>
+		<div id="report_content"></div>
+	</fieldset>
+	<br />
+	<br />
+	<br />
+	<fieldset class="grey-bg no-margin">
+		<legend>
+			Action
+		</legend>
+		<p class="colx3-left">
+			<button type="submit" id="stdent_atten_report">
+				View
+			</button>
+		</p>
+	</fieldset>
+</div>

@@ -1,0 +1,32 @@
+<div class="block-border" id="outer_block">
+	<div class="block-content form">
+		<%unless @user.role_name == "Employee"%>
+<h3>Question:</h3><%=@assignment.question%>
+<h3>Hint:</h3><%=@assignment.hint unless @assignment.hint.nil?%>
+<h3>To Be Completed By:</h3><%=@assignment.to_be_completed%>
+<%else%>
+<fieldset>
+	<legend>
+		Edit Question
+	</legend>
+<div class="column">
+	<p class="colx1-left required">
+		<label for="question">Question:</label>
+		<input type="text" name="editQuestion" id="editQuestion" class="full-width" value="<%=@assignment.question %>" />
+	</p>
+</div>
+<div class="column">
+	<p class="colx2-left">
+		<label for="hint">Hint:</label>
+		<input type="text" name="editHint" id="editHint" value="<%=@assignment.hint %>" />
+	</p>
+	<p class="colx2-right">
+		<label for="hint">To Be Completed:</label>
+		<input type="text" name="editDate" id="editDate" value="<%=@assignment.to_be_completed %>" />
+	</p>
+</div>
+</fieldset>
+
+<%end%>
+</div>
+</div>

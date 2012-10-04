@@ -1,0 +1,58 @@
+<% unless batches.empty? %>
+
+<table class="table" cellspacing="0" width="100%">
+		
+	<thead>
+		<tr>
+			<th scope="col">
+				
+				Batch Name
+			</th>
+			<th scope="col">
+				
+				Start Date
+			</th>
+			<th scope="col">
+				
+				End Date
+			</th>
+		    <th scope="col" class="table-actions">Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+
+<% batches.each do |batch| %>
+<tr>
+	<td id="batch_name_<%= batch.id %>"><%= link_to batch.full_name ,:controller => "batches",:action => "all_record",:course_id => course,:id=>batch%></td>
+	<td id="batch_start_date_<%= batch.id %>"><%= batch.start_date.strftime('%d''-''%m''-''%Y') %></td>
+	<td id="batch_end_date_<%= batch.id %>"><%= batch.end_date.strftime('%d''-''%m''-''%Y') %></td>
+	<td class="table-actions">
+	<input type="hidden" name="object_id" value="<%= batch.id %>"/>
+	<a href="#" id="update-batch-href-<%= batch.id %>" title="Edit" class="with-tip update-batch-href" data-course="<%=course.id %>" data-name = "<%= batch.name %>"><img src="/assets/icons/fugue/pencil.png" width="16" height="16">&nbsp;
+	<a href="#" id="delete-batch-href-<%= batch.id %>" title="Delete" data-course="<%=course.id %>" class="with-tip delete-batch-tab-href" ><img src="/assets/icons/fugue/cross-circle.png" width="16" height="16"></a>&nbsp;
+	<a href="#" id="add-subject-batch-href-<%= batch.id %>" title="Add Subjects" data-course="<%=course.id %>" class="with-tip add-subject-batch-tab-href" ><img src="/assets/icons/add-mini.png" width="16" height="16"></a>&nbsp;
+	</td>		
+	<td id="modal-box-batch-subject-assign_<%= course.id%>_<%= batch.id %>" style="display:none;">
+	 	<%= render '/courses/all_course_skills' ,:skills => Course.new.course_skills(course.id),:course => course,:batch_id => batch.id%>
+	</td>
+</tr>
+<% end %>
+ 
+</tbody>
+</table>
+<%else%>
+<fieldset class="grey-bg no-margin">
+	<h3>Currently there are no Batches </h3>
+	</fieldset>
+<%end%>
+			<fieldset class="grey-bg no-margin">
+					<legend>Action on create</legend>
+					<div class="columns">
+						
+				<div class="colx2-left">
+					<button class="batch_create"  data-course = "<%=course.id%>" id = "batch_create_button_<%=course.id%>" >
+					Add
+					</button>
+				</div>
+					</div>
+				</fieldset>

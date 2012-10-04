@@ -1,0 +1,87 @@
+<% unless elective.skills.empty?%>
+<table class="table" cellspacing="0" width="100%">
+	<thead>
+		<tr>
+			<th scope="col"> Skill Name </th>
+			<th scope="col"> Weekly Classes </th>
+			<th scope="col"> Code </th>
+			<th scope="col"> Active </th>
+			<th scope="col"> Common </th>
+			<th scope="col"> No Exam </th>
+			<th scope="col" class="table-actions">Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% elective.skills.each do |skill|%>
+		<tr>
+			<td id="elective_skill_name_<%= skill.id %>"><%= skill.name%></td>
+			<td id="elective_skill_max_no_of_clases_<%= skill.id %>"><%= skill.max_weekly_classes%></td>
+			<td id="elective_skill_code_<%= skill.id %>"><%= skill.code%></td>
+			<% if skill.is_active == true%> <td id="elective_skill_active_<%= skill.id %>">Active</td>
+			<%else%> <td id="elective_skill_active_<%= skill.id %>">Inactive</td>
+			<%end%>
+
+			<% if skill.is_common == true%> <td id="elective_skill_skill_common_<%= skill.id %>">Common</td>
+			<%else%> <td id="elective_skill_skill_common_<%= skill.id %>">Not in Common</td>
+			<%end%>
+			<% if skill.no_exam == true%> <td id="elective_skill_skill_exam_<%= skill.id %>">No Exam</td>
+			<%else%> <td id="elective_skill_skill_exam_<%= skill.id %>">Exam</td>
+			<%end%> <td class="table-actions">
+			<input type="hidden" name="object_id" value="<%= skill.id %>"/>
+			<a href="#" id="update-href-<%= skill.id %>" title="Edit" class="with-tip update-skill-href" data-id = "<%= skill.id %>" data-elective ="<%= elective.id%>" data-course = "<%= course.id%>" data-batch_id = "<%= Skill.new.course_batch(course)[1] %>" data-batch_name = "<%= Skill.new.course_batch(course)[0] %>"><img src="/assets/icons/fugue/pencil.png" width="16" height="16"></a>
+			<a href="#" id="delete-href-<%= skill.id %>" title="Delete" class="with-tip delete-elective-skill-href" data-elective ="<%= elective.id%>" data-course = "<%= course.id%>"><img src="/assets/icons/fugue/cross-circle.png" width="16" height="16"></a>
+		</tr>
+		<%end%>
+	</tbody>
+</table>
+
+<fieldset class="grey-bg no-margin">
+	<legend>
+		Action on create
+	</legend>
+	<div class="columns">
+		<div class="colx2-left">
+			<button class="elective_skills_skills" id="elective_skills_skills_" data-elective ="<%= elective.id%>" data-course = "<%= course.id%>" data-course-name ="<%= course.course_name%>" data-batch_id = "<%= Skill.new.course_batch(course)[1] %>" data-batch_name = "<%= Skill.new.course_batch(course)[0] %>">
+				Add
+			</button>
+		<!-- </div>
+		<div class="colx3-center"> -->
+			<button class="elective_skills_skills_edit"  data-elective ="<%= elective.id%>" data-course = "<%= course.id%>" >
+				Edit 
+			</button>
+		<!-- </div>
+		<div class="colx3-right"> -->
+			<button class="elective_skills_skills_delete"  data-elective ="<%= elective.id%>" data-course = "<%= course.id%>" >
+				Delete 
+			</button>
+		</div>
+	</div>
+</fieldset>
+<%else%>
+<fieldset class="grey-bg no-margin">
+	<h3>Currently there are no  Skills </h3>
+</fieldset>
+<fieldset class="grey-bg no-margin">
+	<legend>
+		Action on create
+	</legend>
+	<div class="columns">
+		<div class="colx2-left">
+			<button class="elective_skills_skills"  data-elective ="<%= elective.id%>" data-course = "<%= course.id%>" data-course-name ="<%= course.course_name%>" data-batch_id = "<%= Skill.new.course_batch(course)[1] %>" data-batch_name = "<%= Skill.new.course_batch(course)[0] %>">
+				Add 
+			</button>
+		<!-- </div>
+		<div class="colx3-center"> -->
+			<button class="elective_skills_skills_edit"  data-elective ="<%= elective.id%>" data-course = "<%= course.id%>" data-course-name ="<%= course.course_name%>">
+				Edit 
+			</button>
+		<!-- </div>
+		<div class="colx3-right"> -->
+			<button class="elective_skills_skills_delete"  data-elective ="<%= elective.id%>" data-course = "<%= course.id%>" data-course-name ="<%= course.course_name%>">
+				Delete 
+			</button>
+		</div>
+	</div>
+</fieldset>
+<%end%> 
+

@@ -1,0 +1,15 @@
+<div class="block-border" id="outer_block">
+	<div class="block-content form" id="complex_form">
+		<div>
+			<p class="inline-medium-label">
+				<label for="student_grade">Batch</label>
+				<input  type = "hidden" name = "course" value = "<%= @course.id%>" id = "select_course_subject"/>
+					<%= select :batch_select_batch, :course_id, @course.batches.active.map{|c| [c.full_name, c.id]},:prompt => "Select Batch",:class => "assign-batch-select" %>
+			</p>
+		</div>
+		<br />
+		<div id = "temp"></div>
+		<input type="hidden" name= "elective_batch" value= "" id = "course_elective_id"/>
+		<input type="hidden" name="subject_batch" value="" id = "course_subject_id"/>
+	</div>
+</div>

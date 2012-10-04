@@ -1,0 +1,30 @@
+<div class="block-content form" id="outer_block">
+
+	<h4><%=@batch.full_name%></h4>
+	<br />
+<%unless @ptm_masters.empty?%>
+<fieldset> 
+	<legend>
+		PTM List
+	</legend>
+
+	<%@ptm_masters.each do |b|%>
+<div class="task with-legend">
+<div class="task-description">
+						<ul class="floating-tags">
+							Start Time :<li class="tag-time"><%= b.ptm_start_date%></li>
+							End Time :<li class="tag-time"><%= b.ptm_end_date%></li>
+						</ul>
+						
+						<input id="PTMEvent" name="PTMEvent" type="radio"  value="<%= b.id%>" /><h3><%= b.title%></h3>
+						<strong>Decsription : </strong><%= b.description%>
+					</div>
+					</div>
+<%end%>
+<%else%>
+<h3> No PTM is created for the selected batch</h3>
+
+<%end%>
+	</fieldset>
+
+</div>

@@ -1,0 +1,17 @@
+<fieldset>
+	<legend>
+		Create Custom Category
+	</legend>
+	<div class="columns">
+		<p class="colx2-left required">
+			<label for="Fees For">Instant Fees Name</label>
+			<%= text_field_tag :custom_category_name, nil, :class => 'full-width'%>
+		</p>
+		<p class="colx2-right required">
+			<label for="Fees For">Instant Fees Description</label>
+			<%= text_field_tag :custom_category_description, nil, :class => 'full-width'%>
+		</p>
+	</div>
+</fieldset>
+
+<%=render :partial => 'get_instant_fee_collection_table'%>

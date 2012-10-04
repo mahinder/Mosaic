@@ -1,0 +1,105 @@
+<div class="block-border" id="outer_bloc">
+	<div class="block-content form">
+  <h1>Additional Exams</h1>
+  <br />
+  <div class="block-controls enoch_block">
+					<ul class="controls-tabs js-tabs">
+						<li >
+					<%= link_to image_tag("/assets/icons/web-app/32/Back.png"), :action =>'index',:batch_id =>@batch %>
+				</li>
+					</ul>
+				</div>	
+
+
+
+  <% unless flash[:notice].nil? %>
+	<ul class="message success grid_12">
+       <li><strong><%= flash[:notice] %></strong></li>
+       <li class="close-bt"></li>
+       	</ul>
+    <% end %>
+    <% unless flash[:warn_notice].nil? %>
+	<ul class="message error">
+       <li><strong><%= flash[:warn_notice] %></strong></li>
+       <li class="close-bt"></li>
+       	</ul>
+    <% end %>
+    <%unless @err_count.nil? or @errors.nil?%>
+    <ul class="message error ">
+					<li>
+						<strong><%= pluralize(@err_count, "error") %></strong> prohibited this <strong><%= @err_count.class.to_s.underscore.humanize.downcase %></strong> from being saved:
+						<ul>
+							<%@errors.each do |err|%>
+						        <li><%= err %></li>
+						    <% end %>
+						</ul>
+					</li>
+					<li class="close-bt"></li>
+				</ul>
+				<%end%>
+  <div class="bread_crumb">
+    <b><%= link_to 'Courses', all_record_courses_path %> &raquo;
+			<%= link_to @course.full_name, all_record_courses_path%> &raquo;
+			<%= link_to "Batch #{@batch.name}", :controller => 'batches', :action => 'all_record', :id => @batch, :course_id => @course %> &raquo;
+    <%= link_to "Additional Exams",:action =>'index',:batch_id =>@batch %> &raquo;</b>
+    New Additional Exam
+  </div><br /><br />
+
+
+  
+
+    <div id="flash"></div>
+    <div id="exam-form">
+<input type="hidden" id="additional_exam_batch" value="<%=@batch.id%>" />
+      <%= form_for :exam_option, :url => {:controller=>'additional_exam',:action => 'update_exam_form',:batch=>@batch},:html =>{:id =>'additional_exam'} do |form| %>
+       <fieldset class="grey-bg required">
+        <div class="columns">
+				<p class="colx2-left required">
+					<label for="exam_name">Name</label>
+					<% if params[:ename].nil?  %>
+					<% @ename = "" %>
+					<% else %>
+					<% @ename = params[:ename] %>
+					<% end  %>
+					<%= form.text_field :name, :value=>@ename,:class=>'full-width',:field_name=>'Name',:size=>15%>
+				</p>
+				<p class="colx2-right required select-fixed-width1">
+					<label for="exam_type">Exam Type</label>
+					<%= select :exam_option,:exam_type,['Marks','Grades','MarksAndGrades','Custom'] %>
+				</p>
+			</div></fieldset>
+		<div class="no-margin">	
+					<table class="table aexamnew" id="aexanew" cellspacing="0" width="100%">
+						<thead>
+      <tr>
+      	<th class="black-cell"><input type="checkbox" id="select_all" /></th>
+         <th scope="col">Roll No.</th>
+        <th scope="col">Student</th>
+      </tr>
+      </thead>
+						<tbody>
+							
+							  <% @students.each do |student| %>
+							  
+							  <tr><td><%= check_box_tag "students_list[]", student.id, false,:class=>'right' %></td><td><%= student.class_roll_no %><td><%= student.full_name %></td></tr>
+							 <%end%></tbody></table></div>
+     <br />
+  
+       
+    
+       <fieldset class="grey-bg no-margin">
+	<legend>
+		Action
+	</legend>
+	<p class="input-with-button">
+		<%= form.submit "Save", :class => "big-button" ,:id =>'additional_exam_group'%>
+	</p>
+</fieldset>
+       
+      <%end%>
+    </div>
+
+    <div class="extender"></div>
+
+</div></div>
+

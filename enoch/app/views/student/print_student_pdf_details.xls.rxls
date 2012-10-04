@@ -1,0 +1,47 @@
+excel_document(:filename => "student_xls.xls") do |workbook|
+unless @batch_array.empty?
+	@batch_array.each_with_index do |bh, j|
+		batch = Batch.find_by_id(bh)
+		sheet = workbook.create_worksheet
+		sheet.name = batch.full_name
+		sheet.row(0).replace [batch.full_name]
+		sheet.row(1).replace [""]
+		sheet.row(2).concat ["Sl.No.", "Name", "Admission No", "Guardian Name" ,"Contact No","Guardian Contact No"]
+		students =Student.find_all_by_batch_id(batch.id)
+		students.each_with_index do |student,i|
+			unless student.phone2.nil?
+			  phone2 = student.phone2
+			end
+			unless student.immediate_contact_id.nil?
+			  guardian = student.immediate_contact.full_name
+			  guardian_no = student.immediate_contact.mobile_phone
+			end
+  			sheet.row(i+3).replace [ i.to_i+1, student.full_name,student.admission_no, guardian, phone2 , guardian_no]
+		  	sheet.row(0).height = 20
+		  	sheet.row(2).height = 18
+		  	sheet.column(1).width = 30
+		  	sheet.column(2).width = 30
+		  	sheet.column(3).width = 30
+		  	sheet.column(4).width = 20
+		  	sheet.column(5).width = 30
+		  	format = Spreadsheet::Format.new :weight => :bold,
+		                                   :size => 12,
+		                                   :horizontal_align=> :center
+		  	sheet.row(2).default_format = format 
+		  	merge = Spreadsheet::Format.new :align => :merge,
+		  									:color => :blue,
+		                                   :weight => :bold,
+		                                   :size => 22
+			bold = Spreadsheet::Format.new :weight => :bold,
+										   :horizontal_align=> :center
+			5.times do |x| sheet.row(0).set_format(x, merge) end							   								   
+			alignment = Spreadsheet::Format.new :horizontal_align=> :center							   
+			students.count.to_i.times do |x| sheet.row(x + 3).set_format(1, bold) end
+			students.count.to_i.times do |x| sheet.row(x + 3).set_format(i, alignment) end
+    	end
+	end
+else
+	sheet = workbook.create_worksheet
+	sheet.name = "Sheet 1"
+end
+end

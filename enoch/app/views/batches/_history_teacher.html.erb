@@ -1,0 +1,28 @@
+<div class="no-margin">
+			<table class="table history_emp_add_list no-margin"  cellspacing="0" width="100%">
+				<thead>
+					<tr>
+						<th class="black-cell"></th>
+						<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> Employee Number </th>
+						<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> Employee Name </th>
+						<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> Department</th>
+						<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> Category </th>
+					</tr>
+				</thead>
+				<tbody>
+					<% indexx = []%>
+					<% @employee.each do |b| %>
+					
+					<tr><td  id="<%=b.id %>"></td>
+						<td  id="<%=b.id %>"><%= b.employee_number %></td><td><%= b.full_name%></td>
+						<td><%= b.employee_department.name %></td>
+						<td><%= b.employee_category.name %></td>
+					</tr>
+					<% indexx << b.id%>
+					
+					<%end%>
+				
+				</tbody>
+			</table>
+</div>
+

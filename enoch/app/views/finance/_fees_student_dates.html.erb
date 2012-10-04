@@ -1,0 +1,16 @@
+<div id="outer_block">
+	<div class="block-content form">
+		
+
+  <h3><%= @student.full_name%></h3>
+
+    <label>Select a Fee Collection date</label>
+  <div class="text-input-bg select-fixed-width1">
+    <%= select  :fees_submission_student, :dates_id, @dates.map { |e| [e.full_name, e.id]},{:prompt => "Select"} %>
+
+  </div>
+  <input type="hidden" id="getStudentID" value="<%=@student.id%>"/>
+<br />
+<div id= "fee_submission"></div>
+	</div>
+</div>

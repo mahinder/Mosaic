@@ -1,0 +1,3 @@
+<div id="change_attendance_batch_report">
+<%= select :student_report, :batch_id, @batches.map{|c| [c.name, c.id]},{:prompt=>'Select'}%>
+</div>

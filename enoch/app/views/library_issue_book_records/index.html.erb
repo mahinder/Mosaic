@@ -1,0 +1,46 @@
+<div class="block-border"  id ="outer_block">
+	<div class =  "block-content form">
+		<h1>Issue Book</h1>
+		<div class="block-controls enoch_block">
+					<ul class="controls-tabs js-tabs">
+						<li >
+							<%= link_to image_tag("/assets/icons/web-app/32/Back.png"),"javascript:history.back()" %>
+						</li>
+					</ul>
+				</div>	
+		<% unless flash[:notice].nil? %>
+		<ul class="message success grid_12">
+			<li>
+				<strong><%= flash[:notice] %></strong>
+			</li>
+			<li class="close-bt"></li>
+		</ul>
+		<% end %>
+	
+		<%= render 'shared/form_notice' %>
+		<fieldset>
+			<div class="columns" id = "book_issue_div">
+				<div class="colx2-left required">
+					<p class="inline-small-label">
+						<label class="required" for="field13">Book</label>
+						<select  id="book_issue" name="issue_book" ></select>
+					</p>
+				</div>
+				<div class="colx2-right required">
+					<p class="inline-small-label" id = "person_issue_p">
+						<label class="required" for="field13">Student/Employee</label>
+						<select  id="person_issue" name="issue_person" ></select>
+					</p>
+				</div>
+			</div>
+		</fieldset>
+	</div>
+</div>
+<section class="grid_6 book_issue_section1" ></section>
+<section class="grid_6 book_issue_section2">
+	<!-- <div class="block-border"  id ="outer_block">
+	<div class =  "block-content form">
+
+	</div>
+	</div> -->
+</section>

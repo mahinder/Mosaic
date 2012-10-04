@@ -1,0 +1,2 @@
+module AdditionalFieldsHelper
+end

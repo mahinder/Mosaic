@@ -1,0 +1,51 @@
+
+
+<section class="grid_16">
+	<div class="block-border" id="outer_block">
+		<div class="block-content form" id="complex_form">
+			<h1>Batch Transfer</h1>
+			<div class="block-controls enoch_block">
+				<ul class="controls-tabs js-tabs">
+					<li >
+						<a href="<%= dashboard_path(@user) %>" title ="Back"> <img src="/assets/icons/web-app/32/Back.png" width="24" height="24"></a>
+					</li>
+				</ul>
+			</div>	
+	
+				<% unless flash[:notice].nil? %>
+				<p class="flash-msg">
+					<%= flash[:notice] %>
+				</p>
+				<% end %>
+				<fieldset class="grey-bg">
+				<div class="columns">
+					<p class="colx3-left required">
+						<label for="student_grade">Course</label>
+						<span class="relative"> <%= select :course_search, :course_id, Course.all.map{|c| [c.course_name, c.id]},:prompt => "Select" %></span>
+					</p>
+					<p class="colx3-center required">
+						<label for="student_blood_group">Batch</label>
+						<span class="relative">
+							<div id="change_batch">
+<%= select :student,:batch_id, @batches.map{|c| [c.name, c.id]},{:prompt=>'Select'}%>
+</div>
+
+							</span>
+					</p>
+				</div>
+			</fieldset>
+		<div id="student_list_table">
+		<% unless params[:id]==nil%>
+				<div id="table-block">
+						<%= render :partial => 'student_table'%>
+				</div>
+		<%end%>
+		</div>
+		</div>
+</section>
+<div id="modal-box-transfer" style="display:none;">
+	<%= render :partial => "transfer_to_batch"%>	
+</div>
+<div id="modal-box-graduate" style="display:none;">
+	<%= render :partial => "status_description"%>	
+</div>

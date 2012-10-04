@@ -1,0 +1,58 @@
+<div id="exam_grou_index">
+	<div class="block-border" id="outer_block">
+		<div class="block-content form">
+			<h1>Exams</h1>
+			<div class="block-controls enoch_block">
+				<ul class="controls-tabs js-tabs">
+					<li >
+					<%= link_to image_tag("/assets/icons/web-app/32/Back.png"), :controller=>'/sessions',:action=>'dashboard' %>
+				</li>
+				</ul>
+			</div>
+			
+			<% unless flash[:notice].nil? %>
+	<ul class="message success grid_12">
+       <li><strong><%= flash[:notice] %></strong></li>
+       <li class="close-bt"></li>
+       	</ul>
+    <% end %>
+			<%= form_for :exam_report, :url=>{:controller =>'exam_groups',:action=>'exam_group_index'} do |x| %>
+			<input type="hidden" id="current_user" value="<%= @user.role_name%>" />
+			<%if @user.admin? || @user.employee? && @current_user.privileges.map{|p| p.id}.include?(Privilege.find_by_name('EnterResults').id) || @current_user.privileges.map{|p| p.id}.include?(Privilege.find_by_name('ExaminationControl').id) %>
+			<div class="columns">
+				<p class="colx2-left required select-fixed-width1">
+					<label for="complex-fr-style">Course</label>
+					<%= select :courses, :name, @course.map {|b| [b.course_name, b.id]}, :prompt => "Select" %>
+				</p>
+				<p class="colx2-left required">
+					<label for="complex-fr-style">Batch</label>
+					<div id="update_batch" class="select-fixed-width1">
+						<%= select :exam_reports, :batch_id, @batches.map { |s| [s.name, s.id]},:prompt =>'Select' %>
+					</div>
+				</p>
+			</div>
+			<%else%>
+			<div class="columns select-fixed-width1">
+				
+					<label for="complex-fr-style">Batch</label>
+					<div id="update_batch" class="select-fixed-width1">
+						<%= select :exams, :batch_id, @batch.map { |s| [s.full_name, s.id]},{:prompt =>'Select'},:id =>'exams_batch_id' %>
+					</div>
+				
+			</div>
+			<%end%>
+			<fieldset class="grey-bg no-margin">
+	<legend>
+		Action
+	</legend>
+	<p class="input-with-button">
+		
+		<%= x.submit "Next", :class => "big-button", :id =>"exacreate"%>
+	</p>
+</fieldset>
+			
+			<%end%>
+			<div class="extender"></div>
+		</div>
+	</div>
+</div>

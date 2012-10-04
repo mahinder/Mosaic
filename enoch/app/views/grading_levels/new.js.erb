@@ -1,0 +1,6 @@
+jQuery('#modal-box').html('<%= escape_javascript render('employees') %>');
+$.modal({
+	content: jQuery('#modal-box'),
+	title: 'Enter New Grading Level',
+	maxWidth: 500,
+});

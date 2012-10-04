@@ -1,0 +1,39 @@
+<table class="table allEmployeeDiary no-margin" id="ptmfeed" cellspacing="0" width="100%">
+	<thead>
+		<tr>
+			<th class="black-cell"></th>
+			<th scope="col">
+				<span class="column-sort">
+					<a href="#" title="Sort up" class="sort-up"></a>
+					<a href="#" title="Sort down" class="sort-down"></a>
+				</span>
+				Date
+			</th>
+			<th scope="col">
+				<span class="column-sort">
+					<a href="#" title="Sort up" class="sort-up"></a>
+					<a href="#" title="Sort down" class="sort-down"></a>
+				</span>
+				Timing</th>
+			<th scope="col">
+				<span class="column-sort">
+					<a href="#" title="Sort up" class="sort-up"></a>
+					<a href="#" title="Sort down" class="sort-down"></a>
+				</span>
+				Description
+			</th>
+		</tr>
+	</thead>
+	
+	<tbody>
+		<% @diaries_detail.each do |teacher_diary| %>
+		<tr>
+			<td class="th table-check-cell"></td>
+			<td><%=teacher_diary.text_date.strftime("%d-%m-%Y")%></td>
+			<td><%=teacher_diary.timing %></td>
+		    <td><strong><%=teacher_diary.description %></strong></td>
+		</tr>
+		<%end%>
+	</tbody>
+
+</table>

@@ -1,0 +1,38 @@
+<style type="text/css">
+	.fullWidth {
+		height: 30px;
+		width: 200px;
+	}
+</style>
+<% unless @bank_fields.empty?  %>
+<div id="bank">
+	<%= form_for :employee_bank_details, :url => {:action => 'admission3', :id => @employee.id} , :html => { :class => "block-content form", :id => "form"} do |a| %> 
+	<h3>Bank Details</h3>
+	<% @bank_fields.each do |bd| %>
+	<div class="column">
+		<p class="colx1-left">
+			<label><%= bd.name %></label>
+			<% @bank_details = EmployeeBankDetail.find_all_by_employee_id_and_bank_field_id(@employee.id,bd.id) %>
+
+			<%= a.text_field :bank_info, :index => bd.id, :value => (@bank_details.nil? ? "" : @bank_details[0].bank_info unless @bank_details.empty?), :class => "full-width fullWidth full-length",:field_name=> bd.name %>
+		</p>
+	</div>
+	<% end %>
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<fieldset class="grey-bg no-margin">
+		<legend>
+			Action
+		</legend>
+		<p class="input-with-button">
+			<%= a.submit "Update", :class => "big-button" ,:id =>"bank_detai"%>
+		</p>
+	</fieldset>
+	<% end %>
+</div>
+<%else%> <strong><%= I18n.t(:bank_fields_empty) %></strong>
+<% end %>

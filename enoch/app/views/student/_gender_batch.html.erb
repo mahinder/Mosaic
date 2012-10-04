@@ -1,0 +1,18 @@
+
+<div class="columns">
+	<p class="colx3-left select-fixed-width1">
+		<label for="course">Course</label>
+		<%= select("gender","bat" ,Course.active.map {|s| [s.course_name, s.id]}, :prompt => "Select")%>
+		</p>
+		<div id="change_student_batch">
+		<p class="colx3-center select-fixed-width1">
+		<label for="batch">Batch</label>
+		<%= select("gender","batch" ,@batches.map {|s| [s.full_name, s.id]}, :prompt => "Select")%>
+		</p>
+		</div>
+		<p class="colx3-right select-fixed-width1">
+		<label for="course">Gender</label>
+		<%= select( "gender", "batche", { "Male" => "M", "Female" => "F"},:prompt=>"Select") %>
+	</p>
+</div>
+

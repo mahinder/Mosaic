@@ -1,0 +1,21 @@
+<%= form_for(@elective_skill) do |f| %>
+  <% if @elective_skill.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@elective_skill.errors.count, "error") %> prohibited this elective_skill from being saved:</h2>
+
+      <ul>
+      <% @elective_skill.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

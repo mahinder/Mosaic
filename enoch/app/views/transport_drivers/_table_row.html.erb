@@ -1,0 +1,17 @@
+									<tr>
+										<td class="th table-check-cell"></td>
+										<input type="hidden" id="driver_providers_<%= driver.id %>" value="<%= driver.provider_id %>"/>
+										<td id="driver_provider_<%= driver.id %>"><%= driver.provider.name %></td>
+										<td id="driver_name_<%= driver.id %>"><%= driver.name %></td>
+										<td id="driver_address_<%= driver.id %>"><%= driver.address %></td>
+										<td id="mobile_<%= driver.id %>"><%= driver.mobile %></td>
+										<td id="licence_no_<%= driver.id %>"><%= driver.licence_no %></td>
+										<td id="dl_valid_<%= driver.id %>"><%= driver.dl_valid_upto %></td>
+										
+										
+										<td class="table-actions">
+											<input type="hidden" name="object_id" value="<%= driver.id %>"/>
+											<a href="#" id="update-href-<%= driver.id %>" title="Edit" class="with-tip update-transport_driver-master-href"><img src="/assets/icons/fugue/pencil.png" width="16" height="16"></a>
+											<a href="#" id="delete-href-<%= driver.id %>" title="Delete" class="with-tip delete-transport_driver-master-href"><img src="/assets/icons/fugue/cross-circle.png" width="16" height="16"></a>
+										</td>
+									</tr>

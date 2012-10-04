@@ -1,0 +1,42 @@
+<div class="block-border">
+	<div class="block-content form" id="table_form">
+		<h1>Student List</h1>
+		<table class="table batchtransfertable no-margin" id="mysortable" cellspacing="0" width="100%">
+			<thead>
+				<tr><%unless @batch.students.empty? %>
+					<th class="black-cell"><input type="checkbox" id="select-all"></th>
+					<%else%>
+					<th class="black-cell" style="width: 10px;"></th>
+					<%end%>
+					<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> Roll Number </th>
+					<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> Admn No. </th>
+					<th scope="col">Student Name</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @batch.students.sort! { |a,b| a.class_roll_no.to_i <=> b.class_roll_no.to_i }.each do |student| %>
+				<tr>
+					<td class="th table-check-cell"><%= check_box_tag 'transfer[students][]', student.id, false, :name => "paradigm" %></td>
+					<td><%= student.class_roll_no %></td>
+					<td><%= student.admission_no %></td>
+					<td><%= link_to student.full_name ,:controller => 'student', :action => 'my_profile', :q=> student.admission_no %></td>
+				</tr>
+				<% end %>
+			
+			</tbody>
+		</table>
+	</div>
+	</div>
+	<fieldset class="grey-bg no-margin" >
+		<legend>
+			Action
+		</legend>
+        <div class="column">
+        	<%if params[:trns]!=""%>
+             <button id="transfer">Batch Transfer / Promotion</button>
+		    <%else%>
+		     <button id="graduate">TC</button>
+		    <%end%>
+		</div>
+</fieldset>
+<input type="hidden" name="batch_ID"  id= "batch_ID" value="<%=@batch.id %>" />

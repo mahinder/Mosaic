@@ -1,0 +1,26 @@
+<div class="block-border">
+	<div class="block-content ">
+		<table class="table archive_employee no-margin" cellspacing="0" width="100%">
+	<thead>
+		<tr>
+			<th class="black-cell"></th>
+			<th scope="col">Name</th>
+			<th scope="col">Employee Number</th>
+			<th scope="col">Department</th>
+		</tr>
+	</thead>
+	<tbody>
+		<%@employees.each do |employee|%>
+
+
+
+		<tr>
+			<td></td>
+			<td><%= link_to employee.full_name, :controller =>'employees',:action=>'archived_employee_profile',:id=>employee.id%></td>
+			<td><%=employee.employee_number%></td>
+			<td><%=employee.employee_department.name%></td>
+		</tr>
+		<%end%>
+	</tbody>
+</table>
+</div></div>

@@ -1,0 +1,205 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en: # locale
+  notice_access_denied: "Sorry, you are not allowed to view / edit that information!"
+  bank_fields_empty: "There are no Bank Fields defined yet!"
+  additional_fields_empty: "There are no Additional Fields defined yet!"
+  no_entries_for_timetable: "There are no Timetable entries for today!"
+  student_not_found: "Student is not found with this id!"
+  employee_not_found: "Employee is not found with this id!"
+  student_updated: "Student is successfully updated!"
+  student_prev_data_updated: "Previous data is successfully updated!"
+
+# My Dashboard Entries 
+  lbl_my_profile: "My Profile"
+  lbl_my_timetable: "My Timetable"
+  lbl_my_batches: "My Batches"
+  lbl_my_payslip: "My Payslips"
+  lbl_my_leaves: "My Leaves"
+  
+# Student Dashboard Entries for Admin and Employees
+  lbl_student_search: "Search"
+  lbl_student_new_admission: "Admissions"
+  lbl_batch_transfers: "Batch Transfers"  
+  
+# Exam entries
+  exam_scheduled: "Exam Scheduled."
+  has_been_scheduled: "has been scheduled."
+  view_calendar: "Please view calendar for more details."
+  exam_timetable_published: "exam Timetable has been published."
+  exam_result_published: "exam result has been published."
+  minmarks_cant_be_more_than_maxmarks: "Minimum marks can't be more than max marks."
+  end_time_cannot_before_start_time: "End time cannot be before the start time."
+  start_date_cant_be_after_end_date: "start date cant be after end date."
+  end_date_cant_before_start_date: "End date can't be before start date."
+  
+# Student 
+  student_first_name_empty: "Please enter the first name!"
+  student_last_name_empty: "Please enter the last name!"
+  student_first_name_aplhanumeric_not_allowed: "Only characters are allowed for first name!"
+  student_middle_name_aplhanumeric_not_allowed: "Only characters are allowed for middle name!"
+  student_last_name_aplhanumer_not_allowed: "Only characters are allowed for last name!"
+  student_address_empty: "Please enter the address!"
+  student_special_characters_not_allowed: "Special Characters such as (,),?,..."
+  delete_student: "Delete student."
+  delete_student_description1: "Completely delete student's records from the school's databases. Use this option only if you created the student record by accident and want to remove it completely."
+  delete_student_description2: "Warning: All records will be deleted for the student and cannot be recovered."
+  admission_number_taken: "Admission Number already exists"
+  email_taken: "Email has already been taken."
+  sent_email_to_new_student: "Student successfully created.please check mail."
+  sent_email_to_old_student: "Student succesfully updated. Please check mail."
+  guardian_created: "Guardian is successfully Created."
+  guardian_updated: "Guardian is successfully Updated."
+  guardian_not_deleted: "Guardian Can not be Deleted."
+  guardian_deleted: "Guardian is successfully Deleted."
+  
+# Assignment 
+  assignment_created: "Successfully created Assignment."
+  assignment_updated: "Successfully created Assignment."
+  assignment_not_updated: "Assignment can not be Updated."
+  assignment_deleted: "Assignment is successfully Deleted."
+  assignment_uploaded: "Thank you for your submission..."
+  assignment_not_uploaded: "There was a problem submitting your attachment."
+  file_not_exist: "File does not Exist."
+  
+# Event
+  event_created: "Event Created Successfully."
+  event_not_created: "Event Cann't be Created." 
+  event_cancel: "Event Creation Cancelled."
+  batch_event_deleted: "Successfully deleted batch."
+  dapartment_event_deleted: "Successfully deleted Department."
+  department_event: "Sucessfully added Department."
+  batch_event: "Sucessfully added Batch."
+  department_and_batch_event: "Sucessfully added Batch and department."
+
+# PtmDetail
+  ptm_detail_created: "Parent Teacher Meeting Detail is succesfully created."
+  feedback_submitted: "FeedBack is succesfully Submitted."
+  feedback_not_updated: "FeedBack can not be updated."
+
+# PtmMaster
+  ptm_master_created: "Parent Teacher Meeting is succesfully created."
+  ptm_master_updated: "Ptm master is successfully updated."
+  
+# StudentAward
+  award_created: "Student award is successfully created."
+  award_deleted: "Student award deleted successfully."
+  award_updated: "Student award is successfully Updated."  
+
+#EmployeeAttendances
+  attendance_marked: "Employee Attendance Marked successfully."
+  attendance_updated: "Employee Attendance Updated successfully."
+  attendance_not_updated: "Employee Attendance cann't be Updated."
+  attendance_deleted: "Employee Attendance Deleted successfully."
+  attendance_not_deleted: "Employee Attendance can not be Deleted."
+
+#SMS
+  sms_sent: "SMS sent successfully to selected students and their guardians."
+  sms_sent_selected_course: "'SMS sent successfully to students(guardians) of selected course."
+  sms_sent_to_employee: "SMS sent successfully to selected employees."
+  sent_to_selected_department: "SMS sent successfully to employees of selected department."
+  sms_settings_page: "SMS Settings page."
+  send_sms_to_students: "Send SMS to Students."
+  sms_to_batches: "Send SMS to Batches."
+  sms_to_employees: "Send SMS to Employees."
+  sms_to_employee_department: "SMS to Employees Departments."
+  sms_to_all: "Send SMS to all."
+  sms_sent_batch_and_department: "SMS sent across batches and empoloyee departments."
+  
+#Support
+  login_error_message: "Invalid username or password combination!"
+  logged_out: "Logged out Successfully!"
+  
+#Timetable
+  no_teacher_associated: "No teacher associated to this subject."
+  class_timing_delete_confirm_msg: "This will delete all timetable entries assosciated with this class timing , proceed with deletion?"
+ 
+#Attendance
+  attendance_before_the_date_of_admission: "Attendance before the date of admission."
+  
+#Student Category
+  student_category_updated_succesfully: "Student category updated successfully."
+  student_category_deleted_succesfully: "Student category deleted successfully."
+  
+#courses controller translation
+  courses_flash1: "Created course successfully."
+  courses_flash2: "Updated course details successfully."
+  courses_flash3: "Course deleted successfully."
+  courses_flash4: "Unable to Delete. Please remove existing batches and students."
+
+#batches controller translation
+  batches_flash1: "Batch created successfully."
+  batches_flash2: "Updated batch details successfully."
+  batches_flash3: "Please fill all fields."
+  batches_flash4: "Batch deleted successfully."
+  batches_flash5: "Unable to delete Batch.Please delete all Students."
+  batches_flash6: "Unable to delete Batch.Please delete all Subjects."
+  batches_flash7: "No subjects found in previous batches."
+
+#batch_transfer controller translation
+  batch_transfers_flash1: "Trasferred students successfully."
+  batch_transfers_flash2: "Graduated selected students successfully."
+  batch_transfers_flash3: "Already has the subject with name."
+  batch_transfers_flash4: "No subjects found in previous batches."
+
+#reminder controller translation
+  reminder_flash1: "Message sent successfully."
+  reminder_flash2: "Reminder deleted."
+  reminder_flash3: "Your reply has been sent"
+  reminder_flash4: "Please enter both subject and body"
+  reminder_flash5: "Reminder marked unread."
+  reminder_flash6: "Please fill the required fields to create this message."
+  
+#event controller translation
+  event_flash1: "Event created for selected courses."
+  event_flash2: "Event created for selected departments."
+  event_flash3: "Event creation cancelled."
+
+#Employee Related
+  employee_flash1: "Employee category created"
+  employee_flash2: "Employee category updated"
+  employee_flash3: "Successfully deleted!"
+  employee_flash4: "Unable to delete!"
+  employee_flash5: "Employee position created"
+  employee_flash6: "Employee position updated"
+  employee_flash7: "Employee department created"
+  employee_flash8: "Employee department updated"
+  employee_flash9: "Employee grade created"
+  employee_flash10: "Employee grade updated"
+  employee_flash11: "Bank field created"
+  employee_flash12: "Bank details updated"
+  employee_flash13: "Additional field created"
+  employee_flash14: "Additional details updated"
+  employee_flash15: "Employee"
+  employee_flash16: "Record saved"
+  employee_flash17: "General information updated"
+  employee_flash18: "Personal information updated"
+  employee_flash19: "Address and contact details saved for"
+  employee_flash20: "Employee address  details saved for"
+  employee_flash21: "Employee contact details saved for"
+  employee_flash22: "Contact details updated for"
+  employee_flash23: "Bank details updated"
+  employee_flash24: "Bank details saved for"
+  employee_flash25: "Employee reporting manager saved"
+  employee_flash26: "Reporting manager successfully changed"
+  employee_flash27: "Salary slip generated for"
+  employee_flash28: "Salary slip  already generated for"
+  employee_flash29: "Payslip deleted for"
+  employee_flash30: "Leave application created"
+  employee_flash31: "Successfully deleted employee!"
+  employee_flash32: "All records have been deleted for employee with employee no."
+  employee_flash33: "Payslip has been approved"
+  employee_flash34: "Cant be deleted. This employee is a reporting manager"
+  employee_flash35: "No bank fields available"
+  employee_flash36: "No additional fields available"
+  employee_flash37: "Employee category cant be updated"
+  employee_flash38: "Employee position cant be updated"
+  employee_flash39: "Employee department cant be updated"
+  employee_flash40: "Employee grade cant be updated"
+  employee_flash41: "The employee is currently assigned to same subject in timetable"
+  employee_flash42: "Please assign another employee in timetable inorder to remove this association"
+  employee_flash43: "No employees found in this department"
+  employee_flash44: "Cannot delete the employee when dependecy exists. Use change to former option"
+  employee_flash45: "Payslip Date cant be generated before joining date"
+  employee_flash46: "Employee deleted successfully."

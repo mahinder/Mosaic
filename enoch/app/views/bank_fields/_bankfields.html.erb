@@ -1,0 +1,36 @@
+				<div class="block-content form" id="table_form">
+					<h1>Bank Fields List</h1>
+					<div>
+						<ul class="tabs js-tabs">
+							<li class="current"><a href="#tab-active" title="Active">Active</a></li>
+							<li><a href="#tab-inactive" title="Inactive">Inactive</a></li>
+						</ul>
+					</div>
+					<div id="tabs-content" class="tabs-content">
+						<div id="tab-active">
+							<table id="active-table" class="table bankfields no-margin" cellspacing="0" width="100%">
+								<thead>
+									<%= render 'table_head' %>
+								</thead>
+									
+									<% @active_bank_fields.each do |bank_field| %>
+									<%= render 'table_row', :bank_field => bank_field %>
+									<% end %>
+								
+							</table>
+						</div>
+						<div id="tab-inactive">
+							<table id="inactive-table" class="table bankfields no-margin" cellspacing="0" width="100%">
+								<thead>
+									<%= render 'table_head' %>
+								</thead>
+										
+									<% @inactive_bank_fields.each do |bank_field| %>
+									<%= render 'table_row', :bank_field => bank_field %>
+									<% end %>
+								
+							</table>
+						</div>
+					</div>
+					<input type="hidden" id="url_prefix" name="url_prefix" value="/bank_fields" />
+				</div>	

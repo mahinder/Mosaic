@@ -1,0 +1,2 @@
+module PassengerBoardTransportDetailsHelper
+end

@@ -1,0 +1,5 @@
+1347033699504	Delete resource 'twitter/app/views/photos/_photos_field.html.erb'
+1347037575661	Delete resource 'twitter/public/system/photos'
+1347038744498	Delete resource 'twitter/db/migrate/20120108082233_add_attachment_photo_to_user.rb'
+1347038789682	Delete resource 'twitter/db/migrate/20120907165912_add_photos_to_album.rb'
+1347114390270	Delete resource 'twitter/config/authorization.rb'

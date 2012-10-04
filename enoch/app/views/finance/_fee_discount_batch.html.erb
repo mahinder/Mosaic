@@ -1,0 +1,2 @@
+<label for="Select Batch">Batch</label>
+<%= select :fees_discount,:batch_id, @batches.map{|c| [c.full_name, c.id]},{:prompt=>'Select'}%>

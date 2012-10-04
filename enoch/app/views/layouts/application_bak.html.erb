@@ -1,0 +1,140 @@
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title><%= @title %></title>
+    
+
+    <script type="text/javascript">
+      /***********************************************
+       * Dynamic Countdown script- © Dynamic Drive (http://www.dynamicdrive.com)
+       * This notice MUST stay intact for legal use
+       * Visit http://www.dynamicdrive.com/ for this script and 100s more.
+       ***********************************************/
+      var anylinkmenu1={divclass:'anylinkmenu', inlinestyle:'', linktarget:''} //First menu variable. Make sure "anylinkmenu1" is a unique name!
+      anylinkmenu1.items = [
+        ["Calendar", "/calendar"],
+        ["Examination", "/exam"],
+        ["News", "/news"],
+        ["Event Creation", "/event"],
+        ["Human Resource", "/employee/hr"],
+        ["Finance", "/finance/index"],
+        ["Users", "/user"],
+      ]
+      anylinkmenu.init("menuanchorclass");
+    </script>
+  </head>
+
+  <body>
+  	<div id="sidebar">
+				<div class="cog">+</div>
+				<ul id="accordion" class="round_all">
+					<li><a href="index.php" class="top_level"><img src="images/icons/small/grey/home.png"/>Home</a>
+						<ul class="drawer">
+							<li><a href="#">Activity</a></li>
+							<li><a href="#">Events</a></li>
+							<li><a href="#">Tasks</a></li>
+						</ul>
+					</li>
+					<li><a href="/reminder/index" class="top_level"><img src="images/icons/small/grey/mail.png"/>Mailbox</a>
+						<ul class="drawer">
+							<li><a href="#">Inbox</a></li>
+							<li><a href="#">Sent Items</a></li>
+							<li><a href="#">Drafts</a></li>
+							<li><a href="#">Trash</a></li>
+						</ul>
+					</li>
+					<li><a href="#" class="top_level"><img src="images/icons/small/grey/documents.png"/>Documents</a>
+						<ul class="drawer">
+							<li><a href="#">Create New</a></li>
+							<li><a href="#">View All</a></li>
+							<li><a href="#">Upload/Download</a></li>
+						</ul>
+					</li>
+					<li><a href="#" class="top_level"><img src="images/icons/small/grey/users.png"/>Members</a>
+						<ul class="drawer">
+							<li><a href="#">Add New</a></li>
+							<li><a href="#">Edit/Delete</a></li>
+							<li><a href="#">Search Profiles</a></li>
+						</ul>
+					</li>
+					<li><a href="#" onClick="parent.location='http://www.tricycle.ie'" class="top_level"><img src="images/icons/small/grey/graph.png"/>Statistics</a></li>
+					<li><a href="#" class="top_level"><img src="images/icons/small/grey/cog_2.png"/>Settings</a>
+						<ul class="drawer">
+							<li><a href="#">Account</a></li>
+							<li><a href="#">System</a></li>
+						</ul>
+					</li>
+				</ul>
+				<form id="search_side"><input class="round_all" type="text" value="Search Adminica..." onclick="value=''"></form>
+				</div><!-- #sidebar -->
+  	
+    <div id="header_bg">
+      <div id="header">
+        <div id="main-menu">
+          <%= link_to "Dashboard", :controller => "user", :action => "dashboard" %>
+          <% this_user = User.find(session[:user_id]) if session[:user_id] %>
+          <%  if this_user.student? || this_user.employee? %>
+            <%= link_to "Calendar", :controller => "calendar" %>
+          <% end %>
+          <%= link_to "Students", :controller => "student", :action => "index" \
+            if this_user.admin? %>
+          <%= link_to "Attendance", :controller => "student_attendance", :action => "index" \
+            if this_user.admin? %>
+          <%= link_to "Settings", :controller => "configuration", :action => "index" \
+            if this_user.admin? %> <!--
+          <%= link_to "News", :controller => "news", :action => "index" \
+            if this_user.admin? %> -->
+          <%= link_to "Timetable", :controller => "timetable", :action => "index" \
+            if this_user.admin? %>
+          <% if this_user.admin? %>
+            <a href="#" class="menuanchorclass" rel="anylinkmenu1">More ▼</a>
+          <% end %>
+
+        </div>
+        <div id="header_link" >
+          Logged in as:
+          <%= link_to this_user.first_name, :controller => 'user', :action => 'profile',
+            :id => this_user.username %> &nbsp;|&nbsp;
+          <%= link_to "Messages",:controller => "reminder", :action => "index" %>(<%= render :partial => 'layouts/reminder_count' %>)&nbsp;|&nbsp;
+          <%= link_to 'Log out', :controller => 'user', :action => 'logout' %>  &nbsp;&nbsp;
+        </div>
+      </div>
+    </div>
+
+    <div id="content_wrapper" >
+      <div id="side_bar">
+
+        <div id="sidebar_news_area">
+          <% if action_name == "dashboard" %>
+            <%= link_to " ", { :controller => "news", :action => "index" }, :id => 'news_feed_top_img' %>
+            <div id="news_feed">
+              <% @dash_news.each do |n| %>
+                <div class="sidebar_news_item<%= cycle("0", "1") %>">
+                  <h5><%= link_to n.title, :controller => 'news', :action => 'view', :id => n.id %></h5>
+                  <small><%= time_ago_in_words(n.created_at) %> ago</small>
+                </div>
+              <% end %>
+              <div class="extender"> </div>
+              <%= link_to image_tag("/images/fedena_user/dashboard/news_feed_more_link.jpg", :border => 0), {:controller => "news", :action => "all"} %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div id="content"> <%= yield %> </div>
+
+      <div class="extender"></div>
+    </div>
+    
+    <div id="footer">
+      <div id="footer_logo">
+        <div id="powered_by">
+          Powered by <a href="http://ezzie.in/" target="_blank">Ezzie Infosystems</a>
+        </div>
+        <a href="http://ezzie.in/" target="_blank" class="footer-logo"></a>
+      </div>
+    </div>
+  </body>
+</html>

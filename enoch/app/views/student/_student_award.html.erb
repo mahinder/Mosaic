@@ -1,0 +1,34 @@
+<%= form_for :student_award do |a| %>
+<fieldset>
+	<legend>
+		Student Award
+	</legend>
+	<div class="columns">
+		<p class="colx2-left required">
+			<label>Title</label>
+			<%= text_field_tag :award_title %>
+		</p>
+		<p class="colx2-right">
+			<label>Award Date</label>
+			<span class="input-type-text"><%= text_field_tag :date_of_award,nil,:id =>"student_award_date",:value => Date.today.strftime("%d-%m-%Y"), :class => "datepicker", :size => 20  ,:readonly => "1"%><%= image_tag "icons/fugue/calendar-month.png" %></span>
+		</p>
+	</div>
+	<div class="columns">
+		<p class="colx2-left required">
+			<label>Description</label>
+			<%= text_area_tag :award_description, nil, :size => "65x5"%>
+		</p>
+	</div>
+</fieldset>
+<%= a.hidden_field :student_id, :value => @student.id %>
+<fieldset class="grey-bg no-margin">
+	<legend>
+		Action
+	</legend>
+	<p class="colx3-left">
+		<%= a.submit "Create", :class => "big-button" ,:id => "create_student_award"%>
+	</p>
+</fieldset>
+<% end %>
+<input type="hidden" id="student_award_batch" value="<%= @student.batch_id%>">
+<input type="hidden" id="student_award_id" value="<%= @student.id%>">

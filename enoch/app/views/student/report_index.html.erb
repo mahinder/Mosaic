@@ -1,0 +1,53 @@
+<div class="block-border" id="outer_block">
+	<div class="block-content form">
+			<h1> Reports Center</h1>
+			<div class="block-controls enoch_block">
+					<ul class="controls-tabs js-tabs">
+						<li >
+					<%= link_to image_tag("/assets/icons/web-app/32/Back.png"), :back %>
+				</li>
+					</ul>
+				</div>	
+		<fieldset class="grey-bg">
+		<%= radio_button_tag(:report_center, "student") %>
+<%= label_tag(:report_center, "Student report") %>
+ <%= radio_button_tag(:report_center, "employee") %>
+<%= label_tag(:report_center, "Employee report") %> 
+	</fieldset>
+	<div id="report_center_student_view">
+		<fieldset class="grey-bg">
+		<%= radio_button_tag(:report, "gender",:class=>'view_report') %>
+<%= label_tag(:grade_report, "Gender wise report") %>
+ <%= radio_button_tag(:report, "religion") %>
+<%= label_tag(:religon_report, "Religion wise report") %> 
+<%= radio_button_tag(:report, "category") %>
+<%= label_tag(:category_report, "Student Category wise report") %> 
+
+	</fieldset>
+	<input type="hidden" id="type" value="<%=@type%>" />
+		<fieldset class="grey-bg">
+		<%= radio_button_tag(:reports, "all") %>
+<%= label_tag(:all, "All") %>
+ <%= radio_button_tag(:reports, "course") %>
+<%= label_tag(:all, "Course wise") %> 
+<%= radio_button_tag(:reports, "Batch") %>
+<%= label_tag(:all, "Batch wise") %> 
+	</fieldset>
+	
+	</div><div id="report_center_employee_view">
+		<fieldset class="grey-bg">
+			<div class="columns">
+				<p class="colx3-left required select-fixed-width1">
+					<label for="employee_department">Employee Department</label>
+					<%= select("report_index","employee_department",EmployeeDepartment.active.map {|s| [s.name, s.id]},:prompt => "Select")%>
+				</p>
+			</div>
+			</fieldset>
+		</div>
+	<div id="view_report"></div>
+	<div id="view_report_index"></div><br /><br />
+	<div id="get_report"></div>
+	
+	
+	</div> 
+</div>

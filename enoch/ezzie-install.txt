@@ -1,0 +1,59 @@
+0. Misc
+	a. sudo apt-get install libnotify-bin
+	b. sudo apt-get install libmysqlclient-dev
+	c. sudo apt-get install build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev automake libtool bison subversion
+
+1. Rails gem
+	a. rvm install 1.9.2
+	b. rvm 1.9.2 # start using ruby 1.9.2
+	c. rvm gemset create ezzie and rvm --default use 1.9.2@ezzie
+	d. gem install rails -v 3.1.1
+	e. gem install ruby-debug-ide
+	f. gem install autotest -v 4.4.6
+	g. gem install autotest-rails-pure -v 4.1.2
+	h. gem install redgreen
+	i. gem install autotest-notification
+	j. gem install mysql
+
+2. Setup Project Enviornment
+	1. Add file called ~/.autotest with below contents
+#!/bin/ruby
+#require 'redgreen'
+#require 'autotest/timestamp'
+ 
+module Autotest::GnomeNotify
+  def self.notify title, msg, img
+    system "notify-send '#{title}' '#{msg}' -i #{img} -t 3000"
+  end
+ 
+  Autotest.add_hook :ran_command do |at|
+    image_root = "~/.autotest_images"
+    results = [at.results].flatten.join("\n")
+    results.gsub!(/\\e\[\d+m/,'')
+    output = results.slice(/(\d+)\sexamples?,\s(\d+)\sfailures?(,\s(\d+)\spending?|)/)
+    full_sentence, green, failures, garbage, pending = $~.to_a.map(&:to_i)
+    if output
+      if failures > 0
+        notify "FAIL", "#{output}", "#{image_root}/fail.png"
+      elsif pending > 0
+        notify "Pending", "#{output}", "#{image_root}/pending.png"
+      else
+        notify "Pass", "#{output}", "#{image_root}/pass.png"
+      end
+    end
+  end
+end
+	2. Copy images from http://automate-everything.com/wp-content/uploads/2009/08/autotest_images.zip to ~/.autotest_images/	
+
+3. GIT
+	a. copy git-completion.bash from [git_untar_home]/contrib/completion
+
+	b. Add following line to .bashrc
+
+	#Git tab completion
+	source ~/git-completion.bash
+
+	#Show branches in status line
+	PS1='[\w$(__git_ps1 " (%s)")]\$ '
+	export PROMPT_COMMAND='echo -ne "\033]0;${PWD/#$HOME/~}\007"'
+	

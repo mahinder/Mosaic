@@ -1,0 +1,120 @@
+<script type="text/javascript">
+function getsubject(){
+	return $("#assignment_subject").val();
+	}
+</script>
+<%= form_for :attachment,:class => "block-content", :url => {:action => 'uploadAssignment'},:html => {:multipart => true} do  |f|%>
+<div class="block-content form" id="table_form">
+				<h1>Student List</h1>
+				
+				<table class="table ptmStudentAssign no-margin" cellspacing="0" width="100%">
+				
+					<thead>
+						<tr>
+							<th class="black-cell"><input type="checkbox" id="select-assignment_all" ></th>
+							<th scope="col">
+								<span class="column-sort">
+									<a href="#" title="Sort up" class="sort-up"></a>
+									<a href="#" title="Sort down" class="sort-down"></a>
+								</span>
+								Name
+							</th>
+							<th scope="col">Admission Number</th>
+							<th scope="col">
+								<span class="column-sort">
+									<a href="#" title="Sort up" class="sort-up"></a>
+									<a href="#" title="Sort down" class="sort-down"></a>
+								</span>
+								Roll No
+							</th>
+						</tr>
+					</thead>
+					
+					<tbody>
+						<% @student.each do |student| %>
+						<tr>
+							<td class="th table-check-cell"><%= check_box_tag 'assignment[students][]', student.id, false %></td>
+							<td><%=link_to student.full_name ,:controller => 'student', :action => 'my_profile', :q	=> student.admission_no%></td>
+							<td><%=student.admission_no%></td>
+							<td><%=student.class_roll_no%></td>
+							
+						</tr>
+						<%end%>
+					</tbody>
+				
+				</table>
+				<br /><br /><br />
+
+				<fieldset>
+					<legend>
+						Upload Assignment
+					</legend>
+					<div class="columns">
+						<p class="colx2-left" id="" >
+						<label for="Question">Upload Question: </label>	
+					    <%= file_field_tag 'attachment'%>
+					    </p>
+					    <p class="colx2-right">
+						<label for="Date">To be completed: </label>
+						 <span class="input-type-text"><input type='text' name="attachment_datebox" id='attachment_datebox' class="datepicker" value="<%=Date.today.strftime("%d-%m-%Y")%>" readonly="readonly" ><%= image_tag "/assets/icons/fugue/calendar-month.png" %></span> 
+						</p>
+						</div>
+					    <fieldset class="no-margin grey-bg">
+					<legend>
+						Action
+					</legend>
+					    <%= submit_tag "Upload Assignment" ,:id => "assignment_create", :class => 'big-button'%>
+						</fieldset>
+					
+				</fieldset>
+
+					<br /><br /><div style="margin-left: 30em;"><strong>OR</strong></div><br /><br />
+<fieldset>
+	<legend>
+		Questions
+	</legend>
+         
+<div id='TextBoxesGroup'>
+		<div id="TextBoxDiv1"> 
+			<div class="column">
+			<p class="colx1-left required" id="TextBoxDiv11" >
+			<label for="Question">Question #1 : </label>
+			<input type='text' id='textbox1' class="full-width">
+			</p>
+			</div>
+			<div class="columns">
+			<p class="colx2-left"  id="TextBoxDiv21">
+			<label for="Hint">Hint #1 : </label>
+			<input type='text' id='hintbox1'class="full-width" >
+			</p>
+			<p class="colx2-right"  id="TextBoxDiv31">
+			<label for="Date">To be completed #1 : </label>
+			 <span class="input-type-text"><input type='text' id='datebox1' class="datepicker" value="<%=Date.today.strftime("%d-%m-%Y")%>" readonly="readonly" ><%= image_tag "/assets/icons/fugue/calendar-month.png" %></span> 
+			</p>
+		    </div>
+    </div>
+</div> 
+<div style="float: left;"><img src="/assets/icons/web-app/32/Add.png" id="addTextButton" title="Add Question"/>
+	<img src="/assets/icons/web-app/32/Delete.png" id="removeButton" title="Remove Question" />
+</div>
+</fieldset>	
+
+				<br /><br /><br />
+				<input type="hidden" name="batch_assignment" id="batch_assignment" value="<%= @batch.id%>"/>
+				<input type="hidden" name="subject_assignment" id="subject_assignment" />
+<fieldset class="grey-bg no-margin">
+	<legend>
+			Action
+		</legend>
+		<div class="columns">					
+		    <p class="colx3-left">
+				<button type="button" id="getButtonValue">Create Assignment</button>
+				
+
+			</p>		
+		</div>
+</fieldset>
+
+
+			</div>
+			<% end %>

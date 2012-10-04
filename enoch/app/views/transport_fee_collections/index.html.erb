@@ -1,0 +1,21 @@
+<h1>Listing transport_fee_collections</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @transport_fee_collections.each do |transport_fee_collection| %>
+  <tr>
+    <td><%= link_to 'Show', transport_fee_collection %></td>
+    <td><%= link_to 'Edit', edit_transport_fee_collection_path(transport_fee_collection) %></td>
+    <td><%= link_to 'Destroy', transport_fee_collection, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Transport fee collection', new_transport_fee_collection_path %>

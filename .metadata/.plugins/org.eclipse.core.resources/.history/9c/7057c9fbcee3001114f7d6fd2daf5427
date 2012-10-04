@@ -1,0 +1,76 @@
+<div class="with-head">
+							<div class="head">
+								<div class="black-cell with-gap"><span class="success"></span></div>
+<!-- 								<div class="black-cell">Sort by</div>
+								<div>
+									<span class="column-sort">
+										<a href="#" title="Sort up" class="sort-up active"></a>
+										<a href="#" title="Sort down" class="sort-down"></a>
+									</span>
+									Name
+								</div>
+								<div>
+									<span class="column-sort">
+										<a href="#" title="Sort up" class="sort-up"></a>
+										<a href="#" title="Sort down" class="sort-down"></a>
+									</span>
+									Date
+								</div>
+								<div>
+									<span class="column-sort">
+										<a href="#" title="Sort up" class="sort-up"></a>
+										<a href="#" title="Sort down" class="sort-down"></a>
+									</span>
+									Filesize
+								</div> -->
+								<%= link_to 'FEE DEFAULTER',{:controller => 'finance' , :action=> 'fee_defaulters_batch_pdf',:batch_ids => @batch_array},:class => 'button'%>
+								<%= link_to 'STUDENT LIST',{:controller => 'student' , :action=> 'print_student_pdf_details',:batch_ids => @batch_array},:class => 'button'%>
+							</div>
+							
+							<div class="dark-grey-gradient with-padding" style="height:400px; overflow: auto">
+								
+								<div class="loading-tab stick-to-top">
+									<span class="button">File1.zip <img src="/assets/icons/fugue/tick-circle-blue.png" width="16" height="16"></span>&nbsp;
+									<span class="button">File2.zip <img src="/assets/icons/fugue/cross-circle.png" width="16" height="16"></span>&nbsp;
+									<span class="button">
+										File3.zip
+										<span class="progress-bar"><span style="width:50%">50%</span></span>
+										<small>1.74 Mo / 2.75 Mo</small>
+									</span>&nbsp;
+									<span class="button">
+										File4.zip
+										<span class="progress-bar"><span class="orange with-stripes"></span></span>
+									</span>
+								</div>
+								<ul class="files">
+									<%student_count = []%>
+									<%@students_list.each do |std|%>
+									<%std.each do |student|%>
+									<%student_count <<  student unless student_count.include?(student)%>
+									<li><a href="/student/my_profile?q=<%=student.admission_no%>">
+										<span>
+											<%if FileTest.exists?("#{Rails.root}/public/system/student_photos/#{student.id}")&& !student.student_photo.nil?%>
+												 <img src=" <%=student.student_photo.url(:small) %>" width="64" height="45" class="thumb">
+												<%elsif student.gender.upcase=="M"%>
+												<img src="/assets/icons/web-app/48/male.png" width="64" height="45" class="thumb">
+												
+												<%else%>
+												<img src="/assets/icons/web-app/48/female.png" width="64" height="45" class="thumb">
+												
+												<% end %>
+										</span>
+										<%=student.full_name %> <br /><%="("+  student.batch.full_name + ")"%>
+									</a></li>
+									<%end%>
+									<%end%>
+									<%= hidden_field_tag :student_list_pdf_val ,student_count.count%>
+								</ul>
+								
+							</div>
+						</div>
+						
+						<ul class="message">
+							<li><%=student_count.count%> Students found</li>
+						</ul>
+						
+					</div>

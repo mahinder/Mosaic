@@ -1,0 +1,38 @@
+<%unless params[:person_type]== "Guest"%>
+<fieldset class="grey-bg">
+	<legend>
+		Pay Instant Fees
+	</legend>
+	<div class="columns">
+		<p class="colx3-left required select-fixed-width1">
+			<label for="Intant Fees">Instant Fees</label>
+			<%= select "selected_instant_fees","id", @intant_fees.map {|u| [u.name,u.id]} +  ["Custom"],{:prompt => "Select"} %>
+		</p>
+		<p class="colx3-right">
+			<label for="Fees For"><%= @unknown_person.role_name%> Name</label>
+			<strong><%= @person.full_name%></strong>
+		</p>
+	</div>
+	<input type="hidden" name="personId" id="personId" value="<%= @person_id%>" />
+	<div id="getInstantFeeCollectionTable"></div>
+</fieldset>
+<%else%>
+<fieldset class="grey-bg">
+	<legend>
+		Pay Instant Fees
+	</legend>
+	<div class="columns">
+		<p class="colx3-left required select-fixed-width1">
+			<label for="Intant Fees">Instant Fees</label>
+			<%= select "selected_instant_fees","id", @intant_fees.map {|u| [u.name,u.id]} +  ["Custom"],{:prompt => "Select"} %>
+		</p>
+		<p class="colx3-center required">
+			<label for="Guest Name">Guest Name</label>
+			<%= text_field_tag :guest_name, nil , :class => 'full-width'%>
+		</p>
+	</div>
+	<input type="hidden" name="personId" id="personId" value="Guest" />
+	<div id="getInstantFeeCollectionTable"></div>
+</fieldset>
+
+<%end%>

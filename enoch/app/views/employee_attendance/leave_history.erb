@@ -1,0 +1,50 @@
+<div class="block-border" id="outer_block">
+	<div class="block-content form">
+  <h1>Employee Attendance</h1>
+    		<div class="block-controls enoch_block">
+			<ul class="controls-tabs js-tabs">
+				<li >
+					<a href="<%= dashboard_path(@user) %>" title ="Back"> <img src="/assets/icons/web-app/32/Back.png" width="24" height="24"></a>
+				</li>
+			</ul>
+		</div>
+  <h3>Leave history of <%=@employee.full_name%> </h3>
+    <%=form_for :period ,:url=>{:action=>'update_leave_history', :id=>@employee.id}, :remote => true do |f| %>
+     <fieldset>
+     	<legend>
+     		Leave History
+     	</legend>
+  
+     <div class="column">
+    <p class="colx3-left">
+    <label for="reason">  Start Date</label>
+    <span class="input-type-text"><%= f.text_field :start_date,:value => 1.month.ago.to_date, :class => "datepicker", :size => 20 %><%= image_tag "icons/fugue/calendar-month.png" %></span>
+    </p>
+ 
+     <p class="colx3-center">
+    <label for="reason">  End Date</label>
+    <span class="input-type-text"><%= f.text_field :end_date,:value => Date.today, :class => "datepicker", :size => 20 %><%= image_tag "icons/fugue/calendar-month.png" %></span>
+    </p>
+    
+    	<button type="submit" value="Go" style="margin-top: 1.5em;" id="leaveHistory">Go</button>
+     
+ </div>
+    </fieldset>
+    <% end %>
+   <div id="updateleaveHistory"></div>
+   
+    <br />
+<fieldset class="grey-bg no-margin">
+							<legend>
+								Action
+							</legend>
+							<p class="colx3-left">
+								    <%  if permitted_to? :emp_attendance,:employee_attendance %>
+									    <%= link_to 'Mini Report', {:action => 'emp_attendance', :id=>@employee.id},:class => 'big-button' %>
+									 <% end %>
+							</p>
+</fieldset>
+
+</div>
+</div>
+<input type="hidden" name="employeeLeaveId" id="employeeLeaveId" value="<%= @employee.id%>"/>

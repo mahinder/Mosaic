@@ -1,0 +1,11 @@
+<div class="box newAlbum">
+<h1>User</h1>
+<%= link_to 'Back', albums_path,:class => 'backbtn' %>
+Name : <strong><%= @users.name %></strong>
+
+<footer>
+<%= link_to 'Show', @users ,:class =>'btnSubmit' %>
+   <%= link_to 'Edit', edit_user_path(@users),:class =>'btnSubmit' %>
+   <%= link_to 'New Album', new_album_path ,:class => 'btnSubmit'%>
+</footer>
+</div>

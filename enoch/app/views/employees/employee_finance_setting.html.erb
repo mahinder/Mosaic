@@ -1,0 +1,37 @@
+<div class="block-border">
+	<div class="block-content form">
+		<div class="block-controls enoch_block">
+					<ul class="controls-tabs js-tabs">
+						<li >
+					<%= link_to image_tag("/assets/icons/web-app/32/Back.png"), :back %>
+				</li>
+					</ul>
+				</div>	
+		<h1>Finance Setting</h1>
+		
+		<%unless flash[:notice].nil?%>
+		<ul class="message success">
+			<li><%=flash[:notice]%></li>
+		</ul>
+		<%end%>
+		
+				<ul class="shortcuts-list">
+					<%employee = Employee.find_by_user_id(current_user.id)%>
+					<li>
+					<a href="/payroll/manage_payroll?id=<%=employee.id%>"> <%= image_tag "dashboard/finance.png", :size => "48x48"  %> <h4>Manage Payroll </h4></a>
+				</li>
+				<li>
+					<a href="/employees/payslip"> <%= image_tag "dashboard/finance.png", :size => "48x48"  %> <h4>Create Payslip </h4></a>
+				</li>
+			<!-- 	<li>
+					<a href="/employees/department_payslip"> <%= image_tag "dashboard/finance.png", :size => "48x48"  %> <h4>Employee Payslip </h4></a>
+				</li> -->
+				<li>
+					<a href="/employees/department_payslip"> <%= image_tag "dashboard/finance.png", :size => "48x48"  %> <h4>View Payslip </h4></a>
+				</li>
+				<li>
+					<a href="/finance/approve_monthly_payslip"> <%= image_tag "dashboard/finance.png", :size => "48x48"  %> <h4>One click approve payslip </h4></a>
+				</li>
+				</ul>
+	</div>
+</div>

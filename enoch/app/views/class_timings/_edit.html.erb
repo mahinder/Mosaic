@@ -1,0 +1,41 @@
+<div class="block-border" id="outer_block">
+	<%= form_for @class_timing, :html => { :class => "block-content form", :id => "course-form"} do |form| %>
+	<h1>Edit Class Timing For<% if @class_timing.batch.nil?%>
+      <%= "common" %>
+    <% else %>
+      <%=  @class_timing.batch.full_name %>
+    <% end %></h1>
+	<%= render 'shared/form_errors', :object => form.object %> 
+	<fieldset class="grey-bg">
+		 <% batch_id = (@class_timing.batch.nil? ? nil : @class_timing.batch.id) %>
+		 <input type="hidden" name="batch_id" value='<%=batch_id%>' />
+    		<input type="hidden" name="time_id" value='<%=@class_timing.id%>' id ="class_timing_time_id" />
+		<div class="colx3-left">
+			<label for="course_name">Name</label>
+			<span class="relative"> <%= form.text_field :name ,:class =>"full-width"%> </span>
+		</div>
+		<div class="colx3-center">
+			<label for="course_code">Start Time</label>
+			<span class="relative"> <%= time_select :class_timing, :start_time, {:minute_step => 5} %> </span>
+		</div>
+		<div class="colx3-right">
+			<label for="course_level">End Time</label>
+			<span class="relative"> <%= time_select :class_timing, :end_time, {:minute_step => 5} %></span>
+		</div>
+		<br />
+		<div class="colx3-left ">
+			<label for="complex-en-url">Is a break</label>
+				<span class="relative"><% if @class_timing.is_break %>
+					      <%= form.check_box :is_break, :checked => true %> Is a break
+					      <% else %>
+					      <%= form.check_box :is_break, :checked => false %> Is a break
+			      <% end %></span>
+		</div>
+	</fieldset>
+	
+	<!-- <%=form.submit '► Save', :class => 'big-button' %>	 -->
+	
+	
+	<%end%>
+	</div>
+

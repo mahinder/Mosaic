@@ -1,0 +1,71 @@
+<div class="block-border" id="outer_block">
+	<div class="block-content form">
+  
+  <h1>Exam wise Reports</h1>
+  <div class="block-controls enoch_block">
+					<ul class="controls-tabs js-tabs">
+						<li >
+					<%= link_to image_tag("/assets/icons/web-app/32/Back.png"), :controller=>'sessions',:action=>'dashboard'%>
+			
+				</li>
+					</ul>
+				</div>	
+  
+    <% unless flash[:notice].nil? %>
+	<ul class="message success grid_12">
+       <li><strong><%= flash[:notice] %></strong></li>
+       <li class="close-bt"></li>
+       	</ul>
+    <% end %>
+
+
+<%= form_for :additional_exam_group_report, :url=>{:action=>'view_additional_exam_group_report'} do |x| %>
+ 
+
+<fieldset class="grey-bg">
+					<legend>Required fields</legend>
+					<div class="columns">
+						<p class="colx2-left required select-fixed-width1">
+		<label for="exam_name">Course</label>
+		<%= select :additional_exam, :course,
+        @courses.map {|b| [b.course_name, b.id]},
+        {:prompt => 'Select'} %>
+	</p>
+	<p class="colx2-left required">
+		<label for="exam_name">Batch</label>
+		<div id="additional_batch_id" class="select-fixed-width1">
+		<%= select :additional_exam, :batch_id,
+        @batches.map {|b| [b.name, b.id]},
+        {:prompt => 'Select'} %></div>
+	</p>
+	 <p class="colx-right required">
+		<label for="exam_type">Exam Group</label>
+		<div id="additional_group_id" class="select-fixed-width1">
+		<%= select :additional_exam, :group_id,
+        @additional_exam_group.map {|b| [b.name, b.id]},
+        {:prompt => 'Select'} %>
+	</div>
+	</p>
+	
+</div>
+</fieldset>
+
+
+  <fieldset class="grey-bg no-margin">
+	<legend>
+		Action
+	</legend>
+	<p class="input-with-button">
+		<%= x.submit "View", :class => "big-button",:id=>'additional_exa_g_report'%>
+	</p>
+</fieldset>
+
+   
+
+<% end %>
+
+  <div class="extender">
+
+      </div>
+ </div></div>
+  

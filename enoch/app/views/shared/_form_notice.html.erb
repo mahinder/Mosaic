@@ -1,0 +1,19 @@
+				<% unless flash[:notice].nil? %>
+				<ul class="message warning ">
+					<li><%= flash[:notice] %></li>
+					<li class="close-bt"></li>
+				</ul>
+				<% end %>
+				<% unless flash[:error].nil? %>
+				<ul class="message error ">
+					<li><%= flash[:error] %></li>
+					<li class="close-bt"></li>
+				</ul>
+				<% end %>
+				<% unless flash[:success].nil? %>
+				<ul class="message success ">
+					<li><%= flash[:success] %></li>
+					<li class="close-bt"></li>
+				</ul>
+				<% end %>
+				  

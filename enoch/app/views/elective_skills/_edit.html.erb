@@ -1,0 +1,32 @@
+<div class="block-border" id="outer_block">
+	<%= form_for (@elective_skill), :html => { :class => "block-content form", :id => "elective-form"} do |form| %>
+	<%= render 'shared/form_errors', :object => form.object %> <h1>Elective Skill</h1>
+	<fieldset class="grey-bg">
+		<legend>
+			Required fields for course
+		</legend>
+		<div class="colx3-left-double required">
+			<label for="course_name">Elective Skills Name</label>
+			<span class="relative"> <%= form.text_field :name ,:class => "special_char1"%> </span>
+		</div>
+		
+	<!-- </fieldset>
+		<fieldset class="grey-bg no-margin">
+		<legend>
+			Action on create
+		</legend>
+		<div class="columns">
+			<div class="colx2-right">
+				<button id="update_elective" type="submit" >
+					Update
+				</button>
+				<button id="reset_elective" type="reset">
+					Clear
+				</button>
+				<input type="hidden" id="current_object_id" name="current_object_id" value=""/>
+			</div>
+		</div>
+	</fieldset> -->
+	<%end%>
+</div>
+

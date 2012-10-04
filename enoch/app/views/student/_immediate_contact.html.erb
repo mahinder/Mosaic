@@ -1,0 +1,32 @@
+
+  <h3>Select one of the guardians as emergency contact.</h3>
+
+<%unless @parents.nil? %>
+    <ul id="parents-list">
+      <% @parents.each do |p| %> 
+		      <% if p.is_immediate_contact? %>
+		      <ul class="mini-blocks-list">
+					<li>
+						<a href="#" class="float-left"><input type="radio" name="colors" checked="checked"  id="<%= p.id%>"/><%= p.full_name %><br />  </a>
+						<ul class="tags float-right">
+							<li class="tag-time"><%= p.mobile_phone %></li>
+						</ul>
+					</li>
+					</ul>
+		      
+			    <% else%>
+			    <ul class="mini-blocks-list">
+					<li>
+						<a href="#" class="float-left"><input type="radio" name="colors" id="<%= p.id%>" /><%= p.full_name %><br />  </a>
+						<ul class="tags float-right">
+							<li class="tag-time"><%= p.mobile_phone %></li>
+						</ul>
+					</li>
+					</ul> 
+		      <% end %>
+        <input type="hidden" name="guardian_id" id="guardian_id" value="<%= @student.id%>" />  
+      <% end %>
+    </ul>
+<%else%>
+ No Guardian Found
+<%end%>

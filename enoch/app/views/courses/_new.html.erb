@@ -1,0 +1,58 @@
+<div class="block-border" id="outer_block">
+	<%= form_for setup_course(@course),:url => { :action => 'create'},:remote => true, :html => { :class => "block-content form", :id => "course-form"} do |form| %>
+	<%= render 'shared/form_errors', :object => form.object %> <h1>Course</h1>
+	<fieldset class="grey-bg">
+		<legend>
+			Required Fields for Course
+		</legend>
+		<div class="columns">
+			<div class="colx3-left required">
+				<label for="course_name">Name</label>
+				<span class="relative"> <%= form.text_field :course_name , :size => '24' %> </span>
+			</div>
+			<div class="colx3-center required">
+				<label for="course_code">Code</label>
+				<span class="relative"> <%= form.text_field :code, :size => '24' %> </span>
+			</div>
+			<div class="colx3-right required">
+				<label for="course_level">Level</label>
+				<span class="relative"> <%= form.text_field :level  , :size => '3'%> </span>
+			</div>
+		</div>
+		<!-- <div class="columns">
+			<div class="colx3-left required">
+				<label for="course_level">Course Level</label>
+				<span class="relative"> <%= form.text_field :level ,:class => "numeric1" , :size => '24'%> </span>
+			</div> -->
+			<!-- <div class="colx3-center">
+				<label for="complex-en-url">Section Name</label>
+				<span class="relative"> <%= form.text_field :section_name, :size => '24' ,:class => "special_char1"%> </span>
+			</div> -->
+		<!-- </div> -->
+	</fieldset>
+	<%= form.fields_for :batches do |batch_form| %>
+	<fieldset class="grey-bg">
+		<legend>
+			Required Fields for Batch
+		</legend>
+		<div class="columns">
+			<div class="colx3-left required">
+				<label for="batch_name">Batch Name</label>
+				<span class="relative"> <%= batch_form.text_field :name %> </span>
+			</div>
+		</div>
+		<div class="columns">
+			<div class="colx3-left required">
+				<label for="course_code">Start Date</label>
+				<span class="input-type-text margin-right relative"> <%= batch_form.text_field  :start_date, :value => Date.today.strftime('%d''-''%m''-''%Y') ,:size => 16 ,:class => "modal_date_picker"%> <img src=" /assets/icons/fugue/calendar-month.png" width="16" height="16"> </span>
+			</div>
+			<div class="colx3-center required">
+				<label for="course_code">End Date</label>
+				<span class="input-type-text margin-right relative"> <%= batch_form.text_field  :end_date, :value => (Date.today+1.year).strftime('%d''-''%m''-''%Y') ,:size => 16  ,:class => "modal_date_picker"%> <img src=" /assets/icons/fugue/calendar-month.png" width="16" height="16"> </span>
+			</div>
+		</div>
+	</fieldset>
+	<% end %>
+
+	<%end%>
+</div>

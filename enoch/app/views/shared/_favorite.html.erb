@@ -1,0 +1,126 @@
+				<!--<div class="block-border"><div class="block-content">-->
+				<h1>Favourites</h1>
+				<% @batch_student_favourites = Student.find_by_admission_no(@user.username)%>
+				<% if @user.admin? || @user.employee? %>
+				<ul class="favorites no-margin with-tip" title="Context menu available!">
+					<li>
+						<%= image_tag "dashboard/calendar.png", :size => "48x48"  %>
+						<a href="/calendars">Calendar<br>
+						<small>Add Holidays and Events</small></a>
+						<ul class="mini-menu">
+							<li><a href="#" title="Move down"><%= image_tag "icons/fugue/arrow-270.png", :size => "16x16"  %></a></li>
+							<li><a href="#" title="Delete"><%= image_tag "icons/fugue/cross-circle.png", :size => "16x16"  %> Delete</a></li>
+						</ul>
+					</li>
+					
+					<li>
+						<%= image_tag "dashboard/userprivileges.png", :size => "48x48"  %>
+						<a href="/users/privileges_of_any_user">Manage Privileges<br>
+						<small>User Rights and Roles</small></a>
+						<ul class="mini-menu">
+							<li><a href="#" title="Move up"><%= image_tag "icons/fugue/arrow-090.png", :size => "16x16"  %></a></li>
+							<li><a href="#" title="Move down"><%= image_tag "icons/fugue/arrow-270.png", :size => "16x16"  %></a></li>
+							<li><a href="#" title="Delete"><%= image_tag "icons/fugue/cross-circle.png", :size => "16x16"  %> Delete</a></li>
+						</ul>
+					</li>
+					
+					<li>
+						<%= image_tag "dashboard/timetable-substitution.png", :size => "48x48"  %>
+						<a href="/timetable/timetable_substitution">Reassign Periods<br>
+						<small>Timetable Substitution</small></a>
+						<ul class="mini-menu">
+							<li><a href="#" title="Move up"><%= image_tag "icons/fugue/arrow-090.png", :size => "16x16"  %></a></li>
+							<li><a href="#" title="Move down"><%= image_tag "icons/fugue/arrow-270.png", :size => "16x16"  %></a></li>
+							<li><a href="#" title="Delete"><%= image_tag "icons/fugue/cross-circle.png", :size => "16x16"  %> Delete</a></li>
+						</ul>
+					</li>
+					
+					<li>
+						<%= image_tag "dashboard/Apps-package-settings-icon.png", :size => "48x48"  %>
+						<a href="/dashboard_settings">School Settings<br>
+						<small>Manage School Configuration</small></a>
+						<ul class="mini-menu">
+							<li><a href="#" title="Move up"><%= image_tag "icons/fugue/arrow-090.png", :size => "16x16"  %></a></li>
+							<li><a href="#" title="Move down"><%= image_tag "icons/fugue/arrow-270.png", :size => "16x16"  %></a></li>
+							<li><a href="#" title="Delete"><%= image_tag "icons/fugue/cross-circle.png", :size => "16x16"  %> Delete</a></li>
+						</ul>
+					</li>
+					
+					<li>
+						<%= image_tag "dashboard/users.png", :size => "48x48"  %>
+						<a href="/users/reset_password_of_any_user">Manage Users<br>
+						<small>Reset Password</small></a>
+						<ul class="mini-menu">
+							<li><a href="#" title="Move up"><%= image_tag "icons/fugue/arrow-090.png", :size => "16x16"  %></a></li>
+							<li><a href="#" title="Move down"><%= image_tag "icons/fugue/arrow-270.png", :size => "16x16"  %></a></li>
+							<li><a href="#" title="Delete"><%= image_tag "icons/fugue/cross-circle.png", :size => "16x16"  %> Delete</a></li>
+						</ul>
+					</li>
+					
+					<li>
+						<%= image_tag "dashboard/Report Center.png", :size => "48x48"  %>
+						<a href="/student/student_search?query=report">Student Reports<br>
+						<small>Report Center</small></a>
+						<ul class="mini-menu">
+							<li><a href="#" title="Move up"><%= image_tag "icons/fugue/arrow-090.png", :size => "16x16"  %></a></li>
+							<li><a href="#" title="Move down"><%= image_tag "icons/fugue/arrow-270.png", :size => "16x16"  %></a></li>
+							<li><a href="#" title="Delete"><%= image_tag "icons/fugue/cross-circle.png", :size => "16x16"  %> Delete</a></li>
+						</ul>
+					</li>
+				</ul>
+				
+				<% elsif @user.student? %> 
+					<ul class="favorites no-margin with-tip" title="Context menu available!">
+						<li>
+							<%= image_tag "dashboard/student-report.png", :size => "48x48"  %>
+							<a href="/student/reports?batch_id=<%= @batch_student_favourites.batch_id %>&q=<%= @batch_student_favourites.admission_no %>&query=Exam">Examination Reports<br>
+							<small>Report Center</small></a>
+							<ul class="mini-menu">
+								<li><a href="#" title="Move down"><%= image_tag "icons/fugue/arrow-270.png", :size => "16x16"  %></a></li>
+								<li><a href="#" title="Delete"><%= image_tag "icons/fugue/cross-circle.png", :size => "16x16"  %> Delete</a></li>
+							</ul>
+						</li>
+						
+						<li>
+							<%= image_tag "dashboard/studentattendance.png", :size => "48x48"  %>
+							<a href="/student/reports?batch_id=<%= @batch_student_favourites.batch_id %>&q=<%= @batch_student_favourites.admission_no %>&query=Attendance">Attendance Reports<br>
+							<small>Report Center</small></a>
+							<ul class="mini-menu">
+								<li><a href="#" title="Move up"><%= image_tag "icons/fugue/arrow-090.png", :size => "16x16"  %></a></li>
+								<li><a href="#" title="Move down"><%= image_tag "icons/fugue/arrow-270.png", :size => "16x16"  %></a></li>
+								<li><a href="#" title="Delete"><%= image_tag "icons/fugue/cross-circle.png", :size => "16x16"  %> Delete</a></li>
+							</ul>
+						</li>
+						
+						<li>
+							<%= image_tag "dashboard/award.png", :size => "48x48"  %>
+							<a href="/student/reports?batch_id=<%= @batch_student_favourites.batch_id %>&q=<%= @batch_student_favourites.admission_no %>&query=Award">Awards<br>
+							<small>Report Center</small></a>
+							<ul class="mini-menu">
+								<li><a href="#" title="Move up"><%= image_tag "icons/fugue/arrow-090.png", :size => "16x16"  %></a></li>
+								<li><a href="#" title="Delete"><%= image_tag "icons/fugue/cross-circle.png", :size => "16x16"  %> Delete</a></li>
+							</ul>
+						</li>
+					</ul>
+				
+				<%end%>
+				
+								
+								
+								
+				<!-- <form class="form" name="stats_options" id="stats_options" method="post" action="">
+					<fieldset class="grey-bg no-margin">
+						<legend>Add favourite</legend>
+						<p class="input-with-button">
+							<label for="simple-action">Select page</label>
+							<select name="simple-action" id="simple-action">
+								<option value=""></option>
+								<option value="1">Page 1</option>
+								<option value="2">Page 2</option>
+							</select>
+							<button type="button">Add</button>
+						</p>
+					</fieldset>
+				</form> -->
+				
+			<!--</div></div>-->		

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;twitter/app/assets/videos/Lal Lal Kurti.mp3&apos; to &apos;LalLalKurti.mp3&apos;" description="Rename resource &apos;Lal Lal Kurti.mp3&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="app/assets/videos/Lal Lal Kurti.mp3" name="LalLalKurti.mp3" stamp="1345997543880" updateReferences="true"/>
+</session>

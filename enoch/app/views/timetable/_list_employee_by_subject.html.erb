@@ -1,0 +1,14 @@
+<li style="display: inline-block;"  class = "li_select"  data_employee = "" data_sub_id = "<%=@subject.id%>" data_sub_name = "<%=@subject.name%>" data_elective = "<%= elective unless @subject.elective_group.nil?%>">
+				No Employee
+			</li>
+<% unless @employee.empty? %>
+		<%@employee.each do |emp|%>
+		
+			
+			<li style="display: inline-block;"  class = "li_select"  data_employee = "<%= emp.id%>" data_sub_id = "<%=@subject.id%>" data_sub_name = "<%=@subject.name%>" data_elective = "<%= elective unless @subject.elective_group.nil?%>">
+				<a href="" class="float-left employee_info_click" > <%= emp.first_name %> <%= emp.last_name %></a>
+			</li>
+		<%end%>
+	<%else%>
+	<h3>No Employees assigned yet!</h3>	
+<%end%>

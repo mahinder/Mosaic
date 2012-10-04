@@ -1,0 +1,72 @@
+<form class="block-content form" id="table_form" method="post" action="">
+<h1>Particular List</h1>
+
+  <table class="table masterCategory_particular no-margin" align="center" width="100%" cellpadding="1" cellspacing="1">
+    <thead>
+						<tr>
+							<th class="black-cell"></th>
+							<th scope="col">
+								<span class="column-sort">
+									<a href="#" title="Sort up" class="sort-up"></a>
+									<a href="#" title="Sort down" class="sort-down"></a>
+								</span>
+								Particulars
+							</th>
+							<th scope="col">Student Category</th>
+							<th scope="col">
+								<span class="column-sort">
+									<a href="#" title="Sort up" class="sort-up"></a>
+									<a href="#" title="Sort down" class="sort-down"></a>
+								</span>
+								Name
+							</th>
+							<th scope="col">Amount ( currency )</th>
+							<th scope="col">Created Date</th>
+							<th scope="col">Action</th>
+						</tr>
+		</thead>
+<tbody>
+
+    <% @particulars.each_with_index do |fees,i| %>
+	<tr>
+		<td class="th table-check-cell"></td>
+        <td><%= fees.name %></td>
+        <td>
+          <%unless fees.student_category_id.nil?%>
+            <%= StudentCategory.find(fees.student_category_id).name%>
+          <% else %> - <% end %>
+        </td>
+        <td>
+          <%unless fees.students.empty?%>
+          <%student_name= ""%>
+	          <%fees.students.each do |student_id|%>
+	                 <%  student =  Student.find_by_id(student_id)%>
+	                    <%if student_name == ""%>
+	                      <%student_name = student_name + student.full_name%>
+	                    <%else%>
+	                      <%student_name = student_name+","+ student.full_name%>
+	                    <%end%>
+	          <%end%>
+	          <strong><%= student_name.nil? ? "N.A." : student_name %></strong>
+          <% else %> - <% end %>
+        </td>
+        <td><%= fees.amount%></td>
+        <td><%= fees.created_at.strftime("%m-%d-%Y") %></td>
+        <td>
+        	<input type="hidden" name="object_id" value="<%= fees.id %>"/>											
+			<a href="#" id="update-href-<%= fees.id %>" title="Edit" view_description="<%= fees.description %>" view_name="<%= fees.name %>" view_amount="<%= fees.amount %>" view_student="<%= fees.student_category_id %>"  view_admission="<%= fees.admission_no %>" class="with-tip update-masterParticular-master-href"><img src="/assets/icons/fugue/pencil.png" width="16" height="16"></a>
+			<a href="#" id="delete-href-<%= fees.id %>" title="Delete" class="with-tip delete-masterParticular-master-href"><img src="/assets/icons/fugue/cross-circle.png" width="16" height="16"></a>
+          <!-- <span class="small"> <%= link_to 'Edit', :url => { :action => 'master_category_particulars_edit',:id => fees.id} %></span>
+          <%#  unless @finance_fee_category.check_fee_collection == false %>
+            <span class="small"> <%= link_to 'Delete',:confirm=>"Delete the fee particular ?", :url => { :action => 'master_category_particulars_delete',:id => fees.id} %></span>
+          <%# else %>
+            <%#*<span class="small-strike">delete</span>%>
+          <%# end %> -->
+        </td>
+      </tr>
+    <% end %>
+</tbody>
+
+  </table>
+
+</form>

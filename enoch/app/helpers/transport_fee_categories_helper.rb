@@ -1,0 +1,2 @@
+module TransportFeeCategoriesHelper
+end

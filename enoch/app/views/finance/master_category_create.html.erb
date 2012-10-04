@@ -1,0 +1,69 @@
+<div id="changeCategoryToParticular">
+<div class="block-border" id="outer_block">
+	<div class="block-content form">
+		<h1>Create Master Category</h1>
+		<div class="block-controls enoch_block">
+			<ul class="controls-tabs js-tabs">
+				<li>
+					<a href="/finance/fee_discounts" id="" ><%= image_tag "/assets/icons/web-app/24/fee discount 28.png", :size => "24X24" ,:title => "Fee Discounts" %></a>
+				</li>
+				<li>
+					<a href="/finance/fee_collection_new" id="" ><%= image_tag "fees/fee-collection.png", :size => "24X24" ,:title => "Fee Collection" %></a>
+				</li>
+				<li>
+					<a href="/finance/fees_submission_index" id="" ><%= image_tag "fees/fee-submission.png", :size => "24X24" ,:title => "Fee Submission" %></a>
+				</li>
+				<li >
+					<a href="/dashboard" title ="Back"> <img src="/assets/icons/web-app/32/Back.png" width="24" height="24"></a>
+				</li>
+			</ul>
+		</div>
+			<%= form_for :finance_fee_category, :url=>{:action=>'master_category_create'} do |f| %>
+			<fieldset>
+				<legend>
+					Create Master
+				</legend>
+				<div class="column">
+					<p class="colx2-left required">
+						<%= f.label :name %>
+						<%= f.text_field :name %>
+					</p>
+					<p class="colx2-right required ">
+						<label for="student_grade">Batch : <%= link_to_function 'All', "$('#batch_fee_master_id').each(function() {$('#batch_fee_master_id option').attr('selected','selected') });", :id => "selectionOfAllBatch"%>,
+							<%= link_to_function 'None', "$('#batch_fee_master_id').each(function() {$('#batch_fee_master_id option').removeAttr('selected') });", :id => "selectionOfNoneBatch" %> </label>
+						<%= collection_select(:batch_fee_master, :id, @batches, :id,:full_name,
+						{ :selected => @batches.map { |c| [c.full_name, c.id] }},
+						{:multiple => true, :role => 'batch[id][]',:style => "width:300px;height:100px;"  }) %>
+					</p>
+				</div>
+				<div class="column">
+					<p class="colx2-left required">
+						<label for="description">Description</label>
+						<%= f.text_field :description %>
+					</p>
+
+				</div>
+			</fieldset>
+
+					<fieldset class="grey-bg no-margin">
+					<legend>Action on create</legend>
+					<div class="columns">
+						<div class="colx2-right">
+							<button id="SaveMasterCategory" type="submit">Create</button>
+							<button id="update_master_category" type="button" >Update</button>
+							<button id="reset_master_category" type="button">Clear</button>
+							<input type="hidden" id="current_object_id" name="current_object_id" value=""/>
+						</div>
+					</div>
+				</fieldset>
+
+			<% end %>
+	</div>
+</div>
+			<div id="table-block" class="block-border">
+                  <div id="updateMasterCategoryList">
+							<%= render :partial => "master_category_list"%>
+						</div>
+			</div>
+			
+</div>

@@ -1,0 +1,44 @@
+<div class="block-border" id="outer_bloc">
+	<div class="block-content form">
+				<h1>Student Batch List</h1>
+						<div class="block-controls enoch_block">
+			<ul class="controls-tabs ">
+				<li >
+					<%= link_to image_tag("/assets/icons/web-app/32/Back.png"),:controller=>'/student', :action=>'reports',:id=>@student.id,:q=>@student.admission_no %>
+				</li>
+			</ul>
+		</div>
+				<%= form_for :student, :url => {:action =>'previous_years_marks_overview',:student_id =>@student.id,:type=>@type,:q =>@student.admission_no } do |form| %>
+		
+				<table class="table sortable no-margin previous_marks"  width="100%">
+				
+					<thead>
+						<tr>
+							<th class="black-cell"></th>
+							<th scope="col">
+								<span class="column-sort">
+									<a href="#" title="Sort up" class="sort-up"></a>
+									<a href="#" title="Sort down" class="sort-down"></a>
+								</span>
+								Batch
+							</th></tr></thead><tbody><%@all_batches.each do |ba|%>
+								<tr>
+							<td class="th table-check-cell"><%= check_box_tag "students[batches][]", ba.id%></td>
+							<td><%=ba.full_name %></td>
+		
+		<%end%>
+		</tbody></table>
+		
+		<fieldset class="grey-bg no-margin">
+				<legend>
+					Action
+				</legend>
+				<p class="input-with-button">
+					
+				<%= form.submit "Compare", :class => "big-button" ,:id =>'compare_marks'%>
+		
+				</p>
+			</fieldset>
+		 <%end%>
+	</div>
+</div>

@@ -1,0 +1,30 @@
+<div class="block-border">
+	<div class="block-content">
+		<h1>Manual Leave Reset</h1>
+  
+  <div class="block-controls enoch_block">
+			<ul class="controls-tabs js-tabs">
+				<li >
+					<%= link_to image_tag("/assets/icons/web-app/32/Back.png"), :back %>
+				</li>
+			</ul>
+		</div>
+		<% unless flash[:notice].nil? %>
+		<p class="flash-msg">
+			<%= flash[:notice] %>
+		</p>
+		<% end %>
+		<ul class="shortcuts-list">
+			<li>
+				<a href="/employee_attendance/leave_reset_settings"><%= image_tag "dashboard/student.png", :size => "48x48"  %><h4>Leave Reset Settings </h4></a>
+			</li>
+			<li>
+				<a href="/employee_attendance/employee_leave_reset_all"><%= image_tag "dashboard/student.png", :size => "48x48"  %><h4>Reset All </h4></a>
+			</li>
+			<li>
+				<a href="/employee_attendance/employee_leave_reset_by_department"><%= image_tag "dashboard/student.png", :size => "48x48"  %><h4>Department Reset</h4></a>
+			</li>
+			
+		</ul>
+	</div>
+</div>

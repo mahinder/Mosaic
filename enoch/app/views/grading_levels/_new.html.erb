@@ -1,0 +1,21 @@
+<div class="block-border" id="outer_block">
+	<div class="block-content form">
+		<div id="grading-levels-form">
+			<h4><%= @batch.full_name unless @batch.nil? %></h4>
+			<%= form_for :grading_level do |f| %>
+			<div class="columns">
+				<% batch_id = (@batch.nil? ? nil : @batch.id) %>
+				<%= f.hidden_field :batch_id, :value => batch_id %>
+				<p class="colx2-left required">
+					<label for="complex-fr-style">Grade Name</label>
+					<%= f.text_field :name,:size =>15 %>
+				</p>
+				<p class="colx2-right required">
+					<label for="complex-fr-style">Min score for this grade</label>
+					<%= f.text_field :min_score, :size =>15 %>
+				</p>
+			</div>
+			<% end %>
+		</div>
+	</div>
+</div>

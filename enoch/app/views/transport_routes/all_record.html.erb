@@ -1,0 +1,92 @@
+<div class="block-border" id="outer_block">
+	<%= form_for @transport_route,  :html => { :class => "block-content form", :id => "transport_route-form"} do |form| %>
+	<%= render 'shared/form_errors', :object => form.object %> <h1>Transport Route</h1>
+	<div class="block-controls enoch_block">
+		<ul class="controls-tabs js-tabs">
+			<li>
+			<a href="/transport_routes/all_record" title="Transport Route" class="with-tip"> <span><%= image_tag "transport/48*48/Route 28.png", :size => "30X30"  %></span></a>
+		   </li>
+		   <li>
+			<a href="/transport_boards/all_record" title="Transport Board" class="with-tip"> <span><%= image_tag "transport/48*48/bus-stop-s28.png", :size => "30X30"  %></span></a>
+		   </li>
+			 <li>
+			 <a href="/providers/all_record" title="Transport Provider" class="with-tip"> <span><%= image_tag "transport/48*48/provider 28.png", :size => "30X30"  %></span></a>
+			</li>
+			<li>
+				<a href="/transport_vehicles/all_record" title="Transport Vehicle" class="with-tip"> <span><%= image_tag "transport/48*48/vehicle 28.png", :size => "30X30"  %></span></a>
+			</li>
+			<li>
+				<a href="/transport_drivers/all_record" title="Transport Driver" class="with-tip"> <span><%= image_tag "transport/48*48/driver 28.png", :size => "30x30"  %></span></a>
+			</li>
+			<li>
+				<a href="/transport_details/all_record" title="Transport Details" class="with-tip"> <span><%= image_tag "transport/transport detail.png", :size => "30x30"  %></span></a>
+			</li>
+			<li>
+					<a href="/transport_fee_categories/all_record" title="Transport Fee Category" class="with-tip"> <span><%= image_tag "transport/48*48/category.png", :size => "30x30"  %></span></a>
+				</li> 
+			<li>
+				<a href="/transport_details/transport_report" title="Transport Report" class="with-tip"> <span><%= image_tag "transport/48*48/Report 28.png", :size => "30x30"  %></span> </a>
+			</li> 
+			<li>
+				<a href="/transport_details/transport_fee_collection" title="Transport Fee Collection" class="with-tip"> <span><%= image_tag "transport/48*48/transport collection 28.png", :size => "30x30"  %></span> </a>
+			</li> 
+			<li >
+			 <%= link_to image_tag("/assets/icons/web-app/32/Back.png"), :controller=>"transport_routes",:action=>"transport_dashboard"%>
+			</li>
+		</ul>
+	</div>
+	<fieldset class="grey-bg">
+		<legend>
+			Required fields
+		</legend>
+		<div class="columns">
+			<p class="colx3-left required">
+				<label for="start_place">Route Name</label>
+				 <%= form.text_field :name,:size=>25 ,:class=>"full-length",:field_name=>"Route name" %>
+			</p>
+			<p class="colx3-left required">
+				<label for="start_place">Start Place</label>
+				 <%= form.text_field :start_place,:size=>25 ,:class=>"full-length",:field_name=>"Start Place" %>
+			</p>
+			<p class="colx3-left required">
+				<label for="end_place">End Place</label>
+				 <%= form.text_field :end_place,:size=>25 ,:class=>"full-length",:field_name=>"End Place" %>
+			</p>
+			<p class="colx3-left required">
+				<label for="distance">Distance(Km)</label>
+				 <%= form.text_field :distance,:size=>25 ,:class=>"full-length",:field_name=>"Distance" %>
+			</p>
+			 
+		</div>
+		
+	</fieldset>
+	<fieldset class="grey-bg no-margin">
+		<legend>
+			Action on create
+		</legend>
+		<div class="columns">
+			<div class="colx2-left-double">
+				<label for="simple-action">Status</label>
+				<%= form.radio_button  "status", "true", :checked => "checked" %>&nbsp;<label for="complex-en-active-1">Active</label>
+				<%= form.radio_button  "status", "false" %>&nbsp;<label for="complex-en-active-0">Inactive</label>
+			</div>
+			<div class="colx2-right">
+				<button id="create_route" type="submit">
+					Create
+				</button>
+				<button id="update_route" type="button" >
+					Update
+				</button>
+				<button id="reset_route" type="button">
+					Clear
+				</button>
+				<input type="hidden" id="current_object_id" name="current_object_id" value=""/>
+			</div>
+		</div>
+	</fieldset>
+	<% end %>
+</div>
+<br/>
+<div id="table-block" class="block-border">
+	<%= render 'route' %>
+</div>

@@ -1,0 +1,60 @@
+		<section class="grid_12">
+			<div class="block-border" id ="outer_block">
+				<form class="block-content form" id="complex_form" method="post" action="">
+				<h1>Time table</h1>
+				<div class="block-controls enoch_block">
+					<ul class="controls-tabs js-tabs">
+						<li >
+							<a href='/courses/all_record' title ="Courses" ><%= image_tag "dashboard/grade_level.png", :size => "24x24"  %></a>
+						</li>
+						<li >
+							<%= link_to image_tag("/assets/icons/web-app/32/Back.png"), :back ,:title => "Back"%>
+						</li>
+					</ul>
+				</div>
+				<ul class="message warning no-margin" id ="error" style="display: none">
+					<li  >Number of classes avaliable per week is <strong>greater than</strong> for subjects defined below</li>
+				</ul>
+				<br />
+				<fieldset class="grey-bg no-margin">
+				<legend>Batch</legend>
+					<div class="columns">
+						<div class="colx2-left required">
+							<p>
+								<label for="simple-action">Course</label>
+								 <%= select :course, :full_name,  @courses.map {|b| [b.full_name, b.id] }, {:prompt => 'Select'},:class => "course-select-timetable" %>
+							</p>	
+						</div>
+						<div class="colx2-rigth required" id = "time_batch">
+							<p>
+								<%= render 'batch'%>
+							</p>
+						</div>
+					</div>
+					<div class="columns">
+						<div class="colx3-left" id ="class_per_week">
+								<label for="simple-required">Batch Classes per week</label>
+								
+								<input type="text" name="simple-required" id="simple-batch-class" value="0">
+						</div>
+						<div class="colx3-center" id ="assign_per_week">
+								<label for="simple-required">Assigned Classes per week</label>
+								<input type="text" name="simple-required" id="simple-batch-assign" value="0">
+						</div>
+						<div class="colx3-right" id ="unassign_per_week">
+								<label for="simple-required" >Unassigned Classes per week</label>
+								<input type="text" name="simple-required" id="simple-batch-unassign" value="0">
+						</div>
+					</div>
+				</fieldset>
+				<div class="no-margin" id ="timetable_setting">
+					<%=render 'timetable_setting'%>
+					
+				</div>
+				
+				</form>
+			</div>
+		</section>
+		
+		
+	

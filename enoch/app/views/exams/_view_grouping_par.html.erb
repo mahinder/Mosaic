@@ -1,0 +1,24 @@
+<%unless @grouped_exams.empty?%>
+			<table cellspacing="0" class="list-calendar">
+						<tbody>
+							<%i=1%>
+							<%@grouped_exams.each do |grouped_exam|%>
+							<tr class="empty">
+								<th scope="row"><%= i%></th>
+								<td>
+									<ul class="mini-menu">
+										<li><a href="/exams/edit_grouping?id=<%= @batch.id%>&grouped_exam_id=<%= grouped_exam.id%>" title="Add event"><img src="/assets/icons/fugue/pencil.png" width="16" height="16"></a></li>
+											<li><a href="#" batch_id=<%= @batch.id%> grouped_exam_id=<%= grouped_exam.id%> title="delete event" id="delete_grouped_exam"><img src="/assets/icons/fugue/cross-circle.png" width="16" height="16"></a>
+										</li>
+									</ul>
+									<a href="generated_report5?batch_id=<%=@batch.id %>&type=grouped&grouped=<%=grouped_exam.id%>"><b><%= grouped_exam.grouped_exam_name%></b></a>
+								</td>
+								<%i+=1%>
+							</tr>
+							<%end%></tbody></table>
+			<%else%>
+			<ul class="message warning">
+       <li><strong>Sorry yet no connected exam for this batch</strong></li>
+       <li class="close-bt"></li>
+       	</ul> 
+			<%end%>

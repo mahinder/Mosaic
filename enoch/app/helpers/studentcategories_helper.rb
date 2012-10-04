@@ -1,0 +1,2 @@
+module StudentcategoriesHelper
+end

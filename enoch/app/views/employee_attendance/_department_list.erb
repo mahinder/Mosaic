@@ -1,0 +1,46 @@
+	<div class="block-border">
+		<div class="block-content form" id="table_form">
+			<h1>Employee Table</h1>
+
+
+
+<%= form_for :employee,:url=>{:action=>'update_department_leave_reset'} do |form| %>
+
+ <div class="no-margin">
+			<table class="table departmentListEmmployee" id="empDepList" cellspacing="0" width="100%">
+				<thead>
+					<tr>
+						<th class="black-cell"><input type="checkbox" id="chch" /></th>
+						<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> Employee Number </th>
+						<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> Employee Name </th>
+						<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> Department</th>
+						<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> Category </th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @employees.each do |b| %>
+					<tr>
+						<td><%= check_box_tag "employee_id[]", b.id, false,:class=>'batches_box' %></td>
+						<td><%= b.employee_number %></td>
+						<td><%= b.full_name %></td>
+						<td><%= b.employee_department.name %></td>
+						<td><%= b.employee_category.name %></td>
+					</tr>
+					<%end%>
+				</tbody>
+			</table>
+</div>
+<fieldset class="grey-bg no-margin">
+	<legend>
+		Action
+	</legend>
+	<p class="input-with-button">
+		<%= form.submit "Reset", :class => "big-button",:id => 'edlist' %>
+	</p>
+</fieldset>
+
+	
+
+<%  end %> 
+		</div>
+	</div>

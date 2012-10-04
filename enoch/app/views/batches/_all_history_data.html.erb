@@ -1,0 +1,24 @@
+<div>
+	<ul class="tabs js-tabs ">
+		<li class="current">
+			<a href="#history-tab-student">Students</a>
+		</li>
+		<li>
+			<a href="#history-tab-subject">Subjects</a>
+		</li>
+		<li>
+			<a href="#history-tab-teacher">Teacher</a>
+		</li>
+	</ul>
+</div>
+<div id="tabs-content" class="tabs-content">
+	<div id="history-tab-student">
+		<%= render 'history_students'%>
+	</div>
+	<div id="history-tab-subject">
+		<%= render 'history_subjects'%>
+	</div>
+	<div id="history-tab-teacher">
+		<%= render 'history_teacher'%>
+	</div>
+</div>

@@ -1,0 +1,90 @@
+<div class="block-border" id="outer_bloc">
+	<div class="block-content form">
+		<h1>Additional Exams</h1>
+		<br />
+		<div class="block-controls enoch_block">
+			<ul class="controls-tabs js-tabs">
+				<li >
+					<%= link_to image_tag("/assets/icons/web-app/32/Back.png"),:controller=>'/additional_exam', :action=>'create_additional_exam' %>
+				</li>
+			</ul>
+		</div>
+		<% unless flash[:notice].nil? %>
+		<ul class="message success grid_12">
+			<li>
+				<strong><%= flash[:notice] %></strong>
+			</li>
+			<li class="close-bt"></li>
+		</ul>
+		<% end %>
+		<% unless flash[:warn_notice].nil? %>
+		<ul class="message warning">
+			<li>
+				<strong><%= flash[:warn_notice] %></strong>
+			</li>
+			<li class="close-bt"></li>
+		</ul>
+		<% end %>
+		<div class="bread_crumb">
+			<b><%= link_to 'Courses', all_record_courses_path %> &raquo;
+			<%= link_to @course.full_name, all_record_courses_path%> &raquo;
+			<%= link_to "Batch #{@batch.name}", :controller => 'batches', :action => 'all_record', :id => @batch, :course_id => @course %> &raquo;</b>
+			Additional Exams
+		</div>
+		<br />
+		<br />
+		
+			<table class="table aexamgindex no-margin" id="aexamgroupindex" cellspacing="0" width="100%">
+				<thead>
+					<tr>
+						<th class="black-cell"></th>
+						<th scope="col">Exam name</th>
+						<th scope="col">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @config = SchoolConfiguration.available_modules %>
+					<% @additional_exam_groups.each do |exam_group| %>
+					<tr>
+						<td class="th table-check-cell"></td>
+						<td> <%= link_to exam_group.name,:controller => 'additional_exam_groups', :action => 'show',:batch_id => @batch,:id =>exam_group%> </td>
+						<td><small> <% unless exam_group.is_published %>
+							<%= link_to("Publish Exam Schedule", :controller=>'additional_exam',:action=>'publish',:id=>exam_group,:status=>"schedule", :remote => true)  %>
+							<% else  %>
+							<%  unless  exam_group.result_published  %> <b> Schedule published.</b> <% if @config.include?('SMS') %>
+							<%= link_to "Resend",:controller=>'additional_exam',:action=>'publish',:id=>exam_group,:status=>"schedule",:remote => true,
+							:before => "Element.show('loader')",
+							:success => "Element.hide('loader')"  %> SMS notification.
+							<br />
+							<% end %>
+							<%= link_to("Publish Exam Result",:controller=>'additional_exam',:action=>'publish',:id=>exam_group.id,:status=>"result",:remote => true,
+							:before => "Element.show('loader')",
+							:success => "Element.hide('loader')")  %>
+							<% else %> <b>Result published.</b> <% if @config.include?('SMS') %>
+							<%= link_to "Resend  SMS notification",:controller=>'additional_exam',:action=>'publish',:id=>exam_group.id,:status=>"result",:remote =>true,
+							:before => "Element.show('loader')",
+							:success => "Element.hide('loader')"  %>
+							<% end  %>
+							<% end  %>
+							<% end  %> <span id="publish-notice-<%= exam_group.id%>"></span> <%= image_tag("loader.gif",
+							:align => "absmiddle",
+							:border => 0,
+							:id => "loader",
+							:style =>"display: none;" ) %> </small> &nbsp;&nbsp;<span><small> <%= link_to('Delete',{:action => 'destroy'},{:batch_id => @batch.id,:additional_exam_group_id =>exam_group.id,:id=> 'additional_exam_group_destroy'} ) if exam_group.removable? %> <s><%= 'Delete' unless exam_group.removable? %></s> </small></span></td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+			<br />
+			<fieldset class="grey-bg no-margin">
+				<legend>
+					Action
+				</legend>
+				<p class="input-with-button">
+					<% if permitted_to? :new, :additional_exam_groups %>
+					<input type="button" class="big-button" value="New" onclick="$(location).attr('href','/additional_exam_groups/new?batch_id=<%= @batch.id%>');"/>
+					<% end %>
+				</p>
+			</fieldset>
+	
+	</div>

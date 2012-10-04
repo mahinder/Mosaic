@@ -1,0 +1,77 @@
+
+<div class="block-border" id="outer_block">
+	<%= form_for @library_setting, :name => "setting-form", :html => { :class => "block-content form", :id => "setting-form"} do |form| %>
+	<%= render 'shared/form_errors', :object => form.object %> <h1>Library Setting</h1>
+	<div class="block-controls enoch_block">
+					<ul class="controls-tabs js-tabs">
+						<li >
+							<%= link_to image_tag("/assets/icons/web-app/32/Back.png"),"javascript:history.back()" %>
+						</li>
+					</ul>
+				</div>	
+	<fieldset class="grey-bg">
+		<legend>
+			Required fields
+		</legend>
+		<div class="columns">
+			<div class="colx3-left required">
+				<label for="category">Category</label>
+				<span class="relative"> <%= select_tag "whatever", options_for_select([ "Employee", "Student" ], "Student")  %> </span>
+			</div>
+			<div class="colx3-center required ">
+				<label for="Books to be issued">Number of Books to be issued</label>
+				<span class="relative">
+					<%= form.text_field :no_of_books_to_be_issued , :size => 5%>
+				</span>
+			</div>
+			<div class="colx3-right required ">
+				<label for="default_no_of_days_for_issue">Default Days for issue</label>
+				<span class="relative">
+					<%= form.text_field :default_no_of_days_for_issue  , :size => 5%>
+				</span>
+			</div>
+		</div>
+		<div class="columns">
+			<div class="colx3-left author_select required">
+				<p>
+					<label for="renew_period" >Renew Period</label>
+					<span class="relative">
+					<%= form.text_field :renew_period   , :size => 5%>
+				</span>
+				</p>
+			</div>
+			<div class="colx3-center required">
+				<label for="fine_charged_per_day_after_due_date">Fine per day</label>
+				<span class="relative">
+					<%= form.text_field :fine_charged_per_day_after_due_date   , :size => 5%>
+				</span>
+			</div>
+			
+		</div>
+	</fieldset>
+	
+	<fieldset class="grey-bg no-margin">
+		<legend>
+			Action on create
+		</legend>
+		<div class="columns">
+			<div class="colx2-right">
+				<button id="create_setting" type="submit" >
+					Create
+				</button>
+				<button id="update_setting" type="button" >
+					Update
+				</button>
+				<button id="reset_setting" type="button" >
+					Clear
+				</button>
+				<input type="hidden" id="current_object_id" name="current_object_id" value=""/>
+			</div>
+		</div>
+	</fieldset>
+	<% end %>
+</div>
+<br/>
+<div id="table-block" class="block-border">
+	<%= render '/library_settings/settings_table'%>
+	</div>

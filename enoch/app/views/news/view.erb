@@ -1,0 +1,80 @@
+
+<div class="block-border">
+	<div class="block-content form" id="complex_form">
+		<h1>News</h1>
+		<div class="block-controls enoch_block">
+			<ul class="controls-tabs js-tabs">
+				<li class="current">
+					<a href="/news/all" title="View All"><img src="/assets/icons/web-app/24/Bar-Chart.png" width="24" height="24"></a>
+				</li>
+				<% if permitted_to? :add,:news %>
+				<li>
+					<a href="/news/add" title="Add News"><img src="/assets/icons/web-app/24/Add.png" width="24" height="24"></a>
+				</li>
+				<% end %>
+				<li >
+						<a href="<%= dashboard_path(@user) %>" title ="Back"> <img src="/assets/icons/web-app/32/Back.png" width="24" height="24"></a>
+				</li>
+			</ul>
+		</div>
+		<% unless flash[:notice].nil? %>
+			<ul class="message success no-margin">
+					<li><%= flash[:notice] %></li>
+			</ul>
+		<% end %>
+		<fieldset class="grey-bg required">
+			<legend>
+				Read News
+			</legend>
+			<div class="infos">
+				<h3><%= @news.title %></h3>
+				<p>
+					Posted on <%= @news.created_at.strftime("%A, %d %B, %Y") %>
+				</p>
+			</div>
+			<div class="block-content form">
+				<fieldset >
+					<legend>
+						News Content
+					</legend>
+					<div class="float-left"><%= sanitize @news.content , :tags => %w[b i a h1 h2 h3 h5 u strike p img font span sup sub em strong pre code], :attributes => %w[href src style]%></div>
+					<% if @current_user.admin? %>
+					<ul class="tags float-right">
+						<li style=" background-image: url( /assets/icons/fugue/pencil.png);padding-left: 2em;">
+							<%= link_to "Edit News",
+							{:controller => "news",  :action => "edit", :id => @news.id }, :class => "submit",:title => 'Edit News'%>
+						</li>
+						<li style=" background-image: url( /assets/icons/fugue/cross-circle.png);padding-left: 2em;">
+							<%= link_to "Delete News",
+							{ :controller => "news", :action => "delete", :id => @news.id },
+							:confirm => 'Are you sure you want to delete this news item?', :class => "submit",:title => 'Delete News' %>
+						</li>
+					</ul>
+					<% end %>
+				</fieldset>
+			</div>
+		</fieldset>
+		<div class="block-content form" id="complex_form">
+			<h1>Comments</h1>
+			<span id="commentsCount">
+			<ul id="commentslist">
+			
+				<%= render :partial => "comment"%>
+				
+			</ul>
+			<div id="loading_comment"></div>
+			<h4 id="leave-a-comment">Leave a comment</h4>
+			<%= form_for :comment, :id => 'comments-form', :url => { :action => 'add_comment' }, :remote => true do |f| %>
+			<div class="full-width" id="simple-required">
+				<%= f.text_area :content , :rows => 3,:cols => 80 %>
+			</div>
+			<%= f.hidden_field :news_id, :value => @news.id %>
+			<br /><br />
+			<button type="submit"class="float" id="comment_added">
+				Submit
+			</button>
+			<% end %>
+		</div>
+		<input type="hidden" name="newsId" id="newsId" value="<%= @news.id%>" />
+	</div>
+</div>

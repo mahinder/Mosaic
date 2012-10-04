@@ -1,0 +1,3 @@
+
+<label for="Select Batch">Batch</label>	
+<%= select :student,:batch_wise_student, @batches.map{|c| [c.full_name, c.id]},{:prompt=>'Select'}%>

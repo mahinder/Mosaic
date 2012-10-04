@@ -1,0 +1,17 @@
+<%= form_for(@instant_fee) do |f| %>
+  <% if @instant_fee.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@instant_fee.errors.count, "error") %> prohibited this instant_fee from being saved:</h2>
+
+      <ul>
+      <% @instant_fee.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

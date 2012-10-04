@@ -1,0 +1,59 @@
+<style type="text/css">
+	#pdf-header{
+    width:800px;
+	overflow: auto;
+    margin-bottom: -2.2em;
+    margin-top: 0em;
+}
+.logo{
+    height: 70px;
+    width:100px;
+    float: left;
+}
+
+
+
+.header-content p{
+    margin-top: 55px;
+    margin-left: -65px;
+    margin-bottom: 2px;
+    float: left;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#pdf-footer{
+    text-align: right;
+    width: 700px;
+    padding-right: 100px;
+    padding: 50px;
+    margin: 0 auto;
+    color: #999999;
+    font-size: 18px;
+
+}
+
+#page-yield {
+    margin-top: 30px !important;
+}
+</style>
+
+<div id="pdf-header">
+      <div class="logo">
+        <% if FileTest.exists?("#{Rails.root}/public/images/logo.png") %>
+            <%= image_tag  "#{Rails.root}/public/images/logo.png" %>
+          <% else %>
+
+          <div class="fed_logo">
+            <%= image_tag  "#{RAILS_ROOT}/public/images/logo.png"  %>
+    </div>
+          <% end %>
+      </div>
+      <div class="header-content">
+        <p><%=SchoolConfiguration.get_config_value('InstitutionAddress'); %></p>
+      </div>
+      <div align="right">
+      <%=Date.today.strftime('%d''-''%m''-''%Y')%>
+      </div>
+
+</div>

@@ -1,0 +1,114 @@
+
+			<div class="block-border no-margin" id="outer_block"><div class="block-content form" >
+				
+				<div class="content-columns left30">
+					
+					<div class="content-columns-sep"></div>
+					
+					<div class="content-left">
+						
+						<div class="with-head" style="margin-top: -2em;">
+							<div class="head">
+								<div>
+									<div class="button menu-opener">
+										Course List
+									</div>
+								</div>
+							</div>
+							
+							<div class="dark-grey-gradient with-padding" style="height:300px; overflow: auto">
+								
+								<ul class="arbo with-title">
+									<li>
+										<a href="#" class="title-computer toggle">Courses</a>
+										<ul>
+							<% @courses.each do |c|%>
+							<li class="close">
+								<span class="toggle"></span>
+									<a href="#" class="folder"><span><%= c.full_name %></span></a>
+								<% @batch = Batch.find_all_by_course_id(c.id)%>
+
+									<ul>
+										<%@batch.each do |b|%>
+									     <% @batchs = BatchEvent.find_by_event_id_and_batch_id(@event.id,b.id )%>
+									     <% unless  @batchs.nil?%>
+										    <li class="checkeds">
+										    	<%else%>
+										    	
+										    	<li class="checkedss">
+										    		
+										   <%end%>	
+												 <%= check_box_tag "select_options[batch_id][]", b.id ,nil, :classs =>"selected_batches", :name => b.full_name ,:ids => b.id , :checked => (true unless @batchs.nil? ) %><%= b.full_name%>
+											   </li>
+										<%end%>
+									</ul>
+							</li>
+						<% end %>
+										</ul>
+									</li>
+								</ul>
+								
+							</div>
+						</div>
+						
+						<!-- <ul class="message">
+							<li>Error while refreshing data</li>
+						</ul> -->
+						
+					</div>
+					
+					<div class="content-right">
+						
+						<div class="with-head" style="margin-top: -2em;">
+							<div class="head">
+								<div>
+									<div class="button menu-opener">
+										Department List						
+									</div>
+								</div>
+							</div>
+							
+							<div class="dark-grey-gradient with-padding" style="height:300px; overflow: auto">
+								
+								<ul class="arbo with-title">
+									<li>
+										<a href="#" class="title-computer toggle">Department</a>
+										<ul>
+											<% @employee_department.each do |department| %>
+											<% @deparatment_event = EmployeeDepartmentEvent.find_by_event_id_and_employee_department_id(@event.id,department.id )%>
+										    <% unless  @deparatment_event.nil?%>
+										    
+										    <li class="close selectedDepart ">
+										    	<%else%>
+										    	
+										    	<li class="close un-selectedDepart">
+										    		
+										    		<%end%>		
+										       <%= check_box_tag "select_options[department_id][]", department.id ,nil, :classs => 'employee_departmentss' ,:id_dep => department.id,:checked => (true unless @deparatment_event.nil? )%> <%= department.name %>
+										      <% end %>
+										
+									</li>
+								</ul>
+								
+							</div>
+						</div>
+						
+						<!-- <ul class="message">
+							<li>Error while refreshing data</li>
+						</ul> -->
+						
+					</div>
+				</div>
+				
+				<div class="block-footer">
+					<span class="float-right"><%= @employee_department.count %> Department Found</span>
+					<%= @courses.count%> Courses Found
+				</div>
+				
+
+			</div>
+		
+			
+						</div>
+						<input type="hidden" value="<%= @event.id %>" name="Event_id" id="Event_id"/>
+

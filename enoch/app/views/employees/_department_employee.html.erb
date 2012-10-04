@@ -1,0 +1,22 @@
+
+<%unless @employees.empty?%>
+<table class="table department_employee"  cellspacing="0" width="100%">
+      	<thead>
+        <tr>
+        	<th class="black-cell"></th>
+        	<th scope="col">Name</th>
+        	<th scope="col">Department</th>
+        </tr>
+        </thead>
+        <tbody>
+<%@employees.each do |employee|%>
+<tr>
+	<td></td>
+	<td><a href="/employees/create_monthly_payslip?id=<%=employee.id%>"><%=employee.full_name%></a></td>
+	<td><%=employee.employee_department.name%></td>
+</tr>
+
+<%end%>
+</tbody>
+</table>
+<%end%>

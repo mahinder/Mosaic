@@ -1,0 +1,13 @@
+									<tr>
+										<td class="th table-check-cell"><input type="checkbox" name="selected[<%= liability.id %>]" value="1"></td>
+										<td id="liability_title_<%= liability.id %>"><%= liability.title %></td>
+										<td id="liability_description_<%= liability.id %>"><%= liability.description %></td>
+										<td id="liability_amount_<%= liability.id %>"><%= liability.amount %></td>
+										<td id="liability_is_solved_<%= liability.id %>"><%= liability.is_solved %></td> 
+										<input type="hidden" name="solved_value" value="<%= liability.is_solved %>"/>
+										<td class="table-actions">
+											<input type="hidden" name="object_id" value="<%= liability.id %>"/>
+											<a href="#" id="update-href-<%= liability.id %>" title="Edit" class="with-tip update-liability-master-href"><img src="/assets/icons/fugue/pencil.png" width="16" height="16"></a>
+<!-- 											<a href="#" id="delete-href-<%= liability.id %>" title="Delete" class="with-tip delete-liability-master-href"><img src="/assets/icons/fugue/cross-circle.png" width="16" height="16"></a> -->
+										</td>
+									</tr>

@@ -1,0 +1,103 @@
+<div class="block-border">
+	<form class="block-content form" id="view_message_form" method="post" action="">
+		<h1>Message Details</h1>
+		<div class="block-controls enoch_block">
+			<ul class="controls-tabs js-tabs">
+				<li >
+					<a href="/reminder/index" title ="Inbox"> <img src="/assets/icons/web-app/24/Email.png" width="24" height="24"> </a>
+				</li>
+				<li>
+					<a href="/reminder/sent_reminder" title ="Sent Items"> <img src="/assets/icons/web-app/24/mail-sent-icon.png" width="24" height="24"> </a>
+				</li>
+				<li>
+					<a href="/reminder/create_reminder" title ="New Message"> <img src="/assets/icons/web-app/24/newmail.png" width="24" height="24"> </a>
+				</li>
+				<li class="current">
+					<a href="#" class = "view-sent-reminder-delete"  id2 = "<%= @sent_reminder.id %>"   ><img src="/assets/icons/fugue/cross-circle.png" /></a>
+				</li>
+			</ul>
+		</div>
+		<fieldset class="grey-bg">
+			<div id="reminder-body">
+				<div id="reminder-from">
+					<strong> To: </strong> <%= @sent_reminder.sent_to %>
+				</div>
+				<br/>
+				<div id="reminder-date">
+					<strong> Sent on:</strong> <%= @sent_reminder.created_at.strftime("%A, %d %B, %Y") %>
+				</div>
+				<br/>
+				<div id="reminder-subject">
+					<strong> Subject: </strong> <%= @sent_reminder.subject %>
+				</div>
+				<br/>
+				<div id="reminder-message">
+					<strong>Message:</strong>
+				</div>
+				<br/>
+				<br/>
+				<div class="block-border">
+					<%= h @sent_reminder.body.html_safe %>
+				</div>
+			</div>	
+		</fieldset>
+	</form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="block-border">
+	<form class="block-content form" id="view_message_form" method="post" action="">
+		<h1>Message Details</h1>
+		<div class="block-controls enoch_block">
+			<ul class="controls-tabs js-tabs">
+				<li >
+					<a href="/reminder/index" title ="Inbox"> <img src="/assets/icons/web-app/24/Email.png" width="24" height="24"> </a>
+				</li>
+				<li>
+					<a href="/reminder/sent_reminder" title ="Sent Items"> <img src="/assets/icons/web-app/24/mail-sent-icon.png" width="24" height="24"> </a>
+				</li>
+				<li>
+					<a href="/reminder/create_reminder" title ="New Message"> <img src="/assets/icons/web-app/24/newmail.png" width="24" height="24"> </a>
+				</li>
+				<li class="current">
+					<%= link_to image_tag("/assets/icons/fugue/cross-circle.png", :title => "Delete"),  {:controller=>"reminder", :action=>"delete_reminder_by_sender", :id2=>@sent_reminder.id}, :confirm=>"Are you sure?" %>
+				</li>
+			</ul>
+		</div>
+		<div id="page-yield">
+			<div id="reminder-body">
+				<div id="reminder-from">
+					<strong> To: </strong> <%= @sent_reminder.sent_to %>
+				</div>
+				<br/>
+				<div id="reminder-date">
+					<strong> Sent on:</strong> <%= @sent_reminder.created_at.strftime("%A, %d %B, %Y") %>
+				</div>
+				<br/>
+				<div id="reminder-subject">
+					<strong> Subject: </strong> <%= @sent_reminder.subject %>
+				</div>
+				<br/>
+				<div id="reminder-message">
+					<strong>Message:</strong>
+				</div>
+				<br/>
+				<br/>
+				<div class="block-border">
+					<%= @sent_reminder.body %>
+				</div>
+			</div>	
+		</div>	
+	</form>
+</div> -->

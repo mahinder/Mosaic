@@ -1,0 +1,78 @@
+
+<style type="text/css">
+	table {
+	font: 15px/24px Verdana, Arial, Helvetica, sans-serif;
+	width: 800px;
+    margin-top: 100px;
+	border-color: #600;
+    border-width: 0 0 1px 1px;
+    border-style: solid;
+    margin-right: 30px;
+    margin-left: 15px;
+	}
+
+th {
+	padding: 0 0.5em;
+	text-align: left;
+	}
+
+tr.yellow th {
+	border-top: 1px solid #FB7A31;
+	border-bottom: 1px solid #FB7A31;
+	background: #FFC;
+	}
+
+td {
+	border-bottom: 1px solid #CCC;
+	padding: 0 0.5em;
+	}
+
+td.width {
+	width: 190px;
+	}
+
+td.adjacent {
+	border-left: 1px solid #CCC;
+	text-align: center;
+	}
+</style>
+
+
+<div class="block-border">
+	<div class="block-content form">
+		<hr style="top:0.5em;height:0.5em;width:50em;border:2px solid #FB7A31;" />
+		<%=@title%>
+		<table class="table" id="listing" cellspacing="0" width="100%" border="1">
+			<thead>
+				<tr class="yellow">
+					<th scope="col">Passenger Name</th>
+					<th scope="col">Passenger Contact</th>
+					<th scope="col">Passenger Type</th>
+					<th scope="col">Board</th>
+					<th scope="col">Arrivel At</th>
+					<th scope="col">Departure At</th>
+					
+				</tr>
+			</thead>
+			<tbody>
+				<%@passenger.each do |passenger|%>
+				 <%type = passenger.passenger_type%>
+				 <tr>
+				
+	           	<%if type=='employee'%>
+				<%passenger_contact = Employee.find_by_id(passenger.passenger_id)%>
+				<td><%=passenger_contact.full_name%></td>
+				<td><%=passenger_contact.mobile_phone%></td>
+			    <%else%>
+			    <%passenger_contact = Student.find_by_id(passenger.passenger_id)%>
+			    <td><%=passenger_contact.full_name%></td>
+				<td><%=passenger_contact.phone1%></td>
+			    <%end%>
+			    <td><%=type%></td>
+			    <td><%=passenger.transport_board.name%></td>
+							<td><%=passenger.transport_board.picktime.strftime("%I:%M%p")%></td>
+							<td><%=passenger.transport_board.droptime.strftime("%I:%M%p")%></td>
+							</tr>
+				<%end%></tbody></table>
+	</div>
+</div>

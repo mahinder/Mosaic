@@ -1,0 +1,88 @@
+<style>
+	.author_select select
+	{
+		width: 221px;
+	}
+	
+</style>
+<div class="block-border" id="outer_block">
+	<%= form_for @library_book,:html => { :class => "block-content form", :id => "book-form"} do |form| %>
+	<%= render 'shared/form_errors', :object => form.object %> <h1>Book</h1>
+	<div class="block-controls enoch_block">
+					<ul class="controls-tabs js-tabs">
+						<li >
+							<%= link_to image_tag("/assets/icons/web-app/32/Back.png"),"javascript:history.back()" %>
+						</li>
+					</ul>
+				</div>	
+	<fieldset class="grey-bg">
+		<legend>
+			Required fields
+		</legend>
+		<div class="columns">
+			<div class="colx3-left required">
+				<label for="tag_name">Name</label>
+				<span class="relative"> <%= form.text_field :name  %> </span>
+			</div>
+			<div class="colx3-center required select-fixed-width1 change_select">
+				<%= render '/library_books/tag_select'%>
+				
+			</div>
+			<div class="colx3-right required ">
+				<label for="custom_tag_name">Custom Tag</label>
+				<span class="relative">
+					<input type="text" name="custom_tag_name" id = "custom_tag_input"/>
+				</span>
+			</div>
+		</div>
+	</fieldset>
+	
+		<div class="columns">
+			<div class="colx3-left author_select">
+				<p>
+					<label for="simple-action" >Author</label>
+					<%= select :author_id, :name, @authors.map {|b| [b.name , b.id]}, {:prompt => 'Select'} ,:id => "select_authors" %>
+				</p>
+			</div>
+			<div class="colx3-center ">
+				<label for="tag_name">Title</label>
+				<span class="relative"> <%= form.text_field :title  %> </span>
+			</div>
+			<div class="colx3-right ">
+				<label for="tag_name">Copies</label>
+				<span class="relative"> <%= form.text_field :no_of_copies, :size => 3 %> </span>
+			</div>
+		</div>
+		<div class="columns">
+			<div class="colx3-left ">
+				<label for="status">Active  <span class="relative">  <%= form.check_box :status , :checked => "checked" %> </span></label>
+				
+			</div>
+		</div>
+	
+	<fieldset class="grey-bg no-margin">
+		<legend>
+			Action on create
+		</legend>
+		<div class="columns">
+			<div class="colx2-right">
+				<button id="create_book" type="submit" >
+					Create
+				</button>
+				<button id="update_book" type="button" >
+					Update
+				</button>
+				<button id="reset_book" type="button" >
+					Clear
+				</button>
+				<input type="hidden" id="current_object_id" name="current_object_id" value=""/>
+			</div>
+		</div>
+	</fieldset>
+	<% end %>
+</div>
+<br/>
+<div id="table-block" class="block-border">
+	
+	<%= render '/library_books/books_table'%>
+</div>

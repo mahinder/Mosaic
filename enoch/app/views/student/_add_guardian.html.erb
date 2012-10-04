@@ -1,0 +1,99 @@
+<div id="outer_block">
+	<div class="block-content form" id="complex_form">
+		<%= form_for :parent_detail, :url => {:controller => 'student', :action => 'add_guardian'} do |s| %>
+			<div class="columns">
+				<p class="colx3-center">
+					<h2 style="margin-top:-35px">Student Admission no.&nbsp;&nbsp;<strong><%= @student.admission_no%></strong></h2>
+					<%= s.hidden_field :ward_id, :value => @student.id %>
+				</p>
+			</div>
+			<fieldset class="grey-bg" style="margin-top:-15px">
+				<legend>
+					Parent - Personal Details
+				</legend>
+			<div class="columns grey-bg">
+				<p class="colx3-left required">
+					<label for="parent_detail_name">First Name</label>
+					<%= s.text_field :first_name , :class => 'full-width',:field_name => 'Guardian first Name'%>
+				</p>
+				<p class="colx3-center">
+					<label for="parent_detail_name">Last Name</label>
+					<%= s.text_field :last_name , :class => 'full-width',:field_name => 'Guardian Last Name'%>
+				</p>
+				<p class="colx3-right required">
+					<label for="parent_detail_relation">Relationship</label>
+					<%= select_tag :relation, options_for_select([ "Father", "Mother", "Brother" ,"Sister", "Other" ], "Father") %>
+				</p>
+			</div>
+			<div class="columns grey-bg">
+				<p class="colx3-left">
+					<label for="parent_detail_dob">Date of Birth</label>
+					<span class="input-type-text"><%= s.text_field :dob,:year_range => 60.years.ago..20.years.ago, :class => "modal_date_picker",:value => (Date.today-20.year).strftime('%d-%m-%Y'), :size => 20 %><%= image_tag "icons/fugue/calendar-month.png" %></span>
+				</p>
+				<p class="colx3-center">
+					<label for="parent_detail_education">Education</label>
+					<%= select_tag :education,options_for_select(["Matriculation", "10+2", "Diploma", "Graduate","Professional","Masters","Doctorate","Other"]) %>
+				</p>
+				<p class="colx3-right">
+					<label for="parent_detail_occupation">Occupation</label>
+					<%= select_tag :occupation, options_for_select(["Government", "Salaried", "Business", "Other"])%>
+				</p>
+			</div>
+			<div class="columns grey-bg">
+				<p class="colx3-left">
+					<label for="parent_detail_income">Income</label>
+					<%= select_tag :income, options_for_select(["< 2 Lakh", "2 Lakh to 5 Lakh", "5 Lakh to 10 Lakh", "10 Lakh to 15 Lakh", "15 Lakh to 25 Lakh", "> 25 Lakh"]) %>
+				</p>
+				<p class="colx3-center">
+					<label for="parent_detail_email">Email</label>
+					<%= s.text_field :email ,:class => 'full-width' %>
+				</p>
+			</div>
+			</fieldset>
+			<br/>
+		<fieldset class="grey-bg">
+				<legend>
+					Parent - Contact Details
+				</legend>
+			<div class="columns grey-bg">
+				<p class="colx3-left">
+					<label for="master_student_city">Office Address Line 1</label>
+					<%= s.text_field :office_address_line1 ,:class => 'full-width',:field_name => 'Office Address Line 1'%>
+				</p>
+				<p class="colx3-center">
+					<label for="master_student_city">Office Address Line 2</label>
+					<%= s.text_field :office_address_line2 ,:class => 'full-width',:field_name => 'Office Address Line 2'%>
+				</p>
+				<p class="colx3-right">
+					<label for="parent_detail_city">City</label>
+					<%= s.text_field :city,:value=>@student.city.to_s ,:class => 'full-width',:field_name => 'Guardian City'%>
+				</p>
+			</div>
+			<div class="columns grey-bg">
+				<p class="colx3-left">
+					<label for="parent_detail_state">State</label>
+					<%= s.text_field :state,:value=>@student.state.to_s,:class => 'full-width',:field_name => 'Guardian State'%>
+				</p>
+				<p class="colx3-center">
+					<label for="parent_detail_office_phone1">Office Phone 1</label>
+					<%= s.text_field :office_phone1,:class => 'full-width numeric phone',:field_name => 'Office Phone 1'%>
+				</p>
+				<p class="colx3-right">
+					<label for="parent_detail_office_phone2">Office Phone 2</label>
+					<%= s.text_field :office_phone2 ,:class => 'full-width numeric phone',:field_name => 'Office Phone 2'%>
+				</p>
+			</div>
+			<div class="columns grey-bg">
+				<p class="colx2-left">
+					<label for="parent_detail_country">Country</label>
+					<%= select :parent_detail, :country_id, @countries.map {|c| [c.name, c.id]},:selected=> @student.nationality_id || 76%>
+				</p>
+				<p class="colx2-right">
+					<label for="parent_detail_mob_phone">Mobile</label>
+					<%= s.text_field :mobile_phone ,:class => 'numeric parent_mobile' ,:value=>@student.phone2.to_s,:field_name => 'Mobile' %>
+				</p>
+			</div>
+			</fieldset>
+			<% end %>
+		</div>
+</div>

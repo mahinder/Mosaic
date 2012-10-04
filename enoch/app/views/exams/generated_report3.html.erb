@@ -1,0 +1,79 @@
+<script type=""></script>
+<div class="block-border" id="outer_block">
+	<div class="block-content form">
+		<h1>Exams</h1>
+		<div class="block-controls enoch_block">
+			<ul class="controls-tabs js-tabs">
+				<li >
+					<%= link_to image_tag("/assets/icons/web-app/32/Back.png"),:controller=>'/student', :action=>'reports',:id=>@student.id,:q=>@student.admission_no %>
+				</li>
+			</ul>
+		</div>
+		<div class="block-controls">
+			<ul class="controls-buttons">
+				<%unless current_user.student?%>
+				<li>
+					<a href="generated_report3?student_id=<%= @student.previous_student.id%>&subject=<%= @subject.id%>" title="Previous"><img src="/assets/icons/fugue/navigation-180.png" width="16" height="16"> Prev</a>
+				</li>
+				<li class="controls-block">
+					<strong><%= @student.full_name %></strong>
+				</li>
+				<li>
+					<a href="generated_report3?student_id=<%= @student.next_student.id%>&subject=<%= @subject.id%>" title="Next">Next <img src="/assets/icons/fugue/navigation.png" width="16" height="16"></a>
+				</li>
+				<%else%>
+				<li class="controls-block">
+					<strong><%= @student.full_name %></strong>
+				</li>
+				<%end%>
+			</ul>
+		</div>
+		<% unless flash[:notice].nil? %>
+		<ul class="message success grid_12">
+			<li>
+				<strong><%= flash[:notice] %></strong>
+			</li>
+			<li class="close-bt"></li>
+		</ul>
+		<% end %> <h3><%= @batch.course.full_name %> | <%= @batch.full_name %> | <%= @student.full_name %> | <%= @subject.name %></h3>
+		<table id="listing" class="table" width="100%">
+			<thead>
+				<tr>
+					<th scope="col">Assessment</th>
+					<th scope="col">Topic</th>
+					<th scope="col">Marks</th>
+					<th scope="col">Max Marks</th>
+					<th scope="col">Grade</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @exam_groups.each do |exam_group| %>
+				<% exams = Exam.find_all_by_subject_id(@subject.id,:conditions=>{:exam_group_id=>exam_group.id}) %>
+				<% exams.each do |exam| %>
+				<tr>
+					<td > <%= exam_group.assessment_name.name %> </td>
+					<td><%= exam.topic.name%></td>
+					<% exame = Exam.find_by_topic_id(exam.topic.id,:conditions=>{:exam_group_id=>exam_group.id}) %>
+					<% exam_score = ExamScore.find_by_student_id(@student.id,:conditions=>{:exam_id=>exame.id}) unless exame.nil? %>
+					<% if exam_group.exam_type == 'Marks' %> <td ><%= exam_score.nil? ? '-' : exam_score.marks || "-" %></td>
+					<td><%= exam_score.nil? ? '-' : exame.maximum_marks %></td>
+					<td >-</td>
+					<% elsif exam_group.exam_type == 'Grades'%> <td>-</td><td>-</td>
+					<%unless exam_score.nil?%>
+					<% grade=exam_score.grading_level_detail.grading_level_detail_name unless exam_score.grading_level_detail.nil? %>
+					<%end%> <td><%= exam_score.nil? ? '-' : grade || "-" %></td>
+					<% else %> <td><%= exam_score.nil? ? '-' : exam_score.marks || "-" %></td>
+					<td><%= exam_score.nil? ? '-' : exam.maximum_marks %></td>
+					<%unless exam_score.nil?%>
+					<% grade=exam_score.grading_level_detail.grading_level_detail_name unless exam_score.grading_level_detail.nil? %>
+					<%end%> <td><%= exam_score.nil? ? '-' : grade || "-" %></td>
+					<% end %>
+				</tr>
+				<% end %>
+				<%end%>
+			</tbody>
+		</table>
+		<br />
+		<%= @graph.html_safe %>
+	</div>
+</div>

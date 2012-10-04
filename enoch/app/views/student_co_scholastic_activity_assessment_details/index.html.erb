@@ -1,0 +1,21 @@
+<h1>Listing student_co_scholastic_activity_assessment_details</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @student_co_scholastic_activity_assessment_details.each do |student_co_scholastic_activity_assessment_detail| %>
+  <tr>
+    <td><%= link_to 'Show', student_co_scholastic_activity_assessment_detail %></td>
+    <td><%= link_to 'Edit', edit_student_co_scholastic_activity_assessment_detail_path(student_co_scholastic_activity_assessment_detail) %></td>
+    <td><%= link_to 'Destroy', student_co_scholastic_activity_assessment_detail, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Student co scholastic activity assessment detail', new_student_co_scholastic_activity_assessment_detail_path %>

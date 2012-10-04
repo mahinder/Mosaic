@@ -1,0 +1,53 @@
+<%= javascript_include_tag 'application'%>
+<div class="block-border">
+	<div class="block-content form">
+		<h1><%= @start_date.strftime('%B %Y')%> Report </h1>
+		
+		<div class="column">
+			<%@event.each_with_index do |f,i| %>
+			<p class="colx3-left">
+				<label for="title"><%=i+1%>. Title:</label>
+				<%=f.title%>
+			</p>
+			<p class="colx3-center">
+				<label for="description"> Description:</label>
+				<%=f.description%>
+			</p>
+			<p class="colx3-right">
+				<label for="start_date"> Start Date:</label>
+				<%=f.start_date.to_date %>
+			</p>
+				<p class="colx3-right">
+				<label for="end_date"> End Date:</label>
+				<%=f.end_date.to_date %>
+			</p>
+			
+			<% @batch_event_pdf = BatchEvent.find_all_by_event_id(f.id)%>
+			<%unless @batch_event_pdf.nil? %>
+			
+			<%@batch_event_pdf.each do |b|%>
+			
+			Batch :<%= b.batch.full_name%>
+			<%end%>
+			<%end%>
+			<br />
+			<% @department_event_pdf = EmployeeDepartmentEvent.find_all_by_event_id(f.id)%>
+			<%unless @department_event_pdf.nil? %>
+			
+			<%@department_event_pdf.each do |b|%>
+			
+			Department :<%= b.employee_department.name%>
+			<%end%>
+			<%end%>
+			<%end%>
+		</div>
+		Total Event :
+		<% index = [] %>
+		<%@event.each do |f| %>
+		<%(f.start_date.to_date..f.end_date.to_date).each_with_index do |d,i|%>
+		<%index << d%>
+		<% end%>
+		<% end%>
+		 <%=index.count %>
+	</div>
+</div>

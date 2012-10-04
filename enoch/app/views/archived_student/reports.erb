@@ -1,0 +1,163 @@
+<div class="block-border">
+	<div class="block-content form">
+		<h1>Archived Student Report Center</h1>
+		<div class="block-controls enoch_block">
+					<ul class="controls-tabs js-tabs">
+						<li >
+							<%= link_to image_tag("/assets/icons/web-app/32/Back.png"), :controller=>"/sessions",:action=>"dashboard" %>
+						</li>
+					</ul>
+				</div>	
+				<h2> <%= link_to  @student.full_name, { :controller => 'student', :action => 'my_profile', :q => @student.admission_no}%> </h2>
+		<section class="">
+	<div class="block-border">
+		<div class="block-content">
+			<h1>Academic</h1>
+		
+			<ul class="collapsible-list with-bg">
+				<b class="toggle"></b>
+				<li class="close">
+					<b class="toggle"></b>
+					<% if permitted_to? :exam_report, :student %> <span><b>Recent exams</b></span>
+					<ul class="with-icon icon-exam">
+						<% @exam_groups.each do |e| %>
+						<li>
+							<%= link_to e.assessment_name.name, {  :action => 'generated_report',:exam_group=>e.id, :student => @student.id} %>
+						</li>
+						<% end %>
+					</ul>
+					<%end%>
+				</li>
+				<li class="close">
+							<b class="toggle"></b>
+							<span> <b>Recent Additional Exam</b></span>
+							<%unless @additional_exam.nil?%>
+							<ul class="with-icon icon-exam">
+								<% @additional_exam.each do |s| %>
+								<li>
+									<%= link_to s.name, { :controller => 'archived_student', :action => 'archived_additional_exam', :student => @student.id, :additional_exam_group_id => s.id } %>
+								</li>
+								<% end %>
+							</ul>
+							<%end%>
+						</li>
+				<li class="close">
+					<b class="toggle"></b>
+					<span> <b>Subjectwise results</b></span>
+					<ul class="with-icon icon-subject">
+						<% @subjects.each do |s| %>
+						<li>
+							<%= link_to s.name, {  :action => 'generated_report3', :student => @student.id, :subject => s.id } %>
+						</li>
+						<% end %>
+					</ul>
+				</li>
+				
+				
+				<li class="close">
+					<b class="toggle"></b>
+					<span><b>Grouped reports</b></span>
+					<ul class="with-icon icon-report">
+						<% unless @grouped_exams.empty? %>
+						<%@grouped_exams.each do |ge|%>
+						<li>
+							<a href="/archived_student/generated_report5?student=<%= @student.id%>&type=grouped&grouped=<%= ge.id%>"><%= ge.grouped_exam_name%></a>
+						</li>
+						<%end%><%end%>
+					</ul>
+				</li>
+				<li class="close">
+					<b class="toggle"></b>
+					<span><b>Detailed reports</b></span>
+					<ul class="with-icon icon-report">
+						<li>
+						<%= link_to 'Academic Report',{ :action=>'generated_report4',:student=>@student.id,:type=>'general'} %>
+					</li>
+						<% unless @grouped_exams.empty? %>
+						
+						<li>
+							<%= link_to 'Compare with past years(Exams Grouped)', {  :action => 'previous_years_marks_overview',:student=>@student.id,:type=>'grouped' } %>
+						</li>
+						<%else%>
+					<li>
+						<%= link_to 'Compare with past years', {  :action => 'previous_years_marks_overview',:student=>@student.id,:type=>'general' } %>
+					</li>
+						<%end%>
+					</ul>
+				</li>
+				<% unless @old_batches.nil? %>
+				<li class="close">
+							<b class="toggle"></b>
+							<span><b>Archives</b></span>
+							<ul class="collapsible-list with-bg">
+								<% @old_batches.each do |b| %>
+								<li>
+									<b class="toggle"></b>
+									<span><%= b.full_name%></span>
+									<ul class="with-icon icon-report">
+										<li class="close">
+											<b class="toggle"></b>
+											<span>Additional Exams</span>
+											<ul class="icon-exam">
+												<% AdditionalExamGroup.find_all_by_batch_id(b.id).each do |g|%>
+												<li>
+													<a href="/archived_student/archived_additional_exam?student=<%= @student.id%>&additional_exam_group_id=<%= g.id%>"><%=g.name%></a>
+												</li>
+												<%end%>
+											</ul>
+										</li>
+										<li class="close">
+											<b class="toggle"></b>
+											<span>Grouped Exam Reports</span>
+											<ul class="icon-exam">
+												<% GroupedExam.find_all_by_batch_id(b.id).each do |g|%>
+												<li>
+													<a href="/archived_student/grouped_academic_report?student=<%= @student.id%>&type=grouped&grouped=<%= g.id%>&year=<%= b.id %>"><%= g.grouped_exam_name%></a>
+												</li>
+												<%end%>
+											</ul>
+										</li>
+										<li>
+											<%= link_to 'Academic Report', {  :action => 'academic_report', :student => @student.id, :year => b.id,:type=>'general' } %>
+										</li>
+									</ul>
+								</li>
+								<%end%>
+							</ul>
+						</li>
+				<%end%>
+			</ul>
+		</div>
+	</div>
+</section>
+
+
+<section class="">
+	<div class="block-border">
+		<div class="block-content">
+			<h1>Attendance</h1>
+			<h3>Deatil Report</h3>
+			<ul class="simple-list with-icon icon-report">
+				<% @old_batches.each do |b| %>
+							<li>
+								<%= link_to b.full_name, :action => 'student_report', :id => @student.id, :year => b.id %>
+							</li>
+							<% end %>
+			</ul>
+		</div>
+	</div>
+</section>
+<section class="">
+	<div class="block-border">
+		<div class="block-content">
+			<h1>Awards</h1>
+			<ul class="simple-list with-icon">
+				<li>
+								<%= link_to "Award", :action => 'award_report',:student_id => @student.id , :id => @student.id %>
+							</li>
+				</ul>
+		</div>
+	</div>
+</section>
+</div>
+</div>

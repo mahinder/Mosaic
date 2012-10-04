@@ -1,0 +1,69 @@
+
+<div class="block-border" id="outer_block">
+	
+    <% unless flash[:notice].nil? %>
+    <p class="flash-msg"> <%= flash[:notice] %> </p>
+  <% end %>
+	<div class="block-content form">
+  <h1>Exams</h1>
+  <h3>Acadamic Report</h3>
+
+
+<h4><%= @batch.name %> | <%= @batch.course.full_name %> | <%= @student.full_name %> | <%= @subject.name %></h4>
+<div class="no-margin">
+<table class="table archieved_attendance_report" width="100%" cellspacing="0">
+  <thead>
+  <tr>
+  	
+  	<th class="black-cell"></th>
+							<th scope="col">
+								<span class="column-sort">
+									<a href="#" title="Sort up" class="sort-up active"></a>
+									<a href="#" title="Sort down" class="sort-down"></a>
+								</span>
+								Exam
+							</th>
+							<th scope="col">Marks</th>
+							<th scope="col">Max Marks</th>
+							<th scope="col">
+								<span class="column-sort">
+									<a href="#" title="Sort up" class="sort-up"></a>
+									<a href="#" title="Sort down" class="sort-down"></a>
+								</span>
+								Grade
+							</th>
+							
+  </tr>
+  </thead>
+  <tbody>
+  <% @exam_groups.each do |exam_group| %>
+  <tr>
+  	<th scope="row" class="table-check-cell"></th>
+    <td><%= exam_group.name %></td>
+		<% exam = Exam.find_by_subject_id(@subject.id,:conditions=>{:exam_group_id=>exam_group.id}) %>
+		<% exam_score = ArchivedExamScore.find_by_student_id(@student.id,:conditions=>{:exam_id=>exam.id}) unless exam.nil? %>
+		<% if exam_group.exam_type == 'Marks' %>
+	<td><%= exam_score.nil? ? '-' : exam_score.marks %></td>
+	<td><%= exam_score.nil? ? '-' : exam.maximum_marks %></td>
+	<td>-</td>
+		<% elsif exam_group.exam_type == 'Grades'%>
+	<td>-</td><td>-</td>
+	<td><%= exam_score.nil? ? '-' : exam_score.grading_level.name %></td>
+		<% else %>
+	<td><%= exam_score.nil? ? '-' : exam_score.marks %></td>
+	<td><%= exam_score.nil? ? '-' : exam.maximum_marks %></td>
+	<td><%= exam_score.nil? ? '-' : exam_score.grading_level.name %></td>
+		<% end %>
+  </tr>
+  <% end %>
+  </tbody>
+</table>
+</div>
+<br />
+
+
+    <script type="text/javascript" src="/javascripts/swfobject.js"></script>
+    <%= @graph.html_safe %>
+
+ </div>
+ </div>

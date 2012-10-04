@@ -1,0 +1,25 @@
+<table class="table" id="feeStructureStudentTable" align="center" width="100%" cellpadding="1" cellspacing="1">
+<thead>
+	<tr>
+		<th class="black-cell"></th>
+		<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span><%= t('sl_no') %></th>
+		<th scope="col"><%= t('student_name') %></th>
+		<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span><%= t('batch') %></th>
+		<th scope="col" class="table-actions"><%= t('admission_no') %></th>
+	</tr>
+</thead>
+<tbody>
+    <% @students_result.each_with_index do |t, i| %>
+      <tr class="tr-<%= cycle('odd', 'even') %>">
+      	<td class="th table-check-cell"></td>
+        <td class="col-5"><%= i+1 %></td>
+        <td class="col-3"><%=  link_to t.full_name, :action => "fees_structure_dates", :id => t.id %></td>
+        <td class="col-3"><%= t.batch.full_name %></td>
+        <td class="col-1"><%= t.admission_no %></td>
+      </tr>
+    <% end %>
+    </tbody>
+</table>
+
+
+  

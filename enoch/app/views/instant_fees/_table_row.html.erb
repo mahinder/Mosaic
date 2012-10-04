@@ -1,0 +1,12 @@
+									<tr>
+										<th scope="row" class="table-check-cell"></th>
+										<td id="instant_fee_name_<%= instant_fees_categories.id %>"><%= instant_fees_categories.name %></td>
+										<td id="instant_fee_description_<%= instant_fees_categories.id %>"><%= instant_fees_categories.description %></td>
+										<td class="table-actions">
+											<input type="hidden" name="object_id" value="<%= instant_fees_categories.id %>"/>
+
+											<a href="#" id="update-instant-fees-href-<%= instant_fees_categories.id %>" title="Edit" class="with-tip update-instant-fees-master-href"><img src="/assets/icons/fugue/pencil.png" width="16" height="16"></a>
+											<a href="#" id="delete-instant-fees-href-<%= instant_fees_categories.id %>" title="Delete" class="with-tip delete-instant-fees-master-href"><img src="/assets/icons/fugue/cross-circle.png" width="16" height="16"></a>
+											<a href="#" id="add_instant-fees-href-<%= instant_fees_categories.id %>" title="Add Particular" fees_name="<%= instant_fees_categories.name %>" class="with-tip add_instant-fees-master-href"><img src="/assets/icons/add.png" width="16" height="16"></a>
+										</td>
+									</tr>

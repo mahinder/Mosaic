@@ -1,0 +1,56 @@
+<section class="grid_8">
+	<div class="block-border">
+		<div class="block-content form">
+			<fieldset class="grey-bg">
+				<legend>
+					Resubstitution
+				</legend>
+				<h2>Resubstitution Of <%= @employee.full_name%> For <%= @showclasstiming.start_time.strftime('%I:%M %p')%> - <%= @showclasstiming.end_time.strftime('%I:%M %p')%></h2>
+				<div class="float-left gutter-right">
+					<label for="stats-period">Teacher</label>
+					<span class="input-type-text">
+						<input type="text" name="teacher"  value="<%= @employee.full_name%>">
+					</span>
+				</div>
+				<div class="float-left gutter-right">
+					<span class="label">Substitute With</span>
+					<p class="input-height grey-bg">
+						<input type="checkbox" name="substitute_with" id="substitute_with"  checked="checked" data_emp = "<%= @employee1.id%>">
+						&nbsp;<label for="substitute_with"><%= @employee1.full_name%></label>
+					</p>
+				</div>
+				<div class="float-right gutter-right">
+					<label for="stats-period">New Assign</label>
+					<table class="table today_timetable_sub no-margin" cellspacing="0" width="100%">
+						<thead>
+							<tr>
+								<th class="black-cell sorting_disabled" style="width: 16px; "></th>
+								<th scope="col" style="width: 365px; " class="sorting_desc"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> Free Teacher </th>
+							</tr>
+						</thead>
+						<tbody>
+							<% unless @emp.empty?%>
+							<% @emp.each do |teac|%>
+							<% unless teac.nil?%>
+							
+							<tr class="odd">
+								<% if teac.class == String %> 
+									<td class="th table-check-cell"></td>
+									<td class=" sorting_1"><b><%= teac%></b></td>
+								<%else%> 
+								<td class="th table-check-cell">
+									<input type="radio" name="reassign_emp" id="<%= teac.id%>">
+								</td>
+								<td class=" sorting_1"><%= teac.full_name%></td>
+								<%end%>
+							</tr>
+							<%end%>
+							<%end%>
+							<%end%>
+						</tbody>
+					</table>
+				</div>
+			</fieldset>
+		</div>
+	</div>
+</section>

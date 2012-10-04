@@ -1,0 +1,12 @@
+									<tr>
+										
+										<td id="todayexpense_title_<%= todayexpense.id %>"><%= todayexpense.title %></td>
+										<td id="todayexpense_description_<%= todayexpense.id %>"><%= todayexpense.description %></td>
+										<td id="todayexpense_amount_<%= todayexpense.id %>"><%= todayexpense.amount %></td>
+										<td id="todayexpense_date_<%= todayexpense.id %>"><%= todayexpense.transaction_date %></td>
+										<input type="hidden" name="category_id" id ="category-id" value="<%= todayexpense.category_id %>"/>
+										<td class="table-actions">
+											<input type="hidden" name="object_id" value="<%= todayexpense.id %>"/>
+											<a href="" id="delete-href-<%= todayexpense.id %>" title="Delete" class="with-tip deleteexpense-master-href"><img src="/assets/icons/fugue/cross-circle.png" width="16" height="16"></a>
+										</td>
+									</tr>

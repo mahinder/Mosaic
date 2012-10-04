@@ -1,0 +1,72 @@
+<section class="grid_16">
+<div class="block-border">
+			<div class="block-content form">
+	<h1>Employee Privileges</h1>
+	<div class="block-controls enoch_block">
+			<ul class="controls-tabs js-tabs">
+				<li >
+					<%= link_to image_tag("/assets/icons/web-app/32/Back.png"), :back %>
+				</li>
+			</ul>
+		</div>
+		
+		Set Privileges for <strong><a href="edit_employee?q=<%= @employee.id %>"><%= @user.full_name.capitalize %></a></strong>
+	<%= form_for :user ,:url =>{ :id => @user.username } do |form| %>
+	<%= form.hidden_field :username %>
+				
+				
+					<table class="table empprivi no-margin" id="Emp_privile" cellspacing="0" width="100%">
+						<thead>
+					<tr>
+						<th class="black-cell"><input type="checkbox" id="select_all_privilege" /></th>
+						<th scope="col">Privileges</th>
+						<th scope="col">Description</th>
+						
+					</tr>
+				</thead>
+						<tbody>
+							<% for privilege in Privilege.find(:all) %>
+
+							<% hr = SchoolConfiguration.find_by_config_value("HR") %>
+							<% finance = SchoolConfiguration.find_by_config_value("Finance") %>
+							<%  if hr.nil?  %>
+
+							<% if privilege.id == 9 or  privilege.id == 17 or privilege.id == 19 %>
+
+							<% next %>
+
+							<% end %>
+
+							<% end %>
+
+							<%  if finance.nil?  %>
+
+							<% if privilege.id ==14 or  privilege.id ==18 %>
+
+							<% next %>
+							<% end %>
+							<% end %>
+							<tr>
+								<td> <%= check_box_tag "user[privilege_ids][]", privilege.id, @user.privileges.include?(privilege),:class=>'privilege'%></td>
+								<td> <%= privilege.name.underscore.gsub(/_/, ' ').capitalize %>
+								<br />
+								</td>
+								<!-- <td><%= privilege.description.underscore.gsub(/_/, ' ').capitalize %></td> -->
+								<td><%= privilege.description %></td>
+							</tr></li>
+							<% end %>
+						</tbody>
+					</table><br /><br />
+		
+	 <fieldset class="grey-bg no-margin">
+	<legend>
+		Action
+	</legend>
+	<p class="input-with-button">
+		<%= form.submit "Save", :class => "big-button"%>
+	</p>
+</fieldset>
+	<% end %>
+		</div>
+		</div>
+	</section>

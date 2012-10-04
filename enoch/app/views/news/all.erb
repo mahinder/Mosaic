@@ -1,0 +1,63 @@
+<div class="block-border">
+	<div class="block-content form" id="table_form">
+				<h1>School News</h1>
+				 <% unless flash[:notice].nil? %>
+    <p class="flash-msg"> <%= flash[:notice] %> </p>
+  <% end %>
+
+  	<% if permitted_to? :add,:news %>
+      <div style="float: right; margin-top: -3em;"><%= link_to image_tag('/assets/icons/web-app/32/Add.png' , :title => 'Add news' , :class=>"with-tip"), { :controller => 'news', :action => 'add' }%></div>
+    <% end %>	
+
+	<table class="table newsTable no-margin" cellspacing="0" width="100%">			
+		<thead>
+			<tr>
+				<th scope="col">
+					<span class="column-sort">
+						<a href="#" title="Sort up" class="sort-up"></a>
+						<a href="#" title="Sort down" class="sort-down"></a>
+					</span>
+					Title
+				</th>
+				<th scope="col">Author</th>
+				<th scope="col">
+					<span class="column-sort">
+						<a href="#" title="Sort up" class="sort-up"></a>
+						<a href="#" title="Sort down" class="sort-down"></a>
+					</span>
+					Comments
+				</th>
+				<th scope="col">
+					<span class="column-sort">
+						<a href="#" title="Sort up" class="sort-up"></a>
+						<a href="#" title="Sort down" class="sort-down"></a>
+					</span>
+					Posted
+				</th>
+				
+			</tr>
+		</thead>
+			
+			<tbody>
+				    <% @news.each_with_index do |r,i| %>
+                    <% @comments = NewsComment.find_all_by_news_id(r.id) %>
+                    <% link_value = r.title %>
+				<tr>
+					<td> <%=  link_to link_value, :controller => 'news', :action => 'view', :id => r.id%></td>
+					<td> <% unless r.author.blank?  %><%= r.author.first_name %> <%= '- admin' if r.author.admin==true%>
+                            <% else %>
+                              User Deleted
+                         <% end %>
+                    </td>
+					<td><%= @comments.size %></td>
+					<td> <%= time_ago_in_words(r.created_at) %> ago</td>
+				</tr>
+				<% end %>
+				
+			</tbody>
+				
+	</table>
+
+			 
+</div>
+</div>

@@ -1,0 +1,49 @@
+<div class="block-border" id ="outer_block" >
+	<form class="block-content form" id="batch_subject_form" method="" action="">
+		<h1>Employee Substitution Report</h1>
+		<div class="block-controls enoch_block">
+			<ul class="controls-tabs js-tabs">
+				<li >
+					<a href="<%= dashboard_path(@user) %>" title ="Back"> <img src="/assets/icons/web-app/32/Back.png" width="24" height="24"></a>
+				</li>
+			</ul>
+		</div>
+		<fieldset class="grey-bg">
+			<div class="columns">
+				<div class="colx3-left required" >
+					<label for="simple-action" >Start Date</label>
+					<span class="input-type-text">
+						<input type="text" class="datepicker" id = "report_start_date" value="<%= (Date.today-1.month).strftime('%d''-''%m''-''%Y')%>"/>
+						<img src=" /assets/icons/fugue/calendar-month.png" width="16" height="16"></span>
+				</div>
+				<div class="colx3-center required" >
+					<label for="simple-action"  >End Date </label>
+					<span class="input-type-text">
+						<input type="text" class="datepicker" id = "report_end_date" value="<%= Date.today.strftime('%d''-''%m''-''%Y')%>"/>
+						<img src=" /assets/icons/fugue/calendar-month.png" width="16" height="16"></span>
+				</div>
+			</div>
+			<div class="columns">
+				<span class="label">Report Criteria</span>
+				<p class="input-height grey-bg">
+					<input type="radio" name="stats-sites" id="Substituted_Teacher_Wise" value="1">
+					&nbsp;<label for="stats-sites-0">Absent Teacher Wise</label>
+					<input type="radio" name="stats-sites" id="Substituted_With_Teacher_Wise" value="0">
+					&nbsp;<label for="stats-sites-1">Substitution Wise</label>
+				</p>
+			</div>
+		</fieldset>
+		<fieldset class="grey-bg no-margin">
+			<legend>
+				Action on create
+			</legend>
+			<div class="columns">
+				<div class="colx2-left" >
+					<input type="button" name="report_substitute" value="View" style="margin-top: 1em" class = "big-button" id = "emp_rep_but"/>
+				</div>
+			</div>
+		</fieldset>
+	</form>
+</div>
+<div id = "employee_monthly_report"></div>
+<div id="modal-box_daily_report"  style="display:none;"></div>

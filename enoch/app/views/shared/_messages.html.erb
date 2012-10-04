@@ -1,0 +1,10 @@
+<a href="#" class="button" title="<%= @current_user.check_reminders %> messages"> <%= image_tag "icons/fugue/mail.png", :size => "16x16"  %> <strong><%= @current_user.check_reminders %></strong> </a>
+<div id="messages-list" class="result-block">
+	<span class="arrow"><span></span></span>
+	<ul class="small-files-list icon-mail">
+		<%= render  :partial => 'layouts/top_three_reminders' %>
+	</ul>
+	<p id="messages-info" class="result-info">
+		<%= link_to "Go to inbox >>",:controller => "reminder", :action => "index" %>(<%= render  :partial => 'layouts/reminder_count' %>)&nbsp;
+	</p>
+</div>

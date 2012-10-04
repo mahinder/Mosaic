@@ -1,0 +1,85 @@
+
+
+<%= form_for @exam_group, :url => {:controller => 'exam_groups', :action => 'create', :batch_id => @batch} do |f| %>
+<fieldset class="grey-bg">
+					<legend>Required fields</legend>
+  <div class="columns">
+	<p class="colx3-left required">
+			<label for="exam_name">Name</label>
+			<%= f.hidden_field :assessment_name_id, :value=>@assessment_name%>
+			<%=text_field "assessment","name", :value=>@name,:size =>15,:disabled=>true,:field_name=>'Name'%>
+		</p>
+	<p class="colx3-center required">
+			<label for="exam_type">Exam Type</label>
+			<%= f.hidden_field :exam_type,:value=>@type %>
+			<%= f.text_field :exam_type, :value=>@type,:disabled=>true ,:size =>15%> <%= link_to "Change Type", :controller => 'exam_groups', :action => 'new', :id => @batch.id, :ename=>@name %>
+		</p>
+		<p class="colx3-right required">
+			<label for="exam_type">Term</label>
+			<%= f.hidden_field :term_master_id,:value=>@term_id %>
+			<%= text_field "term","master", :value=>@term,:disabled=>true ,:size =>15%> 
+		</p>
+		</div>
+		<div class="columns">
+	<%unless @type=='Custom'%>
+	<p class="colx3-right required select-fixed-width1">
+		<label for="exam_type">Grade Group</label>
+	<%unless @grading_groups.empty?%>
+	<%= f.select :grading_level_group_id, @grading_groups.map { |s| [s.grading_level_group_name, s.id]},:selected => @grading_level_group_id || 1,:prompt =>'Select ' %>
+	<%end%></p><%end%>
+</div>
+</fieldset>
+  
+
+<h3 align="center">Enter exam related details here:</h3>
+<div class="no-margin">	
+  <table class="table examgrades" id="examgf" cellspacing="0" width="100%">
+  	<thead>
+		<tr>
+			<th class="black-cell"></th>
+			<th scope="col"> Subject Name </th>
+			<th scope="col"> Topic Name </th>
+			<th scope="col">Start time </th>
+			<th scope="col">End time </th>
+			<th scope="col">Do not create </th>
+			
+		</tr>
+	</thead>
+    <tbody>
+<%subject_name='No'%>
+    <%= f.fields_for :exams do |exam_form| %>
+    <% if subject_name == exam_form.object.subject.name%>
+			<% subject_name = ""%>
+			<%else%>
+			<% subject_name = exam_form.object.subject.name%>
+			<%end%>
+    
+      <tr>
+      	 <td class="th table-check-cell"></td>
+      	 
+        <td ><h3><%= exam_form.object.subject.name %></h3><%= exam_form.hidden_field :subject_id %> </td>
+        <td ><%= exam_form.object.topic.name %><%= exam_form.hidden_field :topic_id %> </td>
+        <td><%= exam_form.text_field :start_time ,:value =>@date, :class => "timepicker", :size => '15',:id=>'marks_exam_start_time'%></td>
+        <td><%= exam_form.text_field :end_time ,:value =>@date+1.hour, :class => "timepicker", :size => '15',:id=>'marks_exam_end_time'%></td>
+       <td><%= exam_form.check_box :_destroy %></td>
+       <%= exam_form.hidden_field :minimum_marks,:value =>0 %> 
+      	  <%= exam_form.hidden_field :maximum_marks,:value =>0 %> 
+      </tr>
+      
+    <% end %>
+    </tbody>
+  </table></div><br />
+
+ <fieldset class="grey-bg no-margin">
+	<legend>
+		Action
+	</legend>
+	<p class="input-with-button">
+		<%= f.submit "Save", :class => "big-button", :id => 'create_grade_exam'%>
+	</p>
+</fieldset>
+
+
+<% end %>
+
+

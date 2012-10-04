@@ -1,0 +1,21 @@
+<h1>Listing archived_student_awards</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @archived_student_awards.each do |archived_student_award| %>
+  <tr>
+    <td><%= link_to 'Show', archived_student_award %></td>
+    <td><%= link_to 'Edit', edit_archived_student_award_path(archived_student_award) %></td>
+    <td><%= link_to 'Destroy', archived_student_award, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Archived student award', new_archived_student_award_path %>

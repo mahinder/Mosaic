@@ -1,0 +1,3 @@
+<label>Student Category:</label>
+<%= select :finance_fee_particulars,:student_category_id, @student_categories.map { |c| [c.name, c.id] },
+      {:prompt => 'Select'} %>

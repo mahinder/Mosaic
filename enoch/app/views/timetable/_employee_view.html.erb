@@ -1,0 +1,53 @@
+<% unless  @weekday.empty? %>
+<% week1 =[] %>
+<%- @day.each do |d| -%>
+<% week1.push d.weekday %>
+
+<% end %>
+<% end %>
+
+<% unless @employee.nil? %>
+<div class="no-margin" style="overflow:scroll">
+	<table class="table" cellspacing="0" width="100%" >
+		<thead>
+			<tr>
+				<th scope="col">Weekdays</th>
+				<th scope="col">Lectures</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @index = 0%>
+			<% unless @weekday.empty?%>
+			<% @weekday.each do |week|%>
+			<tr>
+				<td> <%= week %> </td>
+				<% unless @timetable_entries.empty?%>
+				<% @timetable_entries.each do |time|%>
+				<% if  time.weekday.weekday.to_s == @index.to_s %> 
+				<td> 
+				<ul class="keywords">
+					<li>
+						<%= time.subject.name unless  time.subject.nil? %>
+					</li>
+					<li>
+						<%= time.class_timing.start_time.strftime("%I:%M %p") unless  time.class_timing.nil? %>-<%= time.class_timing.end_time.strftime("%I:%M %p") unless  time.class_timing.nil? %>
+					</li>
+					<li class="orange-keyword">
+						<%= time.batch.full_name unless  time.batch.nil? %>
+					</li>
+				</ul>
+				</td>
+				<%end%>
+				<%end%>
+				<%end%>
+				
+				<% @index = @index + 1%>
+			</tr>
+			<%end%>
+			<%end%>
+			
+		</tbody>
+	</table>
+</div>
+<%else%> <h3><%= I18n.t(:no_entries_for_timetable) %></h3>
+<%end%> 

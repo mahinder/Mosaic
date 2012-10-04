@@ -1,0 +1,30 @@
+
+<ul class="controls-buttons colx-left" style="float: left;margin-top: 1em;">
+	<li class = "colx-left" >
+		<a href="/batches/batch_students_pdf?batch_id=<%= @batch.id%>" style = "background: #39C;">Pdf</a>
+	</li>
+</ul>
+
+<table id="student-table" class="table students-table no-margin" cellspacing="0" width="100%">
+
+	<thead>
+		<tr>
+			<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> Roll Number </th>
+			<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> Name </th>
+			<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> Admission Number </th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @slno = 0 %>
+		<% unless @batch.students.empty?%>
+		<% @batch.students.each do |student| %>
+		<% @slno= @slno + 1 %>
+		<tr >
+			<td ><%= student.class_roll_no %></td>
+			<td ><%= link_to student.full_name,{:controller=>'student',:action=>'my_profile',:q=>student.admission_no} %></td>
+			<td ><%= student.admission_no %> </td>
+		</tr>
+		<% end %>
+		<% end %>
+	</tbody>
+</table>

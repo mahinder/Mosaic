@@ -1,0 +1,1347 @@
+
+function dateConvert(date){
+				MyDate = date;
+			MD_Date = MyDate.substring(0);
+			MD_Time = MyDate.substring(1);
+			MD_i2 = MD_Date.indexOf('-');
+			MD_i3 = MD_Date.indexOf('-', MD_i2 + 1);
+			MD_D = MD_Date.substring(0, MD_i2);
+			MD_M = MD_Date.substring(MD_i2 + 1, MD_i3);
+			MD_Y = MD_Date.substring(MD_i3 + 1);
+			if((isNaN(MD_Y)) || (isNaN(MD_M)) || (isNaN(MD_D))) {
+				alert('Not numeric.');
+				DObj = '*** error';
+			} else {
+				MD_M = MD_M - 1;				
+				DObj = new Date(MD_Y, MD_M, MD_D );
+			}
+			return DObj;
+}
+
+
+$("#attendance_course_search_course_id").live('change', function(event) {
+
+var str = "";
+	$('#save_attendances').hide();
+	var tabss = document.getElementById('datatabl')
+	if(tabss != null){
+		destroyOldTable(tabss);
+	}
+     $("#attendance_course_search_course_id option:selected").each(function () {
+  
+            str = $(this).val();       
+           });
+            var url = 'attendances/attendance_change_batch' + '?q='  +str 
+           createAttendance(url);
+
+});
+$(document).ready(function(){
+	 var currentTime  =  new Date()
+		var d = new Date(currentTime); 
+		var today_date =  ("0" + d.getDate()).slice(-2) + "-" +
+		    ("0" + (d.getMonth() + 1)).slice(-2) + "-" + 
+		    d.getFullYear();
+	$('#period_entry').val(today_date)
+	$('#attendance_course_search_course_id').val("");
+});
+
+function emptyDatatable(){
+	$('#save_attendances').hide();
+	$('#student_batch_id').val("");
+	var tabss = document.getElementById('datatabl')
+	if(tabss != null){
+		destroyOldTable(tabss);
+	}
+}
+
+
+function createAttendance(url){
+
+	       $.get(url , function(data){
+       	    $('#change_attendance_batch').empty();
+            $('#change_attendance_batch').html(data);
+            $("#student_batch_id").live('change', function(event) {
+               var batch = "";
+             
+                    $("#student_batch_id option:selected").each(function () {
+                    batch = $(this).val();       
+                      });
+                      if(batch == ""){
+                      		var tabss = document.getElementById('datatabl')
+                      			$('#save_attendances').hide();
+							if(tabss != null){
+								destroyOldTable(tabss);
+							}
+                      }
+                      
+                var target = "/attendances/show" + '?batch_id=' +batch 
+                var currentTime  =  new Date()
+				var month = currentTime.getMonth() + 1
+				var day = currentTime.getDate()
+				var year = currentTime.getFullYear()
+				if(day.length!= 1 && month.length != 1){
+				var data_date = "0"+day + "-" + "0"+month + "-" + year
+				}else{
+					var data_date = day + "-" + month + "-" + year
+				}
+				
+				DObj = dateConvert(data_date);
+
+				var monthLocale = new Array(12);
+				monthLocale[0] = "January";
+				monthLocale[1] = "February";
+				monthLocale[2] = "March";
+				monthLocale[3] = "April";
+				monthLocale[4] = "May";
+				monthLocale[5] = "June";
+				monthLocale[6] = "July";
+				monthLocale[7] = "August";
+				monthLocale[8] = "September";
+				monthLocale[9] = "October";
+				monthLocale[10] = "November";
+				monthLocale[11] = "December";
+               getTableData(target,monthLocale,month,DObj);
+
+      });
+
+   });
+};
+
+function getTableData(target,monthLocale,month,DObj){
+
+	var period_entry_date = $('#period_entry').val();
+	$.get(target ,{period_entry_date: period_entry_date} ,function(data){
+		var roll_no = data.rollNo
+		var student_name = data.student
+		var admission_no = data.admission_no
+		var student_id = data.studentId
+		var absent_id = data.student_id
+		var absentS_id = data.absentS_id
+		var absentee = data.absentee
+		var validPeriodData = dateConvert(period_entry_date)
+		if (validPeriodData > new Date()){
+				$('#outer_block').removeBlockMessages().blockMessage("You can only mark present or past date attendance", {
+					type : 'warning'
+				});
+		}else{
+				markAttendance(roll_no,student_name,admission_no,student_id,absent_id,absentee,absentS_id);	
+		}
+	
+	});
+}
+
+function markAttendance(roll_no,student_name,admission_no,student_id,absent_id,absentee,absentS_id){
+    if(absentS_id == null){
+    	$('#save_attendances').hide();
+    			$('#outer_block').removeBlockMessages().blockMessage("Period Entry Not found", {
+					type : 'warning'
+				});
+    }else{
+    	$('#outer_block').removeBlockMessages()
+    }
+   
+	var tabss = document.getElementById('datatabl')
+	if(tabss != null){
+		destroyOldTable(tabss);
+	}
+	           tbh_th = new Array();
+                cont_text1 = new Array();
+                tbody_td = new Array();
+                cont_text = new Array();
+                tbody_tr = new Array();
+                cont_text2 = new Array();
+                combo_box = new Array();
+                div = document.createElement('div');
+                div.setAttribute('id', 'datatabl');
+				tab = document.createElement('table');
+				tab.setAttribute('id', 'newtable');
+				tab.setAttribute('class', 'table');
+				tab.setAttribute('width', '100%');
+				tbh = document.createElement('thead');			
+				tbh_r = document.createElement('tr');
+
+				for(i=0;i<4;i++){
+					
+					if(i==0){
+						cont_text1[i] = document.createTextNode("Roll No.");
+						tbh_th[i] = document.createElement('th');
+						tbh_th[i].appendChild(cont_text1[i]);
+						tbh_r.appendChild(tbh_th[i]);		
+						}
+						else if(i==1){
+						cont_text1[i] = document.createTextNode("Admission No.");
+						tbh_th[i] = document.createElement('th');
+						tbh_th[i].appendChild(cont_text1[i]);
+						tbh_r.appendChild(tbh_th[i]);
+					    }
+						else if(i==2){
+						cont_text1[i] = document.createTextNode("Student Name");
+						tbh_th[i] = document.createElement('th');
+						tbh_th[i].appendChild(cont_text1[i]);
+						tbh_r.appendChild(tbh_th[i]);			
+						}else{	
+					    cont_text1[i] = document.createTextNode("Present/Absent");
+						tbh_th[i] = document.createElement('th');
+						tbh_th[i].appendChild(cont_text1[i]);
+						tbh_r.appendChild(tbh_th[i]);
+						}
+				}
+				tbody = document.createElement('tbody');
+
+				for(j=0;j<admission_no.length;j++){
+				tbody_tr[j] = document.createElement('tr');
+						for(k=0;k<4;k++){
+							
+							
+							if(k==0){
+							cont_text[k] = document.createTextNode(roll_no[j]);
+							tbody_td[k] = document.createElement('td');
+							tbody_td[k].appendChild(cont_text[k]);
+							tbody_tr[j].appendChild(tbody_td[k]);
+							tbody_tr[j].setAttribute('style','height: 50px;width: 5px;');
+							}else if(k==1){
+							cont_text[k] = document.createTextNode(admission_no[j]);
+							tbody_td[k] = document.createElement('td');
+							tbody_td[k].appendChild(cont_text[k]);
+							tbody_tr[j].appendChild(tbody_td[k]);
+							tbody_tr[j].setAttribute('style','height: 50px;width: 5px;');
+							}else if(k==2){
+							cont_text[k] = document.createTextNode(student_name[j]);
+							tbody_td[k] = document.createElement('td');
+							tbody_td[k].appendChild(cont_text[k]);
+							tbody_tr[j].appendChild(tbody_td[k]);
+							tbody_tr[j].setAttribute('style','height: 50px;width: 5px;');
+							}
+							else{	
+							combo_box[k] = document.createElement('select');
+							combo_box[k].name = 'something';
+							combo_box[k].id = student_id[j];
+							
+							choice = document.createElement('option');
+							choice.value = 'option1';
+							// if(absent_id == student_id[j])
+							option1 = document.createTextNode('Present')
+							choice.appendChild(option1);
+							combo_box[k].appendChild(choice);
+							choice = document.createElement('option');
+							choice.value = 'option2';
+							option2 = document.createTextNode('Absent')
+							choice.appendChild(option2);
+							combo_box[k].appendChild(choice);
+							tbody_td[k] = document.createElement('td');
+							tbody_td[k].setAttribute('id', student_id[j]);
+							tbody_td[k].setAttribute('dates_id', $('#period_entry').val());
+					if(absentS_id !="" ){
+							for(var g=0; g<absentS_id.length; g++) {		
+							  if (absentS_id[g] == tbody_td[k].getAttribute('id') ) {
+								combo_box[k].selectedIndex = 1
+								tbody_td[k].appendChild(combo_box[k]);
+								}else{
+								tbody_td[k].appendChild(combo_box[k]);
+								}
+							}
+					}else{
+						tbody_td[k].appendChild(combo_box[k]);
+					}
+							tbody_tr[j].appendChild(tbody_td[k]);
+							tbody_tr[j].setAttribute('style','height: 50px;width: 5px;');
+							
+						}
+						}
+						tbody.appendChild(tbody_tr[j]);
+				}
+                div.appendChild(tab);
+				tab.appendChild(tbh);
+				tab.appendChild(tbody);
+				tbh.appendChild(tbh_r);
+
+				document.getElementById('newTable').appendChild(div);
+				$('#save_attendances').show(); 
+			 		initTables($('#newtable'));
+			
+}
+
+
+function initTables(tablenode) {
+
+	var table = tablenode
+		
+	var oTable = table.dataTable({
+		bRetrieve: true,
+        bDestroy: true,
+		aoColumns : [{
+			sType : 'string'
+		}, // No sorting for this columns, as it only contains checkboxes
+	    {
+			sType : 'string'
+		}, {
+			sType : 'string'
+		}, {
+			bSortable : false
+		}// No sorting for actions column
+		],
+		/*
+		 * Set DOM structure for table controls
+		 * @url http://www.datatables.net/examples/basic_init/dom.html
+		 */
+		sDom : '<"block-controls no-margin"<"controls-buttons"p>>rti<"block-footer clearfix"lf>',
+		/*
+		 * Callback to apply template setup
+		 */
+		fnDrawCallback : function() {
+			this.parent().applyTemplateSetup();
+		},
+		fnInitComplete : function() {
+			this.parent().applyTemplateSetup();
+		}
+	});
+	// Sorting arrows behaviour
+	table.find('thead .sort-up').click(function(event) {
+		// Stop link behaviour
+		event.preventDefault();
+		// Find column index
+		var column = $(this).closest('th'), columnIndex = column.parent().children().index(column.get(0));
+		// Send command
+		oTable.fnSort([[columnIndex, 'asc']]);
+		// Prevent bubbling
+		return false;
+	});
+	table.find('thead .sort-down').click(function(event) {
+		// Stop link behaviour
+		event.preventDefault();
+		// Find column index
+		var column = $(this).closest('th'), columnIndex = column.parent().children().index(column.get(0));
+		// Send command
+		oTable.fnSort([[columnIndex, 'desc']]);
+		// Prevent bubbling
+		return false;
+	});
+	new FixedColumns( oTable, {
+		"iLeftColumns": 0,
+		"iRightColumns": 1,
+		"iRightWidth": 150
+
+ 	} );
+ 	
+}
+
+$(document).ready(function(){
+	$('#save_attendances').hide();
+});
+
+
+function destroyOldTable(tableId){
+	document.getElementById('newTable').removeChild(tableId);
+}
+
+
+$("#save_attendances").on('click', function(event) {
+var period_entry = $('#period_entry').val();
+var batch = ""
+     $("#student_batch_id option:selected").each(function () {
+                    batch = $(this).val();       
+      });
+ var batch_id = batch;
+ var allVals = [];
+$('#newtable').find('tr').each(function(){
+
+ var absent = $(this).find('select').val();
+ var absentId = $(this).find('select').attr('id');
+
+    if(absent == "option2"){
+	 allVals.push(absentId);
+	 }
+     
+ });
+ 
+  var data = {
+				'attendance[student_id]' : allVals,
+				'attendance[period_table_entry_id]' : period_entry,
+				'batch_id' : batch_id
+			}
+ 
+ 
+ var target = "/attendances"
+
+    $.ajax({
+		url : target,
+		dataType : 'json',
+		type : "POST",
+		data : data,
+		success : function(data) {
+			if(data.valid) {		
+				$('#outer_block').removeBlockMessages().blockMessage(data.notice, {
+					type : 'warning'
+				});			
+			} else {
+				// Message
+				var errorText = getErrorText(data.errors);
+				$('#outer_block').removeBlockMessages().blockMessage(errorText || 'An unexpected error occured, please try again', {
+					type : 'error'
+				});
+				
+			}
+		},
+		error : function(data) {
+			// Message
+			$('#outer_block').removeBlockMessages().blockMessage('Error while contacting server, please try again', {
+				type : 'error'
+			});
+			
+		}
+	});
+});
+
+
+
+
+//==================================Subject_wise_attendance==================================== //
+
+
+
+$("#subject_course_search_course_id").live('change', function(event) {
+$('#change_batch_wise_subjects').val("");
+var str = "";
+var subject_table = document.getElementById('datatablSubject')
+	if(subject_table != null){
+		destroySubjecttable(subject_table);
+	}
+     $("#subject_course_search_course_id option:selected").each(function () {
+  
+            str = $(this).val();       
+           });
+           var url = 'attendance_subject_wise_change_batch' + '?q='  +str 
+         $.get(url , function(data){
+       	    $('#change_attendance_batch_subject_wise').empty();
+            $('#change_attendance_batch_subject_wise').html(data);
+         });
+         
+         
+         $("#student_subject_batch_id").live('change', function(event) {
+         	var subjectTable = document.getElementById('datatablSubject')
+			if(subjectTable != null){
+				destroySubjecttable(subjectTable);
+			}
+         	var batch_id = ""
+         	$("#student_subject_batch_id option:selected").each(function () {
+                 batch_id = $(this).val();       
+            });
+         var subject_url = 'list_subject' + '?batch_id='  +batch_id 
+		         $.get(subject_url , function(data){
+	         	 if(data!=null){
+		       	    $('#change_batch_wise_subjects').empty();
+		            $('#change_batch_wise_subjects').html(data);
+		          }else{
+		          	
+		          }
+		         });
+         });
+
+});
+
+$(document).ready(function(){
+	$('#subject_course_search_course_id').val("");
+	$('#student_subject_batch_id').val("");
+	$('#change_batch_wise_subjects').val("");
+	$('#save_attendances_subject_wise').hide();
+});
+
+
+$("#subject_attendance_id").live('change', function(event) {
+	var subject_id = "";
+
+     $("#subject_attendance_id option:selected").each(function () {
+  
+            subject_id = $(this).val();       
+           });
+           if(subject_id != ""){ 
+           getSubjectWisedata(subject_id);
+           }else{
+           	$('#save_attendances_subject_wise').hide();
+           	var subjectTable = document.getElementById('datatablSubject')
+				if(subjectTable != null){
+					destroySubjecttable(subjectTable);
+				}
+           }
+     
+});
+
+function getSubjectWisedata(subject_id){
+	var batch_id = ""
+	var subjectTable = document.getElementById('datatablSubject')
+			if(subjectTable != null){
+				destroySubjecttable(subjectTable);
+			}
+         	$("#student_subject_batch_id option:selected").each(function () {
+                 batch_id = $(this).val();       
+            });
+          
+	var target = "/attendances/show_subject_wise/?batch_id="+batch_id+",&subject_id="+subject_id
+	var period_entry_date = $('#period_entry_subject_wise').val();
+  
+	$.get(target ,{period_entry_date: period_entry_date}, function(data){
+		var student_name = data.student;
+		var admission_no = data.admission_no
+		var rollNo = data.rollNo
+		var studentId = data.studentId
+		var batchName = data.batchName
+		var batchId = data.batchId
+		var absents_batch_id  = data.absents_batch_id
+		var absentS_id = data.absentS_id
+	  	var period_id = data.period_id
+		var validPeriodData = dateConvert(period_entry_date)
+		if (validPeriodData > new Date()){
+				$('#outer_block').removeBlockMessages().blockMessage("You can only mark present or past date attendance", {
+					type : 'warning'
+				});
+				return false;
+		}
+		if(studentId == ""){
+			
+    	$('#save_attendances_subject_wise').hide();
+    			$('#outer_block').removeBlockMessages().blockMessage("Student are not assigned", {
+					type : 'warning'
+				});
+				return false;
+	    }
+	    if(period_id == null){
+    	$('#save_attendances_subject_wise').hide();
+    			$('#outer_block').removeBlockMessages().blockMessage("Period Entry Not found", {
+					type : 'warning'
+				});
+				return false;
+	    }
+	    	$('#outer_block').removeBlockMessages()
+	    	$('#save_attendances_subject_wise').show();
+					createSubjectWiseAttendance(student_name,admission_no,rollNo,studentId,batchName,batchId,absents_batch_id,absentS_id)
+	   
+		
+	
+	  
+	});
+};
+
+function createSubjectWiseAttendance(student_name,admission_no,rollNo,studentId,batchName,batchId,absents_batch_id,absentS_id){
+	
+var subjectTable = document.getElementById('datatablSubject')
+	if(subjectTable != null){
+		destroySubjecttable(subjectTable);
+	}
+	 tbh_th = new Array();
+                cont_text1 = new Array();
+                tbody_td = new Array();
+                cont_text = new Array();
+                tbody_tr = new Array();
+                cont_text2 = new Array();
+                combo_box = new Array();
+                div = document.createElement('div');
+                div.setAttribute('id', 'datatablSubject');
+				tab = document.createElement('table');
+				tab.setAttribute('id', 'newtableSubject');
+				tab.setAttribute('class', 'table');
+				tab.setAttribute('width', '100%');
+				tbh = document.createElement('thead');			
+				tbh_r = document.createElement('tr');
+
+				for(i=0;i<4;i++){
+					
+					if(i==0){
+						cont_text1[i] = document.createTextNode("Batch");
+						tbh_th[i] = document.createElement('th');
+						tbh_th[i].appendChild(cont_text1[i]);
+						tbh_r.appendChild(tbh_th[i]);		
+						}
+						else if(i==1){
+						cont_text1[i] = document.createTextNode("Admission No.");
+						tbh_th[i] = document.createElement('th');
+						tbh_th[i].appendChild(cont_text1[i]);
+						tbh_r.appendChild(tbh_th[i]);
+					    }
+						else if(i==2){
+						cont_text1[i] = document.createTextNode("Student Name");
+						tbh_th[i] = document.createElement('th');
+						tbh_th[i].appendChild(cont_text1[i]);
+						tbh_r.appendChild(tbh_th[i]);			
+						}else{	
+					    cont_text1[i] = document.createTextNode("Present/Absent");
+						tbh_th[i] = document.createElement('th');
+						tbh_th[i].appendChild(cont_text1[i]);
+						tbh_r.appendChild(tbh_th[i]);
+						}
+				}
+				tbody = document.createElement('tbody');
+
+				for(j=0;j<student_name.length;j++){
+				tbody_tr[j] = document.createElement('tr');
+						for(k=0;k<4;k++){
+	
+							if(k==0){
+							cont_text[k] = document.createTextNode(batchName[j]);
+							tbody_td[k] = document.createElement('td');
+							tbody_td[k].appendChild(cont_text[k]);
+							tbody_tr[j].appendChild(tbody_td[k]);
+							tbody_tr[j].setAttribute('style','height: 50px;width: 5px;');
+							}else if(k==1){
+							cont_text[k] = document.createTextNode(admission_no[j]);
+							tbody_td[k] = document.createElement('td');
+							tbody_td[k].appendChild(cont_text[k]);
+							tbody_tr[j].appendChild(tbody_td[k]);
+							tbody_tr[j].setAttribute('style','height: 50px;width: 5px;');
+							}else if(k==2){
+							cont_text[k] = document.createTextNode(student_name[j]);
+							tbody_td[k] = document.createElement('td');
+							tbody_td[k].appendChild(cont_text[k]);
+							tbody_tr[j].appendChild(tbody_td[k]);
+							tbody_tr[j].setAttribute('style','height: 50px;width: 5px;');
+							}
+							else{	
+							combo_box[k] = document.createElement('select');
+							combo_box[k].name = 'something';
+							combo_box[k].id = 1;
+							
+							choice = document.createElement('option');
+							choice.value = 'option1';
+							// if(absent_id == student_id[j])
+							option1 = document.createTextNode('Present')
+							choice.appendChild(option1);
+							combo_box[k].appendChild(choice);
+							choice = document.createElement('option');
+							choice.value = 'option2';
+							option2 = document.createTextNode('Absent')
+							choice.appendChild(option2);
+							combo_box[k].appendChild(choice);
+							combo_box[k].setAttribute('id', studentId[j]);
+							combo_box[k].setAttribute('batch_id', batchId[j]);
+							
+							
+							tbody_td[k] = document.createElement('td');
+							tbody_td[k].setAttribute('id', studentId[j]);
+							tbody_td[k].setAttribute('dates_id', $('#period_entry_subject_wise').val());
+							tbody_td[k].setAttribute('batch_id', batchId[j]);
+					if(absentS_id !="" ){
+						
+							for(var g=0; g<absentS_id.length; g++) {		
+							  if (absentS_id[g] == tbody_td[k].getAttribute('id') ) {
+								combo_box[k].selectedIndex = 1
+								tbody_td[k].appendChild(combo_box[k]);
+								}else{
+								tbody_td[k].appendChild(combo_box[k]);
+								}
+							}
+					}else{
+						tbody_td[k].appendChild(combo_box[k]);
+					}
+							tbody_tr[j].appendChild(tbody_td[k]);
+							tbody_tr[j].setAttribute('style','height: 50px;width: 5px;');
+							
+						}
+						}
+						tbody.appendChild(tbody_tr[j]);
+				}
+							
+                div.appendChild(tab);
+				tab.appendChild(tbh);
+				tab.appendChild(tbody);
+				tbh.appendChild(tbh_r);
+
+				document.getElementById('subject_wise_table').appendChild(div);
+				initSubjectTables($('#newtableSubject'));
+}
+
+
+
+$("#save_attendances_subject_wise").on('click', function(event) {
+var period_entry = $('#period_entry_subject_wise').val();
+var batch = ""
+     $("#student_subject_batch_id option:selected").each(function () {
+                    batch = $(this).val();       
+      });
+ var subject_id  =   $('#subject_attendance_id').val()
+ var batch_id = batch;
+ var allVals = [];
+ var allBatchId = [];
+$('#newtableSubject').find('tr').each(function(){
+ var absent = $(this).find('select').val();
+ var absentId = $(this).find('select').attr('id');
+ var student_batch = $(this).find('select').attr('batch_id');
+
+    if(absent == "option2"){
+	 allVals.push(absentId);
+	 allBatchId.push(student_batch);
+	 }else{
+	 	if( student_batch != null){
+	 	allBatchId.push(student_batch);
+	 	}
+	 }
+	 
+ });
+ 
+  var data = {
+				'attendance[student_id]' : allVals,
+				'attendance[period_table_entry_subject_wise_id]' : period_entry,
+				'batch_id' : allBatchId,
+				'subject_id' : subject_id
+			}
+ 
+ 
+ var target = "create_subject_wise_attendance"
+
+    $.ajax({
+		url : target,
+		dataType : 'json',
+		type : "POST",
+		data : data,
+		success : function(data) {
+			if(data.valid) {		
+				$('#outer_block').removeBlockMessages().blockMessage(data.notice, {
+					type : 'warning'
+				});			
+			} else {
+				// Message
+				var errorText = getErrorText(data.errors);
+				$('#outer_block').removeBlockMessages().blockMessage(errorText || 'An unexpected error occured, please try again', {
+					type : 'error'
+				});
+				
+			}
+		},
+		error : function(data) {
+			// Message
+			$('#outer_block').removeBlockMessages().blockMessage('Error while contacting server, please try again', {
+				type : 'error'
+			});
+			
+		}
+	});
+});
+
+function destroySubjecttable(tableIds){
+	document.getElementById('subject_wise_table').removeChild(tableIds);
+};
+
+
+$(document).ready(function(){
+	 var currentTime  =  new Date()
+		var d = new Date(currentTime); 
+		var today_date =  ("0" + d.getDate()).slice(-2) + "-" +
+		    ("0" + (d.getMonth() + 1)).slice(-2) + "-" + 
+		    d.getFullYear();
+	$('#period_entry_subject_wise').val(today_date)
+	$('#subject_course_search_course_id').val("");
+});
+
+function emptySubjectWiseDatatable(){
+	$('#save_attendances_subject_wise').hide();
+	$('#student_subject_batch_id').val("");
+	$('#subject_attendance_id').val("");
+	var subjectTable = document.getElementById('datatablSubject')
+	if(subjectTable != null){
+		destroySubjecttable(subjectTable);
+	}
+}
+
+
+function initSubjectTables(tablenode) {
+
+	var table = tablenode
+		
+	var oTable = table.dataTable({
+		bRetrieve: true,
+        bDestroy: true,
+		aoColumns : [{
+			sType : 'string'
+		}, // No sorting for this columns, as it only contains checkboxes
+	    {
+			sType : 'string'
+		}, {
+			sType : 'string'
+		}, {
+			bSortable : false
+		}// No sorting for actions column
+		],
+		/*
+		 * Set DOM structure for table controls
+		 * @url http://www.datatables.net/examples/basic_init/dom.html
+		 */
+		sDom : '<"block-controls no-margin"<"controls-buttons"p>>rti<"block-footer clearfix"lf>',
+		/*
+		 * Callback to apply template setup
+		 */
+		fnDrawCallback : function() {
+			this.parent().applyTemplateSetup();
+		},
+		fnInitComplete : function() {
+			this.parent().applyTemplateSetup();
+		}
+	});
+	// Sorting arrows behaviour
+	table.find('thead .sort-up').click(function(event) {
+		// Stop link behaviour
+		event.preventDefault();
+		// Find column index
+		var column = $(this).closest('th'), columnIndex = column.parent().children().index(column.get(0));
+		// Send command
+		oTable.fnSort([[columnIndex, 'asc']]);
+		// Prevent bubbling
+		return false;
+	});
+	table.find('thead .sort-down').click(function(event) {
+		// Stop link behaviour
+		event.preventDefault();
+		// Find column index
+		var column = $(this).closest('th'), columnIndex = column.parent().children().index(column.get(0));
+		// Send command
+		oTable.fnSort([[columnIndex, 'desc']]);
+		// Prevent bubbling
+		return false;
+	});
+	new FixedColumns( oTable, {
+		"iLeftColumns": 0,
+		"iRightColumns": 1,
+		"iRightWidth": 150
+
+ 	} );
+ 	
+}
+
+
+
+
+
+
+
+
+
+
+
+// ===================================Employee Attendance===================================================//
+
+
+
+
+
+
+
+
+
+
+
+
+
+$(document).on('change', '#department_attendance_id' , function(event){
+	var tabss = document.getElementById('empdatatabl')
+	if(tabss != null){
+		destroyEmpOldTable(tabss);
+	}
+	var dept_id= $(this).val();
+	getAttendanceData(dept_id);
+
+});
+
+
+function getAttendanceData(dept_id){
+	var nextdate = $('#nextMonth').val();
+	var target  = '/employee_attendances/show' + '?dept_id=' + dept_id
+    $("#loader_show").html('<img src=/assets/ajax-loader.gif style=vertical-align:middle;margin:0 10px 0 0 />');
+	$.get(target, {next: nextdate } ,function(data){
+		var name= data.employee_name;
+		var emp_id = data.employee_id;
+		var today = data.today;
+		var start_date = data.start_date;
+		var end_date = data.end_date;
+	    var date_array = data.date_array;
+	    var employee_attendance_id = data.employee_attendance_id;
+	    var employee_attendance_date = data.employee_attendance_date;
+	    var date_style = data.date_style;
+	    var nextdate = data.today;
+	    markEmployeeAttendance(name,date_array,emp_id,employee_attendance_id,employee_attendance_date,date_style);
+	});
+
+}
+
+function markEmployeeAttendance(name,date_array,emp_id,employee_attendance_id,employee_attendance_date,date_style){
+    
+	           tbh_th = new Array();
+                cont_text1 = new Array();
+                tbody_td = new Array();
+                cont_text = new Array();
+                tbody_tr = new Array();
+                cont_text2 = new Array();
+                combo_box = new Array();
+                div = document.createElement('div');
+                div.setAttribute('id', 'empdatatabl');
+               
+				tab = document.createElement('table');
+				tab.setAttribute('id', 'empnewtable');
+				tab.setAttribute('class', 'table');
+				tab.setAttribute('width', '100%');
+				 tab.setAttribute('style','margin-top: -1px;');
+				tbh = document.createElement('thead');			
+				tbh_r = document.createElement('tr');
+
+				for(i=0;i<=date_array.length;i++){
+					
+					if(i==0){
+						cont_text1[i] = document.createTextNode("Name");
+						tbh_th[i] = document.createElement('th');
+						tbh_th[i].appendChild(cont_text1[i]);
+						tbh_r.appendChild(tbh_th[i]);		
+						}else{	
+					    cont_text1[i] = document.createTextNode(date_style[i-1]);
+						tbh_th[i] = document.createElement('th');
+						tbh_th[i].appendChild(cont_text1[i]);
+						if(tbh_th[i].innerHTML.match(/Sun*/)){
+						tbh_th[i].setAttribute('style','background: #50A3C8;');
+						}
+						tbh_r.appendChild(tbh_th[i]);
+						}
+				}
+				tbody = document.createElement('tbody');
+				for(j=0;j<name.length;j++){
+				tbody_tr[j] = document.createElement('tr');
+						for(k=0;k<=date_array.length;k++){
+							
+							
+							if(k==0){
+							cont_text[k] = document.createTextNode(name[j]);
+							tbody_td[k] = document.createElement('td');
+							tbody_td[k].appendChild(cont_text[k]);
+							tbody_tr[j].appendChild(tbody_td[k]);
+							tbody_tr[j].setAttribute('style','height: 50px;width: 5px;');
+							}else{
+							tbody_td[k-1] = document.createElement('td');
+							tbody_tr[j].appendChild(tbody_td[k-1]);
+							tbody_tr[j].setAttribute('style','height: 50px;width: 5px;');
+							tbody_td[k-1].setAttribute('date_id',date_array[k-1] );
+							tbody_td[k-1].setAttribute('id',emp_id[j] );
+							tbody_td[k-1].setAttribute('date_s',date_style[k-1] );
+						     var currentTime  =  new Date()
+							var d = new Date(currentTime); 
+							var today_date = d.getFullYear()  + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" +("0" + d.getDate()).slice(-2) 
+							if(tbody_td[k-1].getAttribute('date_s').match(/Sun*/)){
+							tbody_td[k-1].setAttribute('style','background: #50A3C8;');
+							}
+							if(tbody_td[k-1].getAttribute('date_id') == today_date){
+							tbody_td[k-1].setAttribute('style','background: #C3FDB8;');
+							}
+							if(!tbody_td[k-1].getAttribute('date_s').match(/Sun*/)){
+							tbody_td[k-1].addEventListener("click", function () { hellos($(this).attr('id'),$(this).attr('date_id'),$(this).text(),this); }, false);
+							}
+							tbody_tr[j].appendChild(tbody_td[k-1]);
+							tbody_tr[j].setAttribute('style','height: 50px;width: 5px;');	
+								
+								if(employee_attendance_id !="" || employee_attendance_date!= "" ){
+								    for(var g=0; g<employee_attendance_id.length; g++) {
+								    	
+								                if (employee_attendance_id[g] == tbody_td[k-1].getAttribute('id') && employee_attendance_date[g]==tbody_td[k-1].getAttribute('date_id') ) {
+								                  cont_text[k] = document.createTextNode("X");
+								                  
+								                  cont_text[k].className = ("aClassName");
+								                  tbody_td[k-1].appendChild(cont_text[k]);		
+					 								}else{
+					 									cont_text[k] = document.createTextNode("")
+					 									tbody_td[k-1].appendChild(cont_text[k]);
+					 								}
+										
+								 	}
+						 	}else{
+									cont_text[k] = document.createTextNode("")
+									tbody_td[k-1].appendChild(cont_text[k]);
+							}
+							
+						}
+						}
+						tbody.appendChild(tbody_tr[j]);
+				}
+                div.appendChild(tab);
+				tab.appendChild(tbh);
+				tab.appendChild(tbody);
+				tbh.appendChild(tbh_r);
+
+				document.getElementById('emloyee_attendnce_register').appendChild(div);
+			 		initEmployeeTables($('#empnewtable'));
+			        $("#loader_show").empty()
+}
+
+
+
+
+
+function hellos(employee_id, dates, text,thiss){
+if(text == "X"){
+	$(thiss).html('<img src=/assets/ajax-loader.gif style=vertical-align:middle;margin:0 10px 0 0 />');
+	$.get('/employee_attendances/edit', {id2: employee_id, id: dates}, function(data){
+		$(thiss).empty();
+		$(thiss).append("X");
+		var contents = data	
+		$.modal({
+		content : contents,
+		title : 'Edit',
+		maxWidth : 500,
+		buttons : {
+			'Update' : function(win) {
+				var leave_type_id = $('#modal #attendance_employee_leave_type_id').val();
+				var is_half_day = $("input:checked").val()
+				var reason = $('#modal #attendance_reason').val()
+				if(!leave_type_id || leave_type_id.length == 0) {
+							 $('#modal #outer_block').removeBlockMessages().blockMessage('Please Select leaves type', {
+								 type : 'warning'
+							 });
+							 return false;
+			     }
+			     if(!reason || reason.length == 0) {
+							 $('#modal #outer_block').removeBlockMessages().blockMessage('Please Enter Reason', {
+								 type : 'warning'
+							 });
+							 return false;
+			     }
+				ajaxAttendanceEmployeeUpdate(leave_type_id,reason,is_half_day,dates,employee_id);
+				win.closeModal();
+			},
+			'Delete' : function(win) {
+				var leave_type_id = $('#modal #attendance_employee_leave_type_id').val();
+				var is_half_day = $("input:checked").val()
+				var reason = $('#modal #attendance_reason').val()
+				confirmEmployeeAttendanceDelete(leave_type_id,reason,is_half_day,dates,employee_id,thiss);
+				win.closeModal();
+			}
+		}
+	});
+});
+
+}else{
+$(thiss).html('<img src=/assets/ajax-loader.gif style=vertical-align:middle;margin:0 10px 0 0 />');
+	$.get('/employee_attendances/index', {id2: employee_id, id: dates}, function(data){
+		$(thiss).empty()
+		var contents = data	
+		$.modal({
+		content : contents,
+		title : 'Create',
+		maxWidth : 500,
+		buttons : {
+			'Submit' : function(win) {
+				var leave_type_id = $('#modal #employee_attendance_employee_leave_type_id').val();
+				var is_half_day = $("input:checked").val()
+				var reason = $('#modal #attendance_reason').val()
+				if(!leave_type_id || leave_type_id.length == 0) {
+							 $('#modal #outer_block').removeBlockMessages().blockMessage('Please Select leaves type', {
+								 type : 'warning'
+							 });
+							 return false;
+			     }
+			     if(!reason || reason.length == 0) {
+							 $('#modal #outer_block').removeBlockMessages().blockMessage('Please Enter Reason', {
+								 type : 'warning'
+							 });
+							 return false;
+			     }
+				ajaxAttendanceEmployeeCreate(leave_type_id,reason,is_half_day,dates,employee_id,thiss);
+                win.closeModal();
+			},
+			'Cancel' : function(win) {
+				win.closeModal();
+			}
+		}
+	});
+	});
+
+}
+
+}
+
+
+function ajaxAttendanceEmployeeCreate(leave_type_id,reason,is_half_day,dates,employee_id,thiss){
+	var target = '/employee_attendances/create'
+		 	 var data = {
+								'employee_attendance[employee_id]' : employee_id,
+								'employee_attendance[employee_leave_type_id]' : leave_type_id,
+								'employee_attendance[attendance_date]' : dates,
+								'employee_attendance[reason]' : reason,
+								'employee_attendance[is_half_day]' : is_half_day
+								
+							}
+		$.ajax({
+		url : target,
+		dataType : 'json',
+		data : data,
+		success : function(data, textStatus, jqXHR) {
+			if(data.valid) {
+				$('#outer_block').removeBlockMessages().blockMessage(data.notice, {
+					type : 'success'
+				});
+				 $(thiss).append("X");
+								
+			} else {
+				// Message
+				var errorText = getErrorText(data.errors);
+				$('#modal #outer_block').removeBlockMessages().blockMessage(errorText || 'An unexpected error occured, please try again', {
+					type : 'error'
+				});
+				
+			}
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			// Message
+			$('#modal #outer_block').removeBlockMessages().blockMessage('Error while contacting server, please try again', {
+				type : 'error'
+			});
+			
+		}
+	});
+
+}
+
+
+function ajaxAttendanceEmployeeUpdate(leave_type_id,reason,is_half_day,dates,employee_id){
+	var target = '/employee_attendances/update'
+		 	 var data = {
+								'employee_attendance[employee_id]' : employee_id,
+								'employee_attendance[employee_leave_type_id]' : leave_type_id,
+								'employee_attendance[attendance_date]' : dates,
+								'employee_attendance[reason]' : reason,
+								'employee_attendance[is_half_day]' : is_half_day
+								
+							}
+		$.ajax({
+		url : target,
+		dataType : 'json',
+		data : data,
+		success : function(data, textStatus, jqXHR) {
+			if(data.valid) {
+				$('#outer_block').removeBlockMessages().blockMessage(data.notice, {
+					type : 'success'
+				});						
+			} else {
+				// Message
+				var errorText = getErrorText(data.errors);
+				$('#modal #outer_block').removeBlockMessages().blockMessage(errorText || 'An unexpected error occured, please try again', {
+					type : 'error'
+				});
+				
+			}
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			// Message
+			$('#modal #outer_block').removeBlockMessages().blockMessage('Error while contacting server, please try again', {
+				type : 'error'
+			});	
+		}
+	});
+}
+
+
+function ajaxAttendanceEmployeeDelete(leave_type_id,reason,is_half_day,dates,employee_id,thiss){
+
+	var target = '/employee_attendances/destroy'
+		 	 var data = {
+								'employee_attendance[employee_id]' : employee_id,
+								'employee_attendance[employee_leave_type_id]' : leave_type_id,
+								'employee_attendance[attendance_date]' : dates,
+								'employee_attendance[reason]' : reason,
+								'employee_attendance[is_half_day]' : is_half_day
+								
+							}
+		$.ajax({
+		url : target,
+		dataType : 'json',
+		data : data,
+		success : function(data, textStatus, jqXHR) {
+			if(data.valid) {
+				$('#outer_block').removeBlockMessages().blockMessage(data.notice, {
+					type : 'success'
+				});
+				  $(thiss).empty();				
+			} else {
+				// Message
+				var errorText = getErrorText(data.errors);
+				$('#modal #outer_block').removeBlockMessages().blockMessage(errorText || 'An unexpected error occured, please try again', {
+					type : 'error'
+				});
+				
+			}
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			// Message
+			$('#modal #outer_block').removeBlockMessages().blockMessage('Error while contacting server, please try again', {
+				type : 'error'
+			});
+			
+		}
+	});
+
+}
+
+
+
+
+function initEmployeeTables(tablenode) {
+
+	var table = tablenode
+		
+	var oTable = table.dataTable({
+		bRetrieve: true,
+        bDestroy: true,
+        "sScrollX": "100%",
+		/*
+		 * Set DOM structure for table controls
+		 * @url http://www.datatables.net/examples/basic_init/dom.html
+		 */
+		sDom : '<"block-controls no-margin"<"controls-buttons"p>>rti<"block-footer clearfix"lf>',
+		/*
+		 * Callback to apply template setup
+		 */
+		fnDrawCallback : function() {
+			this.parent().applyTemplateSetup();
+		},
+		fnInitComplete : function() {
+			this.parent().applyTemplateSetup();
+		}
+	});
+	// Sorting arrows behaviour
+	table.find('thead .sort-up').click(function(event) {
+		// Stop link behaviour
+		event.preventDefault();
+		// Find column index
+		var column = $(this).closest('th'), columnIndex = column.parent().children().index(column.get(0));
+		// Send command
+		oTable.fnSort([[columnIndex, 'asc']]);
+		// Prevent bubbling
+		return false;
+	});
+	table.find('thead .sort-down').click(function(event) {
+		// Stop link behaviour
+		event.preventDefault();
+		// Find column index
+		var column = $(this).closest('th'), columnIndex = column.parent().children().index(column.get(0));
+		// Send command
+		oTable.fnSort([[columnIndex, 'desc']]);
+		// Prevent bubbling
+		return false;
+	});
+	new FixedColumns( oTable, {
+		"iLeftColumns": 1
+
+ 	} );
+ 	
+}
+
+
+function destroyEmpOldTable(tableId){
+	document.getElementById('emloyee_attendnce_register').removeChild(tableId);
+}
+
+$(document).ready(function(event){
+	$('#department_attendance_id').val("")
+});
+
+function confirmEmployeeAttendanceDelete(leave_type_id,reason,is_half_day,dates,employee_id,thiss) {
+	$.modal({
+		content : '<h3>Are you sure?</h3><br/><br/><p>You are about to delete a record...</p>',
+		title : 'Warning',
+		maxWidth : 500,
+		buttons : {
+			'OK' : function(win) {
+				ajaxAttendanceEmployeeDelete(leave_type_id,reason,is_half_day,dates,employee_id,thiss);
+				win.closeModal();
+			},
+			'Cancel' : function(win) {
+				win.closeModal();
+			}
+		}
+	});
+}
+
+
+
+$(document).on('change', '#employee_department_department_id', function(event){
+	
+	$.get('/employee_attendance/update_attendance_report', {department_id: $(this).val()},function(data){
+		$('#attendance_report_employee').empty()
+		$('#attendance_report_employee').html(data)
+		configureEmployeeAttendanceNoTable($('#listing_employee_attendance'))
+	});
+});
+
+
+$(document).ready(function(event){
+	$('#employee_department_department_id').val("")
+	$('#attendance_report_employee').empty()
+
+});
+
+
+
+
+$(document).on('click', '#leaveHistory', function(event){
+event.preventDefault();
+var start_date =$('#period_start_date').val()
+var end_date =$('#period_end_date').val()
+var id = $('#employeeLeaveId').val()
+$.get('/employee_attendance/update_leave_history', {period: {start_date: start_date, end_date: end_date},id: id },function(data){
+	$('#updateleaveHistory').empty();
+	$('#updateleaveHistory').html(data);
+});
+});
+
+
+function configureEmployeeAttendanceNoTable(tableNode) {
+	var table = tableNode, oTable = table.dataTable({
+		/*
+		 * We set specific options for each columns here. Some columns contain raw data to enable correct sorting, so we convert it for display
+		 * @url http://www.datatables.net/usage/columns
+		 */
+		 /*
+		 * Set DOM structure for table controls
+		 * @url http://www.datatables.net/examples/basic_init/dom.html
+		 */
+		sDom : '<"block-controls"<"controls-buttons"p>>rti<"block-footer clearfix"lf>',
+		/*
+		 * Callback to apply template setup
+		 */
+		fnDrawCallback : function() {
+			this.parent().applyTemplateSetup();
+		},
+		fnInitComplete : function() {
+			this.parent().applyTemplateSetup();
+		}
+	});
+	// Sorting arrows behaviour
+	table.find('thead .sort-up').click(function(event) {
+		// Stop link behaviour
+		event.preventDefault();
+		// Find column index
+		var column = $(this).closest('th'), columnIndex = column.parent().children().index(column.get(0));
+		// Send command
+		oTable.fnSort([[columnIndex, 'asc']]);
+		// Prevent bubbling
+		return false;
+	});
+	table.find('thead .sort-down').click(function(event) {
+		// Stop link behaviour
+		event.preventDefault();
+		// Find column index
+		var column = $(this).closest('th'), columnIndex = column.parent().children().index(column.get(0));
+		// Send command
+		oTable.fnSort([[columnIndex, 'desc']]);
+		// Prevent bubbling
+		return false;
+	});
+};
+
+$('.employeeAttendanceReport').each(function(i) {
+	configureEmployeeAttendanceNoTable($(this));
+});
+
+
+
+
+
+$(document).on('click', '#allDepartmentEmployee',function(event){
+	var tabss = document.getElementById('empdatatabl')
+	if(tabss != null){
+		destroyEmpOldTable(tabss);
+	}
+	$('#department_attendance_id').val("")
+	var dept_id =  "true"
+	getAttendanceData(dept_id);
+});

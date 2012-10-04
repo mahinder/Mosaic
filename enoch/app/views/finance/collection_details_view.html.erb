@@ -1,0 +1,122 @@
+<div class="block-border" >
+	<div class="block-content form">
+		<h1>Fees</h1>
+		<div class="block-controls enoch_block">
+					<ul class="controls-tabs js-tabs">
+						<li >
+							<%= link_to image_tag("/assets/icons/web-app/32/Back.png"),"javascript:history.back()" %>
+						</li>
+					</ul>
+				</div>	
+		<fieldset>
+			<legend>
+				Collection Details
+			</legend>
+			<div class="columns">
+				<p class="colx2-left">
+					<label>Collection Name :</label>
+					<b><%= @fee_collection.name %></b>
+				</p>
+				<p class="colx2-right">
+					<label>Fee Category Name :</label>
+					<b><%= @fee_collection.fee_category.name %></b>
+				</p>
+			</div>
+			<div class="columns">
+				<p class="colx2-left">
+					<label>Start Date :</label>
+					<b><%= @fee_collection.start_date %></b>
+				</p>
+				<p class="colx2-right">
+					<label>End Date :</label>
+					<b><%= @fee_collection.end_date %></b>
+				</p>
+			</div>
+			<div class="columns">
+				<p class="colx2-left">
+					<label>Due Date :</label>
+					<b><%= @fee_collection.due_date %></b>
+				</p>
+			</div>
+           
+ 
+		<% unless @discounts.blank? %>
+		<br /><br />
+		<strong><i>Discount Table</i></strong>
+		
+		<table class="table masterFeeBatchAssign no-margin" align="center" width="100%" cellpadding="1" cellspacing="1">
+			<thead>
+				<tr>
+					<th class="black-cell"></th>
+					<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> Name </th>
+					<th scope="col">Student Category</th>
+					<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> Student Name </th>
+					<th scope="col">Discount (%)</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @discounts.each do |f| %>
+				<tr>
+					<td class="th table-check-cell"></td>
+					<td class="col-3"><%= f.name %></td>
+					<% if f.type == "StudentCategoryFeeCollectionDiscount" %> <td><%= f.category_name   %></td>
+					<td></td>
+					<% elsif f.type == "StudentFeeCollectionDiscount" %> <td></td>
+					<td><%= f.student_name   %></td>
+					<% elsif f.type == "BatchFeeCollectionDiscount" %> <td></td>
+					<td></td>
+					<% end %> <td><%= f.discount %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+		<% end %>
+<br /><br /><br />
+		<% unless @particulars.empty? %>
+		<br /><br />
+		<strong><i>Particulars Table</i></strong>
+		
+		<table class="table fee_collection_Lists no-margin" align="center" width="100%" cellpadding="1" cellspacing="1">
+			<thead>
+				<tr>
+					<th class="black-cell"></th>
+					<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> Particulars </th>
+					<th scope="col">Student Category</th>
+					<th scope="col"><span class="column-sort"> <a href="#" title="Sort up" class="sort-up"></a> <a href="#" title="Sort down" class="sort-down"></a> </span> Admission No </th>
+					<th scope="col">Amount (currency)</th>
+					<th scope="col">Created Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @particulars.each_with_index do |fees,i| %>
+				<tr>
+					<td class="th table-check-cell"></td>
+					<td><%= fees.name %></td>
+					<td> <%unless fees.student_category_id.nil?%>
+					<%= StudentCategory.find(fees.student_category_id).name%>
+					<% else %> - <% end %> </td>
+					<td><%unless fees.admission_no.nil?%>
+						<%studentList =  fees.admission_no.split(',')%>
+          				<%student_name= ""%>
+	          			<%studentList.each do |student_id|%>
+	                 	<%  student =  Student.find_by_admission_no(student_id)%>
+	                 	<%unless student.nil?%>
+		                    <%if student_name == ""%>
+		                      <%student_name = student_name + student.full_name%>
+		                    <%else%>
+		                      <%student_name = student_name+","+ student.full_name%>
+		                    <%end%>
+		                <%end%>
+	          			<%end%>
+	          				<strong><%= student_name.nil? ? "N.A." : student_name %></strong>
+          				<% else %> - <% end %></td>
+					<td><%= fees.amount%></td>
+					<td><%= fees.created_at.strftime("%m-%d-%Y") %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+		<% end %>
+		</fieldset>
+	</div>
+</div>

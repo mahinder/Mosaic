@@ -1,0 +1,77 @@
+<div class="block-border">
+	
+	<div>
+	<form class="block-content form" id="complex_form" method="post" action="">
+		<h1>Course Information</h1>
+		<div id = "warning"> </div>
+			<div class="block-controls enoch_block">
+					<ul class="controls-tabs js-tabs">
+						<li class="current">
+							<a href="#montesary" title="Pre-Primary Courses"><img src=" /assets/icons/montesary.png" width="24" height="24"></a>
+						</li>
+						<li>
+							<a href="#primary" title="Primary Courses"><img src=" /assets/icons/primary.png" width="24" height="24"></a>
+						</li>
+						<li>
+							<a href="#high_school" title="High Courses"><img src=" /assets/icons/high_school.png" width="24" height="24"></a>
+						</li>
+						<li >
+							 <a href="<%= dashboard_path(@user) %>" title ="Back"> <img src="/assets/icons/web-app/32/Back.png" width="24" height="24"></a>
+							<!-- <a href='javascript:' title ="Back" onclick="history.back();"><img src="/assets/icons/web-app/32/Back.png" width="24" height="24"></a> -->
+						</li>
+					</ul>
+			</div>
+			<div id="tabs-content" class="tabs-content">
+				<div id="montesary">
+					<%= render 'courses',:courses_value => @montesary,:course_for => "montesary"%>
+				</div> 
+				<div id="primary">
+					<%= render 'courses',:courses_value => @primary_courses,:course_for => "primary"%>
+				</div>
+				<div id="high_school">
+					<%= render 'courses',:courses_value => @high_school_courses,:course_for => "high_school"%>
+				</div>
+		   </div>
+	</form>
+</div>
+	
+	 <div id="modal-box"  style="display:none;">
+	 	<%= render 'new' %>
+	 </div>
+	 <div id="modal-box-elective"  style="display:none;">
+	 	<%= render '/elective_skills/new' %>
+	 </div>
+	 <div id="modal-box-skills"  style="display:none;">
+	 	<%= render '/skills/new' %>
+	 </div>
+	 <div id="modal-box-skills-elective"  style="display:none;">
+	 	<%= render '/skills/new_elective_skill'%>
+	 </div>
+	 <div id="modal-box-edit"  style="display:none;">
+	 	<%= render 'edit' %>
+	 </div>
+	 <div id="modal-box-batch"  style="display:none;">
+	 	<%= render '/batches/new' %>
+	 </div>
+	 <div id="modal-box-batch-edit"  style="display:none;">
+	 	<%= render '/batches/edit' %>
+	 </div>
+	 <div id="modal-box-skills-edit"  style="display:none;">
+	 	<%= render '/skills/edit' %>
+	 </div>
+	 <div id="modal-box-warning"  style="display:none;">
+	 	<h3>This course cannot be deleted</h3>
+	 </div>
+	  <div id="modal-box-elective-edit"  style="display:none;">
+	 	<%= render '/elective_skills/edit' %>
+	 </div>
+	 <div id="modal-box-skills-edit-elective"  style="display:none;">
+	 	<%= render '/skills/edit_elective_skill' %>
+	 </div>
+	<div id="modal-box_next_step"  style="display:none;">
+		<%= render 'next_step'%>
+	</div>
+	<div id="modal-box_elective_group"  style="display:none;">
+		<%= render '/elective_groups/new_group'%>
+	</div>
+	

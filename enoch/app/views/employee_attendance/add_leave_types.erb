@@ -1,0 +1,73 @@
+<div class="block-border" id="outer_block">
+	<div class="block-content form">
+		<h1>Leave Type</h1>
+		<div class="block-controls enoch_block">
+			<ul class="controls-tabs js-tabs">
+				<li >
+					<%= link_to image_tag("/assets/icons/web-app/32/Back.png"), :back %>
+					
+				</li>
+			</ul>
+		</div>
+	
+		<% unless flash[:notice].nil? %>
+		<p class="flash-msg">
+			<%= flash[:notice] %>
+		</p>
+		<% end %>
+
+		<%= form_for :leave_type,:html =>{:id =>'leave_form'} do |c| %>
+		<fieldset class="grey-bg">
+			<legend>
+				Required
+			</legend>
+		
+		<div class="columns">
+			<p class="colx3-left required">
+				<label for="complex-en-url">Leave name</label>
+				<span class="relative"> <%= c.text_field :name,:class=>'full-width',:size=>15 %> </span>
+			</p>
+			<p class="colx3-center required">
+				<label for="complex-en-url">Leave code</label>
+				<span class="relative"> <%= c.text_field :code,:class=>'full-width',:size=>15 %> </span>
+			</p>
+			<p class="colx3-right required">
+				<label for="complex-en-url">Maximum leave count</label>
+				<span class="relative"> <%= c.text_field :max_leave_count %> </span>
+			</p>
+			</div>
+			<div class="column">
+			<p class="colx2-left">
+				<label for="complex-en-url">Enable Carry Forward&nbsp;&nbsp;<%= c.check_box "carry_forward",:checked => false %></label>
+
+			</p>
+			
+		</div>
+		</fieldset><br />
+		<fieldset class="grey-bg no-margin">
+			<legend>
+				Action
+			</legend>
+			<div class="columns">
+				<p class="colx2-left">
+				<label for="complex-en-url">Status</label>
+				<%= c.radio_button  "status", "true", :checked => "checked" %> <label class="label_for_status" for="add_grade_status_true">Active</label>
+				<%= c.radio_button  "status", "false" %> <label class="label_for_status" for="add_grade_status_false">Inactive</label>
+			</p>
+			<div class="colx2-right">
+							<button id="create_leave" type="submit">Create</button>
+							<button id="update_leave" type="button" >Update</button>
+							<button id="reset_leave" type="button">Clear</button>
+							<input type="hidden" id="current_object_id" name="current_object_id" value=""/>
+						</div>
+			</div>
+		</fieldset>
+		
+		<% end %>
+		</div>
+</div><br />
+
+		<div id="table-block" class="block-border">
+			<%= render :partial => "leave_types" %>
+		</div>
+	

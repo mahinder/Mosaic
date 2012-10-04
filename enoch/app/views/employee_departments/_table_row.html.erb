@@ -1,0 +1,11 @@
+									<tr>
+										<td class="th table-check-cell"></td>
+										<td id="department_name_<%= department.id %>"><%= department.name %></td>
+										<td id="department_code_<%= department.id %>"><%= department.code %></td>
+										
+										<td class="table-actions">
+											<input type="hidden" name="object_id" value="<%= department.id %>"/>
+											<a href="#" id="update-href-<%= department.id %>" title="Edit" class="with-tip update-department-master-href"><img src="/assets/icons/fugue/pencil.png" width="16" height="16"></a>
+											<a href="#" id="delete-href-<%= department.id %>" title="Delete" class="with-tip delete-department-master-href"><img src="/assets/icons/fugue/cross-circle.png" width="16" height="16"></a>
+										</td>
+									</tr>

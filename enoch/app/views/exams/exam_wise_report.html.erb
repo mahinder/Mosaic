@@ -1,0 +1,88 @@
+<div class="block-border" id="outer_block">
+	<div class="block-content form">
+  
+  <h1>Exam wise Reports</h1>
+  <div class="block-controls enoch_block">
+					<ul class="controls-tabs js-tabs">
+						<li >
+					<%= link_to image_tag("/assets/icons/web-app/32/Back.png"), :controller=>'sessions',:action=>'dashboard'%>
+				</li>
+					</ul>
+				</div>	
+  
+    <% unless flash[:notice].nil? %>
+	<ul class="message success grid_12">
+       <li><strong><%= flash[:notice] %></strong></li>
+       <li class="close-bt"></li>
+       	</ul>
+    <% end %>
+
+
+<%= form_for :exam_report, :url=>{:action=>'generated_report'} do |x| %>
+ <input type="hidden" id="current_user" value="<%= @user.role_name%>" />
+ <%if @user.admin? || @user.employee? &&  @current_user.privileges.map{|p| p.id}.include?(Privilege.find_by_name('ViewResults').id) %>
+<fieldset class="grey-bg">
+					<legend>Required fields</legend>
+					<div class="columns">
+						<p class="colx2-left required select-fixed-width1">
+		<label for="exam_name">Course</label>
+		<%= select :exam_wise_report, :course,
+        @courses.map {|b| [b.course_name, b.id]},
+        {:prompt => 'Select'} %>
+	</p>
+	<p class="colx2-left required ">
+		<label for="exam_name">Batch</label>
+		<div id="exam_wise_report_batch" class="select-fixed-width1">
+		<%= select :exam_report, :batch_id,
+        @batches.map {|b| [b.name, b.id]},
+        {:prompt => 'Select'} %></div>
+	</p>
+	 <p class="colx-right required ">
+		<label for="exam_type">Exam Group</label>
+		<div id="exam-group-select" class="select-fixed-width1">
+		<%= select :exam_report, :exam_group_id, @exam_groups.map{|exam| [exam.name,exam.id]},:prompt=>'Select' %>
+	</div>
+	</p>
+	
+</div>
+</fieldset>
+ <%else%>
+<fieldset class="grey-bg">
+					<legend>Required fields</legend>
+					
+ <p class="colx2-left required select-fixed-width1">
+		<label for="exam_name">Batch</label>
+		
+		<%= select :exam_report, :batch_id,
+        @batch.map {|b| [b.full_name, b.id]},
+        {:prompt => 'Select'} %>
+</p>
+	 <p class="colx2-left required select-fixed-width1">
+		<label for="exam_type">Exam Group</label>
+		<div id="exam-group-select" class="select-fixed-width1">
+		<%= select :exam_report, :exam_group_id, @exam_groups.map{|exam| [exam.name,exam.id]},:prompt=>'Select' %>
+	</div>
+	</p>
+	
+</fieldset>
+ <%end%>
+
+
+  <fieldset class="grey-bg no-margin">
+	<legend>
+		Action
+	</legend>
+	<p class="input-with-button">
+		<%= x.submit "View", :class => "big-button",:id=>'ewr'%>
+	</p>
+</fieldset>
+
+   
+
+<% end %>
+
+  <div class="extender">
+
+      </div>
+ </div></div>
+  

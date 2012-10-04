@@ -1,0 +1,3 @@
+<label for="Batch">Batch</label>	
+<%= select :assignment, :batch_id, @batches.map{|c| [c.full_name, c.id]},{:prompt=>'Select'}%>
+

@@ -1,0 +1,44 @@
+<form class="block-content form" id="table_form" method="post" action="">
+	<h1>Earning_Payroll_Category List</h1>
+	<div>
+		<ul class="tabs js-tabs same-height">
+			<li class="current">
+				<a href="#tab-active-earning" title="Active">Active</a>
+			</li>
+			<li>
+				<a href="#tab-inactive-earning" title="Inactive">Inactive</a>
+			</li>
+		</ul>
+	</div>
+	<div id="tabs-content" class="tabs-content">
+		<div id="tab-active-earning">
+			<table id="earning-active-table" class="table payrolls no-margin" cellspacing="0" width="100%">
+				<thead>
+					<%= render 'table_head' %>
+				</thead>
+				<tbody>
+					<% @earning_categories.each do |category| %>
+					<% if category.status == true %>
+					<%= render 'table_row', :category => category %>
+					<% end %>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+		<div id="tab-inactive-earning">
+			<table id="earning-inactive-table" class="table payrolls no-margin" cellspacing="0" width="100%">
+				<thead>
+					<%= render 'table_head' %>
+				</thead>
+				<tbody>
+					<% @earning_categories.each do |category| %>
+					<% if category.status == false %>
+					<%= render 'table_row', :category => category %>
+					<% end %>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<input type="hidden" id="url_prefix" name="url_prefix" value="/payroll_categories" />
+</form>

@@ -1,0 +1,38 @@
+<ul class="tabs js-tabs " id = "tab_ul_<%= course.id%>">
+	<li class="current">
+		<a href="#tab-course-tab_<%= course.id%>" title="Course">Course </a>
+	</li>
+	<li>
+		<a href="#tab-batch-tab_<%= course.id%>" title="Batches" >Batches </a>
+	</li>
+	<li >
+		<a href="#tab-mandatory_skills-tab_<%= course.id%>" title="Mandatory">Skills</a>
+	</li>
+	<% unless elective_skills.nil?%><% elective_skills.each do |elective| %>
+	<li>
+		<a href="#tab-elective_skills-tab_<%= course.id%>_<%= elective.id%>" id = "elective_name_<%= course.id%>_<%= elective.id%>" class="elective"  data-course="<%= course.id%>" data-elective = "<%= elective.id%>" title="Elective" ><%= elective.name%> </a>
+			<!-- <input type="hidden" name="elective_id" value="<%= elective.id%>"/> -->
+	</li>
+	<% end %>
+	<%end%>
+	<!-- <li class="icon-tab with-margin">
+		<%unless course.nil?%> <a class="elective-skill-secound" id="elective-skill-secound_<%= course.id %>" data-course="<%= course.id %>" data-course-for="<%= course_for %>" href=""><img src="/assets/icons/add.png" /></a><%end%>
+	</li> -->
+</ul>
+<div class="tabs-content " style="padding-top: 5.7em">
+	<div id="tab-course-tab_<%= course.id%>">
+		<%= render 'course',:course => course ,:course_for => course_for%>
+	</div>
+	<div id="tab-batch-tab_<%= course.id %>">
+		<%= render 'show',:batches => course.batches.active,:course => course %>
+	</div>
+	<div id="tab-mandatory_skills-tab_<%= course.id%>" >
+		<%= render 'mandatory_skill',:skills => Course.new.course_skills(course.id),:course => course %>
+	</div>
+	<% unless elective_skills.nil?%><% elective_skills.each do |elective| %>
+	<div id="tab-elective_skills-tab_<%= course.id%>_<%= elective.id %>">
+		<%= render 'skills' ,:course => course,:elective => elective %>
+	</div>
+	<%end%>
+	<%end%>
+</div>

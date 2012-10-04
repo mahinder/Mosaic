@@ -1,0 +1,29 @@
+/* Generic context menu styles */
+#cursorMessageDiv {
+	/*position: absolute;
+	z-index: 99999;
+	border-color: #1EAFDC #1193D5 #035592;
+	background: blue;*/
+	/*display: none;*/
+	/*text-align: center;
+	height: 30px;
+	color: white;*/
+	position: absolute;
+	z-index: 99999;
+	border-radius: 0.28em 0.278em 0.278em 0.278em;
+	   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+	     -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: #72C6E4;
+    border-color: #50A3C8 #297CB4 #083F6F;
+    border-style: solid;
+    border-width: 1px;
+    color: white;
+    font-family: "Trebuchet MS","Lucida Sans Unicode","Lucida Sans",Arial,Helvetica,sans-serif;
+    font-size: 1em;
+    padding: 0.278em 0.444em 0.389em;
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.2);
+ }

@@ -1,0 +1,2 @@
+module CoScholasticSubSkillActivitiesHelper
+end

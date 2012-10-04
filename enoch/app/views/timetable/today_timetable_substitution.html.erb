@@ -1,0 +1,52 @@
+<form class="block-content form" id="table_form" method="post" action="">
+	<h1>Today Substitution</h1>
+	<table id="substitution_table" class="table substitution_table no-margin" cellspacing="0" width="100%">
+		<thead>
+			<tr>
+										<th class="black-cell"></th>
+										<th scope="col">
+											<span class="column-sort">
+												<a href="#" title="Sort up" class="sort-up"></a>
+												<a href="#" title="Sort down" class="sort-down"></a>
+											</span>
+											Teacher
+										</th>
+										<th scope="col">
+											
+											class Timing
+										</th>
+										<th scope="col">
+											<span class="column-sort">
+												<a href="#" title="Sort up" class="sort-up"></a>
+												<a href="#" title="Sort down" class="sort-down"></a>
+											</span>
+											Batch
+										</th>
+										<th scope="col">
+											<span class="column-sort">
+												<a href="#" title="Sort up" class="sort-up"></a>
+												<a href="#" title="Sort down" class="sort-down"></a>
+											</span>
+											Substituted With
+										</th>
+										<th scope="col" class="table-actions">Actions</th>
+									</tr>
+		</thead>
+		<tbody>
+							<% @Timetable_substitution_entry.each do |subs| %>
+								<tr>
+										<td class="th table-check-cell"></td>
+										<td ><%= subs.employee.full_name %></td>
+										<td ><%= subs.class_timing.start_time.strftime("%I:%M %p") %> - <%= subs.class_timing.end_time.strftime("%I:%M %p") %></td>
+										<td ><%= subs.batch.full_name %></td>
+										<td ><%= subs.teacher_substitude_with.full_name %></td>
+										
+										<td class="table-actions">
+											<a href="#" id = "today_timetable_substitution" title="resubstitution" data_class = "<%= subs.class_timing.id%>" data_emp = "<%= subs.employee.id%>" data_emp1 = "<%= subs.teacher_substitude_with.id%>"  data_batch = "<%= subs.batch.id%>" data_date = "<%= subs.date%>" data_sub = "<%= subs.subject.id%>" ><img src="/assets/icons/fugue/pencil.png" width="16" height="16"></a>		
+										</td>
+									</tr>
+			<% end %>
+		</tbody>
+	</table>
+</form>
+
