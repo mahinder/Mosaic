@@ -1,4 +1,0 @@
-class TeacherDiary < ActiveRecord::Base
-  belongs_to :employee
-  validates :timing , :text_date, :school_session_id ,:employee_id, :presence => true
-end

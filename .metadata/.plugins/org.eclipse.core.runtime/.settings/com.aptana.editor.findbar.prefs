@@ -1,4 +1,0 @@
-FIND_BAR_DECORATOR_FIND_ENTRIES=\#\n\#Tue Sep 11 13\:34\:27 IST 2012\n9\=all_atten\n8\=puts\n7\=form\n6\=box\n5\=back_disabled.png\n4\=Twitter\n3\=Album\n2\=/images/forward_disabled.png"\n1\=/images/forward_disabled.png\n0\=../images\n
-FIND_BAR_DECORATOR_REPLACE_ENTRIES=\#\n\#Tue Sep 11 13\:34\:28 IST 2012\n2\=mysql2\n1\=Album\n0\=/assets\n
-com.aptana.editor.findbar.regularExpressionFindBar=true
-eclipse.preferences.version=1

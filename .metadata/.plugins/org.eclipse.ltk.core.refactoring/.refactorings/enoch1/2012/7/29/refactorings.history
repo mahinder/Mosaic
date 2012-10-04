@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;enoch/app/assets/javascripts/draggables.js.coffee&apos; to &apos;draggables.js&apos;" description="Rename resource &apos;draggables.js.coffee&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="app/assets/javascripts/draggables.js.coffee" name="draggables.js" stamp="1342622338517" updateReferences="true"/>
-</session>

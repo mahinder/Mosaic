@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Delete resource &apos;enoch/params[:user][:excel_file]&apos;" deleteContents="false" description="Delete resource &apos;enoch/params[:user][:excel_file]&apos;" element1="/enoch/params[::user][::excel_file]" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1335756469072"/>
-</session>

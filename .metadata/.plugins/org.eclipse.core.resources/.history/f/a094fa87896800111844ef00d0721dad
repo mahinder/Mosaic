@@ -1,3 +1,0 @@
-<div id="change_batch_students">
-<%= select :student,:batch_wise_student, @batches.map{|c| [c.name, c.id]},{:prompt=>'Select'}%>
-</div>
