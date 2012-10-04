@@ -1,0 +1,19 @@
+<h1>Welcome <%=@current_user.name%></h1><%= button_to 'Logout', logout_path, method: :delete %>
+It's <%= Time.now %>
+
+The index() action sets up the count:
+<audio_tag("sound") src="/videos/LalLalKurti.mp3"></audio_tag("sound")>
+
+
+<%= form_for @album do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <%= f.fields_for :photos do |builder| %>
+    <%= render "photos_fields", :f => builder %>
+  <% end %>
+  <p><%= f.submit "Submit" %></p>
+<% end %>
+

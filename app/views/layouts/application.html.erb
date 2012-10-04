@@ -1,14 +1,24 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>SampleApp</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+	<head>
+		<title>Album</title>
+		<%= stylesheet_link_tag    "application","jquery.dataTables.css" %>
+		<%= javascript_include_tag "application" %>
+		<%= csrf_meta_tags %>
+	</head>
+	<body>
 
-<%= yield %>
-
-</body>
+		<div class="container_16">
+			<h1 id="head"> <% current_user  = User.find_by_id(session[:user_id])%>
+			<%unless current_user.nil? %>
+			Welcome <%= current_user.name%>
+			<p style="float: right;">
+				<%= link_to (image_tag  current_user.photo.url(:small) ,:height => 50, :width => 50), users_url %>
+			</p> <%= button_to 'Logout', logout_path, method: :delete ,:class => 'logout'%>
+			<%else%>
+			Please Login Vinsol Team
+			<%end%> </h1>
+			<%= yield %>
+		</div>
+	</body>
 </html>

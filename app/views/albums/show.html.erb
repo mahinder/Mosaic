@@ -1,0 +1,23 @@
+<div class="box newAlbum">
+	<h1>Album Details</h1>
+<%unless flash[:notice].nil?%>
+<p id="notice">
+	<%= flash[:notice] %>
+</p>
+<%end%>
+		<%= link_to 'Back', albums_path  ,:class => 'backbtn'%>
+<div class="album_photo">
+	Album : <b><%= @album.name%></b>
+
+	<div class="phit">
+		<% for photo in @album.photos%>
+		<%= image_tag photo.album_photo.url(:small) ,:height => 100, :width => 100,:title => photo.tag_names%>
+		<%end%>
+	</div>
+</div>
+
+<footer>
+		<%= link_to 'Edit', edit_album_path(@album) ,:class => 'btnSubmit'%>
+		<%= link_to 'Destroy', @album, :confirm=>'Are you sure?' , :class => 'btnSubmit',:method =>'DELETE'  %>
+</footer>
+</div>

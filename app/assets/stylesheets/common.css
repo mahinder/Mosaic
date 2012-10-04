@@ -1,0 +1,157 @@
+.album_photo {
+	border: 1px solid black;
+	display: block;
+	height: auto !important;
+	margin-top: 1em;
+	background: beige;
+	width: auto;
+	height: 30px;
+	text-align: center;
+	font-family: Verdana;
+	font-size: 12px;
+	font-weight: bold;
+	border-radius: 2px;
+}
+.phit {
+	border: 1px solid black;
+	border-radius: 2px;
+	border-top: 0px;
+	display: block;
+	width: auto;
+	height: auto !important;
+	padding-top: 0em;
+	margin-top: 1em;
+	background: cadetblue;
+}
+
+#head {
+	background: #313262;
+	-moz-border-radius-topright: 10px;
+	border: 0;
+	margin: 30px auto 0 auto;
+	padding: 5px 10px;
+	width: 940px;
+	height: 59px;
+}
+
+.container_16 {
+	margin-left: auto;
+	margin-right: auto;
+	width: 960px;
+}
+
+h1 {
+	font-size: 25px !important;
+	color: white;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+.logout {
+	float: left;
+	position: absolute;
+	margin-top: 1em;
+	font-size: 12px;
+}
+
+html, body, div, h1, p, img, b, li, fieldset, form, label, table, tbody, thead, tr, th, td, header {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+body {
+	font: 12px/18px Lucida Sans, sans-serif;
+}
+
+input, textarea, button {
+	font: 99% sans-serif;
+}
+
+a {
+	color: #666;
+}
+a:hover {
+	color: #c00;
+}
+
+
+
+/*==================================================================================*/
+
+
+.newAlbum {
+	border: 1px solid #7DB0CC;
+	width: auto;
+	border-radius: 2px;
+	background: #ADD8E6;
+	padding: 40px 40px;
+	height: auto !important;
+}
+
+.newAlbum input[type=text],input[type=file] {
+	border: 0px solid #F7F9FA;
+	border-radius: 3px;
+	margin: 3px 0 4px;
+	padding: 8px 6px;
+	width: 270px;
+}
+
+.newAlbum h1 {
+	color: green;
+	padding: 2px 2px;
+	margin-bottom: 20px;
+}
+
+.btnSubmit {
+	border-radius: 15px;
+	background: #FFF0F5;
+	border: 1px solid #7db0cc !important;
+	cursor: pointer;
+	color: black;
+	float: right;
+	padding: 7px 21px;
+    text-decoration: none;
+}
+
+.btnSubmit:hover {
+	cursor: pointer;
+	color: #c00;
+}
+
+.backbtn {
+	border-radius: 10px;
+	background: #E6E6FA;
+	border: 1px solid #7db0cc !important;
+	cursor: pointer;
+	color: black;
+	float: right;
+	margin-top: -4em;
+	padding: 7px 21px;
+    text-decoration: none;
+
+}
+
+.backshow{
+	border-radius: 15px;
+	background: #FFF0F5;
+	border: 1px solid #7db0cc !important;
+	cursor: pointer;
+	color: black;
+	float: left;
+	padding: 7px 21px;
+    text-decoration: none;
+}
+
+.tagClass {
+	float: right;
+}
+
+
