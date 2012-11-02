@@ -5,6 +5,5 @@
  *= require_self
  *= require_common
  *= require_structure
- *= require_jquery.dataTables.css
  *= require_tree . 
 */
