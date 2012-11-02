@@ -11,7 +11,7 @@ gem 'therubyracer'
 gem 'bcrypt-ruby'
 gem 'declarative_authorization'
 gem 'paperclip'
-
+gem 'activerecord-postgresql-adapter'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
