@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.1.1'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
@@ -11,6 +11,7 @@ gem 'therubyracer'
 gem 'bcrypt-ruby'
 gem 'declarative_authorization'
 gem 'paperclip'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -37,4 +38,8 @@ gem 'spork'
 group :test do
   # Pretty printed test output
   gem 'turn', :require => false
+end
+group :production do
+  gem 'therubyracer-heroku', '0.8.1.pre3' # you will need this too
+  gem 'pg'
 end
