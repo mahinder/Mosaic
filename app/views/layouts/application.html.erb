@@ -7,7 +7,6 @@
 		<%= csrf_meta_tags %>
 	</head>
 	<body>
-
 		<div class="container_16">
 			<h1 id="head"> <% current_user  = User.find_by_id(session[:user_id])%>
 			<%unless current_user.nil? %>
@@ -19,6 +18,11 @@
 			Please Login
 			<%end%> </h1>
 			<%= yield %>
+
+  <% unless current_user %>
+    <%= link_to image_tag('/assets/Small_and_Long_200x24.png'), "/auth/facebook", id: "sign_in" %>
+  <% end %>
+
 		</div>
 	</body>
 </html>
