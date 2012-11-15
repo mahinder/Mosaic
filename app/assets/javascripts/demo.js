@@ -11,8 +11,9 @@ $(document).ready(function() {
 			window.setTimeout(function(){
 				$('.window-container.'+type).addClass('window-container-visible');
 				$('.window-container.'+type).html(img);
-				$('.window-container.'+type).css({width:img.width});
 				$('.window-container.'+type).append( "<span class='close' > Close </span> ")
+				$('.window-container.'+type).css({width:img.width});
+				
 			}, 100);
 			
 		});
