@@ -11,6 +11,7 @@ gem 'therubyracer'
 gem 'bcrypt-ruby'
 gem 'declarative_authorization'
 gem 'paperclip'
+gem 'omniauth-facebook'
 # gem 'activerecord-postgresql-adapter'
 
 # Gems used only for assets and not required
@@ -42,7 +43,7 @@ group :test do
 end
 
 group :production do
-  gem 'therubyracer-heroku', '0.8.1.pre3' # you will need this too
-  gem 'pg'
+  # gem 'therubyracer-heroku', '0.8.1.pre3' # you will need this too
+  # gem 'pg'
 end
  
