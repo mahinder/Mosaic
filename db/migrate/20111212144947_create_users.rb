@@ -1,7 +1,11 @@
 class CreateUsers < ActiveRecord::Migration
   def change
     create_table :users do |t|
-      t.string   :name
+      t.string :provider
+      t.string :uid
+      t.string :name
+      t.string :oauth_token
+      t.datetime :oauth_expires_at
       t.string   :password_digest
       t.string   :photo_file_name
       t.string   :photo_content_type

@@ -13,10 +13,12 @@
 		</ul>
 	</div>
 	<% end %>
+	
 	<p>
 		<%= f.label :name %>
 		<%= f.text_field :name %>
 	</p>
+	<%if @user.uid.blank?%>
 	<p>
 		<%= f.label :password, 'Password' %>
 		<%= f.password_field :password%>
@@ -25,6 +27,7 @@
 		<%= f.label :password_confirmation, 'Confirm' %>
 		<%= f.password_field :password_confirmation %>
 	</p>
+	<%end%>
 	<p>
 	<%= f.label :photo, 'Upload Photo' %>	
 	<%= f.file_field :photo %>

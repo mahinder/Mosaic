@@ -44,7 +44,11 @@ ActiveRecord::Schema.define(:version => 20120909104621) do
   end
 
   create_table "users", :force => true do |t|
+    t.string   "provider"
+    t.string   "uid"
     t.string   "name"
+    t.string   "oauth_token"
+    t.datetime "oauth_expires_at"
     t.string   "password_digest"
     t.string   "photo_file_name"
     t.string   "photo_content_type"

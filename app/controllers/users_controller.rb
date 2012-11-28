@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @users }
+      format.json { render :json => @users }
     end
   end
 
@@ -42,6 +42,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
+    puts "i am here"
     @user = User.new(params[:user])
 
     respond_to do |format|
